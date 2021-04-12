@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-
+// Søren har skrevet noget fed kode
 public class App {
     public static void main(String[] args){
 
