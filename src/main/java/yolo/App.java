@@ -10,7 +10,7 @@ import org.hibernate.cfg.Configuration;
 public class App {
     public static void main(String[] args){
 
-        Descriptor MadEksempel = new Descriptor();
+        FoodDescriptorModel MadEksempel = new FoodDescriptorModel();
         MadEksempel.setName("Eksempel");
         MadEksempel.setSupplier("Firma");
         MadEksempel.setItemNumber(250);
@@ -21,7 +21,7 @@ public class App {
         System.out.println("Trying to create a test connection");
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
-        configuration.addAnnotatedClass(Descriptor.class);
+        configuration.addAnnotatedClass(FoodDescriptorModel.class);
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
         SessionFactory sf = configuration.buildSessionFactory(ssrb.build());
 
