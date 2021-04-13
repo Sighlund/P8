@@ -63,6 +63,13 @@ public class CalculationModel {
      */
     public double calcTotalCo2() {
         //TODO
+        double total = 0;
+
+        for (int i = 0; i < this.foodItemList.size(); i++) {
+            total = this.foodItemList.get(i).getCo2();
+        }
+
+        return total;
     }
 
     /**
@@ -70,7 +77,13 @@ public class CalculationModel {
      * @return total volume in kg
      */
     public double calcTotalKg() {
-        //TODO
+        double total = 0;
+
+        for (int i = 0; i < this.foodItemList.size(); i++) {
+            total = total + this.foodItemList.get(i).getVolume();
+        }
+
+        return total;
     }
 
     /**

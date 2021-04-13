@@ -48,5 +48,8 @@ public class FoodItemModel {
      */
     public double calcCo2() {
         //TODO
+
+        double co2 = 0;
+        return co2;
     }
 }

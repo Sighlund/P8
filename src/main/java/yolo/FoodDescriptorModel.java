@@ -3,16 +3,20 @@ package yolo;
 import javax.persistence.*;
 import java.util.ArrayList;
 
+/***
 @Entity
 @Table(name = "descriptor")
-
+*/
 
 public class FoodDescriptorModel {
-@Id
+/***
+ @Id
 @Column(name = "id")
-@GeneratedValue(
+
+    @GeneratedValue(
         strategy = GenerationType.IDENTITY
 )
+ */
 
     private Integer id;
     private String name;
@@ -87,6 +91,8 @@ public class FoodDescriptorModel {
      */
     public String getCorrectedCategory() {
         //TODO
+        String category = "";
+        return category;
     }
 
     /**
@@ -95,6 +101,8 @@ public class FoodDescriptorModel {
      */
     public String getCorrectedSubcategory() {
         //TODO
+        String subcategory = "";
+        return subcategory;
     }
 
 }
