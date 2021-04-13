@@ -8,7 +8,7 @@ public class CalculationModel {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private ArrayList<FoodItemModel> foodItemList;
-    private Kitchen kitchen;
+    private KitchenModel kitchen;
 
     // Year, quarter, month er ikke en del af calculation endnu
 
@@ -49,11 +49,11 @@ public class CalculationModel {
         this.foodItemList = foodItemList;
     }
 
-    public Kitchen getKitchen() {
+    public KitchenModel getKitchen() {
         return kitchen;
     }
 
-    public void setKitchen(Kitchen kitchen) {
+    public void setKitchen(KitchenModel kitchen) {
         this.kitchen = kitchen;
     }
 
