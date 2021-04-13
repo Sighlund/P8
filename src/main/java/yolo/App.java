@@ -35,15 +35,6 @@ public class App {
 
         session.save(MadEksempel);
 
-        Session session1 = sf.openSession();
-
-        Transaction transaction1 = session1.beginTransaction();
-
-        session1.delete(MadEksempel);
-
-        transaction1.commit();
-
-        session1.close();
 
 
         System.out.println("It worked! Very nice))");
