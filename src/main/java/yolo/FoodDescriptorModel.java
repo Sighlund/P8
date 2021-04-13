@@ -1,9 +1,12 @@
 package yolo;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "descriptor")
+
+
 public class FoodDescriptorModel {
 @Id
 @Column(name = "id")
@@ -15,7 +18,7 @@ public class FoodDescriptorModel {
     private String name;
     private String supplier;
     private Integer itemNumber;
-    private ArrayList<Ingredient> ingredientList;
+    private ArrayList<IngredientModel> ingredientList;
     
 
     public FoodDescriptorModel() {
@@ -54,11 +57,11 @@ public class FoodDescriptorModel {
         this.itemNumber = itemNumber;
     }
 
-    public ArrayList<Ingredient> getIngredientList() {
+    public ArrayList<IngredientModel> getIngredientList() {
         return ingredientList;
     }
 
-    public void setIngredientList(ArrayList<Ingredient> ingredientList) {
+    public void setIngredientList(ArrayList<IngredientModel> ingredientList) {
         this.ingredientList = ingredientList;
     }
 
@@ -66,7 +69,7 @@ public class FoodDescriptorModel {
      * Method that adds ingredient to the ingredient list
      * @param ingredient the ingredient to be added
      */
-    public void addIngredient(Ingredient ingredient) {
+    public void addIngredient(IngredientModel ingredient) {
         this.ingredientList.add(ingredient);
     }
 
@@ -74,7 +77,7 @@ public class FoodDescriptorModel {
      * Method that removes ingredient from ingredient list
      * @param ingredient the ingredient to be removed
      */
-    public void removeIngredient(Ingredient ingredient) {
+    public void removeIngredient(IngredientModel ingredient) {
         this.ingredientList.remove(ingredient);
     }
 
