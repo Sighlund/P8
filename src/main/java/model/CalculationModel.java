@@ -19,6 +19,7 @@ public class CalculationModel {
 
 
     public CalculationModel() {
+        this.foodItemList = new ArrayList<>();
     }
 
     // Getter and setters
@@ -104,15 +105,19 @@ public class CalculationModel {
      * @param foodItem food item to be added
      */
     public void addFoodItem(FoodItemModel foodItem) {
-        //TODO
+        if (foodItem != null) {
+            foodItemList.add(foodItem);
+        }
     }
 
     /**
      * Method that removes the given food item from the calcualtion's list of food items
-     * @param fooditem food item to be removed
+     * @param foodItem food item to be removed
      */
-    public void removeFoodItem(FoodItemModel fooditem) {
-        //TODO
+    public void removeFoodItem(FoodItemModel foodItem) {
+        if (foodItem != null) {
+            foodItemList.remove(foodItem);
+        }
     }
 
 }

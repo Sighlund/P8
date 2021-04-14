@@ -66,15 +66,18 @@ public class TestModel {
 
         //Creating dummy calculation
         CalculationModel calculation1 = new CalculationModel();
-        ArrayList<FoodItemModel> foodItemList1 = new ArrayList<>();
-        foodItemList1.add(foodItem);
-        foodItemList1.add(foodItem2);
-        calculation1.setFoodItemList(foodItemList1);
+        calculation1.addFoodItem(foodItem);
+        calculation1.addFoodItem(foodItem2);
+
 
         //Calling the methods to be tested
         System.out.println("Total kg: " + calculation1.calcTotalKg());
         System.out.println("Co2 for product 1: " + foodItem.calcCo2());
         System.out.println("Co2 for product 2: " + foodItem2.calcCo2());
+        System.out.println("Total Co2: " + calculation1.calcTotalCo2());
+        System.out.println("Removing product 2 from calculation");
+        calculation1.removeFoodItem(foodItem2);
+        System.out.println("Total kg: " + calculation1.calcTotalKg());
         System.out.println("Total Co2: " + calculation1.calcTotalCo2());
 
     }
