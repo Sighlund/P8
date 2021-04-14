@@ -16,23 +16,42 @@ public class TestModel {
 
     public void modelClassTestAnne(){
 
+        /* Her laves en testberegning ud fra et to indkøb af:
+         * - 12 kg 'Medister med svesker'
+         * - 14 kg 'Medister med svesker'
+         * Total kg og total co2 printes i command line
+         */
+
         //Creating dummy concitoItem
         ConcitoItemModel concitoItem = new ConcitoItemModel();
         concitoItem.setCategory("Kød");
         concitoItem.setName("Medister");
         concitoItem.setSubcategory("Svin");
-        concitoItem.setCo2PrKg(35.0);
+        concitoItem.setCo2PrKg(30.0);
 
-        //Creating dummy ingredient
+        //Creating dummy concitoItem2
+        ConcitoItemModel concitoItem2 = new ConcitoItemModel();
+        concitoItem2.setCategory("Konserves");
+        concitoItem2.setName("Svesker");
+        concitoItem2.setSubcategory("Tørret frugt");
+        concitoItem2.setCo2PrKg(10.0);
+
+        //Creating dummy ingredient from concito item
         IngredientModel ingredient1 = new IngredientModel();
         ingredient1.setContoItem(concitoItem);
-        ingredient1.setPercentage(100.0);
+        ingredient1.setPercentage(90.0);
+
+        //Creating dummy ingredient from concito item 2
+        IngredientModel ingredient2 = new IngredientModel();
+        ingredient2.setContoItem(concitoItem2);
+        ingredient2.setPercentage(10.0);
 
         //Creating dummy food descriptor
         FoodDescriptorModel foodDescriptor = new FoodDescriptorModel();
-        foodDescriptor.setName("Medister");
+        foodDescriptor.setName("Medister med svesker");
         ArrayList<IngredientModel> ingredientList = new ArrayList<IngredientModel>();
         ingredientList.add(ingredient1);
+        ingredientList.add(ingredient2);
         foodDescriptor.setIngredientList(ingredientList);
 
         //Creating dummy food item 1
@@ -52,7 +71,11 @@ public class TestModel {
         foodItemList1.add(foodItem2);
         calculation1.setFoodItemList(foodItemList1);
 
+        //Calling the methods to be tested
         System.out.println("Total kg: " + calculation1.calcTotalKg());
+        System.out.println("Co2 for product 1: " + foodItem.calcCo2());
+        System.out.println("Co2 for product 2: " + foodItem2.calcCo2());
+        System.out.println("Total Co2: " + calculation1.calcTotalCo2());
 
     }
 

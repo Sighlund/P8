@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * The class FoodItemModel implements purchased food items at Madservice Aalborg.
  * A food item is always associated with a food descriptor which holds information about the product.
@@ -8,7 +10,7 @@ package model;
 public class FoodItemModel {
     private Integer id;
     private Double volume;
-    private Double co2;
+    private Double co2; // bruger faktisk ikke denne i min beregning, ved ikke om den skal gemmes i db? /Anne
     private FoodDescriptorModel foodDescriptor;
 
     public FoodItemModel() {
@@ -53,8 +55,20 @@ public class FoodItemModel {
      */
     public double calcCo2() {
         //TODO
+        double total = 0;
+        double percentage;
+        double co2PrKg;
 
-        double co2 = 0;
-        return co2;
+        // Get list of ingredients from the associated food descriptor object
+        ArrayList<IngredientModel> ingredients = foodDescriptor.getIngredientList();
+
+        // Iterate over ingredients in list to calculate weighted CO2 and add to total
+        for (int i = 0; i < ingredients.size(); i++) {
+            percentage = (ingredients.get(i).getPercentage() / 100);
+            co2PrKg = ingredients.get(i).getContoItem().getCo2PrKg();
+            total += volume*percentage*co2PrKg;
+        }
+
+        return total;
     }
 }

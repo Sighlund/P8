@@ -67,11 +67,10 @@ public class CalculationModel {
      * @return total CO2 in kg
      */
     public double calcTotalCo2() {
-        //TODO
         double total = 0;
 
         for (int i = 0; i < this.foodItemList.size(); i++) {
-            total = this.foodItemList.get(i).getCo2();
+            total += this.foodItemList.get(i).calcCo2();
         }
 
         return total;
@@ -85,7 +84,7 @@ public class CalculationModel {
         double total = 0;
 
         for (int i = 0; i < this.foodItemList.size(); i++) {
-            total = total + this.foodItemList.get(i).getVolume();
+            total += this.foodItemList.get(i).getVolume();
         }
 
         return total;
@@ -111,7 +110,6 @@ public class CalculationModel {
      * @param fooditem food item to be removed
      */
     public void removeFoodItem(FoodItemModel fooditem) {
-        //TODO
         //TODO
     }
 
