@@ -107,6 +107,7 @@ public class CalculationModel {
      */
     public void removeFoodItem(FoodItemModel fooditem) {
         //TODO
+        //TODO
     }
 
 }
