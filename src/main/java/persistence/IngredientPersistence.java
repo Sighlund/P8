@@ -8,20 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 public class IngredientPersistence {
 
-    public static SessionFactory ingredientSessionFactory;
-
-    public static void setup(){
-        //Laver forbindelse til databasen med CalculationModel som den class den arbejder med
-        Configuration configuration = new Configuration();
-        configuration.configure("hibernate.cfg.xml");
-        configuration.addAnnotatedClass(IngredientModel.class);
-        StandardServiceRegistryBuilder ingredientBuild = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-        SessionFactory ingredientSession = configuration.buildSessionFactory(ingredientBuild.build());
-    }
-
-    public static void exit(){
-        ingredientSessionFactory.close();
-    }
+//Work in progress
 
     public static void create(){
         //TODO
@@ -35,9 +22,5 @@ public class IngredientPersistence {
         //TODO
     }
 
-    public static void main(String[] args){
 
-        IngredientPersistence.setup();
-        IngredientPersistence.exit();
-    }
 }

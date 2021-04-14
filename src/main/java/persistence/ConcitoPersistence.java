@@ -8,20 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 public class ConcitoPersistence {
 
-    public static SessionFactory conSessionFactory;
-
-    public static void setup(){
-        //Laver forbindelse til databasen med CalculationModel som den class den arbejder med
-        Configuration configuration = new Configuration();
-        configuration.configure("hibernate.cfg.xml");
-        configuration.addAnnotatedClass(ConcitoItemModel.class);
-        StandardServiceRegistryBuilder conBuild = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-        SessionFactory conSession = configuration.buildSessionFactory(conBuild.build());
-    }
-
-    public static void exit(){
-        conSessionFactory.close();
-    }
+//Work in progress
 
     public static void create(){
         //TODO
@@ -35,11 +22,7 @@ public class ConcitoPersistence {
         //TODO
     }
 
-    public static void main(String[] args){
 
-        ConcitoPersistence.setup();
-        ConcitoPersistence.exit();
-    }
 }
 
 

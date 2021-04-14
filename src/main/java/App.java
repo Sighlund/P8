@@ -1,4 +1,5 @@
 import model.TestModel;
+import persistence.CalculationPersistence;
 
 // Søren har skrevet noget fed kode
 public class App {
@@ -8,6 +9,7 @@ public class App {
     public static void main(String[] args){
 
         testModel.modelClassTestAnne();
+
 
 
 
