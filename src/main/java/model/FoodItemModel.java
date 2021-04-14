@@ -50,11 +50,11 @@ public class FoodItemModel {
     }
 
     /**
-     * Method that calculates total CO2 emission for the food item
+     * Method that calculates total CO2 emission for the food item using a weighted CO2-pr-kg
+     * based on the ingredients in the item
      * @return total CO2 in kg
      */
     public double calcCo2() {
-        //TODO
         double total = 0;
         double percentage;
         double co2PrKg;

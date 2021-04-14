@@ -28,6 +28,8 @@ public class FoodDescriptorModel {
     private String supplier;
     private Integer itemNumber;
     private ArrayList<IngredientModel> ingredientList;
+    // TODO
+    // Vi skal sikre os, at det altid giver 100 når percentage for alle ingredients for en descriptor lægges sammen!
     
 
     public FoodDescriptorModel() {
