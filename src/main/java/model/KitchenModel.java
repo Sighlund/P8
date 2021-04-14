@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * The KitchenModel class implements the different kitchen units at Madservice Aalborg.
+ */
 public class KitchenModel {
     private Integer id;
     private String name;

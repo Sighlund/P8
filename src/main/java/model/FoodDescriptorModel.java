@@ -2,6 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * The FoodDescriptorModel class implements food descriptors that stores generic information about purchased food items.
+ * A FoodDescriptorModel object can be associated with a number of food items.
+ * It also contains a number of ingredients which are based on elements from 'Den Store Klimadatabase'.
+ */
+
 /***
 @Entity
 @Table(name = "descriptor")

@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * The ConcitoItemModel class implements food items available in 'Den Store Klimadatabase' from Concito.
+ * The attribute category is based on Concito's data.
+ * The attribute subcategory is based on Madservice Aalborgs categorizations.
+ */
 public class ConcitoItemModel {
     private Integer id;
     private String name;

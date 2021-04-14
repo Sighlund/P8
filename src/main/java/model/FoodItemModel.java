@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * The class FoodItemModel implements purchased food items at Madservice Aalborg.
+ * A food item is always associated with a food descriptor which holds information about the product.
+ * The food item itself holds information about its volume in kg.
+ */
 public class FoodItemModel {
     private Integer id;
     private Double volume;

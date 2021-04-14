@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * The IngredientModel class implements ingredients based on elements from 'Den Store Klimadatabase' represented by
+ * the ConcitoItemModel class.
+ * An ingredient holds information about the associated concito element as well as percentage amount.
+ */
 public class IngredientModel {
     private Integer concitoId;
     private Double percentage;

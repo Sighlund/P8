@@ -3,6 +3,11 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/***
+ * The CalculationModel class implements the model layer of Calculation.
+ * A CaluclationModel object represents a collection of purchased food items.
+ * The volume and total CO2 can be calculated from the Calculation object.
+ */
 public class CalculationModel {
     private Integer id;
     private LocalDate dateFrom;

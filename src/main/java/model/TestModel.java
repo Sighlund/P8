@@ -8,6 +8,10 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 
+/**
+ * The TestModel class is used for implementing auxiliary methods for testing the model classes.
+ */
+
 public class TestModel {
 
     public void modelClassTestAnne(){
