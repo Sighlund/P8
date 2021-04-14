@@ -83,6 +83,7 @@ public class FoodDescriptorModel {
     public void addIngredient(IngredientModel ingredient) {
         this.ingredientList.add(ingredient);
     }
+    //TODO
 
     /**
      * Method that removes ingredient from ingredient list
@@ -91,6 +92,7 @@ public class FoodDescriptorModel {
     public void removeIngredient(IngredientModel ingredient) {
         this.ingredientList.remove(ingredient);
     }
+    //TODO
 
     /**
      * Method that returns the corrected category based on the associated ingredients

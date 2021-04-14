@@ -16,7 +16,7 @@ public class TestModel {
 
     public void modelClassTestAnne(){
 
-        /* Her laves en testberegning ud fra et to indkøb af:
+        /* Her laves en testberegning ud fra indkøb af:
          * - 12 kg 'Medister med svesker'
          * - 14 kg 'Medister med svesker'
          * Total kg og total co2 printes i command line
