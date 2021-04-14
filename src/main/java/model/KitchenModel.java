@@ -1,4 +1,4 @@
-package yolo;
+package model;
 
 import java.util.ArrayList;
 

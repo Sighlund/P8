@@ -1,4 +1,4 @@
-package yolo;
+package model;
 
 public class ConcitoItemModel {
     private Integer id;

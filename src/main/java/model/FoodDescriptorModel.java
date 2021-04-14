@@ -1,6 +1,5 @@
-package yolo;
+package model;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 
 /***

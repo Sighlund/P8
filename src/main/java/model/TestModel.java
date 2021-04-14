@@ -1,6 +1,5 @@
-package yolo;
+package model;
 
-import net.bytebuddy.asm.Advice;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 
-public class Test {
+public class TestModel {
 
     public void modelClassTestAnne(){
 
