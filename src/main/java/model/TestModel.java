@@ -71,9 +71,15 @@ public class TestModel {
 
 
         //Calling the methods to be tested
+        System.out.println("Products: ");
+        for (int i = 0; i < calculation1.getFoodItemList().size(); i++) {
+            FoodItemModel item = calculation1.getFoodItemList().get(i);
+            String name = item.getFoodDescriptor().getName();
+            double co2 = item.calcCo2();
+            double kg = item.getVolume();
+            System.out.println(i+1 + " " + name + ": " + kg + " kg, " + co2 + " kg Co2");
+        }
         System.out.println("Total kg: " + calculation1.calcTotalKg());
-        System.out.println("Co2 for product 1: " + foodItem.calcCo2());
-        System.out.println("Co2 for product 2: " + foodItem2.calcCo2());
         System.out.println("Total Co2: " + calculation1.calcTotalCo2());
         System.out.println("Removing product 2 from calculation");
         calculation1.removeFoodItem(foodItem2);
