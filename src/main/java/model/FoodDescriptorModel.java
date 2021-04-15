@@ -95,23 +95,105 @@ public class FoodDescriptorModel {
     //TODO
 
     /**
-     * Method that returns the corrected category based on the associated ingredients
-     * @return
+     * Method that returns the corrected category based on the associated ingredients.
+     * The main ingredient (highest percentage) for the food descriptor will determine the category.
+     * @return the category for the main ingredient in the food descriptor
      */
     public String getCorrectedCategory() {
-        //TODO
-        String category = "";
-        return category;
+        IngredientModel mainIngredient = findMainIngredient();
+        String correctedCategory = "";
+
+        //
+        if (mainIngredient != null) {
+            correctedCategory = mainIngredient.getContoItem().getCategory();
+        }
+
+        return correctedCategory;
     }
 
     /**
-     * Method that returns the corrected subcategory based on the associated ingredients
-     * @return
+     * Method that returns the corrected subcategory based on the associated ingredients.
+     * The main ingredient will determine the category.
+     * @return the subcategory for the main ingredient in the food descriptor
      */
     public String getCorrectedSubcategory() {
         //TODO
-        String subcategory = "";
-        return subcategory;
+
+        IngredientModel mainIngredient = findMainIngredient();
+
+        String correctedSubCategory = "";
+
+        if (mainIngredient != null) {
+            correctedSubCategory = mainIngredient.getContoItem().getSubcategory();
+        }
+
+
+        return correctedSubCategory;
+    }
+
+
+    /**
+     * Private method that returns the main ingredient (ingredient with the highest percentage)
+     * for the food descriptor object.
+     * If the food descriptor has two or more ingredients with the same main percentage,
+     * the ingredient with the highest CO2 pr kg will be returned.
+     * @return the main ingredient for the food descriptor
+     */
+    private IngredientModel findMainIngredient() {
+        // Variable to store the main ingredient to be returned
+        IngredientModel mainIngredient;
+
+        // Temporary variable to store potential main ingredients
+        ArrayList<IngredientModel> mainIngredients = new ArrayList<>();
+
+        // Temporary variable to store the percentage for the ingredient(s) with the highest percentage
+        double mainPercentage = 0;
+
+        // Iterate over ingredients to find main ingredient
+        for (int i = 0; i < ingredientList.size(); i++) {
+            double currentPercentage = ingredientList.get(i).getPercentage();
+
+            // If current ingredient has a higher percentage,
+            // wipe the temporary list of main ingredients and store the ingredient
+            if (currentPercentage > mainPercentage) {
+                mainIngredients.clear();
+                mainIngredients.add(ingredientList.get(i));
+
+                // Update percentage for main ingredient
+                mainPercentage = ingredientList.get(i).getPercentage();
+            }
+            // Else if current ingredient percentage is equal to the percentage of the hitherto main ingredient
+            // add current ingredient to list of main ingredients
+            else if (currentPercentage == mainPercentage) {
+                mainIngredients.add(ingredientList.get(i));
+            }
+        }
+
+        // If only one main ingredient, store ingredient to be returned
+        if (mainIngredients.size() == 1) {
+            mainIngredient = mainIngredients.get(0);
+        }
+        // Else if two or more main ingredients, find the ingredient(s) with highest CO2 pr kg value
+        // If two or more have the same value, store the first
+        else {
+            double tempCo2PrKg = 0;
+            IngredientModel tempMainIngredient = null;
+
+            for (int i = 0; i < mainIngredients.size(); i++) {
+                if (mainIngredients.get(i).getContoItem().getCo2PrKg() >= tempCo2PrKg) {
+                    // Update highest CO2 pr Kg value
+                    tempCo2PrKg = mainIngredients.get(i).getContoItem().getCo2PrKg();
+
+                    // Update temporary category variable
+                    tempMainIngredient = mainIngredients.get(i);
+                }
+            }
+
+            // Update main ingredient
+            mainIngredient = tempMainIngredient;
+        }
+
+        return mainIngredient;
     }
 
 }
