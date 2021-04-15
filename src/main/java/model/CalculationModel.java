@@ -20,6 +20,7 @@ public class CalculationModel {
 
     public CalculationModel() {
         this.foodItemList = new ArrayList<>();
+        //TODO
     }
 
     // Getter and setters

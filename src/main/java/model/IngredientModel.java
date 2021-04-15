@@ -11,6 +11,7 @@ public class IngredientModel {
     private ConcitoItemModel contoItem;
 
     public IngredientModel() {
+        //TODO
     }
 
     // Getters and setters

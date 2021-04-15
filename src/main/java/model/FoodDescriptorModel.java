@@ -30,9 +30,11 @@ public class FoodDescriptorModel {
     private ArrayList<IngredientModel> ingredientList;
     // TODO
     // Vi skal sikre os, at det altid giver 100 når percentage for alle ingredients for en descriptor lægges sammen!
+    // Evt bare i controller-filen
     
 
     public FoodDescriptorModel() {
+        //TODO
     }
     
     // Getters and setters 
@@ -83,7 +85,7 @@ public class FoodDescriptorModel {
     public void addIngredient(IngredientModel ingredient) {
         this.ingredientList.add(ingredient);
     }
-    //TODO
+
 
     /**
      * Method that removes ingredient from ingredient list
@@ -92,7 +94,7 @@ public class FoodDescriptorModel {
     public void removeIngredient(IngredientModel ingredient) {
         this.ingredientList.remove(ingredient);
     }
-    //TODO
+
 
     /**
      * Method that returns the corrected category based on the associated ingredients.
@@ -103,11 +105,12 @@ public class FoodDescriptorModel {
         IngredientModel mainIngredient = findMainIngredient();
         String correctedCategory = "";
 
-        //
+        // Get category of main ingredient
         if (mainIngredient != null) {
             correctedCategory = mainIngredient.getContoItem().getCategory();
         }
 
+        // Return the corrected category
         return correctedCategory;
     }
 
@@ -117,17 +120,15 @@ public class FoodDescriptorModel {
      * @return the subcategory for the main ingredient in the food descriptor
      */
     public String getCorrectedSubcategory() {
-        //TODO
-
         IngredientModel mainIngredient = findMainIngredient();
-
         String correctedSubCategory = "";
 
+        // Get subcategory of main ingredient
         if (mainIngredient != null) {
             correctedSubCategory = mainIngredient.getContoItem().getSubcategory();
         }
 
-
+        // Return the corrected subcategory
         return correctedSubCategory;
     }
 

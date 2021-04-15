@@ -14,6 +14,7 @@ public class FoodItemModel {
     private FoodDescriptorModel foodDescriptor;
 
     public FoodItemModel() {
+        //TODO
     }
 
     // Getters and setters

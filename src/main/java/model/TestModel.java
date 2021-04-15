@@ -21,7 +21,9 @@ public class TestModel {
          * - 14 kg 'Medister med svesker'
          * - 10 kg 'Medister'
          * - 15 kg 'Medister med kartofler og svesker'
-         * Total kg og total co2 printes i command line
+         *
+         * Lige nu er den meget lang og kringlet, fordi jeg ikke har arbejdet med constructors endnu.
+         * Stay tuned for cleaner test code...
          */
 
         //Creating dummy concitoItem

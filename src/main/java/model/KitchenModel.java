@@ -11,6 +11,7 @@ public class KitchenModel {
     private ArrayList<CalculationModel> calcList;
 
     public KitchenModel() {
+        //TODO
     }
 
     // Getters and setters

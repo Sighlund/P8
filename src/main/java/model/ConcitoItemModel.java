@@ -13,6 +13,7 @@ public class ConcitoItemModel {
     private String subcategory;
 
     public ConcitoItemModel() {
+        //TODO
     }
 
     // Getters and setters
