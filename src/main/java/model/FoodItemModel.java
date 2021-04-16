@@ -66,5 +66,13 @@ public class FoodItemModel {
 
     public String getCategory() {
         //TODO
+        String category = "";
+        return category;
+    }
+
+    public String getSubcategory() {
+        //TODO
+        String subcategory = "";
+        return subcategory;
     }
 }

@@ -136,67 +136,72 @@ public class FoodDescriptorModel {
 
 
     /**
-     * Private method that returns the main ingredient (ingredient with the highest percentage)
-     * for the food descriptor object.
-     * If the food descriptor has two or more ingredients with the same main percentage,
-     * the ingredient with the highest CO2 pr kg will be returned.
+     * Private method that returns the main ingredient.
+     * If only one ingredient is associated, that ingredient is returned.
+     * If two or more ingredients are associated, the ingredient with the highest percentage is returned.
+     * If two or more ingredients with the same percentage are associated, the ingredient with the highest
+     * CO2 pr Kg value is returned.
      * @return the main ingredient for the food descriptor
      */
     private IngredientModel findMainIngredient() {
-        //TODO
-        // Skriv logik der får den til at springe over resten, hvis der kun er én ingredient
-
         // Variable to store the main ingredient to be returned
         IngredientModel mainIngredient;
 
-        // Temporary variable to store potential main ingredients
-        ArrayList<IngredientModel> mainIngredients = new ArrayList<>();
-
-        // Temporary variable to store the percentage for the ingredient(s) with the highest percentage
-        double mainPercentage = 0;
-
-        // Iterate over ingredients to find main ingredient
-        for (int i = 0; i < ingredientList.size(); i++) {
-            double currentPercentage = ingredientList.get(i).getPercentage();
-
-            // If current ingredient has a higher percentage,
-            // wipe the temporary list of main ingredients and store the ingredient
-            if (currentPercentage > mainPercentage) {
-                mainIngredients.clear();
-                mainIngredients.add(ingredientList.get(i));
-
-                // Update percentage for main ingredient
-                mainPercentage = ingredientList.get(i).getPercentage();
-            }
-            // Else if current ingredient percentage is equal to the percentage of the hitherto main ingredient
-            // add current ingredient to list of main ingredients
-            else if (currentPercentage == mainPercentage) {
-                mainIngredients.add(ingredientList.get(i));
-            }
+        // If only one ingredient, store ingredient to be returned
+        if (ingredientList.size() == 1) {
+            mainIngredient = ingredientList.get(0);
         }
-
-        // If only one main ingredient, store ingredient to be returned
-        if (mainIngredients.size() == 1) {
-            mainIngredient = mainIngredients.get(0);
-        }
-        // Else if two or more main ingredients, find the ingredient(s) with highest CO2 pr kg value
-        // If two or more have the same value, store the first
+        // If two or more ingredients
         else {
-            double tempCo2PrKg = 0;
-            IngredientModel tempMainIngredient = null;
+            // Temporary variable to store potential main ingredients
+            ArrayList<IngredientModel> mainIngredients = new ArrayList<>();
 
-            for (int i = 0; i < mainIngredients.size(); i++) {
-                if (mainIngredients.get(i).getContoItem().getCo2PrKg() >= tempCo2PrKg) {
-                    // Update highest CO2 pr Kg value
-                    tempCo2PrKg = mainIngredients.get(i).getContoItem().getCo2PrKg();
+            // Temporary variable to store the percentage for the ingredient(s) with the highest percentage
+            double mainPercentage = 0;
 
-                    // Update temporary category variable
-                    tempMainIngredient = mainIngredients.get(i);
+            // Iterate over ingredients to find ingredient with highest percentage
+            for (int i = 0; i < ingredientList.size(); i++) {
+                double currentPercentage = ingredientList.get(i).getPercentage();
+
+                // If current ingredient has a higher percentage,
+                // wipe the temporary list of main ingredients and store the ingredient
+                if (currentPercentage > mainPercentage) {
+                    mainIngredients.clear();
+                    mainIngredients.add(ingredientList.get(i));
+
+                    // Update percentage for main ingredient
+                    mainPercentage = ingredientList.get(i).getPercentage();
+                }
+                // Else if current ingredient percentage is equal to the percentage of the hitherto main ingredient
+                // add current ingredient to list of main ingredients
+                else if (currentPercentage == mainPercentage) {
+                    mainIngredients.add(ingredientList.get(i));
                 }
             }
 
-            // Update main ingredient
-            mainIngredient = tempMainIngredient;
+            // If only one main ingredient, store ingredient to be returned
+            if (mainIngredients.size() == 1) {
+                mainIngredient = mainIngredients.get(0);
+            }
+            // Else if two or more main ingredients, find the ingredient(s) with highest CO2 pr kg value
+            // If two or more have the same value, store the first
+            else {
+                double tempCo2PrKg = 0;
+                IngredientModel tempMainIngredient = null;
+
+                for (int i = 0; i < mainIngredients.size(); i++) {
+                    if (mainIngredients.get(i).getContoItem().getCo2PrKg() >= tempCo2PrKg) {
+                        // Update highest CO2 pr Kg value
+                        tempCo2PrKg = mainIngredients.get(i).getContoItem().getCo2PrKg();
+
+                        // Update temporary ingredient variable
+                        tempMainIngredient = mainIngredients.get(i);
+                    }
+                }
+
+                // Update main ingredient
+                mainIngredient = tempMainIngredient;
+            }
         }
 
         return mainIngredient;
