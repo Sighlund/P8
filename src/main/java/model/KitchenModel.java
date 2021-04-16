@@ -10,9 +10,14 @@ public class KitchenModel {
     private String name;
     private ArrayList<CalculationModel> calcList;
 
+    /**
+     * Empty constructor
+     */
     public KitchenModel() {
-        //TODO
+
     }
+
+    //TODO - constructor overloading
 
     // Getters and setters
     public Integer getId() {

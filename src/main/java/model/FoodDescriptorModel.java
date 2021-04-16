@@ -28,7 +28,7 @@ public class FoodDescriptorModel {
     private String supplier;
     private Integer itemNumber;
     private ArrayList<IngredientModel> ingredientList;
-    // TODO
+    // TODO - sum ingredient percentages must always equal 100
     // Vi skal sikre os, at det altid giver 100 når percentage for alle ingredients for en descriptor lægges sammen!
     // Evt bare i controller-filen
 

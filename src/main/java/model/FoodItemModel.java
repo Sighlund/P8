@@ -16,7 +16,7 @@ public class FoodItemModel {
      * Empty constructor
      */
     public FoodItemModel() {
-        //TODO
+
     }
 
     /**

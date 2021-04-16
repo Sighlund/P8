@@ -113,7 +113,7 @@ public class CalculationModel {
      * Method that saves the current calculation instance to the database
      */
     public void saveToDb() {
-        //TODO
+        //TODO - save calculation to Db. Skal nok varetages af persistence lag?
     }
 
     /**

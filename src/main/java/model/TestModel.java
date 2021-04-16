@@ -16,6 +16,12 @@ public class TestModel {
 
     public void constructorTest() {
 
+        /*
+        Her laves et indkøb af 12 kg skiveskåret medister.
+        Produkter printes.
+        Total kg og co2 printes.
+         */
+
         // Create dummy concito item
         ConcitoItemModel concitoMedister = new ConcitoItemModel("Medister", 30.0, "Kød", "Svin");
 
