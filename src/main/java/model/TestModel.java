@@ -66,6 +66,7 @@ public class TestModel {
     }
 
     private void printTotals(CalculationModel calculation) {
+        System.out.println("Totals:");
         System.out.println("Total volume: " + calculation.calcTotalKg() + " kg");
         System.out.println("Total Co2e: " + calculation.calcTotalCo2() + " kg");
         System.out.println("Average Co2e pr kg product: " + calculation.calcAveCO2prKg() + " kg");
