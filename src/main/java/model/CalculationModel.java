@@ -136,6 +136,10 @@ public class CalculationModel {
         }
     }
 
-    //TODO - method that returns average CO2 pr kg purchased food
+    public double calcAveCO2prKg() {
+        //TODO - method that returns average CO2 pr kg purchased food
+        return (calcTotalCo2() / calcTotalKg());
+    }
+
 
 }

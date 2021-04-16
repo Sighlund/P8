@@ -42,7 +42,7 @@ public class TestModel {
         // Print products
         printProducts(calculation1);
 
-        // Print total volume and CO2 in kg
+        // Print total volume, total co2, and average co2 pr kg
         printTotals(calculation1);
 
     }
@@ -66,8 +66,9 @@ public class TestModel {
     }
 
     private void printTotals(CalculationModel calculation) {
-        System.out.println("Total kg: " + calculation.calcTotalKg());
-        System.out.println("Total Co2: " + calculation.calcTotalCo2());
+        System.out.println("Total volume: " + calculation.calcTotalKg() + " kg");
+        System.out.println("Total Co2e: " + calculation.calcTotalCo2() + " kg");
+        System.out.println("Average Co2e pr kg product: " + calculation.calcAveCO2prKg() + " kg");
     }
 
 
