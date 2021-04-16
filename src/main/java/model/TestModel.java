@@ -51,11 +51,11 @@ public class TestModel {
         System.out.println("Products: ");
         for (int i = 0; i < calculation.getFoodItemList().size(); i++) {
             FoodItemModel item = calculation.getFoodItemList().get(i);
-            String name = item.getFoodDescriptor().getName();
+            String name = item.getName();
             double co2 = item.calcCo2();
             double kg = item.getVolume();
-            String category = item.getFoodDescriptor().getCorrectedCategory();
-            String subCategory = item.getFoodDescriptor().getCorrectedSubcategory();
+            String category = item.getCategory();
+            String subCategory = item.getSubcategory();
             System.out.println(i+1 + ": " +
                     name + " | " +
                     category + " | " +

@@ -77,15 +77,30 @@ public class FoodItemModel {
         return total;
     }
 
+    /**
+     * Method that returns the corrected category for the food item.
+     * The corrected category is determined by the main ingredient in the associated food descriptor.
+     * @return the name of the primary category for the food item
+     */
     public String getCategory() {
-        //TODO
-        String category = "";
-        return category;
+        return foodDescriptor.getCorrectedCategory();
     }
 
+    /**
+     * Method that returns the corrected subcategory for the food item.
+     * The corrected subcategory is determined by the main ingredient in the associated food descriptor.
+     * @return the name of the subcategory for the food item
+     */
     public String getSubcategory() {
-        //TODO
-        String subcategory = "";
-        return subcategory;
+        return foodDescriptor.getCorrectedSubcategory();
     }
+
+    /**
+     * Method that returns the name of the food item based on the descriptor name
+     * @return the name of the food item
+     */
+    public String getName() {
+        return foodDescriptor.getName();
+    }
+
 }
