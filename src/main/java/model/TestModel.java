@@ -14,6 +14,57 @@ import java.util.ArrayList;
 
 public class TestModel {
 
+    public void constructorTest() {
+
+        // Create dummy concito item
+        ConcitoItemModel concitoMedister = new ConcitoItemModel("Medister", 30.0, "Kød", "Svin");
+
+        // Create dummy ingredient
+        IngredientModel ingredientMedister100 = new IngredientModel(100.0, concitoMedister);
+
+        // Create dummy food descriptor and add ingredient
+        FoodDescriptorModel descriptorMedister = new FoodDescriptorModel("Skiveskåret Medister");
+        descriptorMedister.addIngredient(ingredientMedister100);
+
+        // Create dummy food item
+        FoodItemModel medister12kg = new FoodItemModel(12.0, descriptorMedister);
+
+        // Create dummy calculation and add food item
+        CalculationModel calculation1 = new CalculationModel();
+        calculation1.addFoodItem(medister12kg);
+
+        // Print products
+        printProducts(calculation1);
+
+        // Print total volume and CO2 in kg
+        printTotals(calculation1);
+
+    }
+
+    private void printProducts(CalculationModel calculation) {
+        System.out.println("Products: ");
+        for (int i = 0; i < calculation.getFoodItemList().size(); i++) {
+            FoodItemModel item = calculation.getFoodItemList().get(i);
+            String name = item.getFoodDescriptor().getName();
+            double co2 = item.calcCo2();
+            double kg = item.getVolume();
+            String category = item.getFoodDescriptor().getCorrectedCategory();
+            String subCategory = item.getFoodDescriptor().getCorrectedSubcategory();
+            System.out.println(i+1 + ": " +
+                    name + " | " +
+                    category + " | " +
+                    subCategory + " | " +
+                    kg + " kg | " +
+                    co2 + " kg Co2");
+        }
+    }
+
+    private void printTotals(CalculationModel calculation) {
+        System.out.println("Total kg: " + calculation.calcTotalKg());
+        System.out.println("Total Co2: " + calculation.calcTotalCo2());
+    }
+
+
     public void modelClassTestAnne(){
 
         /* Her laves en testberegning ud fra indkøb af:

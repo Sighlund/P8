@@ -31,13 +31,49 @@ public class FoodDescriptorModel {
     // TODO
     // Vi skal sikre os, at det altid giver 100 når percentage for alle ingredients for en descriptor lægges sammen!
     // Evt bare i controller-filen
-    
 
+    /**
+     * Empty constructor
+     */
     public FoodDescriptorModel() {
-        //TODO
+
     }
-    
-    // Getters and setters 
+
+    /**
+     * Constructs a food descriptor with the given name, supplier name, item number, and associated list of ingredients
+     * @param name the name of the food product the descriptor describes
+     * @param supplier the name of the supplier from which the food product comes
+     * @param itemNumber the supplier item number for the product
+     * @param ingredientList the list of ingredients the product is made up of
+     */
+    public FoodDescriptorModel(String name, String supplier, Integer itemNumber, ArrayList<IngredientModel> ingredientList) {
+        this.name = name;
+        this.supplier = supplier;
+        this.itemNumber = itemNumber;
+        this.ingredientList = ingredientList;
+    }
+
+
+    /**
+     * Constructs a food descriptor with the given name and list of associated ingredients.
+     * Supplier and item number are set to null
+     * @param name the name of the food product the descriptor describes
+     * @param ingredientList the list of ingredients the product is made up of
+     */
+    public FoodDescriptorModel(String name, ArrayList<IngredientModel> ingredientList) {
+        this(name, null, null, ingredientList);
+    }
+
+    /**
+     * Constructs a food descriptor with the given name
+     * Supplier, item number, and list of ingredients are set to null
+     * @param name the name of the food product the descriptor describes
+     */
+    public FoodDescriptorModel(String name) {
+        this(name, null, null, new ArrayList<IngredientModel>());
+    }
+
+    // Getters and setters
     public Integer getId() {
         return id;
     }

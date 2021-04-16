@@ -17,10 +17,25 @@ public class CalculationModel {
 
     // Year, quarter, month er ikke en del af calculation endnu
 
-
+    /**
+     * Constructs a calculation with an empty list of food items
+      */
     public CalculationModel() {
         this.foodItemList = new ArrayList<>();
-        //TODO
+    }
+
+    /**
+     * Constructs a calculation with the given time period, list of food items, and associated kitchen.
+     * @param dateFrom the start date for the time period
+     * @param dateTo the end date for the time period
+     * @param foodItemList the list of purchased food items for the calculation
+     * @param kitchen the associated kitchen for the calculation
+     */
+    public CalculationModel(LocalDate dateFrom, LocalDate dateTo, ArrayList<FoodItemModel> foodItemList, KitchenModel kitchen) {
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.foodItemList = foodItemList;
+        this.kitchen = kitchen;
     }
 
     // Getter and setters
@@ -120,5 +135,7 @@ public class CalculationModel {
             foodItemList.remove(foodItem);
         }
     }
+
+    //TODO - method that returns average CO2 pr kg purchased food
 
 }

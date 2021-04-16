@@ -12,8 +12,25 @@ public class ConcitoItemModel {
     private String category;
     private String subcategory;
 
+    /**
+     * Empty constructor
+     */
     public ConcitoItemModel() {
-        //TODO
+
+    }
+
+    /**
+     * Constructs a concito item with the given name, CO2 pr Kg value, category, and subcategory names
+     * @param name the name of the concito item from Den Store Klimadatabase
+     * @param co2PrKg CO2e in Kg pr Kg product
+     * @param category name of the primary category form Den Store Klimadatabase
+     * @param subcategory name of the subcategory from Madservice Aalborg's own categorization
+     */
+    public ConcitoItemModel(String name, Double co2PrKg, String category, String subcategory) {
+        this.name = name;
+        this.co2PrKg = co2PrKg;
+        this.category = category;
+        this.subcategory = subcategory;
     }
 
     // Getters and setters

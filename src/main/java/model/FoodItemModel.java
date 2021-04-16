@@ -12,8 +12,21 @@ public class FoodItemModel {
     private Double volume;
     private FoodDescriptorModel foodDescriptor;
 
+    /**
+     * Empty constructor
+     */
     public FoodItemModel() {
         //TODO
+    }
+
+    /**
+     * Constructs a FoodItemModel object with given volume and food descriptor
+     * @param volume amount of purchased product in Kg
+     * @param foodDescriptor associated food descriptor object
+     */
+    public FoodItemModel(Double volume, FoodDescriptorModel foodDescriptor) {
+        this.volume = volume;
+        this.foodDescriptor = foodDescriptor;
     }
 
     // Getters and setters
