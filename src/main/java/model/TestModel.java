@@ -37,7 +37,7 @@ public class TestModel {
         ConcitoItemModel concitoItem2 = new ConcitoItemModel();
         concitoItem2.setCategory("Konserves");
         concitoItem2.setName("Svesker");
-        concitoItem2.setSubcategory("Tørret frugt");
+        //concitoItem2.setSubcategory("Tørret frugt");
         concitoItem2.setCo2PrKg(10.0);
 
         //Creating dummy concitoItem3

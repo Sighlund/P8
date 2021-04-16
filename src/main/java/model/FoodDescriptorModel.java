@@ -117,18 +117,19 @@ public class FoodDescriptorModel {
     /**
      * Method that returns the corrected subcategory based on the associated ingredients.
      * The main ingredient will determine the category.
-     * @return the subcategory for the main ingredient in the food descriptor
+     * If no subcategory, "Ikke angivet" is returned.
+     * @return the subcategory for the main ingredient in the food descriptor, "Ikke angivet" if no subcategory
      */
     public String getCorrectedSubcategory() {
         IngredientModel mainIngredient = findMainIngredient();
-        String correctedSubCategory = "";
+        String correctedSubCategory = "Ikke angivet";
 
-        // Get subcategory of main ingredient
+        // Get subcategory of main ingredient if subcategory is filled out
         if (mainIngredient != null) {
-            correctedSubCategory = mainIngredient.getContoItem().getSubcategory();
+            if (mainIngredient.getContoItem().getSubcategory() != null) {
+                correctedSubCategory = mainIngredient.getContoItem().getSubcategory();
+            }
         }
-        //TODO
-        // Tilføj hvis subcategory == null, return  "Ikke angivet"
 
         // Return the corrected subcategory
         return correctedSubCategory;
