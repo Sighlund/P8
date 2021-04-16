@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class FoodItemModel {
     private Integer id;
     private Double volume;
-    private Double co2; // bruger faktisk ikke denne i min beregning, ved ikke om den skal gemmes i db? /Anne
     private FoodDescriptorModel foodDescriptor;
 
     public FoodItemModel() {
@@ -32,14 +31,6 @@ public class FoodItemModel {
 
     public void setVolume(Double volume) {
         this.volume = volume;
-    }
-
-    public Double getCo2() {
-        return co2;
-    }
-
-    public void setCo2(Double co2) {
-        this.co2 = co2;
     }
 
     public FoodDescriptorModel getFoodDescriptor() {
@@ -71,5 +62,9 @@ public class FoodItemModel {
         }
 
         return total;
+    }
+
+    public String getCategory() {
+        //TODO
     }
 }

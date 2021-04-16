@@ -127,6 +127,8 @@ public class FoodDescriptorModel {
         if (mainIngredient != null) {
             correctedSubCategory = mainIngredient.getContoItem().getSubcategory();
         }
+        //TODO
+        // Tilføj hvis subcategory == null, return  "Ikke angivet"
 
         // Return the corrected subcategory
         return correctedSubCategory;
@@ -141,6 +143,9 @@ public class FoodDescriptorModel {
      * @return the main ingredient for the food descriptor
      */
     private IngredientModel findMainIngredient() {
+        //TODO
+        // Skriv logik der får den til at springe over resten, hvis der kun er én ingredient
+
         // Variable to store the main ingredient to be returned
         IngredientModel mainIngredient;
 
