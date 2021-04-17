@@ -81,10 +81,11 @@ public class CalculationModel {
 
     /**
      * Method that calculates total CO2 by adding co2 values for all associated food items
+     * If no food items are added yet, 0.0 is returned
      * @return total CO2 in kg
      */
     public double calcTotalCo2() {
-        double total = 0;
+        double total = 0.0;
 
         // Iterate over all food items to calculate individual CO2 and add it to total
         for (int i = 0; i < this.foodItemList.size(); i++) {
@@ -95,11 +96,12 @@ public class CalculationModel {
     }
 
     /**
-     * Method that calculates total kg of purchased food items by adding volumens for all associated food items
+     * Method that calculates total kg of purchased food items by adding volumes for all associated food items
+     * If no food items are added yet, 0.0 is returned
      * @return total volume in kg
      */
     public double calcTotalKg() {
-        double total = 0;
+        double total = 0.0;
 
         // Iterate over all food items to get individual volume and add to total
         for (int i = 0; i < this.foodItemList.size(); i++) {

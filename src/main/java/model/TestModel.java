@@ -56,12 +56,14 @@ public class TestModel {
             double kg = item.getVolume();
             String category = item.getCategory();
             String subCategory = item.getSubcategory();
+            double co2PrKg = item.calcCo2PrKg();
             System.out.println(i+1 + ": " +
                     name + " | " +
                     category + " | " +
                     subCategory + " | " +
                     kg + " kg | " +
-                    co2 + " kg Co2");
+                    co2 + " kg Co2 | " +
+                    co2PrKg + " kg Co2/kg product");
         }
     }
 

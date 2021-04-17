@@ -103,4 +103,8 @@ public class FoodItemModel {
         return foodDescriptor.getName();
     }
 
+    public double calcCo2PrKg() {
+        return (calcCo2() / volume);
+    }
+
 }
