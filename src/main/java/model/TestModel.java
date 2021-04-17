@@ -35,9 +35,26 @@ public class TestModel {
         // Create dummy food item
         FoodItemModel medister12kg = new FoodItemModel(12.0, descriptorMedister);
 
-        // Create dummy calculation and add food item
+        // Create dummy concito item 2
+        ConcitoItemModel concitoSvesker = new ConcitoItemModel("Svesker", 10.0, "Frugt/Grønt", "Tørret frugt");
+
+        // Create dummy ingredient 2 and 3
+        IngredientModel ingredientSvesker10 = new IngredientModel(10.0, concitoSvesker);
+        IngredientModel ingredientMedister90 = new IngredientModel(90.0, concitoMedister);
+
+        // Create dummy food descriptor 2 and add ingredients
+        FoodDescriptorModel medisterSvesker = new FoodDescriptorModel("Medister med svesker");
+        medisterSvesker.addIngredient(ingredientSvesker10);
+        medisterSvesker.addIngredient(ingredientMedister90);
+
+        // Create dummy food item 2
+        FoodItemModel medisterSvesker14 = new FoodItemModel(14.0, medisterSvesker);
+
+
+        // Create dummy calculation and add food items
         CalculationModel calculation1 = new CalculationModel();
         calculation1.addFoodItem(medister12kg);
+        calculation1.addFoodItem(medisterSvesker14);
 
         // Print products
         printProducts(calculation1);
