@@ -15,6 +15,11 @@
 
         <!-- Fortæller Hibernate hvilken class der skal mappes -->
         <mapping class="model.FoodDescriptorModel"/>
+        <mapping class="model.KitchenModel"/>
+        <mapping class="model.IngredientModel"/>
+        <mapping class="model.FoodItemModel"/>
+        <mapping class="model.ConcitoItemModel"/>
+        <mapping class="model.CalculationModel"/>
 
 
     </session-factory>
