@@ -4,14 +4,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 
-@Entity
-@Table(name = "kitchen")
+
 public class KitchenModel {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+
     private Integer id;
     private String name;
     //private ArrayList<CalculationModel> calcList;

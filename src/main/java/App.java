@@ -12,11 +12,6 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         testModel.modelClassTestAnne();
-        SetupPersistence.getSf();
-        KitchenPersistence.create();
-
-
-
 
     }
 

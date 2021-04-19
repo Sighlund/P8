@@ -8,7 +8,6 @@ public class KitchenPersistence {
 //work in progress
 
     public static void create(){
-        //TODO
         KitchenModel madEksempel = new KitchenModel();
         madEksempel.setName("Test123");
 
