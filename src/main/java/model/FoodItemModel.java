@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,14 @@ import java.util.ArrayList;
  * A food item is always associated with a food descriptor which holds information about the product.
  * The food item itself holds information about its volume in kg.
  */
+@Entity
+@Table(name = "fooditem")
 public class FoodItemModel {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private Integer id;
     private Double volume;
     private FoodDescriptorModel foodDescriptor;

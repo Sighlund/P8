@@ -1,18 +1,31 @@
 package model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /***
  * The CalculationModel class implements the model layer of Calculation.
  * A CaluclationModel object represents a collection of purchased food items.
  * The volume and total CO2 can be calculated from the Calculation object.
  */
+@Entity
+@Table(name = "calculation")
 public class CalculationModel {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE
+    )
     private Integer id;
     private LocalDate dateFrom;
     private LocalDate dateTo;
+    @OneToMany
+    @JoinColumn(name = "calculationId", referencedColumnName = "id")
     private ArrayList<FoodItemModel> foodItemList;
+    @ManyToOne
+    @JoinColumn(name = "kitchenId", referencedColumnName = "id")
     private KitchenModel kitchen;
 
     // Year, quarter, month er ikke en del af calculation endnu

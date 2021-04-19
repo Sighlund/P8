@@ -9,7 +9,7 @@ public class KitchenPersistence {
 
     public static void create(){
         KitchenModel madEksempel = new KitchenModel();
-        madEksempel.setName("Test123");
+        madEksempel.setName("Test1");
 
         Session s = SetupPersistence.getSf().openSession();
         s.beginTransaction();
