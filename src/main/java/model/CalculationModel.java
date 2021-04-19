@@ -3,6 +3,11 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/***
+ * The CalculationModel class implements the model layer of Calculation.
+ * A CaluclationModel object represents a collection of purchased food items.
+ * The volume and total CO2 can be calculated from the Calculation object.
+ */
 public class CalculationModel {
     private Integer id;
     private LocalDate dateFrom;
@@ -12,8 +17,25 @@ public class CalculationModel {
 
     // Year, quarter, month er ikke en del af calculation endnu
 
-
+    /**
+     * Constructs a calculation with an empty list of food items
+      */
     public CalculationModel() {
+        this.foodItemList = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a calculation with the given time period, list of food items, and associated kitchen.
+     * @param dateFrom the start date for the time period
+     * @param dateTo the end date for the time period
+     * @param foodItemList the list of purchased food items for the calculation
+     * @param kitchen the associated kitchen for the calculation
+     */
+    public CalculationModel(LocalDate dateFrom, LocalDate dateTo, ArrayList<FoodItemModel> foodItemList, KitchenModel kitchen) {
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.foodItemList = foodItemList;
+        this.kitchen = kitchen;
     }
 
     // Getter and setters
@@ -59,28 +81,31 @@ public class CalculationModel {
 
     /**
      * Method that calculates total CO2 by adding co2 values for all associated food items
+     * If no food items are added yet, 0.0 is returned
      * @return total CO2 in kg
      */
     public double calcTotalCo2() {
-        //TODO
-        double total = 0;
+        double total = 0.0;
 
+        // Iterate over all food items to calculate individual CO2 and add it to total
         for (int i = 0; i < this.foodItemList.size(); i++) {
-            total = this.foodItemList.get(i).getCo2();
+            total += this.foodItemList.get(i).calcCo2();
         }
 
         return total;
     }
 
     /**
-     * Method that calculates total kg of purchased food items by adding volumens for all associated food items
+     * Method that calculates total kg of purchased food items by adding volumes for all associated food items
+     * If no food items are added yet, 0.0 is returned
      * @return total volume in kg
      */
     public double calcTotalKg() {
-        double total = 0;
+        double total = 0.0;
 
+        // Iterate over all food items to get individual volume and add to total
         for (int i = 0; i < this.foodItemList.size(); i++) {
-            total = total + this.foodItemList.get(i).getVolume();
+            total += this.foodItemList.get(i).getVolume();
         }
 
         return total;
@@ -90,7 +115,7 @@ public class CalculationModel {
      * Method that saves the current calculation instance to the database
      */
     public void saveToDb() {
-        //TODO
+        //TODO - save calculation to Db. Skal nok varetages af persistence lag?
     }
 
     /**
@@ -98,15 +123,28 @@ public class CalculationModel {
      * @param foodItem food item to be added
      */
     public void addFoodItem(FoodItemModel foodItem) {
-        //TODO
+        if (foodItem != null) {
+            foodItemList.add(foodItem);
+        }
     }
 
     /**
      * Method that removes the given food item from the calcualtion's list of food items
-     * @param fooditem food item to be removed
+     * @param foodItem food item to be removed
      */
-    public void removeFoodItem(FoodItemModel fooditem) {
-        //TODO
+    public void removeFoodItem(FoodItemModel foodItem) {
+        if (foodItem != null) {
+            foodItemList.remove(foodItem);
+        }
     }
+
+    /**
+     * Method that returns averaged CO2e pr Kg purchased food
+     * @return average kg CO2e pr kg purchased food
+     */
+    public double calcAveCO2prKg() {
+        return (calcTotalCo2() / calcTotalKg());
+    }
+
 
 }

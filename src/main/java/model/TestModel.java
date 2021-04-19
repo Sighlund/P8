@@ -8,47 +8,248 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 
+/**
+ * The TestModel class is used for implementing auxiliary methods for testing the model classes.
+ */
+
 public class TestModel {
 
+    public void constructorTest() {
+
+        /*
+        Her laves et indkøb af 12 kg skiveskåret medister.
+        Produkter printes.
+        Total kg og co2 printes.
+         */
+
+        // Create dummy concito item
+        ConcitoItemModel concitoMedister = new ConcitoItemModel("Medister", 30.0, "Kød", "Svin");
+
+        // Create dummy ingredient
+        IngredientModel ingredientMedister100 = new IngredientModel(100.0, concitoMedister);
+
+        // Create dummy food descriptor and add ingredient
+        FoodDescriptorModel descriptorMedister = new FoodDescriptorModel("Skiveskåret Medister");
+        descriptorMedister.addIngredient(ingredientMedister100);
+
+        // Create dummy food item
+        FoodItemModel medister12kg = new FoodItemModel(12.0, descriptorMedister);
+
+        // Create dummy concito item 2
+        ConcitoItemModel concitoSvesker = new ConcitoItemModel("Svesker", 10.0, "Frugt/Grønt", "Tørret frugt");
+
+        // Create dummy ingredient 2 and 3
+        IngredientModel ingredientSvesker10 = new IngredientModel(10.0, concitoSvesker);
+        IngredientModel ingredientMedister90 = new IngredientModel(90.0, concitoMedister);
+
+        // Create dummy food descriptor 2 and add ingredients
+        FoodDescriptorModel medisterSvesker = new FoodDescriptorModel("Medister med svesker");
+        medisterSvesker.addIngredient(ingredientSvesker10);
+        medisterSvesker.addIngredient(ingredientMedister90);
+
+        // Create dummy food item 2
+        FoodItemModel medisterSvesker14 = new FoodItemModel(14.0, medisterSvesker);
+
+
+        // Create dummy calculation and add food items
+        CalculationModel calculation1 = new CalculationModel();
+        calculation1.addFoodItem(medister12kg);
+        calculation1.addFoodItem(medisterSvesker14);
+
+        // Print products
+        printProducts(calculation1);
+
+        // Print total volume, total co2, and average co2 pr kg
+        printTotals(calculation1);
+
+    }
+
+    private void printProducts(CalculationModel calculation) {
+        System.out.println("Products: ");
+        for (int i = 0; i < calculation.getFoodItemList().size(); i++) {
+            FoodItemModel item = calculation.getFoodItemList().get(i);
+            String name = item.getName();
+            double co2 = item.calcCo2();
+            double kg = item.getVolume();
+            String category = item.getCategory();
+            String subCategory = item.getSubcategory();
+            double co2PrKg = item.calcCo2PrKg();
+            System.out.println(i+1 + ": " +
+                    name + " | " +
+                    category + " | " +
+                    subCategory + " | " +
+                    kg + " kg | " +
+                    co2 + " kg Co2 | " +
+                    co2PrKg + " kg Co2/kg product");
+        }
+    }
+
+    private void printTotals(CalculationModel calculation) {
+        System.out.println("Totals:");
+        System.out.println("Total volume: " + calculation.calcTotalKg() + " kg");
+        System.out.println("Total Co2e: " + calculation.calcTotalCo2() + " kg");
+        System.out.println("Average Co2e pr kg product: " + calculation.calcAveCO2prKg() + " kg");
+    }
+
+
     public void modelClassTestAnne(){
+
+        /* Her laves en testberegning ud fra indkøb af:
+         * - 12 kg 'Medister med svesker'
+         * - 14 kg 'Medister med svesker'
+         * - 10 kg 'Medister'
+         * - 15 kg 'Medister med kartofler og svesker'
+         *
+         * Lige nu er den meget lang og kringlet, fordi jeg ikke har arbejdet med constructors endnu.
+         * Stay tuned for cleaner test code...
+         */
 
         //Creating dummy concitoItem
         ConcitoItemModel concitoItem = new ConcitoItemModel();
         concitoItem.setCategory("Kød");
         concitoItem.setName("Medister");
         concitoItem.setSubcategory("Svin");
-        concitoItem.setCo2PrKg(35.0);
+        concitoItem.setCo2PrKg(30.0);
 
-        //Creating dummy ingredient
+        //Creating dummy concitoItem2
+        ConcitoItemModel concitoItem2 = new ConcitoItemModel();
+        concitoItem2.setCategory("Konserves");
+        concitoItem2.setName("Svesker");
+        //concitoItem2.setSubcategory("Tørret frugt");
+        concitoItem2.setCo2PrKg(10.0);
+
+        //Creating dummy concitoItem3
+        ConcitoItemModel concitoItem3 = new ConcitoItemModel();
+        concitoItem3.setCategory("Frugt/Grønt");
+        concitoItem3.setName("Kartofler");
+        concitoItem3.setSubcategory("Rodfrugter");
+        concitoItem3.setCo2PrKg(10.0);
+
+
+        //Creating dummy ingredient from concito item
         IngredientModel ingredient1 = new IngredientModel();
         ingredient1.setContoItem(concitoItem);
-        ingredient1.setPercentage(100.0);
+        ingredient1.setPercentage(90.0);
+
+        //Creating dummy ingredient from concito item 2
+        IngredientModel ingredient2 = new IngredientModel();
+        ingredient2.setContoItem(concitoItem2);
+        ingredient2.setPercentage(10.0);
 
         //Creating dummy food descriptor
         FoodDescriptorModel foodDescriptor = new FoodDescriptorModel();
-        foodDescriptor.setName("Medister");
+        foodDescriptor.setName("Medister med svesker");
         ArrayList<IngredientModel> ingredientList = new ArrayList<IngredientModel>();
         ingredientList.add(ingredient1);
+        ingredientList.add(ingredient2);
         foodDescriptor.setIngredientList(ingredientList);
 
-        //Creating dummy food item 1
+
+        //Creating dummy ingredient from concito item 3 100 % medister
+        IngredientModel ingredient3 = new IngredientModel();
+        ingredient3.setContoItem(concitoItem);
+        ingredient3.setPercentage(100.0);
+
+        // Creating dummy food descriptor 2 - ren medister
+        FoodDescriptorModel foodDescriptor2 = new FoodDescriptorModel();
+        foodDescriptor2.setName("Medister");
+        ArrayList<IngredientModel> ingredientList2 = new ArrayList<IngredientModel>();
+        ingredientList2.add(ingredient3);
+        foodDescriptor2.setIngredientList(ingredientList2);
+
+
+        //Creating dummy ingredient from concito item - 40 % medister
+        IngredientModel ingredient4 = new IngredientModel();
+        ingredient4.setContoItem(concitoItem);
+        ingredient4.setPercentage(40.0);
+
+        //Creating dummy ingredient from concito item - 40 % kartofler
+        IngredientModel ingredient5 = new IngredientModel();
+        ingredient5.setContoItem(concitoItem3);
+        ingredient5.setPercentage(40.0);
+
+        //Creating dummy ingredient from concito item - 20 % svesker
+        IngredientModel ingredient6 = new IngredientModel();
+        ingredient6.setContoItem(concitoItem2);
+        ingredient6.setPercentage(20.0);
+
+        // Creating dummy food descriptor 3 - medister med kartofler of svesker
+        FoodDescriptorModel foodDescriptor3 = new FoodDescriptorModel();
+        foodDescriptor3.setName("Medister med kartofler og svesker");
+        ArrayList<IngredientModel> ingredientList3 = new ArrayList<IngredientModel>();
+        ingredientList3.add(ingredient4);
+        ingredientList3.add(ingredient5);
+        ingredientList3.add(ingredient6);
+        foodDescriptor3.setIngredientList(ingredientList3);
+
+
+        //Creating dummy food item 1 - 12 kg medister med svesker
         FoodItemModel foodItem = new FoodItemModel();
         foodItem.setFoodDescriptor(foodDescriptor);
         foodItem.setVolume(12.0);
 
-        //Creating dummy food item 2
+        //Creating dummy food item 2 - 14 kg medister med svesker
         FoodItemModel foodItem2 = new FoodItemModel();
         foodItem2.setFoodDescriptor(foodDescriptor);
         foodItem2.setVolume(14.0);
 
+        //Creating dummy food item 3 - 10 kg medister
+        FoodItemModel foodItem3 = new FoodItemModel();
+        foodItem3.setFoodDescriptor(foodDescriptor2);
+        foodItem3.setVolume(10.0);
+
+        // Createing dummy food item 4 - 15kg medister med kartofler og svesker
+        FoodItemModel foodItem4 = new FoodItemModel();
+        foodItem4.setFoodDescriptor(foodDescriptor3);
+        foodItem4.setVolume(15.0);
+
+
         //Creating dummy calculation
         CalculationModel calculation1 = new CalculationModel();
-        ArrayList<FoodItemModel> foodItemList1 = new ArrayList<>();
-        foodItemList1.add(foodItem);
-        foodItemList1.add(foodItem2);
-        calculation1.setFoodItemList(foodItemList1);
+        calculation1.addFoodItem(foodItem);
+        calculation1.addFoodItem(foodItem2);
+        calculation1.addFoodItem(foodItem3);
+        calculation1.addFoodItem(foodItem4);
 
+        //Calling the methods to be tested
+        System.out.println("Products: ");
+        for (int i = 0; i < calculation1.getFoodItemList().size(); i++) {
+            FoodItemModel item = calculation1.getFoodItemList().get(i);
+            String name = item.getFoodDescriptor().getName();
+            double co2 = item.calcCo2();
+            double kg = item.getVolume();
+            String category = item.getFoodDescriptor().getCorrectedCategory();
+            String subCategory = item.getFoodDescriptor().getCorrectedSubcategory();
+            System.out.println(i+1 + ": " +
+                    name + " | " +
+                    category + " | " +
+                    subCategory + " | " +
+                    kg + " kg | " +
+                    co2 + " kg Co2");
+        }
         System.out.println("Total kg: " + calculation1.calcTotalKg());
+        System.out.println("Total Co2: " + calculation1.calcTotalCo2());
+
+        System.out.println("Removing product 2 from calculation");
+        calculation1.removeFoodItem(foodItem2);
+
+        System.out.println("Products: ");
+        for (int i = 0; i < calculation1.getFoodItemList().size(); i++) {
+            FoodItemModel item = calculation1.getFoodItemList().get(i);
+            String name = item.getFoodDescriptor().getName();
+            double co2 = item.calcCo2();
+            double kg = item.getVolume();
+            String category = item.getFoodDescriptor().getCorrectedCategory();
+            String subCategory = item.getFoodDescriptor().getCorrectedSubcategory();
+            System.out.println(i+1 + ": " +
+                    name + " | " +
+                    category + " | " +
+                    subCategory + " | " +
+                    kg + " kg | " +
+                    co2 + " kg Co2");
+        }
+        System.out.println("Total kg: " + calculation1.calcTotalKg());
+        System.out.println("Total Co2: " + calculation1.calcTotalCo2());
 
     }
 

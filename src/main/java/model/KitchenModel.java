@@ -2,13 +2,22 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * The KitchenModel class implements the different kitchen units at Madservice Aalborg.
+ */
 public class KitchenModel {
     private Integer id;
     private String name;
     private ArrayList<CalculationModel> calcList;
 
+    /**
+     * Empty constructor
+     */
     public KitchenModel() {
+
     }
+
+    //TODO - constructor overloading mangler
 
     // Getters and setters
     public Integer getId() {
