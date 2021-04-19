@@ -1,18 +1,23 @@
 package model;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 
-
-
+/**
+ * The KitchenModel class implements the different kitchen units at Madservice Aalborg.
+ */
 public class KitchenModel {
-
     private Integer id;
     private String name;
-    //private ArrayList<CalculationModel> calcList;
+    private ArrayList<CalculationModel> calcList;
 
+    /**
+     * Empty constructor
+     */
     public KitchenModel() {
+
     }
+
+    //TODO - constructor overloading mangler
 
     // Getters and setters
     public Integer getId() {
@@ -31,11 +36,11 @@ public class KitchenModel {
         this.name = name;
     }
 
-    //public ArrayList<CalculationModel> getCalcList() {
-      //  return calcList;
-    //}
+    public ArrayList<CalculationModel> getCalcList() {
+        return calcList;
+    }
 
-    //public void setCalcList(ArrayList<CalculationModel> calcList) {
-        //this.calcList = calcList;
-    //}
+    public void setCalcList(ArrayList<CalculationModel> calcList) {
+        this.calcList = calcList;
+    }
 }
