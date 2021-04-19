@@ -34,5 +34,4 @@ public class SetupPersistence {
     public static void exit(){
         getSf().close();
     }
-
 }
