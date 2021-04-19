@@ -21,6 +21,9 @@ public class KitchenPersistence {
     public static void update(){
         //TODO
     }
+    public static void read(){
+        //TODO
+    }
 
     public static void delete(){
         //TODO

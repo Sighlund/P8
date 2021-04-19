@@ -16,15 +16,15 @@ public class CalculationModel {
     @Id
     @Column(name = "id")
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE
+            strategy = GenerationType.IDENTITY
     )
     private Integer id;
     private LocalDate dateFrom;
     private LocalDate dateTo;
     @OneToMany
     @JoinColumn(name = "calculationId", referencedColumnName = "id")
-    private ArrayList<FoodItemModel> foodItemList;
-    @ManyToOne
+    private List<FoodItemModel> foodItemList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchenId", referencedColumnName = "id")
     private KitchenModel kitchen;
 
@@ -76,11 +76,11 @@ public class CalculationModel {
         this.dateTo = dateTo;
     }
 
-    public ArrayList<FoodItemModel> getFoodItemList() {
+    public List<FoodItemModel> getFoodItemList() {
         return foodItemList;
     }
 
-    public void setFoodItemList(ArrayList<FoodItemModel> foodItemList) {
+    public void setFoodItemList(List<FoodItemModel> foodItemList) {
         this.foodItemList = foodItemList;
     }
 

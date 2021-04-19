@@ -1,5 +1,6 @@
 import model.TestModel;
 import persistence.CalculationPersistence;
+import persistence.ConcitoPersistence;
 import persistence.KitchenPersistence;
 import persistence.SetupPersistence;
 
@@ -14,6 +15,7 @@ public class App {
         SetupPersistence.getSf();
         //KitchenPersistence.create();
         CalculationPersistence.read();
+        //ConcitoPersistence.create();
 
     }
 

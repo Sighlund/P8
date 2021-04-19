@@ -2,6 +2,7 @@ package model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The class FoodItemModel implements purchased food items at Madservice Aalborg.
@@ -18,6 +19,8 @@ public class FoodItemModel {
     )
     private Integer id;
     private Double volume;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private FoodDescriptorModel foodDescriptor;
 
     /**
@@ -73,7 +76,7 @@ public class FoodItemModel {
         double co2PrKg;
 
         // Get list of ingredients from the associated food descriptor object
-        ArrayList<IngredientModel> ingredients = foodDescriptor.getIngredientList();
+        List<IngredientModel> ingredients = foodDescriptor.getIngredientList();
 
         // Iterate over ingredients in list to calculate weighted CO2 and add to total
         for (int i = 0; i < ingredients.size(); i++) {

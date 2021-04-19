@@ -14,6 +14,7 @@ public class CalculationPersistence {
 
     public static void create(){
         //TODO
+
     }
 
     public static void update(){
@@ -25,7 +26,10 @@ public class CalculationPersistence {
         read.beginTransaction();
         read.getTransaction().commit();
         CalculationModel gaming = read.find(CalculationModel.class, 1);
-        System.out.println(gaming.getKitchen().getName());
+        System.out.println(gaming.calcAveCO2prKg());
+        System.out.println(gaming.calcTotalCo2());
+        System.out.println(gaming.calcTotalKg());
+        read.close();
     }
 
     public static void delete(){
