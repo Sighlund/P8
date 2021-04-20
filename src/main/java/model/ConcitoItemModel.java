@@ -1,11 +1,20 @@
 package model;
 
+import javax.persistence.*;
+
 /**
  * The ConcitoItemModel class implements food items available in 'Den Store Klimadatabase' from Concito.
  * The attribute category is based on Concito's data.
  * The attribute subcategory is based on Madservice Aalborgs categorizations.
  */
+@Entity
+@Table(name = "concitoitem")
 public class ConcitoItemModel {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private Integer id;
     private String name;
     private Double co2PrKg;

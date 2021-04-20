@@ -1,6 +1,8 @@
 package model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The FoodDescriptorModel class implements food descriptors that stores generic information about purchased food items.
@@ -8,26 +10,23 @@ import java.util.ArrayList;
  * It also contains a number of ingredients which are based on elements from 'Den Store Klimadatabase'.
  */
 
-/***
-@Entity
-@Table(name = "descriptor")
-*/
 
+@Entity
+@Table(name = "fooddescriptor")
 public class FoodDescriptorModel {
-/***
  @Id
 @Column(name = "id")
-
     @GeneratedValue(
         strategy = GenerationType.IDENTITY
 )
- */
-
     private Integer id;
     private String name;
     private String supplier;
+    @Column(name = "number")
     private Integer itemNumber;
-    private ArrayList<IngredientModel> ingredientList;
+    @OneToMany
+    @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
+    private List<IngredientModel> ingredientList = new ArrayList<>();
     // TODO - sum ingredient percentages must always equal 100 - skal måske varetages i controller lag?
 
     /**
@@ -104,7 +103,7 @@ public class FoodDescriptorModel {
         this.itemNumber = itemNumber;
     }
 
-    public ArrayList<IngredientModel> getIngredientList() {
+    public List<IngredientModel> getIngredientList() {
         return ingredientList;
     }
 

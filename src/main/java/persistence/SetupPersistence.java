@@ -17,8 +17,8 @@ public class SetupPersistence {
                     .addAnnotatedClass(ConcitoItemModel.class)
                     .addAnnotatedClass(FoodDescriptorModel.class)
                     .addAnnotatedClass(FoodItemModel.class)
-                    .addAnnotatedClass(IngredientModel.class).
-                    addAnnotatedClass(KitchenModel.class);
+                    .addAnnotatedClass(IngredientModel.class)
+                    .addAnnotatedClass(KitchenModel.class);
 
             StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
             return configuration.buildSessionFactory(ssrb.build());

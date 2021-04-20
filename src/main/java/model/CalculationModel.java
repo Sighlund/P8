@@ -1,18 +1,31 @@
 package model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /***
  * The CalculationModel class implements the model layer of Calculation.
  * A CaluclationModel object represents a collection of purchased food items.
  * The volume and total CO2 can be calculated from the Calculation object.
  */
+@Entity
+@Table(name = "calculation")
 public class CalculationModel {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private Integer id;
     private LocalDate dateFrom;
     private LocalDate dateTo;
-    private ArrayList<FoodItemModel> foodItemList;
+    @OneToMany
+    @JoinColumn(name = "calculationId", referencedColumnName = "id")
+    private List<FoodItemModel> foodItemList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "kitchenId", referencedColumnName = "id")
     private KitchenModel kitchen;
 
     // Year, quarter, month er ikke en del af calculation endnu
@@ -63,11 +76,11 @@ public class CalculationModel {
         this.dateTo = dateTo;
     }
 
-    public ArrayList<FoodItemModel> getFoodItemList() {
+    public List<FoodItemModel> getFoodItemList() {
         return foodItemList;
     }
 
-    public void setFoodItemList(ArrayList<FoodItemModel> foodItemList) {
+    public void setFoodItemList(List<FoodItemModel> foodItemList) {
         this.foodItemList = foodItemList;
     }
 

@@ -1,13 +1,24 @@
 package model;
 
+import javax.persistence.*;
+
 /**
  * The IngredientModel class implements ingredients based on elements from 'Den Store Klimadatabase' represented by
  * the ConcitoItemModel class.
  * An ingredient holds information about the associated concito element as well as percentage amount.
  */
+@Entity
+@Table(name = "ingredient")
 public class IngredientModel {
-    private Integer concitoId; //TODO Denne bruges ikke til noget i modellaget
+    @Id
+    @Column
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private Integer id;
     private Double percentage;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "concitoItemId", referencedColumnName = "id")
     private ConcitoItemModel contoItem;
 
     /**
@@ -22,18 +33,19 @@ public class IngredientModel {
      * @param percentage amount of the concito item in percentage
      * @param contoItem the associated concito item
      */
-    public IngredientModel(Double percentage, ConcitoItemModel contoItem) {
+    public IngredientModel( Double percentage, ConcitoItemModel contoItem) {
         this.percentage = percentage;
         this.contoItem = contoItem;
     }
 
     // Getters and setters
-    public Integer getConcitoId() {
-        return concitoId;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setConcitoId(Integer concitoId) {
-        this.concitoId = concitoId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Double getPercentage() {

@@ -18,6 +18,10 @@ public class FoodDescriptionPersistence {
         //TODO
     }
 
+    public static void read(){
+        //TODO
+    }
+
     public static void delete(){
         //TODO
     }
