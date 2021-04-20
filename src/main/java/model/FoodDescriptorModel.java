@@ -155,6 +155,7 @@ public class FoodDescriptorModel {
      */
     public String getCorrectedSubcategory() {
         IngredientModel mainIngredient = findMainIngredient();
+        //TODO
         String correctedSubCategory = "Ikke angivet";
 
         // Get subcategory of main ingredient if subcategory is filled out
