@@ -9,8 +9,8 @@ HistoryController$1.class
 persistence\TestPersistence.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
-SecondaryController.class
 model\KitchenModel.class
+FrontPageController.class
 persistence\SetupPersistence.class
 persistence\CalculationPersistence.class
 model\FoodItemModel.class
@@ -18,6 +18,5 @@ HistoryController$2.class
 model\IngredientModel.class
 HistoryController.class
 model\ConcitoItemModel.class
-PrimaryController.class
 CalculationPageController.class
 model\TestModel.class

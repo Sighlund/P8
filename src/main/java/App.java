@@ -1,3 +1,4 @@
+import javafx.scene.image.Image;
 import model.TestModel;
 import persistence.CalculationPersistence;
 import persistence.ConcitoPersistence;
@@ -25,6 +26,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("frontPage"));
         stage.setTitle("👨‍🍳👨‍🍳👨‍🍳Den store Bagedyst sæsonafslutning😎😎😎");
+        Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
+        stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();
     }
