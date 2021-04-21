@@ -1,11 +1,5 @@
 package persistence;
 
-import model.FoodItemModel;
-import model.IngredientModel;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-
 public class IngredientPersistence {
 
 //Work in progress
