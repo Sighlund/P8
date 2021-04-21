@@ -23,7 +23,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("dataInsertionPage"));
+        scene = new Scene(loadFXML("frontPage"));
         stage.setTitle("👨‍🍳👨‍🍳👨‍🍳Den store Bagedyst sæsonafslutning😎😎😎");
         stage.setScene(scene);
         stage.show();

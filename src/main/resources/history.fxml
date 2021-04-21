@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HistoryController">
+   <children>
+      <ImageView fx:id="vegetablesImageView" fitHeight="211.0" fitWidth="801.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Vegetables.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D height="300.0" width="1500.0" />
+         </viewport>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="48.0" layoutX="222.0" layoutY="46.0" stroke="TRANSPARENT" strokeType="INSIDE" width="338.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="222.0" layoutY="45.0" prefHeight="48.0" prefWidth="338.0" text="HISTORIK" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="485.0" layoutY="278.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="97.0" style="-fx-background-color: #27AE60;" textFill="WHITE" />
+      <Label fx:id="Filtrer" layoutX="44.0" layoutY="187.0" text="FILTRER">
+         <font>
+            <Font name="SansSerif Regular" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="52.0" layoutY="220.0" text="ÅR">
+         <font>
+            <Font name="SansSerif Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="180.0" layoutY="220.0" text="KVARTAL">
+         <font>
+            <Font name="SansSerif Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="322.0" layoutY="220.0" text="ENHED">
+         <font>
+            <Font name="SansSerif Regular" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="START" layoutY="-1.0" mnemonicParsing="false" onAction="#switchToScene1" style="-fx-background-color: #27AE60;" text="START" />
+      <ListView fx:id="yearList" layoutX="32.0" layoutY="252.0" prefHeight="218.0" prefWidth="130.0" />
+      <ListView fx:id="quarterList" layoutX="178.0" layoutY="270.0" prefHeight="200.0" prefWidth="130.0" />
+      <ListView fx:id="unitList" layoutX="327.0" layoutY="270.0" prefHeight="200.0" prefWidth="142.0" />
+      <Label layoutX="496.0" layoutY="286.0" prefHeight="48.0" prefWidth="75.0" text="Sammenlign " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ListView fx:id="calcHistory" layoutX="598.0" layoutY="210.0" prefHeight="294.0" prefWidth="200.0" />
+      <Label fx:id="chosenYear" alignment="CENTER" layoutX="179.0" layoutY="253.0" prefHeight="18.0" prefWidth="128.0" style="-fx-background-color: WHITE;" text="Filter" />
+      <Label fx:id="chosenYearQ" alignment="CENTER" layoutX="328.0" layoutY="254.0" prefHeight="18.0" prefWidth="140.5" style="-fx-background-color: WHITE;" text="Filter" />
+      <Button layoutX="496.0" layoutY="185.0" mnemonicParsing="false" onAction="#printKnap" text="Button" />
+      <Label fx:id="Aar" layoutX="598.0" layoutY="189.0" prefHeight="18.0" prefWidth="50.0" text="År" />
+      <Label fx:id="Kvartal" layoutX="646.0" layoutY="189.0" text="Kvartal" />
+   </children>
+</AnchorPane>
