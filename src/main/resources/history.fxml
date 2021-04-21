@@ -14,7 +14,7 @@
    <children>
       <ImageView fx:id="vegetablesImageView" fitHeight="211.0" fitWidth="801.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Vegetables.jpg" />
+            <Image url="https://raw.githubusercontent.com/Sighlund/P8/main/src/main/resources/img/Vegetables.jpg" />
          </image>
          <viewport>
             <Rectangle2D height="300.0" width="1500.0" />
