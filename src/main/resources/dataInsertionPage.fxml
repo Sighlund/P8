@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.AutoCompleteTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DataInsertionPageController">
+   <children>
+      <Button layoutX="27.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0" />
+      <Button layoutX="94.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0" />
+      <AutoCompleteTextField layoutX="174.0" layoutY="128.0" prefHeight="26.0" prefWidth="477.0" promptText="Søg efter en vare..." style="-fx-background-color: white;" />
+      <TableView layoutX="174.0" layoutY="162.0" prefHeight="720.0" prefWidth="786.0">
+        <columns>
+          <TableColumn prefWidth="256.0" text="Varenavn" />
+          <TableColumn prefWidth="124.0" text="Primærgruppe" />
+            <TableColumn prefWidth="120.0" text="Sekundærgruppe" />
+            <TableColumn prefWidth="85.0" text="Vægt Kg" />
+            <TableColumn prefWidth="85.0" text="CO2/Kg" />
+            <TableColumn prefWidth="83.0" text="Total CO2" />
+            <TableColumn prefWidth="31.0" text="X" />
+        </columns>
+      </TableView>
+      <ScrollBar layoutX="960.0" layoutY="202.0" orientation="VERTICAL" prefHeight="680.0" prefWidth="16.0" />
+      <ChoiceBox id="choiceBoxQuarter" layoutX="826.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" />
+      <ChoiceBox id="choiceBoxYear" layoutX="667.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" />
+      <ChoiceBox id="choiceBoxKitchen" layoutX="174.0" layoutY="95.0" prefHeight="26.0" prefWidth="477.0" />
+      <Label layoutX="174.0" layoutY="77.0" prefHeight="18.0" prefWidth="477.0" text="Vælg Afdeling..." />
+      <Label layoutX="667.0" layoutY="77.0" prefHeight="18.0" prefWidth="150.0" text="År for udregning..." />
+      <Label layoutX="826.0" layoutY="77.0" prefHeight="18.0" prefWidth="150.0" text="Kvartal for udregning..." />
+      <TextField layoutX="667.0" layoutY="128.0" prefHeight="26.0" prefWidth="88.0" promptText="Angiv Kg..." style="-fx-background-color: white;" />
+      <Button layoutX="876.0" layoutY="126.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Reg. Ny vare" textAlignment="CENTER" />
+      <Button layoutX="766.0" layoutY="126.0" mnemonicParsing="false" onAction="#addProductToList" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Tilføj Vare" textAlignment="CENTER" />
+      <Button layoutX="1023.0" layoutY="425.0" mnemonicParsing="false" onAction="#switchToCalculationPage" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Udregn" textAlignment="CENTER" />
+   </children>
+</AnchorPane>
