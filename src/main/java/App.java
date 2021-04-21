@@ -1,9 +1,6 @@
 import javafx.scene.image.Image;
 import model.TestModel;
-import persistence.CalculationPersistence;
-import persistence.ConcitoPersistence;
-import persistence.KitchenPersistence;
-import persistence.SetupPersistence;
+import persistence.*;
 
 // Søren har skrevet noget fed kode
 
@@ -49,8 +46,9 @@ public class App extends Application {
         testModel.constructorTest();
         SetupPersistence.getSf();
         //KitchenPersistence.create();
-        CalculationPersistence.read();
+        //CalculationPersistence.read();
         //ConcitoPersistence.create();
+        FoodDescriptorPersistence.create();
         launch();
 
     }

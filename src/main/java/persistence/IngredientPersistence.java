@@ -1,11 +1,14 @@
 package persistence;
 
+import model.ConcitoItemModel;
+
 public class IngredientPersistence {
 
 //Work in progress
 
-    public static void create(){
+    public static void create(ConcitoItemModel concitoItem){
         //TODO
+
     }
 
     public static void update(){
