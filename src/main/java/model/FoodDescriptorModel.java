@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "fooddescriptor")
-public class FoodDescriptorModel {
+public class FoodDescriptorModel{
  @Id
 @Column(name = "id")
     @GeneratedValue(
@@ -24,8 +24,8 @@ public class FoodDescriptorModel {
     private String supplier;
     @Column(name = "number")
     private Integer itemNumber;
-    @OneToMany
-    @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "foodDescriptor_id", referencedColumnName = "id")
     private List<IngredientModel> ingredientList = new ArrayList<>();
     // TODO - sum ingredient percentages must always equal 100 - skal måske varetages i controller lag?
 

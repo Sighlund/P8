@@ -14,12 +14,21 @@ public class FoodDescriptorPersistence {
         Session create = SetupPersistence.getSf().openSession();
         create.beginTransaction();
         create.getTransaction().commit();
+        //ConcitoItemModel concitoItem = create.find(ConcitoItemModel.class,1);
+        //IngredientModel ingredient = new IngredientModel(100.0, concitoItem);
+        //FoodDescriptorModel foodDescriptor = new FoodDescriptorModel("Test");
+        //foodDescriptor.addIngredient(ingredient);
+        //create.save(foodDescriptor);
+        //create.close();
+        FoodDescriptorModel foodDescriptor = new FoodDescriptorModel("Snydt");
         ConcitoItemModel concitoItem = create.find(ConcitoItemModel.class,1);
         IngredientModel ingredient = new IngredientModel(100.0, concitoItem);
-        FoodDescriptorModel foodDescriptor = new FoodDescriptorModel("Test");
+        ingredient.setFoodDescriptor(foodDescriptor);
         foodDescriptor.addIngredient(ingredient);
         create.save(foodDescriptor);
         create.close();
+
+
 
     }
 

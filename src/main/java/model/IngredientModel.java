@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * The IngredientModel class implements ingredients based on elements from 'Den Store Klimadatabase' represented by
@@ -20,6 +21,8 @@ public class IngredientModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concitoItemId", referencedColumnName = "id")
     private ConcitoItemModel contoItem;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private FoodDescriptorModel foodDescriptor;
 
     /**
      * Empty constructor
@@ -62,5 +65,13 @@ public class IngredientModel {
 
     public void setContoItem(ConcitoItemModel contoItem) {
         this.contoItem = contoItem;
+    }
+
+    public FoodDescriptorModel getFoodDescriptor() {
+        return foodDescriptor;
+    }
+
+    public void setFoodDescriptor(FoodDescriptorModel foodDescriptor) {
+        this.foodDescriptor = foodDescriptor;
     }
 }
