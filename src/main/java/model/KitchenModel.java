@@ -56,4 +56,10 @@ public class KitchenModel {
         this.calcList = calcList;
     }
     */
+
+    //public static List<String> getString(){
+        //TODO
+    //}
+
+
 }
