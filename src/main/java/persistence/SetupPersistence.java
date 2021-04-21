@@ -1,6 +1,7 @@
 package persistence;
 
 import model.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -27,8 +28,15 @@ public class SetupPersistence {
         }
     }
 
-    public static SessionFactory getSf() {
+    private static SessionFactory getSf() {
         return sf;
+    }
+
+    public static Session getSession(){
+        Session session = getSf().openSession();
+        session.beginTransaction();
+        session.getTransaction().commit();
+        return session;
     }
 
     public static void exit(){

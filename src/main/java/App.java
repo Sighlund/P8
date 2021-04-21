@@ -44,11 +44,12 @@ public class App extends Application {
 
 
         testModel.constructorTest();
-        SetupPersistence.getSf();
+        //SetupPersistence.getSf();
         //KitchenPersistence.create();
         //CalculationPersistence.read();
         //ConcitoPersistence.create();
-        FoodDescriptorPersistence.create();
+        //FoodDescriptorPersistence.create();
+        KitchenPersistence.readAll();
         launch();
 
     }

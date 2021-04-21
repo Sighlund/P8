@@ -19,6 +19,7 @@ public class CalculationPersistence {
     }
 
     public static void read(){
+        /*
         Session read = SetupPersistence.getSf().openSession();
         read.beginTransaction();
         read.getTransaction().commit();
@@ -31,6 +32,7 @@ public class CalculationPersistence {
         System.out.println(gaming.calcTotalCo2());
         System.out.println(gaming.calcTotalKg());
         read.close();
+         */
     }
 
     public static void delete(){

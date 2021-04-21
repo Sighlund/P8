@@ -1156,7 +1156,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="329" parent="287" name="foodDescriptor_id">
+    <column id="329" parent="287" name="foodDescriptorId">
       <Position>3</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
@@ -1172,7 +1172,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <index id="332" parent="287" name="fk_ingredient_foodDescriptor1_idx">
-      <ColNames>foodDescriptor_id</ColNames>
+      <ColNames>foodDescriptorId</ColNames>
       <Type>btree</Type>
     </index>
     <index id="333" parent="287" name="fk_ingredient_concitoItem1_idx">
@@ -1189,7 +1189,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>
     <foreign-key id="336" parent="287" name="fk_ingredient_foodDescriptor1">
-      <ColNames>foodDescriptor_id</ColNames>
+      <ColNames>foodDescriptorId</ColNames>
       <RefTableName>fooddescriptor</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>

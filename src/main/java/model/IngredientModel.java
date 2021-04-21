@@ -22,6 +22,7 @@ public class IngredientModel {
     @JoinColumn(name = "concitoItemId", referencedColumnName = "id")
     private ConcitoItemModel contoItem;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private FoodDescriptorModel foodDescriptor;
 
     /**
