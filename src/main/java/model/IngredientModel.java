@@ -7,24 +7,38 @@ import java.io.Serializable;
  * The IngredientModel class implements ingredients based on elements from 'Den Store Klimadatabase' represented by
  * the ConcitoItemModel class.
  * An ingredient holds information about the associated concito element as well as percentage amount.
+ *
+ * The class is mapped using Hibernate JPA.
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping
  */
+
+// Maps the class as an entity to the table 'ingredient' in the database
 @Entity
 @Table(name = "ingredient")
 public class IngredientModel {
+
+    // --- Properties ---
+    // Primary key for the entity
     @Id
     @Column
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    // Generates a unique value for every identity
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private Double percentage;
+
+    // Maps a many-to-one relation between ingredient and concitoItem using 'concitoItemId' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concitoItemId", referencedColumnName = "id")
     private ConcitoItemModel contoItem;
+
+    // Maps a many-to-one relation between ingredient and foodDescriptor using 'foodDescriptorId' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private FoodDescriptorModel foodDescriptor;
 
+
+    // --- Constructors ----
     /**
      * Empty constructor
      */
@@ -42,7 +56,8 @@ public class IngredientModel {
         this.contoItem = contoItem;
     }
 
-    // Getters and setters
+
+    // --- Getters and setters ---
 
     public Integer getId() {
         return id;
