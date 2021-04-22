@@ -76,7 +76,7 @@ public class KitchenModel {
     public static List<String> getString(){
         //TODO
         List<String> list = null;
-        return list;         }
+        return list;
     }
 
 
