@@ -22,16 +22,24 @@ public class FoodItemModel {
     // Primary key for the entity
     @Id
     @Column(name = "id")
+    // Generates a unique value for every identity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private Double volume;
+
+    // Maps a many-to-one relation between foodItem and foodDescriptor using 'foodDescriptorId' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private FoodDescriptorModel foodDescriptor;
+
+    // Maps a many-to-one relation between foodItem and calculation using 'calculationId' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calculationId", referencedColumnName = "id")
     private CalculationModel calculation;
 
+
+    // --- Constructors ----
     /**
      * Empty constructor
      */
@@ -49,7 +57,8 @@ public class FoodItemModel {
         this.foodDescriptor = foodDescriptor;
     }
 
-    // Getters and setters
+
+    // --- Getters and setters ---
     public Integer getId() {
         return id;
     }
@@ -74,6 +83,16 @@ public class FoodItemModel {
         this.foodDescriptor = foodDescriptor;
     }
 
+    public CalculationModel getCalculation() {
+        return calculation;
+    }
+
+    public void setCalculation(CalculationModel calculation) {
+        this.calculation = calculation;
+    }
+
+
+    // --- Instance methods ---
     /**
      * Method that calculates total CO2 emission for the food item using a weighted CO2-pr-kg
      * based on the ingredients in the item
@@ -123,15 +142,13 @@ public class FoodItemModel {
         return foodDescriptor.getName();
     }
 
+    /**
+     * Method that calculates CO2 pr Kg for the food item
+     * @return CO2 pr kg product, in kg
+     */
     public double calcCo2PrKg() {
         return (calcCo2() / volume);
     }
 
-    public CalculationModel getCalculation() {
-        return calculation;
-    }
 
-    public void setCalculation(CalculationModel calculation) {
-        this.calculation = calculation;
-    }
 }
