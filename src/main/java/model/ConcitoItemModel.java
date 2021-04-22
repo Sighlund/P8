@@ -8,7 +8,7 @@ import javax.persistence.*;
  * The attribute subcategory is based on Madservice Aalborgs categorizations.
  *
  * The class is mapped using Hibernate JPA.
- * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping
  */
 
 // Maps the class entity to the table 'concitoitem' in the database

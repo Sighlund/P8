@@ -10,7 +10,7 @@ import java.util.List;
  * It also contains a number of ingredients which are based on elements from 'Den Store Klimadatabase'.
  *
  * The class is mapped using Hibernate JPA.
- * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping
  */
 
 // Maps the class as an entity to the table 'calculation' in the database

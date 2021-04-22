@@ -10,7 +10,7 @@ import java.util.List;
  * The food item itself holds information about its volume in kg.
  *
  * The class is mapped using Hibernate JPA.
- * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping
  */
 
 // Maps the class as an entity to the table 'fooditem' in the database
