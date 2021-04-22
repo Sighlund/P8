@@ -10,20 +10,29 @@ import java.util.List;
  * The class is mapped using Hibernate JPA.
  * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
  */
+
+// Maps the class as an entity to the table 'kitchen' in the database
 @Entity
 @Table(name = "kitchen")
 public class KitchenModel {
+
+    // --- Properties ---
+    // Primary key for the entity
     @Id
     @Column(name = "id")
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    // Generates a unique value for every identity
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
+
+    // Maps a one-to-many relation between kitchen and calculation using 'kitchenId' as foreign key
+    // Cascades all Hibernate actions from the kitchen entity to its related calculations
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchenId", referencedColumnName = "id")
     private List<CalculationModel> calcList;
 
+    // --- Constructors ----
     /**
      * Empty constructor
      */
@@ -33,7 +42,8 @@ public class KitchenModel {
 
     //TODO - constructor overloading mangler
 
-    // Getters and setters
+
+    // --- Getters and setters ---
     public Integer getId() {
         return id;
     }
@@ -58,19 +68,15 @@ public class KitchenModel {
         this.calcList = calcList;
     }
 
-    /*
-    public ArrayList<CalculationModel> getCalcList() {
-        return calcList;
-    }
 
-    public void setCalcList(ArrayList<CalculationModel> calcList) {
-        this.calcList = calcList;
-    }
-    */
-
-    //public static List<String> getString(){
+    // --- Instance methods ---
+    /**
+     * Method that returns kitchen names as a list of strings
+     * @return a list of strings equal to the names of all kitchens in the list
+     */
+    public static List<String> getString(){
         //TODO
-    //}
+    }
 
 
 }
