@@ -47,7 +47,7 @@
             <Font name="SansSerif Regular" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="START" layoutY="-1.0" mnemonicParsing="false" onAction="#switchToScene1" style="-fx-background-color: #27AE60;" text="START" />
+      <Button fx:id="START" layoutY="-1.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: #27AE60;" text="START" />
       <ListView fx:id="yearList" layoutX="32.0" layoutY="252.0" prefHeight="218.0" prefWidth="130.0" />
       <ListView fx:id="quarterList" layoutX="178.0" layoutY="270.0" prefHeight="200.0" prefWidth="130.0" />
       <ListView fx:id="unitList" layoutX="327.0" layoutY="270.0" prefHeight="200.0" prefWidth="142.0" />

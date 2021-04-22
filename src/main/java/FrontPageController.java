@@ -13,20 +13,27 @@ public class FrontPageController {
     private Scene scene;
     private Parent root;
 
-    public void switchToHistoryScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("history.fxml"));
+    //Functions to switch between scenes
+    public void switchToScene(ActionEvent event, String page) throws IOException {
+        root = FXMLLoader.load(getClass().getResource(page));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void switchToAddFoodScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("dataInsertionPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void switchToSceneDataInsertion(ActionEvent event) throws IOException {
+        switchToScene(event, "dataInsertionPage.fxml");
+    }
+
+    public void switchToSceneHistory(ActionEvent event2) throws IOException {
+        switchToScene(event2, "history.fxml");
+    }
+
+    public void switchToSceneCharts(ActionEvent event3) throws IOException {
+        switchToScene(event3, "charts.fxml");
     }
 
 }
+
+

@@ -91,16 +91,11 @@ public class HistoryController implements Initializable {
     private Parent root;
 
     //Functions to switch between scenes
-    public void switchToScene1(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("frontPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    FrontPageController History = new FrontPageController();
+
+    public void switchToSceneFrontPage(ActionEvent event) throws IOException {
+        History.switchToScene(event, "frontPage.fxml");
     }
-
-
-
 
     }
 

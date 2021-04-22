@@ -40,8 +40,8 @@
             <Image url="https://raw.githubusercontent.com/Sighlund/P8/main/src/main/resources/img/Historik.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="67.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchToAddFoodScene" prefHeight="26.0" prefWidth="180.0" text="Tilføj varer til beregning" />
+      <Button layoutX="67.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchToSceneDataInsertion" prefHeight="26.0" prefWidth="180.0" text="Tilføj varer til beregning" />
       <Button layoutX="320.0" layoutY="373.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="180.0" text="Database over fødevarer" />
-      <Button fx:id="HISTORIK" layoutX="572.0" layoutY="373.0" mnemonicParsing="false" onAction="#switchToHistoryScene" prefHeight="26.0" prefWidth="180.0" text="HISTORIK" />
+      <Button fx:id="HISTORIK" layoutX="572.0" layoutY="373.0" mnemonicParsing="false" onAction="#switchToSceneHistory" prefHeight="26.0" prefWidth="180.0" text="HISTORIK" />
    </children>
 </AnchorPane>
