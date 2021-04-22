@@ -8,7 +8,10 @@ import java.util.List;
 
 public class ConcitoPersistence {
 
-    //Method to get all of the concito objects in the database
+    /**
+     * Method to get all of the concito objects in the database
+     * @return Returns a list of all the concito objects in the database
+     */
     public static List<ConcitoItemModel> listCon(){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -20,7 +23,11 @@ public class ConcitoPersistence {
         return list;
     }
 
-    //Method for finding a concito object by ID
+    /**
+     * Method for finding a concito object by ID
+     * @param id The ID of the concito object that is being searched for
+     * @return Returning the concito object that was searched for through the ID
+     */
     public static ConcitoItemModel getConById(Integer id){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -32,7 +39,10 @@ public class ConcitoPersistence {
         return concitoItemModel;
     }
 
-    //Method for deleting a concito object by ID
+    /**
+     * Method for deleting a concito object by ID
+     * @param id The ID of the concito object that is being searched for
+     */
     public static void deleteCon(Integer id){
         //Creating session
         Session session = SetupPersistence.getSession();

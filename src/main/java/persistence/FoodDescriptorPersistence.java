@@ -11,7 +11,10 @@ import java.util.List;
 public class FoodDescriptorPersistence {
 
 
-    //Method for adding a foodDescriptor object to the database
+    /**
+     * Method for adding a foodDescriptor object to the database
+     * @param descriptor The foodDescriptor object that is to be added
+     */
     public static void addDescriptor(FoodDescriptorModel descriptor){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -21,7 +24,10 @@ public class FoodDescriptorPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method for updating object in the database
+    /**
+     * Method for updating object in the database
+     * @param descriptor the foodDescriptor object that is to be updated
+     */
     public static void updateDescriptor(FoodDescriptorModel descriptor){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -31,7 +37,10 @@ public class FoodDescriptorPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method to get all of the foodDescriptor objects in the database
+    /**
+     * Method to get all of the foodDescriptor objects in the database
+     * @return Returning a list of all the foodDescriptor objects in the databse
+     */
     public static List<FoodDescriptorModel> listDescriptor(){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -43,7 +52,11 @@ public class FoodDescriptorPersistence {
         return list;
     }
 
-    //Method for finding a foodDescriptor object by ID
+    /**
+     * Method for finding a foodDescriptor object by ID
+     * @param id The ID of the foodDescriptor object that is being searched for
+     * @return Returning the foodDescriptor object that was searched for through the ID
+     */
     public static FoodDescriptorModel getDescriptorById(Integer id){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -55,7 +68,10 @@ public class FoodDescriptorPersistence {
         return descriptor;
     }
 
-    //Method for deleting a foodDescriptor object by ID
+    /**
+     * Method for deleting a foodDescriptor object by ID
+     * @param id The ID of the foodDescriptor object that is being searched for
+     */
     public static void deleteDescriptor(Integer id){
         //Creating session
         Session session = SetupPersistence.getSession();

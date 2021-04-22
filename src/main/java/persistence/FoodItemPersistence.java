@@ -8,7 +8,10 @@ import java.util.List;
 
 public class FoodItemPersistence {
 
-    //Method for adding a calculation object to the database
+    /**
+     * Method for adding a calculation object to the database
+     * @param item The foodItem object that is to be added
+     */
     public static void addItem(FoodItemModel item) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -18,7 +21,10 @@ public class FoodItemPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method for updating foodItem in the database
+    /**
+     * Method for updating foodItem in the database
+     * @param item The foodItem object that is to be added
+     */
     public static void updateItem(FoodItemModel item) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -28,7 +34,10 @@ public class FoodItemPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method to get all of the foodItems objects in the database
+    /**
+     * Method to get all of the foodItems objects in the database
+     * @return Returning a list of all the foodItem objects in the database
+     */
     public static List<FoodItemModel> listItem() {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -40,7 +49,11 @@ public class FoodItemPersistence {
         return list;
     }
 
-    //Method for finding a foodItem object by ID
+    /**
+     * Method for finding a foodItem object by ID
+     * @param id The ID of the foodItem object that is being searched for
+     * @return Returning the foodItem object that was searched for through the ID
+     */
     public static FoodItemModel getItemById(Integer id) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -52,7 +65,10 @@ public class FoodItemPersistence {
         return item;
     }
 
-    //Method for deleting a foodItem object by ID
+    /**
+     * Method for deleting a foodItem object by ID
+     * @param id The ID of the foodItem object that is being searched for
+     */
     public static void deleteItem(Integer id) {
         //Creating session
         Session session = SetupPersistence.getSession();

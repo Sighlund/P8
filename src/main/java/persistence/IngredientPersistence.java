@@ -9,7 +9,10 @@ import java.util.List;
 
 public class IngredientPersistence {
 
-    //Method for adding an Ingredient object to the database
+    /**
+     * Method for adding an Ingredient object to the database
+     * @param ingredient The ingredient object that is to be added
+     */
     public static void addIngredient(IngredientModel ingredient) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -19,7 +22,10 @@ public class IngredientPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method for updating object in the database
+    /**
+     * Method for updating object in the database
+     * @param ingredient The ingredient object that is to be updated
+     */
     public static void updateIngredient(IngredientModel ingredient) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -29,7 +35,10 @@ public class IngredientPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method to get all of the ingredient objects in the database
+    /**
+     * Method to get all of the ingredient objects in the database
+     * @return Returning all of the ingredient objects in the database
+     */
     public static List<IngredientModel> listIngredient() {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -41,7 +50,11 @@ public class IngredientPersistence {
         return list;
     }
 
-    //Method for finding a ingredient object by ID
+    /**
+     * Method for finding a ingredient object by ID
+     * @param id The ID of the ingredient object that is being searched for
+     * @return Returning the ingredient object that was searched for through the ID
+     */
     public static IngredientModel getIngredientById(Integer id) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -53,7 +66,10 @@ public class IngredientPersistence {
         return ingredient;
     }
 
-    //Method for deleting a ingredient object by ID
+    /**
+     * Method for deleting a ingredient object by ID
+     * @param id The ID of the ingredient object that is being searched for
+     */
     public static void deleteIngredient(Integer id) {
         //Creating session
         Session session = SetupPersistence.getSession();

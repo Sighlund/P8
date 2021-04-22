@@ -8,7 +8,10 @@ import java.util.List;
 
 public class KitchenPersistence {
 
-    //Method for adding a kitchen object to the database
+    /**
+     * Method for adding a kitchen object to the database
+     * @param kitchen The kitchen object that is to be added
+     */
     public static void addKitchen(KitchenModel kitchen) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -18,7 +21,10 @@ public class KitchenPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method for updating object in the database
+    /**
+     * Method for updating object in the database
+     * @param kitchen The kitchen object that is to be updated
+     */
     public static void updateKitchen(KitchenModel kitchen) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -28,7 +34,10 @@ public class KitchenPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method to get all of the kitchen objects in the database
+    /**
+     * Method to get all of the kitchen objects in the database
+     * @return Returns a list of all the kitchen objects in the database
+     */
     public static List<KitchenModel> listKitchen() {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -40,7 +49,11 @@ public class KitchenPersistence {
         return list;
     }
 
-    //Method for finding a kitchen object by ID
+    /**
+     * Method for finding a kitchen object by ID
+     * @param id The ID of the kitchen object that is being searched for
+     * @return Returning the kitchen object that was searched for through the ID
+     */
     public static KitchenModel getKitchenById(Integer id) {
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -52,7 +65,10 @@ public class KitchenPersistence {
         return kitchen;
     }
 
-    //Method for deleting a kitchen object by ID
+    /**
+     * Method for deleting a kitchen object by ID
+     * @param id The ID of the kitchen object that is being searched for
+     */
     public static void deleteKitchen(Integer id) {
         //Creating session
         Session session = SetupPersistence.getSession();

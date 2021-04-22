@@ -6,9 +6,16 @@ import org.hibernate.Session;
 
 import java.util.List;
 
+/**
+ * The CalculationPersistence class enables data exchange between the application and the SQL database.
+ * It has 5 different Hibernate operations that allows for data transfer between SQL elements and Java objects.
+ */
 public class CalculationPersistence {
 
-    //Method for adding a calculation object to the database
+    /**
+     * Adds a calculation object to the database
+     * @param calc The calculation object that is to be added
+     */
     public static void addCalc(CalculationModel calc){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -18,7 +25,10 @@ public class CalculationPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method for updating object in the database
+    /**
+     * Updating a calculation object in the database
+     * @param calc The calculation object that is to be added
+     */
     public static void updateCalc(CalculationModel calc){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -28,7 +38,10 @@ public class CalculationPersistence {
         SetupPersistence.closeSession(session);
     }
 
-    //Method to get all of the calculation objects in the database
+    /**
+     * Method to get all of the calculation objects in the database
+     * @return Returns a list of all the calculation objects in the database
+     */
     public static List<CalculationModel> listCalc(){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -40,7 +53,11 @@ public class CalculationPersistence {
         return list;
     }
 
-    //Method for finding a calculation object by ID
+    /**
+     * Method for finding a calculation object by ID
+     * @param id The ID of the calculation object that is being searched for
+     * @return Returns the object that is found through the ID
+     */
     public static CalculationModel getCalcById(Integer id){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -52,7 +69,10 @@ public class CalculationPersistence {
         return calculationModel;
     }
 
-    //Method for deleting a calculation object by ID
+    /**
+     * Method for deleting a calculation object by ID
+     * @param id The ID of the calculation object that is being searched for
+     */
     public static void deleteCalc(Integer id){
         //Creating session
         Session session = SetupPersistence.getSession();
