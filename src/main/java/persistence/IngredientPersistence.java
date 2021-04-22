@@ -7,6 +7,11 @@ import org.hibernate.Session;
 
 import java.util.List;
 
+/**
+ * The IngredientPersistence class enables data exchange between the application and the SQL database.
+ * It has 5 different Hibernate operations that allows for data transfer between SQL elements and Java objects.
+ */
+
 public class IngredientPersistence {
 
     /**

@@ -8,8 +8,12 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class FoodDescriptorPersistence {
+/**
+ * The FoodDescriptorPersistence class enables data exchange between the application and the SQL database.
+ * It has 5 different Hibernate operations that allows for data transfer between SQL elements and Java objects.
+ */
 
+public class FoodDescriptorPersistence {
 
     /**
      * Method for adding a foodDescriptor object to the database

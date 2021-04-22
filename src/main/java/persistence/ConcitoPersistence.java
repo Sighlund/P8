@@ -6,6 +6,10 @@ import org.hibernate.Session;
 
 import java.util.List;
 
+/**
+ * The ConcitoPersistence class enables data exchange between the application and the SQL database.
+ * It has 3 different Hibernate operations that allows for data transfer between SQL elements and Java objects.
+ */
 public class ConcitoPersistence {
 
     /**
