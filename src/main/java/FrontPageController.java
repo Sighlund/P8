@@ -30,8 +30,12 @@ public class FrontPageController {
         switchToScene(event2, "history.fxml");
     }
 
-    public void switchToSceneCharts(ActionEvent event3) throws IOException {
-        switchToScene(event3, "charts.fxml");
+    public void switchToCalculationPage(ActionEvent event3) throws IOException {
+        switchToScene(event3, "dataInsertionPage.fxml");
+    }
+
+    public void switchToDataInsertionPage(ActionEvent event4) throws IOException {
+        switchToScene(event4, "dataInsertionPage.fxml");
     }
 
 }
