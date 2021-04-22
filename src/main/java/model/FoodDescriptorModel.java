@@ -27,6 +27,9 @@ public class FoodDescriptorModel{
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private List<IngredientModel> ingredientList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
+    private List<FoodItemModel> foodItemList = new ArrayList<>();
     // TODO - sum ingredient percentages must always equal 100 - skal måske varetages i controller lag?
 
     /**
@@ -107,8 +110,16 @@ public class FoodDescriptorModel{
         return ingredientList;
     }
 
-    public void setIngredientList(ArrayList<IngredientModel> ingredientList) {
+    public void setIngredientList(List<IngredientModel> ingredientList) {
         this.ingredientList = ingredientList;
+    }
+
+    public List<FoodItemModel> getFoodItemList() {
+        return foodItemList;
+    }
+
+    public void setFoodItemList(List<FoodItemModel> foodItemList) {
+        this.foodItemList = foodItemList;
     }
 
     /**

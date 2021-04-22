@@ -37,7 +37,7 @@ public class IngredientModel {
      * @param percentage amount of the concito item in percentage
      * @param contoItem the associated concito item
      */
-    public IngredientModel( Double percentage, ConcitoItemModel contoItem) {
+    public IngredientModel(Double percentage, ConcitoItemModel contoItem) {
         this.percentage = percentage;
         this.contoItem = contoItem;
     }

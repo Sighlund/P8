@@ -22,6 +22,9 @@ public class FoodItemModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private FoodDescriptorModel foodDescriptor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "calculationId", referencedColumnName = "id")
+    private CalculationModel calculation;
 
     /**
      * Empty constructor
@@ -118,4 +121,11 @@ public class FoodItemModel {
         return (calcCo2() / volume);
     }
 
+    public CalculationModel getCalculation() {
+        return calculation;
+    }
+
+    public void setCalculation(CalculationModel calculation) {
+        this.calculation = calculation;
+    }
 }

@@ -17,9 +17,9 @@ public class KitchenModel {
     )
     private Integer id;
     private String name;
-//    @OneToMany
-//    @JoinColumn(name = "kitchenId", referencedColumnName = "id")
-//    private List<CalculationModel> calcList;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "kitchenId", referencedColumnName = "id")
+    private List<CalculationModel> calcList;
 
     /**
      * Empty constructor
@@ -45,6 +45,14 @@ public class KitchenModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<CalculationModel> getCalcList() {
+        return calcList;
+    }
+
+    public void setCalcList(List<CalculationModel> calcList) {
+        this.calcList = calcList;
     }
 
     /*

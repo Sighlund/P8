@@ -21,7 +21,7 @@ public class CalculationModel {
     private Integer id;
     private LocalDate dateFrom;
     private LocalDate dateTo;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "calculationId", referencedColumnName = "id")
     private List<FoodItemModel> foodItemList = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,6 +48,10 @@ public class CalculationModel {
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
         this.foodItemList = foodItemList;
+        this.kitchen = kitchen;
+    }
+
+    public CalculationModel(KitchenModel kitchen){
         this.kitchen = kitchen;
     }
 
