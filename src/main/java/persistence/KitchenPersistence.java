@@ -16,10 +16,11 @@ public class KitchenPersistence {
     public static void update(){
         //TODO
     }
-    public static List<KitchenModel> readAll(){
-        //TODO
+    public static List<KitchenModel> listKitchen(){
         Session session = SetupPersistence.getSession();
-        return session.createQuery("SELECT a from KitchenModel a", KitchenModel.class).getResultList();
+        List<KitchenModel> list = session.createQuery("SELECT a from KitchenModel a", KitchenModel.class).getResultList();
+        SetupPersistence.closeSession(session);
+        return list;
     }
 
     public static void delete(){

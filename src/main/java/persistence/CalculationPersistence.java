@@ -2,41 +2,46 @@ package persistence;
 
 import model.CalculationModel;
 import model.ConcitoItemModel;
+import model.KitchenModel;
 import org.hibernate.Session;
+
+import java.util.List;
 
 public class CalculationPersistence {
     //Work in progress
 
 
-    public static void create(){
-        //TODO
-
-
+    public static void addCalc(CalculationModel calc){
+        Session session = SetupPersistence.getSession();
+        session.save(calc);
+        SetupPersistence.closeSession(session);
     }
 
-    public static void update(){
-        //TODO
+    public static void updateCalc(CalculationModel calc){
+        Session session = SetupPersistence.getSession();
+        session.update(calc);
+        SetupPersistence.closeSession(session);
     }
 
-    public static void read(){
-        /*
-        Session read = SetupPersistence.getSf().openSession();
-        read.beginTransaction();
-        read.getTransaction().commit();
-        CalculationModel gaming = read.find(CalculationModel.class, 1);
-        Integer id = (Integer) read.save(gaming);
-        ConcitoItemModel hej = new ConcitoItemModel("XD", 32.0, "XDD", "XDDD");
-        Integer id2 = (Integer) read.save(hej);
-        System.out.println("HER ER ID: " + id + id2);
-        System.out.println(gaming.calcAveCO2prKg());
-        System.out.println(gaming.calcTotalCo2());
-        System.out.println(gaming.calcTotalKg());
-        read.close();
-         */
+    public static List<CalculationModel> listCalc(){
+        Session session = SetupPersistence.getSession();
+        List<CalculationModel> list = session.createQuery("SELECT a from CalculationModel a", CalculationModel.class).getResultList();
+        SetupPersistence.closeSession(session);
+        return list;
     }
 
-    public static void delete(){
-        //TODO
+    public static CalculationModel getCalcById(Integer id){
+        Session session = SetupPersistence.getSession();
+        CalculationModel calculationModel = session.find(CalculationModel.class, id);
+        SetupPersistence.closeSession(session);
+        return calculationModel;
+    }
+
+    public static void deleteCalc(Integer id){
+        Session session = SetupPersistence.getSession();
+        CalculationModel calculationModel = session.find(CalculationModel.class, id);
+        session.delete(calculationModel);
+        SetupPersistence.closeSession(session);
     }
 
 

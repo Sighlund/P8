@@ -1,4 +1,6 @@
 import javafx.scene.image.Image;
+import model.CalculationModel;
+import model.ConcitoItemModel;
 import model.TestModel;
 import persistence.*;
 
@@ -49,7 +51,9 @@ public class App extends Application {
         //CalculationPersistence.read();
         //ConcitoPersistence.create();
         //FoodDescriptorPersistence.create();
-        KitchenPersistence.readAll();
+        //CalculationModel calc = CalculationPersistence.getCalcById(1);
+        //KitchenPersistence.listKitchen();
+        ConcitoPersistence.deleteCon(501);
         launch();
 
     }

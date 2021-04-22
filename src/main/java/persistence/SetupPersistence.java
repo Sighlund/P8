@@ -35,8 +35,12 @@ public class SetupPersistence {
     public static Session getSession(){
         Session session = getSf().openSession();
         session.beginTransaction();
-        session.getTransaction().commit();
         return session;
+    }
+
+    public static void closeSession(Session session){
+        session.getTransaction().commit();
+        session.close();
     }
 
     public static void exit(){
