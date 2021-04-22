@@ -8,30 +8,46 @@ import java.util.List;
  * The FoodDescriptorModel class implements food descriptors that stores generic information about purchased food items.
  * A FoodDescriptorModel object can be associated with a number of food items.
  * It also contains a number of ingredients which are based on elements from 'Den Store Klimadatabase'.
+ *
+ * The class is mapped using Hibernate JPA.
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
  */
 
-
+// Maps the class as an entity to the table 'calculation' in the database
 @Entity
 @Table(name = "fooddescriptor")
 public class FoodDescriptorModel{
- @Id
-@Column(name = "id")
-    @GeneratedValue(
-        strategy = GenerationType.IDENTITY
-)
+
+    // --- Properties ---
+    // Primary key for the entity
+    @Id
+    @Column(name = "id")
+    // Generates a unique value for every identity
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
+
     private String supplier;
+
+    // Maps the property to column 'number'
     @Column(name = "number")
     private Integer itemNumber;
+
+    // Maps a one-to-many relationship between foodDescriptor and ingredient using 'foodDescriptorId' as foreign key
+    // Cascades all Hibernate actions from the foodDescriptor entity to its related ingredients
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private List<IngredientModel> ingredientList = new ArrayList<>();
+
+    // Maps a one-to-many relationship between foodDescriptor and foodItem using 'foodDescriptorId' as foreign key
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private List<FoodItemModel> foodItemList = new ArrayList<>();
     // TODO - sum ingredient percentages must always equal 100 - skal måske varetages i controller lag?
 
+
+    // --- Constructors ----
     /**
      * Empty constructor
      */
@@ -73,7 +89,8 @@ public class FoodDescriptorModel{
         this(name, null, null, new ArrayList<IngredientModel>());
     }
 
-    // Getters and setters
+
+    // --- Getters and setters ---
     public Integer getId() {
         return id;
     }
@@ -122,6 +139,7 @@ public class FoodDescriptorModel{
         this.foodItemList = foodItemList;
     }
 
+    // --- Instance methods ---
     /**
      * Method that adds ingredient to the ingredient list
      * @param ingredient the ingredient to be added

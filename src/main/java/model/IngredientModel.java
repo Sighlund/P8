@@ -7,6 +7,9 @@ import java.io.Serializable;
  * The IngredientModel class implements ingredients based on elements from 'Den Store Klimadatabase' represented by
  * the ConcitoItemModel class.
  * An ingredient holds information about the associated concito element as well as percentage amount.
+ *
+ * The class is mapped using Hibernate JPA.
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
  */
 @Entity
 @Table(name = "ingredient")

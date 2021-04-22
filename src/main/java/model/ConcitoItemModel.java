@@ -6,21 +6,36 @@ import javax.persistence.*;
  * The ConcitoItemModel class implements food items available in 'Den Store Klimadatabase' from Concito.
  * The attribute category is based on Concito's data.
  * The attribute subcategory is based on Madservice Aalborgs categorizations.
+ *
+ * The class is mapped using Hibernate JPA.
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
  */
+
+// Maps the class entity to the table 'concitoitem' in the database
 @Entity
 @Table(name = "concitoitem")
 public class ConcitoItemModel {
+
+    // --- Properties ---
+    // Primary key for the entity
     @Id
     @Column(name = "id")
+    // Generates a unique value for every identity
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
     private Integer id;
+
     private String name;
+
     private Double co2PrKg;
+
     private String category;
+
     private String subcategory;
 
+
+    // --- Constructors ----
     /**
      * Empty constructor
      */
@@ -42,7 +57,7 @@ public class ConcitoItemModel {
         this.subcategory = subcategory;
     }
 
-    // Getters and setters
+    // --- Getters and setters ---
     public Integer getId() {
         return id;
     }

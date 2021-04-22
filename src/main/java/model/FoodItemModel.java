@@ -8,15 +8,21 @@ import java.util.List;
  * The class FoodItemModel implements purchased food items at Madservice Aalborg.
  * A food item is always associated with a food descriptor which holds information about the product.
  * The food item itself holds information about its volume in kg.
+ *
+ * The class is mapped using Hibernate JPA.
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
  */
+
+// Maps the class as an entity to the table 'fooditem' in the database
 @Entity
 @Table(name = "fooditem")
 public class FoodItemModel {
+
+    // --- Properties ---
+    // Primary key for the entity
     @Id
     @Column(name = "id")
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Double volume;
     @ManyToOne(fetch = FetchType.LAZY)

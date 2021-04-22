@@ -6,6 +6,9 @@ import java.util.List;
 
 /**
  * The KitchenModel class implements the different kitchen units at Madservice Aalborg.
+ *
+ * The class is mapped using Hibernate JPA.
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping)
  */
 @Entity
 @Table(name = "kitchen")
