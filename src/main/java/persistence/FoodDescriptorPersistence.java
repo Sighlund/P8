@@ -1,47 +1,47 @@
 package persistence;
 
+import model.CalculationModel;
 import model.ConcitoItemModel;
 import model.FoodDescriptorModel;
 import model.IngredientModel;
 import org.hibernate.Session;
 
+import java.util.List;
+
 public class FoodDescriptorPersistence {
 
 //Work in progress
 
-    public static void create(){
-        //TODO
+    public static void addDescriptor(FoodDescriptorModel descriptor){
         Session session = SetupPersistence.getSession();
-        //ConcitoItemModel concitoItem = create.find(ConcitoItemModel.class,1);
-        //IngredientModel ingredient = new IngredientModel(100.0, concitoItem);
-        //FoodDescriptorModel foodDescriptor = new FoodDescriptorModel("Test");
-        //foodDescriptor.addIngredient(ingredient);
-        //create.save(foodDescriptor);
-        //create.close();
-        FoodDescriptorModel foodDescriptor = new FoodDescriptorModel("Snydt");
-        ConcitoItemModel concitoItem = session.find(ConcitoItemModel.class,1);
-        IngredientModel ingredient = new IngredientModel(100.0, concitoItem);
-        ingredient.setFoodDescriptor(foodDescriptor);
-        foodDescriptor.addIngredient(ingredient);
-        session.save(foodDescriptor);
-        session.close();
-
-
-
+        session.save(descriptor);
+        SetupPersistence.closeSession(session);
     }
 
-    public static void update(){
-        //TODO
+    public static void updateDescriptor(FoodDescriptorModel descriptor){
+        Session session = SetupPersistence.getSession();
+        session.update(descriptor);
+        SetupPersistence.closeSession(session);
     }
 
-    public static void read(){
-        //TODO
+    public static List<FoodDescriptorModel> listDescriptor(){
+        Session session = SetupPersistence.getSession();
+        List<FoodDescriptorModel> list = session.createQuery("SELECT a from FoodDescriptorModel a", FoodDescriptorModel.class).getResultList();
+        SetupPersistence.closeSession(session);
+        return list;
     }
 
-    public static void delete(){
-        //TODO
+    public static FoodDescriptorModel getDescriptorById(Integer id){
+        Session session = SetupPersistence.getSession();
+        FoodDescriptorModel descriptor = session.find(FoodDescriptorModel.class, id);
+        SetupPersistence.closeSession(session);
+        return descriptor;
     }
 
-
-
+    public static void deleteDescriptor(Integer id){
+        Session session = SetupPersistence.getSession();
+        FoodDescriptorModel descriptor = session.find(FoodDescriptorModel.class, id);
+        session.delete(descriptor);
+        SetupPersistence.closeSession(session);
+    }
 }

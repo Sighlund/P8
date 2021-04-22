@@ -43,6 +43,4 @@ public class CalculationPersistence {
         session.delete(calculationModel);
         SetupPersistence.closeSession(session);
     }
-
-
 }

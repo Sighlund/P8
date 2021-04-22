@@ -45,7 +45,7 @@ public class App extends Application {
     public static void main(String[] args) throws Exception{
 
 
-        testModel.constructorTest();
+        //testModel.constructorTest();
         //SetupPersistence.getSf();
         //KitchenPersistence.create();
         //CalculationPersistence.read();
@@ -53,7 +53,6 @@ public class App extends Application {
         //FoodDescriptorPersistence.create();
         //CalculationModel calc = CalculationPersistence.getCalcById(1);
         //KitchenPersistence.listKitchen();
-        ConcitoPersistence.deleteCon(501);
         launch();
 
     }
