@@ -1,8 +1,7 @@
 package model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The KitchenModel class implements the different kitchen units at Madservice Aalborg.
@@ -76,6 +75,8 @@ public class KitchenModel {
      */
     public static List<String> getString(){
         //TODO
+        List<String> list = null;
+        return list;         }
     }
 
 
