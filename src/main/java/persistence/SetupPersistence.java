@@ -2,6 +2,7 @@ package persistence;
 
 //Import needed classes
 import model.*;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

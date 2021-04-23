@@ -4,6 +4,7 @@ import model.CalculationModel;
 import model.ConcitoItemModel;
 import model.FoodDescriptorModel;
 import model.IngredientModel;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -53,6 +54,15 @@ public class FoodDescriptorPersistence {
         //Closing session
         SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
+        return list;
+    }
+
+    public static List<String> listDescriptorName(){
+        //Creating session
+        Session session = SetupPersistence.getSession();
+        //Querying database for all objects' names
+        List<String> list = session.createQuery("select c.name from FoodDescriptorModel c").list();
+        //Return list of objects' names retrieved from the database
         return list;
     }
 
