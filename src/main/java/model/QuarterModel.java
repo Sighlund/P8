@@ -74,6 +74,27 @@ public class QuarterModel {
 
 
     // --- Instance methods ---
+    /**
+     * Method that adds the given calculation to the quarter's list of
+     * associated calculations
+     * @param calc calculation object to be added
+     */
+    public void addCalc(CalculationModel calc) {
+        if (calc != null) {
+            calcList.add(calc);
+        }
+    }
+
+    /**
+     * Method that removes the given calculation from the quarter's list
+     * of associated calculations
+     * @param calc the calcualation to be removed
+     */
+    public void removeCalc(CalculationModel calc) {
+        if (calc != null) {
+            calcList.remove(calc);
+        }
+    }
 
 
 }
