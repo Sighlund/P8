@@ -35,7 +35,9 @@ public class SetupPersistence {
                     .addAnnotatedClass(FoodDescriptorModel.class)
                     .addAnnotatedClass(FoodItemModel.class)
                     .addAnnotatedClass(IngredientModel.class)
-                    .addAnnotatedClass(KitchenModel.class);
+                    .addAnnotatedClass(KitchenModel.class)
+                    .addAnnotatedClass(YearModel.class)
+                    .addAnnotatedClass(QuarterModel.class);
 
             //Creating a Sessionfactory through the StandardRegistryBuilder with the config we created above
             StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
