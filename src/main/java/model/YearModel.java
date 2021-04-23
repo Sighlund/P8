@@ -65,4 +65,25 @@ public class YearModel {
 
     // --- Instance methods ---
 
+    /**
+     * Method that adds given quarter to the year's list of quarters
+     * as long as year only has 4 or less quarters associated
+     * @param quarter the quarter to be added
+     */
+    public void addQuarter(QuarterModel quarter) {
+        if (quarter != null && quarterList.size() < 5) {
+            quarterList.add(quarter);
+        }
+    }
+
+    /**
+     * Method that removes a given quarter from the year's list of quarters
+     * @param quarter the quarter to be removed
+     */
+    public void removeQuarter(QuarterModel quarter) {
+        if (quarter != null) {
+            quarterList.remove(quarter);
+        }
+    }
+
 }
