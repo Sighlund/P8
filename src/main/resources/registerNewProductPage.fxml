@@ -22,7 +22,7 @@
       </TableView>
       <ScrollBar layoutX="554.0" layoutY="143.0" orientation="VERTICAL" prefHeight="116.0" prefWidth="16.0" />
       <TextField layoutX="37.0" layoutY="42.0" prefHeight="26.0" prefWidth="337.0" promptText="Giv varen et navn..." style="-fx-background-color: white;" />
-      <Button layoutX="541.0" layoutY="50.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="108.0" style="-fx-background-color: limegreen;" text="Tilføj ingrediens" textAlignment="CENTER" />
+      <Button layoutX="536.0" layoutY="71.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="108.0" style="-fx-background-color: limegreen;" text="Tilføj ingrediens" textAlignment="CENTER" />
       <Button layoutX="590.0" layoutY="175.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Gem varen i database" textAlignment="CENTER" AnchorPane.rightAnchor="38.0" />
       <TextField layoutX="381.0" layoutY="42.0" prefHeight="26.0" prefWidth="150.0" promptText="Giv varen et navn..." style="-fx-background-color: white;" />
       <TextField layoutX="381.0" layoutY="76.0" prefHeight="26.0" prefWidth="150.0" promptText="\%-indhold i varen..." style="-fx-background-color: white;" />

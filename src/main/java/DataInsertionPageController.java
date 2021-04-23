@@ -14,13 +14,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
+import model.KitchenModel;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
+import persistence.KitchenPersistence;
 
 public class DataInsertionPageController implements Initializable {
 
@@ -28,7 +27,7 @@ public class DataInsertionPageController implements Initializable {
     Button that adds the chosen product to the list of items that the system must calculate.
     The button may not add item to the list before a chosen product and a weight has been provided.
      */
-    public void addProductToList(ActionEvent e){
+    public void addProductToList(){
         System.out.println("this button must add product to list");
         //Todo;
     }
@@ -36,11 +35,13 @@ public class DataInsertionPageController implements Initializable {
     //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
     @FXML
     private TextField autoCompleteTextField;
+
     private AutoCompletionBinding<String> autoCompleteTextFieldBindingString;
     private String[] _listOfSuggestionsForAutoCompleteTextField = {"Gamer","Gaamer","GAMER","gamer","stor Gamer","Gaaaaamer","","Gamerrrr"};
     private Set<String> listOfSuggestionsForAutoCompleteTextField = new HashSet<>(Arrays.asList(_listOfSuggestionsForAutoCompleteTextField));
 
-
+    @FXML
+    private TextField volumeKiloTextField;
 
     //Injecting related .fxml, in order to identify components in the .fxml by their ID.
     //In this case, 'choiceboxChooseKitchen' is the chosen ID of a ChoiceBox in the dataInsertionPage.fxml
@@ -54,9 +55,15 @@ public class DataInsertionPageController implements Initializable {
     //Creating arrays of Strings that will contain the 'options' for each ChoiceBox.
     //The suggestions needs to be dynamically created based on the related objects
     //TODO
-    private String[] kitchenChoiceboxOptions = {"et", "to", "tre"};
+
+
+
+    //private KitchenModel kitchenChoiceboxOptions = new KitchenModel("Gug", 1);
     private String[] yearChoiceboxOptions = {"one", "two", "three"};
     private String[] quarterChoiceboxOptions = {"1", "2", "3"};
+    private String[] kitchenChoiceboxOptions = {"1", "2", "3"};
+
+    //KitchenPersistence.ListKitchens()
 
     //This method initializes a controller after its root element has already been processed.
     //I think this means that this method is needed to 'update' the choiceboxes with options,
@@ -64,9 +71,10 @@ public class DataInsertionPageController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         //Each ChoiceBox is filled with the created options.
-        choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions);
+        //choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions.getName);
         choiceboxChooseYear.getItems().addAll(yearChoiceboxOptions);
         choiceboxChooseQuarter.getItems().addAll(quarterChoiceboxOptions);
+        choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions);
 
         //The autoCompleteTextField is filled with possible suggestions.
         //The list of suggestions needs to be dynam based on the current input.
@@ -86,8 +94,19 @@ public class DataInsertionPageController implements Initializable {
         System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
     }
 
+    //This method can be used to get the input value of the volume text field.
+    public void getSelectedValueOfVolumeKiloTextField(){
+        //make if statement, that if the input contains anything else than numbers,
+        //give an error and don't allow method to continue.
+        double valueOfVolumeInput = Double.parseDouble(volumeKiloTextField.getText());
+        System.out.println(valueOfVolumeInput);
+    }
 
-
+    //Methods being called when clicking the 'Tilføj vare' button in the system
+    public void addProductToListMethodCalls(ActionEvent e){
+        addProductToList();
+        getSelectedValueOfVolumeKiloTextField();
+    }
 
 
 

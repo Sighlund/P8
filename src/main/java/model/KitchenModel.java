@@ -30,6 +30,12 @@ public class KitchenModel {
 
     //TODO - constructor overloading mangler
 
+
+    public KitchenModel(String name, Integer id) {
+        this.name = name;
+        this.id = id;
+    }
+
     // Getters and setters
     public Integer getId() {
         return id;
