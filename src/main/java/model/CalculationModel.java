@@ -9,27 +9,43 @@ import java.util.List;
  * The CalculationModel class implements the model layer of Calculation.
  * A CaluclationModel object represents a collection of purchased food items.
  * The volume and total CO2 can be calculated from the Calculation object.
+ *
+ * The class is mapped using Hibernate JPA.
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping
  */
+
+// Maps the class as an entity to the table 'calculation' in the database
 @Entity
 @Table(name = "calculation")
 public class CalculationModel {
+
+    // --- Properties ---
+    // Primary key for the entity
     @Id
     @Column(name = "id")
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    // Generates a unique value for every identity
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private LocalDate dateFrom;
+
     private LocalDate dateTo;
-    @OneToMany
+
+    // Maps a one-to-many relation between calculation and foodItem using 'calculationId' as foreign key
+    // Cascades all Hibernate actions from the calculation entity to its related foodItems
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "calculationId", referencedColumnName = "id")
     private List<FoodItemModel> foodItemList = new ArrayList<>();
+
+    // Maps a many-to-one relation between calculation and kitchen using 'kitchenId' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchenId", referencedColumnName = "id")
     private KitchenModel kitchen;
 
-    // Year, quarter, month er ikke en del af calculation endnu
+    //TODO - Tilføj year, quarter
 
+
+    // --- Constructors ----
     /**
      * Constructs a calculation with an empty list of food items
       */
@@ -51,7 +67,16 @@ public class CalculationModel {
         this.kitchen = kitchen;
     }
 
-    // Getter and setters
+    /**
+     * Constructs a calculation with the given associated kitchen
+     * @param kitchen the associated kitchen
+     */
+    public CalculationModel(KitchenModel kitchen){
+        this.kitchen = kitchen;
+    }
+
+
+    // --- Getters and setters ---
     public Integer getId() {
         return id;
     }
@@ -92,6 +117,7 @@ public class CalculationModel {
         this.kitchen = kitchen;
     }
 
+    // --- Instance methods ---
     /**
      * Method that calculates total CO2 by adding co2 values for all associated food items
      * If no food items are added yet, 0.0 is returned
@@ -158,6 +184,5 @@ public class CalculationModel {
     public double calcAveCO2prKg() {
         return (calcTotalCo2() / calcTotalKg());
     }
-
 
 }

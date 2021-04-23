@@ -1,9 +1,6 @@
 import javafx.scene.image.Image;
-import model.TestModel;
-import persistence.CalculationPersistence;
-import persistence.ConcitoPersistence;
-import persistence.KitchenPersistence;
-import persistence.SetupPersistence;
+import model.*;
+import persistence.*;
 
 // Søren har skrevet noget fed kode
 
@@ -46,11 +43,37 @@ public class App extends Application {
     public static void main(String[] args) throws Exception{
 
 
-        testModel.constructorTest();
-        SetupPersistence.getSf();
+        //testModel.constructorTest();
+        //SetupPersistence.getSf();
         //KitchenPersistence.create();
-        CalculationPersistence.read();
+        //CalculationPersistence.read();
         //ConcitoPersistence.create();
+        //FoodDescriptorPersistence.create();
+        //CalculationModel calc = CalculationPersistence.getCalcById(1);
+        //KitchenPersistence.listKitchen();
+
+//        FoodDescriptorModel foodDescriptorModel = FoodDescriptorPersistence.getDescriptorById(1);
+//        FoodItemModel foodItemModel = new FoodItemModel(25.0, foodDescriptorModel);
+//        KitchenModel kitchenModel = KitchenPersistence.getKitchenById(1);
+//        CalculationModel calculationModel = new CalculationModel(kitchenModel);
+//        calculationModel.addFoodItem(foodItemModel);
+//        CalculationPersistence.addCalc(calculationModel);
+
+//        ConcitoItemModel concitoItem = ConcitoPersistence.getConById(1);
+//        IngredientModel ingredient = new IngredientModel(100.0,concitoItem);
+//        FoodDescriptorModel foodDescriptor = new FoodDescriptorModel("Oksedreng");
+//        foodDescriptor.addIngredient(ingredient);
+//        FoodDescriptorPersistence.addDescriptor(foodDescriptor);
+
+        //FoodDescriptorPersistence.deleteDescriptor(575);
+
+        FoodDescriptorPersistence.deleteDescriptor(572);
+
+        //FoodDescriptorModel test = FoodDescriptorPersistence.getDescriptorById(574);
+
+        //System.out.println(test.getIngredientList().get(0).getFoodDescriptor().toString());
+
+
         launch();
 
     }
