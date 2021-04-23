@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 // Maps the class as an entity to the table 'year' in the database
@@ -18,7 +19,12 @@ public class YearModel {
 
     private Integer year;
 
-    private List<QuarterModel> quarterList;
+    // Maps a one-to-many relation between year and quarter using 'yearId' as foreign key
+    // Cascades all Hibernate actions from the year entity to its related quarters
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "yearId", referencedColumnName = "id")
+    private List<QuarterModel> quarterList = new ArrayList<>(); //TODO: er new Arraylist nødvendigt her?
+
 
 
     // --- Constructors ----

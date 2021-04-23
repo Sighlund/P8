@@ -1,14 +1,13 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Maps the class as an entity to the table 'quarter' in the database
+@Entity
+@Table(name = "quarter")
 public class QuarterModel {
-
 
     // --- Properties ---
     // Primary key for the entity
@@ -20,9 +19,16 @@ public class QuarterModel {
 
     private Integer quarter;
 
+    // Maps a many-to-one relation between quarter and year using 'yearId' as foreign key
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "yearId", referencedColumnName = "id")
     private YearModel year;
 
-    private List<CalculationModel> calcList = new ArrayList<>();
+    // Maps a one-to-many relation between quarter and calculation using 'quarterId' as foreign key
+    // Cascades all Hibernate actions from the quarter entity to its related calculations
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "quarterId", referencedColumnName = "id")
+    private List<CalculationModel> calcList = new ArrayList<>(); //TODO: er new arraylist nødvendigt her?
 
 
     // --- Constructors ----
