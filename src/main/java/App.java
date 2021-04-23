@@ -67,7 +67,7 @@ public class App extends Application {
 
         //FoodDescriptorPersistence.deleteDescriptor(575);
 
-        FoodDescriptorPersistence.deleteDescriptor(572);
+        //FoodDescriptorPersistence.deleteDescriptor(569);
 
         //FoodDescriptorModel test = FoodDescriptorPersistence.getDescriptorById(574);
 

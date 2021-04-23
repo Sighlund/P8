@@ -19,7 +19,9 @@ import java.util.*;
 import model.KitchenModel;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
+import persistence.FoodDescriptorPersistence;
 import persistence.KitchenPersistence;
+import persistence.SetupPersistence;
 
 public class DataInsertionPageController implements Initializable {
 
@@ -78,8 +80,9 @@ public class DataInsertionPageController implements Initializable {
 
         //The autoCompleteTextField is filled with possible suggestions.
         //The list of suggestions needs to be dynam based on the current input.
+        //
         //TODO
-        TextFields.bindAutoCompletion(autoCompleteTextField, "Gamer", "Gaamer", "GAMER", "gamer", "stor Gamer", "Gaaaaamer", "Gamerrrr");
+        TextFields.bindAutoCompletion(autoCompleteTextField, getFoodDescriptorNames());
     }
 
     //This method prints the selected values of the choiceboxes as a concatenated String.
@@ -93,6 +96,16 @@ public class DataInsertionPageController implements Initializable {
                 + choiceboxChooseQuarter.getValue()};
         System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
     }
+
+    public List<String> getFoodDescriptorNames(){
+//        ArrayList<String> list = new ArrayList<String>();
+//        for (int i = 0; i < FoodDescriptorPersistence.listDescriptor().size(); i++) {
+//            list.add(FoodDescriptorPersistence.listDescriptor().get(i).getName());
+//        }
+        List<String> list = FoodDescriptorPersistence.listDescriptorName();
+        return list;
+    }
+
 
     //This method can be used to get the input value of the volume text field.
     public void getSelectedValueOfVolumeKiloTextField(){
