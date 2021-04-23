@@ -42,7 +42,7 @@
           <MenuItem fx:id="BarChartMenu" mnemonicParsing="false" onAction="#handleShowBarChart" text="BarChart" />
         </items>
       </MenuButton>
-      <BarChart fx:id="MyBarChart" layoutX="24.0" layoutY="56.0">
+      <BarChart fx:id="MyBarChart" layoutX="85.0" layoutY="89.0" prefHeight="367.0" prefWidth="439.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>

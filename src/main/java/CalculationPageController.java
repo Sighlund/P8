@@ -26,11 +26,6 @@ public class CalculationPageController implements Initializable {
     String CategoryC = "Fisk";
     int VolumeC = 15;
 
-    //Declares charts, labels and variables
-    //First for Pie Chart
-    @FXML
-    PieChart MyPieChart;
-
     //Labels (visual text that shows Co2e). Should be replaced with real data
     @FXML
     private Label CO2TotLabel;
@@ -39,6 +34,33 @@ public class CalculationPageController implements Initializable {
 
     String CO2Tot = "22";
     String CO2PrKg = "10";
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //calls methods to build charts
+        buildPieChart();
+        buildBarChart();
+
+        //set value for labels
+        this.CO2TotLabel.setText(CO2Tot);
+        this.CO2PrKgLabel.setText(CO2PrKg);
+    }
+
+    //Pie chart
+    @FXML
+    PieChart MyPieChart;
+
+    public void buildPieChart(){
+        //Builds pieChart and stores data
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data(CategoryA, VolumeA),
+                        new PieChart.Data(CategoryB, VolumeB),
+                        new PieChart.Data(CategoryC, VolumeC));
+        MyPieChart.setData(pieChartData);
+    }
 
     //Bar Chart
     @FXML
@@ -50,17 +72,7 @@ public class CalculationPageController implements Initializable {
     @FXML
     private NumberAxis yAxis;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        //Builds pieChart and stores data
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data(CategoryA, VolumeA),
-                        new PieChart.Data(CategoryB, VolumeB),
-                        new PieChart.Data(CategoryC, VolumeC));
-        MyPieChart.setData(pieChartData);
-
+    public void buildBarChart(){
         //Builds bar chart and stores data
         // Creates the x axis
         CategoryAxis xAxis = new CategoryAxis();
@@ -77,17 +89,14 @@ public class CalculationPageController implements Initializable {
         data.setName("Co2 Kategorier");
 
         //provide data
-        data.getData().add(new XYChart.Data("Category A", 3000));
-        data.getData().add(new XYChart.Data("Category B", 1500));
-        data.getData().add(new XYChart.Data("Category C", 100));
+        data.getData().add(new XYChart.Data("Category A", VolumeA));
+        data.getData().add(new XYChart.Data("Category B", VolumeB));
+        data.getData().add(new XYChart.Data("Category C", VolumeC));
 
         MyBarChart.getData().add(data);
 
         //visibility is set false as piechart is shown as default
         MyBarChart.setVisible(false);
-
-        this.CO2TotLabel.setText(CO2Tot);
-        this.CO2PrKgLabel.setText(CO2PrKg);
     }
 
     //function that shows barchart when selected in menu
@@ -100,6 +109,15 @@ public class CalculationPageController implements Initializable {
     public void handleShowPieChart(){
         MyPieChart.setVisible(true);
         MyBarChart.setVisible(false);
+    }
+
+    public void updateData(String categoryA, int volumeA, String categoryB, int volumeB, String categoryC, int volumeC){
+        CategoryA = categoryA;
+        VolumeA = volumeA;
+        CategoryB = categoryB;
+        VolumeB = volumeB;
+        CategoryC = categoryC;
+        VolumeC = volumeC;
     }
 
     //functions that switch scenes. connected to buttons
