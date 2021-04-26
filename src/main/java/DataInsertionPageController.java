@@ -21,11 +21,10 @@ import java.util.*;
 import javafx.util.StringConverter;
 import model.KitchenModel;
 import model.QuarterModel;
+import model.YearModel;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
-import persistence.FoodDescriptorPersistence;
-import persistence.KitchenPersistence;
-import persistence.SetupPersistence;
+import persistence.*;
 
 public class DataInsertionPageController implements Initializable {
 
@@ -54,9 +53,9 @@ public class DataInsertionPageController implements Initializable {
     @FXML
     private ChoiceBox<KitchenModel> choiceboxChooseKitchen;
     @FXML
-    private ChoiceBox<String> choiceboxChooseYear;
+    private ChoiceBox<YearModel> choiceboxChooseYear;
     @FXML
-    private ChoiceBox<String> choiceboxChooseQuarter;
+    private ChoiceBox<QuarterModel> choiceboxChooseQuarter;
 
     //Creating arrays of Strings that will contain the 'options' for each ChoiceBox.
     //The suggestions needs to be dynamically created based on the related objects
@@ -65,18 +64,14 @@ public class DataInsertionPageController implements Initializable {
 
 
     //private KitchenModel kitchenChoiceboxOptions = new KitchenModel("Gug", 1);
-    private String[] yearChoiceboxOptions = {"one", "two", "three"};
-    private String[] quarterChoiceboxOptions = {"1", "2", "3"};
+    //private String[] yearChoiceboxOptions = {"one", "two", "three"};
+    //private String[] quarterChoiceboxOptions = {"1", "2", "3"};
     //private String[] kitchenChoiceboxOptions = {"1", "2", "3"};
 
     //KitchenPersistence.ListKitchens()
-    public static KitchenModel getKitchen(){
-        KitchenModel kitchenModel = new KitchenModel();
-        kitchenModel.setName("test");
-        return kitchenModel;
-    }
-
     static ObservableList<KitchenModel> kitchens = FXCollections.observableArrayList(KitchenPersistence.listKitchen());
+    static ObservableList<YearModel> years = FXCollections.observableArrayList(YearPersistence.listYear());
+    ObservableList<QuarterModel> quarters = FXCollections.observableArrayList(QuarterPersistence.listQuarter());
 
     //This method initializes a controller after its root element has already been processed.
     //I think this means that this method is needed to 'update' the choiceboxes with options,
@@ -86,12 +81,40 @@ public class DataInsertionPageController implements Initializable {
         //Each ChoiceBox is filled with the created options.
         //choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions.getName);
 
+        if(quarters != null) {
+            choiceboxChooseQuarter.setItems(quarters);
+        }
+        choiceboxChooseQuarter.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(QuarterModel quarter) {
+                if(quarter != null){
+                    return quarter.getQuarter().toString();
+                }
+                return "";
+            }
 
+            @Override
+            public QuarterModel fromString(String s) {
+                return null;
+            }
+        });
+        choiceboxChooseYear.setItems(years);
+        choiceboxChooseYear.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(YearModel year){
+                if(year != null) {
+                    return year.getYear().toString();
+                }
+                return "";
+            }
 
-        choiceboxChooseYear.getItems().addAll(yearChoiceboxOptions);
-        choiceboxChooseQuarter.getItems().addAll(quarterChoiceboxOptions);
+            @Override
+            public YearModel fromString(String s) {
+                return null;
+            }
+        });
         choiceboxChooseKitchen.setItems(kitchens);
-        choiceboxChooseKitchen.setConverter(new StringConverter<KitchenModel>() {
+        choiceboxChooseKitchen.setConverter(new StringConverter<>() {
             @Override
             public String toString(KitchenModel kitchen) {
                 if(kitchen != null) {
@@ -119,8 +142,8 @@ public class DataInsertionPageController implements Initializable {
     //TODO
     public void getSelectedValuesOfChoiceBoxes(){
         String[] selectedValueOfChoiceBoxes =
-                {choiceboxChooseKitchen.getValue()
-                + choiceboxChooseYear.getValue()
+                {choiceboxChooseKitchen.getSelectionModel().toString()
+                        + choiceboxChooseYear.getSelectionModel().getSelectedItem().getQuarterList()
                 + choiceboxChooseQuarter.getValue()};
         System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
     }

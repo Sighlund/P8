@@ -7,6 +7,7 @@ persistence\ConcitoPersistence.class
 model\CalculationModel.class
 persistence\IngredientPersistence.class
 HistoryController$1.class
+DataInsertionPageController$3.class
 persistence\TestPersistence.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
@@ -25,5 +26,6 @@ HistoryController.class
 persistence\FoodDescriptorPersistence.class
 model\ConcitoItemModel.class
 persistence\QuarterPersistence.class
+DataInsertionPageController$2.class
 CalculationPageController.class
 model\TestModel.class
