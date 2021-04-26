@@ -6,6 +6,7 @@ persistence\ConcitoPersistence.class
 model\CalculationModel.class
 persistence\IngredientPersistence.class
 HistoryController$1.class
+ViewListItemDataInsertionPage.class
 persistence\TestPersistence.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
