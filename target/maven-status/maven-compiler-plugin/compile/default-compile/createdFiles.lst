@@ -7,8 +7,6 @@ persistence\ConcitoPersistence.class
 model\CalculationModel.class
 persistence\IngredientPersistence.class
 HistoryController$1.class
-DataInsertionPageController$3.class
-persistence\TestPersistence.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
 model\QuarterModel.class

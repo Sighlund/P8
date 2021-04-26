@@ -55,7 +55,7 @@ public class DataInsertionPageController implements Initializable {
     @FXML
     private ChoiceBox<YearModel> choiceboxChooseYear;
     @FXML
-    private ChoiceBox<QuarterModel> choiceboxChooseQuarter;
+    private ChoiceBox<Integer> choiceboxChooseQuarter;
 
     //Creating arrays of Strings that will contain the 'options' for each ChoiceBox.
     //The suggestions needs to be dynamically created based on the related objects
@@ -71,7 +71,7 @@ public class DataInsertionPageController implements Initializable {
     //KitchenPersistence.ListKitchens()
     static ObservableList<KitchenModel> kitchens = FXCollections.observableArrayList(KitchenPersistence.listKitchen());
     static ObservableList<YearModel> years = FXCollections.observableArrayList(YearPersistence.listYear());
-    ObservableList<QuarterModel> quarters = FXCollections.observableArrayList(QuarterPersistence.listQuarter());
+    ObservableList<Integer> quarters = FXCollections.observableArrayList(QuarterPersistence.listQuarter());
 
     //This method initializes a controller after its root element has already been processed.
     //I think this means that this method is needed to 'update' the choiceboxes with options,
@@ -80,24 +80,8 @@ public class DataInsertionPageController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         //Each ChoiceBox is filled with the created options.
         //choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions.getName);
+        choiceboxChooseQuarter.setItems(quarters);
 
-        if(quarters != null) {
-            choiceboxChooseQuarter.setItems(quarters);
-        }
-        choiceboxChooseQuarter.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(QuarterModel quarter) {
-                if(quarter != null){
-                    return quarter.getQuarter().toString();
-                }
-                return "";
-            }
-
-            @Override
-            public QuarterModel fromString(String s) {
-                return null;
-            }
-        });
         choiceboxChooseYear.setItems(years);
         choiceboxChooseYear.setConverter(new StringConverter<>() {
             @Override
