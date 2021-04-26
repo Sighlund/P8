@@ -127,7 +127,7 @@ public class DataInsertionPageController implements Initializable {
     public void getSelectedValuesOfChoiceBoxes(){
         String[] selectedValueOfChoiceBoxes =
                 {choiceboxChooseKitchen.getSelectionModel().toString()
-                        + choiceboxChooseYear.getSelectionModel().getSelectedItem().getQuarterList()
+                        + choiceboxChooseYear.getSelectionModel().getSelectedItem().getClass()
                 + choiceboxChooseQuarter.getValue()};
         System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
     }
