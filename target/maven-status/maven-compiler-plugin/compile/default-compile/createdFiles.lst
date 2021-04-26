@@ -2,6 +2,7 @@ ControllerTest.class
 DataInsertionPageController.class
 persistence\KitchenPersistence.class
 App.class
+DataInsertionPageController$1.class
 persistence\ConcitoPersistence.class
 model\CalculationModel.class
 persistence\IngredientPersistence.class

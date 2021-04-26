@@ -1,5 +1,7 @@
 //This jar needs to be put in libs https://nexus.gluonhq.com/nexus/content/repositories/releases/com/gluonhq/charm-glisten/6.0.6/
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +18,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+import javafx.util.StringConverter;
 import model.KitchenModel;
+import model.QuarterModel;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.FoodDescriptorPersistence;
@@ -48,7 +52,7 @@ public class DataInsertionPageController implements Initializable {
     //Injecting related .fxml, in order to identify components in the .fxml by their ID.
     //In this case, 'choiceboxChooseKitchen' is the chosen ID of a ChoiceBox in the dataInsertionPage.fxml
     @FXML
-    private ChoiceBox<String> choiceboxChooseKitchen;
+    private ChoiceBox<KitchenModel> choiceboxChooseKitchen;
     @FXML
     private ChoiceBox<String> choiceboxChooseYear;
     @FXML
@@ -63,9 +67,16 @@ public class DataInsertionPageController implements Initializable {
     //private KitchenModel kitchenChoiceboxOptions = new KitchenModel("Gug", 1);
     private String[] yearChoiceboxOptions = {"one", "two", "three"};
     private String[] quarterChoiceboxOptions = {"1", "2", "3"};
-    private String[] kitchenChoiceboxOptions = {"1", "2", "3"};
+    //private String[] kitchenChoiceboxOptions = {"1", "2", "3"};
 
     //KitchenPersistence.ListKitchens()
+    public static KitchenModel getKitchen(){
+        KitchenModel kitchenModel = new KitchenModel();
+        kitchenModel.setName("test");
+        return kitchenModel;
+    }
+
+    static ObservableList<KitchenModel> kitchens = FXCollections.observableArrayList(KitchenPersistence.listKitchen());
 
     //This method initializes a controller after its root element has already been processed.
     //I think this means that this method is needed to 'update' the choiceboxes with options,
@@ -74,9 +85,26 @@ public class DataInsertionPageController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         //Each ChoiceBox is filled with the created options.
         //choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions.getName);
+
+
+
         choiceboxChooseYear.getItems().addAll(yearChoiceboxOptions);
         choiceboxChooseQuarter.getItems().addAll(quarterChoiceboxOptions);
-        choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions);
+        choiceboxChooseKitchen.setItems(kitchens);
+        choiceboxChooseKitchen.setConverter(new StringConverter<KitchenModel>() {
+            @Override
+            public String toString(KitchenModel kitchen) {
+                if(kitchen != null) {
+                    return kitchen.getName();
+                }
+                return "";
+            }
+
+            @Override
+            public KitchenModel fromString(String s) {
+                return null;
+            }
+        });
 
         //The autoCompleteTextField is filled with possible suggestions.
         //The list of suggestions needs to be dynam based on the current input.
