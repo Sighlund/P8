@@ -61,7 +61,11 @@ public class FoodDescriptorPersistence {
         return list;
     }
 
-
+//    public static List<FoodDescriptorModel> listTest(){
+//        Session session = SetupPersistence.getSession();
+//        List<FoodDescriptorModel> list = session.createQuery("select c.name from FoodDescriptorModel c",FoodDescriptorModel.class).getResultList();
+//        return list;
+//    }
 
     /**
      * Method for finding a foodDescriptor object by ID
