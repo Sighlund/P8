@@ -73,6 +73,13 @@ public class App extends Application {
 
         //System.out.println(test.getIngredientList().get(0).getFoodDescriptor().toString());
 
+//        YearModel yearModel = new YearModel();
+//        yearModel.setYear(2021);
+//        QuarterModel quarterModel = new QuarterModel();
+//        quarterModel.setQuarter(1);
+//        yearModel.addQuarter(quarterModel);
+//        YearPersistence.addYear(yearModel);
+
 
         launch();
 

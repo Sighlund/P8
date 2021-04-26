@@ -18,9 +18,11 @@ model\YearModel.class
 persistence\CalculationPersistence.class
 model\FoodItemModel.class
 HistoryController$2.class
+persistence\YearPersistence.class
 model\IngredientModel.class
 HistoryController.class
 persistence\FoodDescriptorPersistence.class
 model\ConcitoItemModel.class
+persistence\QuarterPersistence.class
 CalculationPageController.class
 model\TestModel.class
