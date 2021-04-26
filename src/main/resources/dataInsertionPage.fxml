@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,18 +12,17 @@
    <children>
       <Button layoutX="27.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFrontMenuPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0" />
       <Button layoutX="94.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFrontMenuPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0" />
-      <TableView layoutX="174.0" layoutY="162.0" prefHeight="720.0" prefWidth="786.0">
+      <TableView fx:id="insertionPageTableView" layoutX="174.0" layoutY="162.0" prefHeight="720.0" prefWidth="801.0">
         <columns>
-          <TableColumn prefWidth="256.0" text="Varenavn" />
-          <TableColumn prefWidth="124.0" text="Primærgruppe" />
-            <TableColumn prefWidth="120.0" text="Sekundærgruppe" />
-            <TableColumn prefWidth="85.0" text="Vægt Kg" />
-            <TableColumn prefWidth="85.0" text="CO2/Kg" />
-            <TableColumn prefWidth="83.0" text="Total CO2" />
-            <TableColumn prefWidth="31.0" text="X" />
+          <TableColumn fx:id="productNameColumn" prefWidth="256.0" text="Varenavn" />
+          <TableColumn fx:id="primaryGroupColumn" prefWidth="124.0" text="Primærgruppe" />
+            <TableColumn fx:id="secondaryGroupColumn" prefWidth="120.0" text="Sekundærgruppe" />
+            <TableColumn fx:id="volumeOfProductColumn" prefWidth="85.0" text="Vægt Kg" />
+            <TableColumn fx:id="co2prkiloValueColumn" prefWidth="85.0" text="CO2/Kg" />
+            <TableColumn fx:id="totalCo2ForItemColumn" prefWidth="83.0" text="Total CO2" />
+            <TableColumn prefWidth="33.0" text="X" />
         </columns>
       </TableView>
-      <ScrollBar layoutX="960.0" layoutY="202.0" orientation="VERTICAL" prefHeight="680.0" prefWidth="16.0" />
       <ChoiceBox id="choiceBoxQuarter" fx:id="choiceboxChooseQuarter" layoutX="826.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" />
       <ChoiceBox id="choiceBoxYear" fx:id="choiceboxChooseYear" layoutX="667.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" />
       <ChoiceBox id="choiceBoxKitchen" fx:id="choiceboxChooseKitchen" layoutX="174.0" layoutY="95.0" prefHeight="26.0" prefWidth="477.0" />

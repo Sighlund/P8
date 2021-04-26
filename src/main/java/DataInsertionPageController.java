@@ -1,5 +1,7 @@
 //This jar needs to be put in libs https://nexus.gluonhq.com/nexus/content/repositories/releases/com/gluonhq/charm-glisten/6.0.6/
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +10,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,6 +30,19 @@ import persistence.SetupPersistence;
 
 public class DataInsertionPageController implements Initializable {
 
+    //Configuring tableView table:
+    @FXML private TableView<ViewListItemDataInsertionPage> insertionPageTableView;
+    //Creating each column, telling which parent and input datatype it has.
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> productNameColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> primaryGroupColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> secondaryGroupColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, Double> volumeOfProductColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, Double> co2prkiloValueColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, Double> totalCo2ForItemColumn;
+
+
+
+
     /*
     Button that adds the chosen product to the list of items that the system must calculate.
     The button may not add item to the list before a chosen product and a weight has been provided.
@@ -32,27 +50,29 @@ public class DataInsertionPageController implements Initializable {
     public void addProductToList(){
         System.out.println("this button must add product to list");
         //Todo;
+        String productNameString = autoCompleteTextField.getText();
+        Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
+        ViewListItemDataInsertionPage newItemForList = new ViewListItemDataInsertionPage(productNameString,
+                                                                                         volumeWeightInput); //ADD THE REST OF VALUES AS WELL //TODO
+        //We get all items from the table as a list, and we add the new item to the list
+        insertionPageTableView.getItems().add(newItemForList);
+
     }
 
     //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
-    @FXML
-    private TextField autoCompleteTextField;
+    @FXML private TextField autoCompleteTextField;
 
-    private AutoCompletionBinding<String> autoCompleteTextFieldBindingString;
-    private String[] _listOfSuggestionsForAutoCompleteTextField = {"Gamer","Gaamer","GAMER","gamer","stor Gamer","Gaaaaamer","","Gamerrrr"};
-    private Set<String> listOfSuggestionsForAutoCompleteTextField = new HashSet<>(Arrays.asList(_listOfSuggestionsForAutoCompleteTextField));
+    //private AutoCompletionBinding<String> autoCompleteTextFieldBindingString;
+    //private String[] _listOfSuggestionsForAutoCompleteTextField = {"Gamer","Gaamer","GAMER","gamer","stor Gamer","Gaaaaamer","","Gamerrrr"};
+    //private Set<String> listOfSuggestionsForAutoCompleteTextField = new HashSet<>(Arrays.asList(_listOfSuggestionsForAutoCompleteTextField));
 
-    @FXML
-    private TextField volumeKiloTextField;
+    @FXML private TextField volumeKiloTextField;
 
     //Injecting related .fxml, in order to identify components in the .fxml by their ID.
     //In this case, 'choiceboxChooseKitchen' is the chosen ID of a ChoiceBox in the dataInsertionPage.fxml
-    @FXML
-    private ChoiceBox<String> choiceboxChooseKitchen;
-    @FXML
-    private ChoiceBox<String> choiceboxChooseYear;
-    @FXML
-    private ChoiceBox<String> choiceboxChooseQuarter;
+    @FXML private ChoiceBox<String> choiceboxChooseKitchen;
+    @FXML private ChoiceBox<String> choiceboxChooseYear;
+    @FXML private ChoiceBox<String> choiceboxChooseQuarter;
 
     //Creating arrays of Strings that will contain the 'options' for each ChoiceBox.
     //The suggestions needs to be dynamically created based on the related objects
@@ -80,10 +100,34 @@ public class DataInsertionPageController implements Initializable {
 
         //The autoCompleteTextField is filled with possible suggestions.
         //The list of suggestions needs to be dynam based on the current input.
-        //
-        //TODO
         TextFields.bindAutoCompletion(autoCompleteTextField, getFoodDescriptorNames());
+
+
+        //TableView stuff goes here
+        //TODO
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
+        //primaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
+        //secondaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
+        volumeOfProductColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));  //Does this have to be 'String'?
+        //co2prkiloValueColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("co2prkiloValue"));   //Does this have to be 'String'?
+        //totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("totalCo2ForItem"));  //Does this have to be 'String'?
+
+        insertionPageTableView.setItems(getItemsForList());
+
     }
+
+        public ObservableList<ViewListItemDataInsertionPage> getItemsForList(){
+            ObservableList<ViewListItemDataInsertionPage> itemList = FXCollections.observableArrayList();
+            itemList.add(new ViewListItemDataInsertionPage("Minecraftgamer", 35.0));
+            itemList.add(new ViewListItemDataInsertionPage("FortniteGamer", 45.0));
+            itemList.add(new ViewListItemDataInsertionPage("CSGOGamer", 65.0));
+            itemList.add(new ViewListItemDataInsertionPage("WoWGamer", 150.0));
+
+            return itemList;
+
+        }
+
+
 
     //This method prints the selected values of the choiceboxes as a concatenated String.
     //This method shoulod be updated, so that it can be called to find the selected choices,
