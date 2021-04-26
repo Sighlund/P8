@@ -1,6 +1,5 @@
 package persistence;
 
-import model.FoodDescriptorModel;
 import model.FoodItemModel;
 import org.hibernate.Session;
 

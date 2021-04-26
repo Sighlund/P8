@@ -1,7 +1,6 @@
 package model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * The IngredientModel class implements ingredients based on elements from 'Den Store Klimadatabase' represented by

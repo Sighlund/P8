@@ -25,4 +25,3 @@ model\ConcitoItemModel.class
 persistence\QuarterPersistence.class
 DataInsertionPageController$2.class
 CalculationPageController.class
-model\TestModel.class

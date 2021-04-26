@@ -1,6 +1,4 @@
 import javafx.scene.image.Image;
-import model.*;
-import persistence.*;
 
 // Søren har skrevet noget fed kode
 
@@ -39,47 +37,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws Exception{
-
-
-        //testModel.constructorTest();
-        //SetupPersistence.getSf();
-        //KitchenPersistence.create();
-        //CalculationPersistence.read();
-        //ConcitoPersistence.create();
-        //FoodDescriptorPersistence.create();
-        //CalculationModel calc = CalculationPersistence.getCalcById(1);
-        //KitchenPersistence.listKitchen();
-
-//        FoodDescriptorModel foodDescriptorModel = FoodDescriptorPersistence.getDescriptorById(1);
-//        FoodItemModel foodItemModel = new FoodItemModel(25.0, foodDescriptorModel);
-//        KitchenModel kitchenModel = KitchenPersistence.getKitchenById(1);
-//        CalculationModel calculationModel = new CalculationModel(kitchenModel);
-//        calculationModel.addFoodItem(foodItemModel);
-//        CalculationPersistence.addCalc(calculationModel);
-
-//        ConcitoItemModel concitoItem = ConcitoPersistence.getConById(1);
-//        IngredientModel ingredient = new IngredientModel(100.0,concitoItem);
-//        FoodDescriptorModel foodDescriptor = new FoodDescriptorModel("Oksedreng");
-//        foodDescriptor.addIngredient(ingredient);
-//        FoodDescriptorPersistence.addDescriptor(foodDescriptor);
-
-        //FoodDescriptorPersistence.deleteDescriptor(575);
-
-        //FoodDescriptorPersistence.deleteDescriptor(569);
-
-        //FoodDescriptorModel test = FoodDescriptorPersistence.getDescriptorById(557);
-
-        //System.out.println(test.getIngredientList().get(0).getFoodDescriptor().toString());
-
-//        YearModel yearModel = new YearModel();
-//        yearModel.setYear(2021);
-//        QuarterModel quarterModel = new QuarterModel();
-//        quarterModel.setQuarter(1);
-//        yearModel.addQuarter(quarterModel);
-//        YearPersistence.addYear(yearModel);
-
-
         launch();
-
     }
 }

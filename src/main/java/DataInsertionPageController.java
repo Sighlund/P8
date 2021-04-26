@@ -21,7 +21,6 @@ import java.util.*;
 import javafx.util.StringConverter;
 import model.KitchenModel;
 import model.YearModel;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.*;
 
@@ -40,10 +39,6 @@ public class DataInsertionPageController implements Initializable {
     @FXML
     private TextField autoCompleteTextField;
 
-    private AutoCompletionBinding<String> autoCompleteTextFieldBindingString;
-    private String[] _listOfSuggestionsForAutoCompleteTextField = {"Gamer","Gaamer","GAMER","gamer","stor Gamer","Gaaaaamer","","Gamerrrr"};
-    private Set<String> listOfSuggestionsForAutoCompleteTextField = new HashSet<>(Arrays.asList(_listOfSuggestionsForAutoCompleteTextField));
-
     @FXML
     private TextField volumeKiloTextField;
 
@@ -56,22 +51,6 @@ public class DataInsertionPageController implements Initializable {
     @FXML
     private ChoiceBox<Integer> choiceboxChooseQuarter;
 
-    //Creating arrays of Strings that will contain the 'options' for each ChoiceBox.
-    //The suggestions needs to be dynamically created based on the related objects
-    //TODO
-
-
-
-    //private KitchenModel kitchenChoiceboxOptions = new KitchenModel("Gug", 1);
-    //private String[] yearChoiceboxOptions = {"one", "two", "three"};
-    //private String[] quarterChoiceboxOptions = {"1", "2", "3"};
-    //private String[] kitchenChoiceboxOptions = {"1", "2", "3"};
-
-    //KitchenPersistence.ListKitchens()
-    static ObservableList<KitchenModel> kitchens = FXCollections.observableArrayList(KitchenPersistence.listKitchen());
-    static ObservableList<YearModel> years = FXCollections.observableArrayList(YearPersistence.listYear());
-    ObservableList<Integer> quarters = FXCollections.observableArrayList(QuarterPersistence.listQuarter());
-
     //This method initializes a controller after its root element has already been processed.
     //I think this means that this method is needed to 'update' the choiceboxes with options,
     //since the page and choiceboxes has already been loaded.
@@ -79,9 +58,9 @@ public class DataInsertionPageController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         //Each ChoiceBox is filled with the created options.
         //choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions.getName);
-        choiceboxChooseQuarter.setItems(quarters);
+        choiceboxChooseQuarter.setItems(QuarterPersistence.listQuarter());
 
-        choiceboxChooseYear.setItems(years);
+        choiceboxChooseYear.setItems(YearPersistence.listYear());
         choiceboxChooseYear.setConverter(new StringConverter<>() {
             @Override
             public String toString(YearModel year){
@@ -96,7 +75,7 @@ public class DataInsertionPageController implements Initializable {
                 return null;
             }
         });
-        choiceboxChooseKitchen.setItems(kitchens);
+        choiceboxChooseKitchen.setItems(KitchenPersistence.listKitchen());
         choiceboxChooseKitchen.setConverter(new StringConverter<>() {
             @Override
             public String toString(KitchenModel kitchen) {

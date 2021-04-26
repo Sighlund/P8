@@ -1,7 +1,7 @@
 package model;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
 
 /**
  * The KitchenModel class implements the different kitchen units at Madservice Aalborg.

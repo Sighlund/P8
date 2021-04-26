@@ -1,6 +1,5 @@
 package persistence;
 
-import model.CalculationModel;
 import model.ConcitoItemModel;
 import org.hibernate.Session;
 

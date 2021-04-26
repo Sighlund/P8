@@ -1,12 +1,7 @@
 package persistence;
 
-import model.CalculationModel;
-import model.ConcitoItemModel;
 import model.FoodDescriptorModel;
-import model.IngredientModel;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-
 import java.util.List;
 
 /**
@@ -65,6 +60,8 @@ public class FoodDescriptorPersistence {
         //Return list of objects' names retrieved from the database
         return list;
     }
+
+
 
     /**
      * Method for finding a foodDescriptor object by ID

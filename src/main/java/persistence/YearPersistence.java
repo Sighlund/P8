@@ -1,6 +1,7 @@
 package persistence;
 
-import model.CalculationModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.YearModel;
 import org.hibernate.Session;
 
@@ -44,15 +45,17 @@ public class YearPersistence {
      * Method to get all of the year objects in the database
      * @return Returns a list of all the year objects in the database
      */
-    public static List<YearModel> listYear(){
+    public static ObservableList<YearModel> listYear(){
         //Creating session
         Session session = SetupPersistence.getSession();
         //Querying database for all objects
-        List<YearModel> list = session.createQuery("SELECT a from YearModel a", YearModel.class).getResultList();
+        List<YearModel> query = session.createQuery("SELECT a from YearModel a", YearModel.class).getResultList();
         //Closing session
+        ObservableList<YearModel> years = FXCollections.observableArrayList(query);
+
         SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
-        return list;
+        return years;
     }
 
     /**
