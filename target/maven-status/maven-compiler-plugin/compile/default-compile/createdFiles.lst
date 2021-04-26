@@ -9,10 +9,12 @@ HistoryController$1.class
 persistence\TestPersistence.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
+model\QuarterModel.class
 model\KitchenModel.class
 FrontPageController.class
 RegisterNewProductPageController.class
 persistence\SetupPersistence.class
+model\YearModel.class
 persistence\CalculationPersistence.class
 model\FoodItemModel.class
 HistoryController$2.class
