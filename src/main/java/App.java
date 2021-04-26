@@ -38,8 +38,6 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    private static TestModel testModel = new TestModel();
-
     public static void main(String[] args) throws Exception{
 
 

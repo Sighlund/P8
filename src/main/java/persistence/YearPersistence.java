@@ -7,6 +7,11 @@ import org.hibernate.Session;
 import java.time.Year;
 import java.util.List;
 
+/**
+ * The YearPersistence class enables data exchange between the application and the SQL database.
+ * It has 5 different Hibernate operations that allows for data transfer between SQL elements and Java objects.
+ */
+
 public class YearPersistence {
 
     /**

@@ -20,7 +20,6 @@ import java.util.*;
 
 import javafx.util.StringConverter;
 import model.KitchenModel;
-import model.QuarterModel;
 import model.YearModel;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -87,7 +86,7 @@ public class DataInsertionPageController implements Initializable {
             @Override
             public String toString(YearModel year){
                 if(year != null) {
-                    return year.getYear().toString();
+                    return year.getId().toString();
                 }
                 return "";
             }
@@ -126,8 +125,8 @@ public class DataInsertionPageController implements Initializable {
     //TODO
     public void getSelectedValuesOfChoiceBoxes(){
         String[] selectedValueOfChoiceBoxes =
-                {choiceboxChooseKitchen.getSelectionModel().toString()
-                        + choiceboxChooseYear.getSelectionModel().getSelectedItem().getClass()
+                {choiceboxChooseKitchen.getSelectionModel().getSelectedItem().getName() + " "
+                        + choiceboxChooseYear.getSelectionModel().getSelectedItem().getId() + " "
                 + choiceboxChooseQuarter.getValue()};
         System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
     }

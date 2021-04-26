@@ -9,7 +9,6 @@ persistence\IngredientPersistence.class
 HistoryController$1.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
-model\QuarterModel.class
 model\KitchenModel.class
 FrontPageController.class
 RegisterNewProductPageController.class
