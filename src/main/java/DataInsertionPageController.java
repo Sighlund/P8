@@ -56,7 +56,8 @@ public class DataInsertionPageController implements Initializable {
         ViewListItemDataInsertionPage newItemForList = new ViewListItemDataInsertionPage(productNameString,
                 volumeWeightInput); //ADD THE REST OF VALUES AS WELL //TODO
         //We get all items from the table as a list, and we add the new item to the list
-        insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(),f.calcCo2()));
+        insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
+                f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(),f.calcCo2()));
     }
 
     //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
