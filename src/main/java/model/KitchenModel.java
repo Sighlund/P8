@@ -1,5 +1,7 @@
 package model;
 
+import javafx.util.StringConverter;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -86,6 +88,34 @@ public class KitchenModel {
                 ", name=" + name +
                 ", calcList=" + calcList +
                 "}";
+    }
+
+    // --- Static methods ---
+
+    /**
+     * Returns a StringConverter object that converts a Kitchen object to a
+     * String representing the kitchen name - i.e. "Gug".
+     * @return a StringConverter object
+     */
+    public static StringConverter<KitchenModel> getStringConverter() {
+        // Create instance of StringConverter and declare class anonymously to implement abstract methods
+        StringConverter<KitchenModel> stringConverter = new StringConverter<>() {
+            @Override
+            public String toString(KitchenModel kitchen) {
+                if(kitchen != null) {
+                    return kitchen.getName();
+                }
+                return "";
+            }
+
+            @Override
+            public KitchenModel fromString(String s) {
+                return null;
+            }
+        };
+
+        // Return stringConverter
+        return stringConverter;
     }
 
 
