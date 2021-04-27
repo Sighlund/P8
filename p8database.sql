@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.23, for macos10.15 (x86_64)
 --
--- Host: localhost    Database: p8database
+-- Host: 127.0.0.1    Database: p8database
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -9,7 +9,7 @@
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+02:00' */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -23,17 +23,18 @@ DROP TABLE IF EXISTS `calculation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `calculation` (
-                               `id` int NOT NULL AUTO_INCREMENT,
-                               `dateFrom` datetime DEFAULT NULL,
-                               `dateTo` datetime DEFAULT NULL,
-                               `kitchenId` int DEFAULT NULL,
-                               `quarterId` int DEFAULT NULL,
-                               PRIMARY KEY (`id`),
-                               UNIQUE KEY `id_UNIQUE` (`id`),
-                               KEY `fk_calculation_kitchen_idx` (`kitchenId`),
-                               KEY `quarterId2_idx` (`quarterId`),
-                               CONSTRAINT `fk_calculation_kitchen` FOREIGN KEY (`kitchenId`) REFERENCES `kitchen` (`id`),
-                               CONSTRAINT `fk_calculation_quarter` FOREIGN KEY (`quarterId`) REFERENCES `quarter` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `dateFrom` datetime DEFAULT NULL,
+  `dateTo` datetime DEFAULT NULL,
+  `kitchenId` int DEFAULT NULL,
+  `quarter` int DEFAULT NULL,
+  `yearId` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_calculation_kitchen_idx` (`kitchenId`),
+  KEY `fk_year_year_idx` (`yearId`),
+  CONSTRAINT `fk_calculation_kitchen` FOREIGN KEY (`kitchenId`) REFERENCES `kitchen` (`id`),
+  CONSTRAINT `fk_year_year` FOREIGN KEY (`yearId`) REFERENCES `year` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,7 +44,7 @@ CREATE TABLE `calculation` (
 
 LOCK TABLES `calculation` WRITE;
 /*!40000 ALTER TABLE `calculation` DISABLE KEYS */;
-INSERT INTO `calculation` VALUES (1,'2020-10-01 00:00:00','2020-12-31 00:00:00',1,NULL);
+INSERT INTO `calculation` VALUES (1,'2020-10-01 00:00:00','2020-12-31 00:00:00',1,4,2020);
 /*!40000 ALTER TABLE `calculation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,13 +56,13 @@ DROP TABLE IF EXISTS `concitoitem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `concitoitem` (
-                               `id` int NOT NULL AUTO_INCREMENT,
-                               `name` varchar(255) NOT NULL,
-                               `co2PrKg` double NOT NULL,
-                               `category` varchar(255) NOT NULL,
-                               `subcategory` varchar(255) DEFAULT NULL,
-                               PRIMARY KEY (`id`),
-                               UNIQUE KEY `id_UNIQUE` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `co2PrKg` double NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `subcategory` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -83,12 +84,12 @@ DROP TABLE IF EXISTS `fooddescriptor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fooddescriptor` (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `name` varchar(255) NOT NULL,
-                                  `supplier` varchar(255) DEFAULT NULL,
-                                  `number` int DEFAULT NULL,
-                                  PRIMARY KEY (`id`),
-                                  UNIQUE KEY `id_UNIQUE` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `supplier` varchar(255) DEFAULT NULL,
+  `number` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=558 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -110,16 +111,16 @@ DROP TABLE IF EXISTS `fooditem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fooditem` (
-                            `id` int NOT NULL AUTO_INCREMENT,
-                            `volume` double NOT NULL,
-                            `calculationId` int DEFAULT NULL,
-                            `foodDescriptorId` int NOT NULL,
-                            PRIMARY KEY (`id`),
-                            UNIQUE KEY `id_UNIQUE` (`id`),
-                            KEY `fk_foodItem_calculation1_idx` (`calculationId`),
-                            KEY `fk_foodItem_foodDescriptor1_idx` (`foodDescriptorId`),
-                            CONSTRAINT `fk_foodItem_calculation1` FOREIGN KEY (`calculationId`) REFERENCES `calculation` (`id`),
-                            CONSTRAINT `fk_foodItem_foodDescriptor1` FOREIGN KEY (`foodDescriptorId`) REFERENCES `fooddescriptor` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `volume` double NOT NULL,
+  `calculationId` int DEFAULT NULL,
+  `foodDescriptorId` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_foodItem_calculation1_idx` (`calculationId`),
+  KEY `fk_foodItem_foodDescriptor1_idx` (`foodDescriptorId`),
+  CONSTRAINT `fk_foodItem_calculation1` FOREIGN KEY (`calculationId`) REFERENCES `calculation` (`id`),
+  CONSTRAINT `fk_foodItem_foodDescriptor1` FOREIGN KEY (`foodDescriptorId`) REFERENCES `fooddescriptor` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -141,16 +142,16 @@ DROP TABLE IF EXISTS `ingredient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ingredient` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `percentage` double NOT NULL,
-                              `foodDescriptorId` int DEFAULT NULL,
-                              `concitoItemId` int NOT NULL,
-                              PRIMARY KEY (`id`),
-                              UNIQUE KEY `id_UNIQUE` (`id`),
-                              KEY `fk_ingredient_foodDescriptor1_idx` (`foodDescriptorId`),
-                              KEY `fk_ingredient_concitoItem1_idx` (`concitoItemId`),
-                              CONSTRAINT `fk_ingredient_concitoItem1` FOREIGN KEY (`concitoItemId`) REFERENCES `concitoitem` (`id`),
-                              CONSTRAINT `fk_ingredient_foodDescriptor1` FOREIGN KEY (`foodDescriptorId`) REFERENCES `fooddescriptor` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `percentage` double NOT NULL,
+  `foodDescriptorId` int DEFAULT NULL,
+  `concitoItemId` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_ingredient_foodDescriptor1_idx` (`foodDescriptorId`),
+  KEY `fk_ingredient_concitoItem1_idx` (`concitoItemId`),
+  CONSTRAINT `fk_ingredient_concitoItem1` FOREIGN KEY (`concitoItemId`) REFERENCES `concitoitem` (`id`),
+  CONSTRAINT `fk_ingredient_foodDescriptor1` FOREIGN KEY (`foodDescriptorId`) REFERENCES `fooddescriptor` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=558 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -172,10 +173,10 @@ DROP TABLE IF EXISTS `kitchen`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `kitchen` (
-                           `id` int NOT NULL AUTO_INCREMENT,
-                           `name` varchar(255) NOT NULL,
-                           PRIMARY KEY (`id`),
-                           UNIQUE KEY `id_UNIQUE` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,33 +191,6 @@ INSERT INTO `kitchen` VALUES (1,'Gug'),(2,'Nørresundby');
 UNLOCK TABLES;
 
 --
--- Table structure for table `quarter`
---
-
-DROP TABLE IF EXISTS `quarter`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `quarter` (
-                           `quarter` int DEFAULT NULL,
-                           `id` int NOT NULL AUTO_INCREMENT,
-                           `yearId` int DEFAULT NULL,
-                           PRIMARY KEY (`id`),
-                           UNIQUE KEY `id_UNIQUE` (`id`),
-                           KEY `fk_quarter_year_idx` (`yearId`),
-                           CONSTRAINT `fk_quarter_year` FOREIGN KEY (`yearId`) REFERENCES `year` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `quarter`
---
-
-LOCK TABLES `quarter` WRITE;
-/*!40000 ALTER TABLE `quarter` DISABLE KEYS */;
-/*!40000 ALTER TABLE `quarter` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `year`
 --
 
@@ -224,10 +198,9 @@ DROP TABLE IF EXISTS `year`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `year` (
-                        `year` int DEFAULT NULL,
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        PRIMARY KEY (`id`),
-                        UNIQUE KEY `id_UNIQUE` (`id`)
+  `id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `year_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -237,6 +210,7 @@ CREATE TABLE `year` (
 
 LOCK TABLES `year` WRITE;
 /*!40000 ALTER TABLE `year` DISABLE KEYS */;
+INSERT INTO `year` VALUES (2020),(2021),(2022),(2023),(2024),(2025);
 /*!40000 ALTER TABLE `year` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -249,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-23 15:00:48
+-- Dump completed on 2021-04-27  9:56:37
