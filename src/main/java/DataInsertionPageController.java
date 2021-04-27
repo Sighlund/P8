@@ -46,15 +46,12 @@ public class DataInsertionPageController implements Initializable {
     The button may not add item to the list before a chosen product and a weight has been provided.
      */
     public void addProductToList(){
-        System.out.println("this button must add product to list");
-        //Todo
+        //Todo Kommentarer
         String productNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
         FoodItemModel f = new FoodItemModel(volumeWeightInput, foodDescriptor);
         foodItemList.add(f);
-        ViewListItemDataInsertionPage newItemForList = new ViewListItemDataInsertionPage(productNameString,
-                volumeWeightInput); //ADD THE REST OF VALUES AS WELL //TODO
         //We get all items from the table as a list, and we add the new item to the list
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
                 f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(),f.calcCo2()));
