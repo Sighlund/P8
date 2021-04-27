@@ -2,6 +2,8 @@ package persistence;
 
 import model.FoodDescriptorModel;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
 import java.util.List;
 
 /**
@@ -66,6 +68,15 @@ public class FoodDescriptorPersistence {
 //        List<FoodDescriptorModel> list = session.createQuery("select c.name from FoodDescriptorModel c",FoodDescriptorModel.class).getResultList();
 //        return list;
 //    }
+
+    public static FoodDescriptorModel getDescriptorByName(String name){
+        Session session = SetupPersistence.getSession();
+        String hql = "from FoodDescriptorModel c where c.name = :name";
+        Query query = session.createQuery(hql);
+        query.setParameter("name", name);
+        FoodDescriptorModel foodDescriptorModel = (FoodDescriptorModel) query.getSingleResult();
+        return foodDescriptorModel;
+    }
 
     /**
      * Method for finding a foodDescriptor object by ID

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.FoodDescriptorModel;
 import persistence.FoodDescriptorPersistence;
 
 import java.io.IOException;
@@ -38,6 +39,9 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws Exception{
+
+        FoodDescriptorModel foodDescriptorModel = FoodDescriptorPersistence.getDescriptorByName("Oksekød, tyndsteg med mørbrad, rå");
+        System.out.println(foodDescriptorModel.getCorrectedCategory());
         launch();
     }
 }

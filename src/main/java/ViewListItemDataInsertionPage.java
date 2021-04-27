@@ -23,6 +23,20 @@ public class ViewListItemDataInsertionPage {
         //this.totalCo2ForItem = totalCo2ForItem; //Has to be calculated based on volume and co2prkilovalue of the item.
     }
 
+    public ViewListItemDataInsertionPage(String productName,
+                                         String primaryGroup,
+                                         String secondaryGroup,
+                                         Double volumeOfProduct,
+                                         Double co2prkiloValue,
+                                         Double totalCo2ForItem) {
+        this.productName = new SimpleStringProperty(productName);
+        this.primaryGroup = new SimpleStringProperty(primaryGroup);
+        this.secondaryGroup = new SimpleStringProperty(secondaryGroup);
+        this.volumeOfProduct = volumeOfProduct;
+        this.co2prkiloValue = co2prkiloValue;
+        this.totalCo2ForItem = totalCo2ForItem;
+    }
+
     public String getProductName() {
         return productName.get();
     }
@@ -41,5 +55,45 @@ public class ViewListItemDataInsertionPage {
 
     public void setVolumeOfProduct(Double volumeOfProduct) {
         this.volumeOfProduct = volumeOfProduct;
+    }
+
+    public String getPrimaryGroup() {
+        return primaryGroup.get();
+    }
+
+    public SimpleStringProperty primaryGroupProperty() {
+        return primaryGroup;
+    }
+
+    public void setPrimaryGroup(String primaryGroup) {
+        this.primaryGroup.set(primaryGroup);
+    }
+
+    public String getSecondaryGroup() {
+        return secondaryGroup.get();
+    }
+
+    public SimpleStringProperty secondaryGroupProperty() {
+        return secondaryGroup;
+    }
+
+    public void setSecondaryGroup(String secondaryGroup) {
+        this.secondaryGroup.set(secondaryGroup);
+    }
+
+    public Double getCo2prkiloValue() {
+        return co2prkiloValue;
+    }
+
+    public void setCo2prkiloValue(Double co2prkiloValue) {
+        this.co2prkiloValue = co2prkiloValue;
+    }
+
+    public Double getTotalCo2ForItem() {
+        return totalCo2ForItem;
+    }
+
+    public void setTotalCo2ForItem(Double totalCo2ForItem) {
+        this.totalCo2ForItem = totalCo2ForItem;
     }
 }

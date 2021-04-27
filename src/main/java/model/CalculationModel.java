@@ -36,7 +36,7 @@ public class CalculationModel {
 
     // Maps a many-to-one relation between calculation and year using 'year.id' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "yearId", referencedColumnName = "id") // TODO - er lidt i tvivl om der skal stå 'year' eller 'id'
+    @JoinColumn(name = "yearId", referencedColumnName = "id")
     private YearModel year;
 
     // Maps a many-to-one relation between calculation and kitchen using 'kitchenId' as foreign key
