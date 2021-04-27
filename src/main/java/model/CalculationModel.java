@@ -8,6 +8,7 @@ import java.util.List;
 /***
  * The CalculationModel class implements the model layer of Calculation.
  * A CaluclationModel object represents a collection of purchased food items.
+ * A calculation is always associated to a quarter as well as holds references to a year and a kitchen.
  * The volume and total CO2 can be calculated from the Calculation object.
  *
  * The class is mapped using Hibernate JPA.
@@ -31,18 +32,23 @@ public class CalculationModel {
 
     private LocalDate dateTo;
 
-    // Maps a one-to-many relation between calculation and foodItem using 'calculationId' as foreign key
-    // Cascades all Hibernate actions from the calculation entity to its related foodItems
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "calculationId", referencedColumnName = "id")
-    private List<FoodItemModel> foodItemList = new ArrayList<>();
+    private Integer quarter; //TODO - er quarter rigtigt?
+
+    // Maps a many-to-one relation between calculation and year using 'year.id' as foreign key
+    @ManyToOne
+    @JoinColumn(name = "year", referencedColumnName = "id") // TODO - er lidt i tvivl om der skal stå 'year' eller 'id'
+    private YearModel year;
 
     // Maps a many-to-one relation between calculation and kitchen using 'kitchenId' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchenId", referencedColumnName = "id")
     private KitchenModel kitchen;
 
-    //TODO - Tilføj year, quarter
+    // Maps a one-to-many relation between calculation and foodItem using 'calculationId' as foreign key
+    // Cascades all Hibernate actions from the calculation entity to its related foodItems
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "calculationId", referencedColumnName = "id")
+    private List<FoodItemModel> foodItemList = new ArrayList<>();
 
 
     // --- Constructors ----
