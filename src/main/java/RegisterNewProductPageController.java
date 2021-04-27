@@ -12,11 +12,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.ConcitoItemModel;
 import model.FoodDescriptorModel;
+import model.FoodItemModel;
+import model.IngredientModel;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.ConcitoPersistence;
 import persistence.FoodDescriptorPersistence;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -38,12 +41,13 @@ public class RegisterNewProductPageController implements Initializable{
     @FXML
     private TextField percentageTextField;
 
+
     public void addIngredient(){
         String ingredientNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(percentageTextField.getText());
         ConcitoItemModel concitoItem = ConcitoPersistence.getConcitoByName(ingredientNameString);
-
-
+        IngredientModel ingredient = new IngredientModel(volumeWeightInput, concitoItem);
+        registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), ingredient.getPercentage()));
     }
 
     @Override
