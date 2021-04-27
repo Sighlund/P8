@@ -8,6 +8,7 @@ import java.util.List;
 /***
  * The CalculationModel class implements the model layer of Calculation.
  * A CaluclationModel object represents a collection of purchased food items.
+ * A calculation is always associated to a quarter as well as holds references to a year and a kitchen.
  * The volume and total CO2 can be calculated from the Calculation object.
  *
  * The class is mapped using Hibernate JPA.
@@ -31,18 +32,23 @@ public class CalculationModel {
 
     private LocalDate dateTo;
 
-    // Maps a one-to-many relation between calculation and foodItem using 'calculationId' as foreign key
-    // Cascades all Hibernate actions from the calculation entity to its related foodItems
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "calculationId", referencedColumnName = "id")
-    private List<FoodItemModel> foodItemList = new ArrayList<>();
+    private Integer quarter;
+
+    // Maps a many-to-one relation between calculation and year using 'year.id' as foreign key
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "yearId", referencedColumnName = "id") // TODO - er lidt i tvivl om der skal stå 'year' eller 'id'
+    private YearModel year;
 
     // Maps a many-to-one relation between calculation and kitchen using 'kitchenId' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kitchenId", referencedColumnName = "id")
     private KitchenModel kitchen;
 
-    //TODO - Tilføj year, quarter
+    // Maps a one-to-many relation between calculation and foodItem using 'calculationId' as foreign key
+    // Cascades all Hibernate actions from the calculation entity to its related foodItems
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "calculationId", referencedColumnName = "id")
+    private List<FoodItemModel> foodItemList = new ArrayList<>();
 
 
     // --- Constructors ----
@@ -60,9 +66,11 @@ public class CalculationModel {
      * @param foodItemList the list of purchased food items for the calculation
      * @param kitchen the associated kitchen for the calculation
      */
-    public CalculationModel(LocalDate dateFrom, LocalDate dateTo, ArrayList<FoodItemModel> foodItemList, KitchenModel kitchen) {
+    public CalculationModel(LocalDate dateFrom, LocalDate dateTo, Integer quarter, YearModel year, ArrayList<FoodItemModel> foodItemList, KitchenModel kitchen) {
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
+        this.quarter = quarter;
+        this.year = year;
         this.foodItemList = foodItemList;
         this.kitchen = kitchen;
     }
@@ -99,6 +107,22 @@ public class CalculationModel {
 
     public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
+    }
+
+    public Integer getQuarter() {
+        return quarter;
+    }
+
+    public void setQuarter(Integer quarter) {
+        this.quarter = quarter;
+    }
+
+    public YearModel getYear() {
+        return year;
+    }
+
+    public void setYear(YearModel year) {
+        this.year = year;
     }
 
     public List<FoodItemModel> getFoodItemList() {

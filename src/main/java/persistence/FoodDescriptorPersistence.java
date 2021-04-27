@@ -1,12 +1,7 @@
 package persistence;
 
-import model.CalculationModel;
-import model.ConcitoItemModel;
 import model.FoodDescriptorModel;
-import model.IngredientModel;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-
 import java.util.List;
 
 /**
@@ -65,6 +60,12 @@ public class FoodDescriptorPersistence {
         //Return list of objects' names retrieved from the database
         return list;
     }
+
+//    public static List<FoodDescriptorModel> listTest(){
+//        Session session = SetupPersistence.getSession();
+//        List<FoodDescriptorModel> list = session.createQuery("select c.name from FoodDescriptorModel c",FoodDescriptorModel.class).getResultList();
+//        return list;
+//    }
 
     /**
      * Method for finding a foodDescriptor object by ID

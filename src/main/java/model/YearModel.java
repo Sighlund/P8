@@ -1,8 +1,15 @@
 package model;
 
+import javafx.util.StringConverter;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * The YearModel class implements years. A calculation is always linked to a specific year.
+ *
+ * The class is mapped using Hibernate JPA.
+ * For more information, see https://docs.jboss.org/hibernate/stable/annotations/reference/en/html/entity.html#entity-mapping
+ */
 
 // Maps the class as an entity to the table 'year' in the database
 @Entity
@@ -17,16 +24,6 @@ public class YearModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer year;
-
-    // Maps a one-to-many relation between year and quarter using 'yearId' as foreign key
-    // Cascades all Hibernate actions from the year entity to its related quarters
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "yearId", referencedColumnName = "id")
-    private List<QuarterModel> quarterList = new ArrayList<>(); //TODO: er new Arraylist nødvendigt her?
-
-
-
     // --- Constructors ----
 
     /**
@@ -35,55 +32,42 @@ public class YearModel {
     public YearModel() {
     }
 
-
     // --- Getters and setters ---
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Integer year) {
         this.id = id;
     }
 
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public List<QuarterModel> getQuarterList() {
-        return quarterList;
-    }
-
-    public void setQuarterList(List<QuarterModel> quarterList) {
-        this.quarterList = quarterList;
-    }
-
-
-    // --- Instance methods ---
+    // --- Static methods ---
 
     /**
-     * Method that adds given quarter to the year's list of quarters
-     * as long as year only has 4 or less quarters associated
-     * @param quarter the quarter to be added
+     * Returns a StringConverter object that converts a year object to a
+     * String representing the year (id) - i.e. "2020".
+     * @return a StringConverter object
      */
-    public void addQuarter(QuarterModel quarter) {
-        if (quarter != null && quarterList.size() < 5) {
-            quarterList.add(quarter);
-        }
-    }
+    public static StringConverter<YearModel> getStringConverter() {
+        // Create instance of StringConverter and declare class anonymously to implement abstract methods
+        StringConverter<YearModel> stringConverter = new StringConverter<YearModel>() {
+            @Override
+            public String toString(YearModel year) {
+                if(year != null) {
+                    return year.getId().toString();
+                }
+                return "";
+            }
 
-    /**
-     * Method that removes a given quarter from the year's list of quarters
-     * @param quarter the quarter to be removed
-     */
-    public void removeQuarter(QuarterModel quarter) {
-        if (quarter != null) {
-            quarterList.remove(quarter);
-        }
+            @Override
+            public YearModel fromString(String s) {
+                return null;
+            }
+        };
+
+        // Return stringConverter
+        return stringConverter;
     }
 
 }

@@ -1,7 +1,5 @@
 package persistence;
 
-import model.ConcitoItemModel;
-import model.FoodItemModel;
 import model.IngredientModel;
 import org.hibernate.Session;
 

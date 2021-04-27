@@ -89,7 +89,6 @@ public class FoodDescriptorModel{
         this(name, null, null, new ArrayList<IngredientModel>());
     }
 
-
     // --- Getters and setters ---
     public Integer getId() {
         return id;

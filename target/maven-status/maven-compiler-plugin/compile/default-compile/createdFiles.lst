@@ -6,11 +6,9 @@ persistence\ConcitoPersistence.class
 model\CalculationModel.class
 persistence\IngredientPersistence.class
 HistoryController$1.class
-ViewListItemDataInsertionPage.class
-persistence\TestPersistence.class
+model\KitchenModel$1.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
-model\QuarterModel.class
 model\KitchenModel.class
 FrontPageController.class
 RegisterNewProductPageController.class
@@ -24,6 +22,6 @@ model\IngredientModel.class
 HistoryController.class
 persistence\FoodDescriptorPersistence.class
 model\ConcitoItemModel.class
+model\YearModel$1.class
 persistence\QuarterPersistence.class
 CalculationPageController.class
-model\TestModel.class

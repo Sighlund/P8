@@ -1,5 +1,7 @@
 package persistence;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.IngredientModel;
 import model.KitchenModel;
 import org.hibernate.Session;
@@ -43,15 +45,17 @@ public class KitchenPersistence {
      * Method to get all of the kitchen objects in the database
      * @return Returns a list of all the kitchen objects in the database
      */
-    public static List<KitchenModel> listKitchen() {
+    public static ObservableList<KitchenModel> listKitchen() {
         //Creating session
         Session session = SetupPersistence.getSession();
         //Querying database for all objects
-        List<KitchenModel> list = session.createQuery("SELECT a from KitchenModel a", KitchenModel.class).getResultList();
+        List<KitchenModel> query = session.createQuery("SELECT a from KitchenModel a", KitchenModel.class).getResultList();
         //Closing session
+        ObservableList<KitchenModel> kitchens = FXCollections.observableArrayList(query);
+
         SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
-        return list;
+        return kitchens;
     }
 
     /**
