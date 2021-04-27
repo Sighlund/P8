@@ -1,5 +1,7 @@
 package model;
 
+import javafx.util.StringConverter;
+
 import javax.persistence.*;
 
 /**
@@ -38,6 +40,34 @@ public class YearModel {
 
     public void setId(Integer year) {
         this.id = id;
+    }
+
+    // --- Static methods ---
+
+    /**
+     * Returns a StringConverter object that converts a year object to a
+     * String representing the year (id) - i.e. "2020".
+     * @return a StringConverter object
+     */
+    public static StringConverter<YearModel> getStringConverter() {
+        // Create instance of StringConverter and declare class anonymously to implement abstract methods
+        StringConverter<YearModel> stringConverter = new StringConverter<YearModel>() {
+            @Override
+            public String toString(YearModel year) {
+                if(year != null) {
+                    return year.getId().toString();
+                }
+                return "";
+            }
+
+            @Override
+            public YearModel fromString(String s) {
+                return null;
+            }
+        };
+
+        // Return stringConverter
+        return stringConverter;
     }
 
 }
