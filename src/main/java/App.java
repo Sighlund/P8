@@ -7,7 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.CalculationModel;
 import model.FoodDescriptorModel;
+import model.FoodItemModel;
 import persistence.FoodDescriptorPersistence;
 
 import java.io.IOException;

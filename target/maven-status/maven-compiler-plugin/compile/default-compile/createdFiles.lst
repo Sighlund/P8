@@ -11,6 +11,7 @@ model\KitchenModel$1.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
 model\KitchenModel.class
+ViewListRegisterPage.class
 FrontPageController.class
 RegisterNewProductPageController.class
 persistence\SetupPersistence.class

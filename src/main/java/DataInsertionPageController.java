@@ -20,10 +20,7 @@ import java.net.URL;
 import java.util.*;
 
 import javafx.util.StringConverter;
-import model.FoodDescriptorModel;
-import model.FoodItemModel;
-import model.KitchenModel;
-import model.YearModel;
+import model.*;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.*;
 
@@ -55,6 +52,23 @@ public class DataInsertionPageController implements Initializable {
         //We get all items from the table as a list, and we add the new item to the list
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
                 f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(),f.calcCo2()));
+    }
+
+    /**
+     * This method collects information about a calculation from the different input fields and saves it in the DB
+     * Through a cascading the foodItems are also saved in the DB
+     * The calculationModel is saved in the calculation table and foodItem is saved in the foodItem table
+     */
+    public void createCalc(){
+
+        ArrayList<FoodItemModel> foodItems = new ArrayList<>(foodItemList);
+
+        CalculationModel calculation = new CalculationModel(
+                choiceboxChooseQuarter.getValue(),
+                choiceboxChooseYear.getValue(),
+                foodItems,
+                choiceboxChooseKitchen.getValue());
+        CalculationPersistence.addCalc(calculation);
     }
 
     //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
@@ -173,6 +187,8 @@ public class DataInsertionPageController implements Initializable {
 
 
     public void switchToCalculationPage(ActionEvent event) throws IOException {
+        //Calls the createCalc method, when "Udregn" is pressed
+        createCalc();
         getSelectedValuesOfChoiceBoxes(); //Simply prints the currently selected values of the ChoiceBoxes.
         root = FXMLLoader.load(getClass().getResource("calculationPage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

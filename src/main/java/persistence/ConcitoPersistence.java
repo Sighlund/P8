@@ -1,7 +1,9 @@
 package persistence;
 
 import model.ConcitoItemModel;
+import model.FoodDescriptorModel;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -24,6 +26,26 @@ public class ConcitoPersistence {
         SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return list;
+    }
+
+    //TODO kommentar
+    public static List<String> listConcitoName(){
+        //Creating session
+        Session session = SetupPersistence.getSession();
+        //Querying database for all objects' names
+        List<String> list = session.createQuery("select c.name from ConcitoItemModel c").list();
+        //Return list of objects' names retrieved from the database
+        return list;
+    }
+
+    //TODO kommentar
+    public static ConcitoItemModel getConcitoByName(String name){
+        Session session = SetupPersistence.getSession();
+        String hql = "from ConcitoItemModel c where c.name = :name";
+        Query query = session.createQuery(hql);
+        query.setParameter("name", name);
+        ConcitoItemModel concitoItemModel = (ConcitoItemModel) query.getSingleResult();
+        return concitoItemModel;
     }
 
     /**
