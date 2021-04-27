@@ -61,35 +61,9 @@ public class DataInsertionPageController implements Initializable {
         choiceboxChooseQuarter.setItems(QuarterPersistence.listQuarter());
 
         choiceboxChooseYear.setItems(YearPersistence.listYear());
-        choiceboxChooseYear.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(YearModel year){
-                if(year != null) {
-                    return year.getId().toString();
-                }
-                return "";
-            }
-
-            @Override
-            public YearModel fromString(String s) {
-                return null;
-            }
-        });
+        choiceboxChooseYear.setConverter(YearModel.getStringConverter());
         choiceboxChooseKitchen.setItems(KitchenPersistence.listKitchen());
-        choiceboxChooseKitchen.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(KitchenModel kitchen) {
-                if(kitchen != null) {
-                    return kitchen.getName();
-                }
-                return "";
-            }
-
-            @Override
-            public KitchenModel fromString(String s) {
-                return null;
-            }
-        });
+        choiceboxChooseKitchen.setConverter(KitchenModel.getStringConverter());
 
         //The autoCompleteTextField is filled with possible suggestions.
         //The list of suggestions needs to be dynam based on the current input.
