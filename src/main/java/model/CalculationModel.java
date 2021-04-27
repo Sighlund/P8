@@ -32,7 +32,7 @@ public class CalculationModel {
 
     private LocalDate dateTo;
 
-    private Integer quarter; //TODO - er quarter rigtigt?
+    private Integer quarter;
 
     // Maps a many-to-one relation between calculation and year using 'year.id' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
