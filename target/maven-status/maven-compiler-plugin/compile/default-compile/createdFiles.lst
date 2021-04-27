@@ -2,11 +2,11 @@ ControllerTest.class
 DataInsertionPageController.class
 persistence\KitchenPersistence.class
 App.class
-DataInsertionPageController$1.class
 persistence\ConcitoPersistence.class
 model\CalculationModel.class
 persistence\IngredientPersistence.class
 HistoryController$1.class
+model\KitchenModel$1.class
 model\FoodDescriptorModel.class
 persistence\FoodItemPersistence.class
 model\KitchenModel.class
@@ -22,6 +22,6 @@ model\IngredientModel.class
 HistoryController.class
 persistence\FoodDescriptorPersistence.class
 model\ConcitoItemModel.class
+model\YearModel$1.class
 persistence\QuarterPersistence.class
-DataInsertionPageController$2.class
 CalculationPageController.class
