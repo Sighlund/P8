@@ -16,7 +16,45 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+    private static Parent calculationPageParent;
+    private static Parent dataInsertionPageParent;
+    private static Parent frontPageParent;
+    private static Parent historyPageParent;
+    private static Parent registerNewProductPageParent;
+
+    private static Stage stage;
     private static Scene scene;
+
+
+
+    public static Parent getDataInsertionPageParent() {
+        return dataInsertionPageParent;
+    }
+
+    public static Parent getCalculationPageParent() {
+        return calculationPageParent;
+    }
+
+    public static Parent getFrontPageParent() {
+        return frontPageParent;
+    }
+
+    public static Parent getHistoryPageParent() {
+        return historyPageParent;
+    }
+
+    public static Parent getRegisterNewProductPageParent() {
+        return registerNewProductPageParent;
+    }
+
+    @Override
+    public void init() throws IOException{
+        calculationPageParent = FXMLLoader.load(getClass().getResource("calculationPage.fxml"));
+        dataInsertionPageParent = FXMLLoader.load(getClass().getResource("dataInsertionPage.fxml"));
+        frontPageParent = FXMLLoader.load(getClass().getResource("frontPage.fxml"));
+        historyPageParent = FXMLLoader.load(getClass().getResource("history.fxml"));
+        registerNewProductPageParent = FXMLLoader.load(getClass().getResource("registerNewProductPage.fxml"));
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -26,6 +64,12 @@ public class App extends Application {
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();
+        this.stage = stage;
+    }
+
+    public static void switchScene(Parent page){
+        scene.setRoot(page);
+        stage.setScene(scene);
     }
 
     static void setRoot(String fxml) throws IOException {

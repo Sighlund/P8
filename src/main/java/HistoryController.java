@@ -93,8 +93,8 @@ public class HistoryController implements Initializable {
     //Functions to switch between scenes
     FrontPageController History = new FrontPageController();
 
-    public void switchToSceneFrontPage(ActionEvent event) throws IOException {
-        History.switchToScene(event, "frontPage.fxml");
+    public void switchToSceneFrontPage(ActionEvent event){
+        App.switchScene(App.getFrontPageParent());
     }
 
     }

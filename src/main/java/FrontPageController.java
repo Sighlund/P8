@@ -1,3 +1,4 @@
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,28 +15,20 @@ public class FrontPageController {
     private Parent root;
 
     //Functions to switch between scenes
-    public void switchToScene(ActionEvent event, String page) throws IOException {
-        root = FXMLLoader.load(getClass().getResource(page));
+    public void switchToScene(ActionEvent event, Parent page) throws IOException {
+        root = page;
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void switchToSceneDataInsertion(ActionEvent event) throws IOException {
-        switchToScene(event, "dataInsertionPage.fxml");
+    public void switchToSceneDataInsertion(ActionEvent event){
+        App.switchScene(App.getDataInsertionPageParent());
     }
 
-    public void switchToSceneHistory(ActionEvent event2) throws IOException {
-        switchToScene(event2, "history.fxml");
-    }
-
-    public void switchToCalculationPage(ActionEvent event3) throws IOException {
-        switchToScene(event3, "dataInsertionPage.fxml");
-    }
-
-    public void switchToDataInsertionPage(ActionEvent event4) throws IOException {
-        switchToScene(event4, "dataInsertionPage.fxml");
+    public void switchToSceneHistory(ActionEvent event2){
+        App.switchScene(App.getHistoryPageParent());
     }
 
 }
