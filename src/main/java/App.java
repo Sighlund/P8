@@ -1,18 +1,14 @@
 import javafx.scene.image.Image;
-
-// Søren har skrevet noget fed kode
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import persistence.FoodDescriptorPersistence;
-
 import java.io.IOException;
 
 /**
- * JavaFX App
+ * The App class holds the main method of the application.
+ * It extends JavaFX Application and launches the application.
  */
 public class App extends Application {
 
@@ -27,6 +23,7 @@ public class App extends Application {
     private static Stage stage;
     private static Scene scene;
 
+    // --- Getters and setters ----
     public static Parent getDataInsertionPageParent() {
         return dataInsertionPageParent;
     }
@@ -36,14 +33,18 @@ public class App extends Application {
     public static Parent getFrontPageParent() {
         return frontPageParent;
     }
-    public static Parent getHistoryPageParent() {
-        return historyPageParent;
-    }
+    public static Parent getHistoryPageParent() { return historyPageParent; }
     public static Parent getRegisterNewProductPageParent() {
         return registerNewProductPageParent;
     }
 
 
+    /**
+     * Overrides the init() method inherited from Application.
+     * Loads all .fxml files into memory and stores static references to them
+     * Calls this.start()
+     * @throws IOException if FXLLoader fails to load the resource exception is thrown and application shuts down
+     */
     @Override
     public void init() throws IOException{
         //We fill the roots with respective .fxml files from harddrive.
@@ -56,8 +57,7 @@ public class App extends Application {
 
     /**
      * Starts the application. Sets stage, scene and root to hold contents.
-     * @param stage
-     * @throws IOException
+     * @param stage primary stage provided by this.launch()
      */
     @Override
     public void start(Stage stage){
@@ -67,10 +67,15 @@ public class App extends Application {
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();
+
         //Updates the current active stage to equal the one filled in this method.
         this.stage = stage;
     }
 
+    /**
+     * Main method, launches the application
+     * @param args command line arguments
+     */
     public static void main(String[] args){
         launch();
     }
