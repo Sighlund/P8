@@ -173,10 +173,20 @@ public class DataInsertionPageController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Eventhandler for the button "Udregn".
+     * Switches to the calculation page.
+     * @param event action event from button element
+     */
     public void switchToCalculationPage(ActionEvent event){
         App.switchScene(App.getCalculationPageParent());
     }
 
+    /**
+     * Eventhandler for the buttons "Tilbage" and "Start".
+     * Switches to the front page
+     * @param event action event from button element
+     */
     public void switchToFrontMenuPage(ActionEvent event){
         App.switchScene(App.getFrontPageParent());
     }
