@@ -120,15 +120,25 @@ public class CalculationPageController implements Initializable {
         VolumeC = volumeC;
     }
 
-
+    /**
+     * Event handler for the button "Start".
+     * Switches to the front page.
+     * @param event action event from the button element
+     */
     public void switchToSceneFrontPage(ActionEvent event){
         App.switchScene(App.getFrontPageParent());
     }
+
+    /**
+     * Event handler for the button "Tilbage".
+     * Switches back to the data insertion page.
+     * @param event action event from the button element
+     */
     public void switchToDataInsertionPage(ActionEvent event){
         App.switchScene(App.getDataInsertionPageParent());
     }
 
-    //Skal de her slettes Anders?
+    //TODO Skal de her slettes Anders?
     private Stage stage;
     private Scene scene;
     private Parent root;
