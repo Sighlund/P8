@@ -42,12 +42,12 @@ public class CalculationPersistence {
 
     /**
      * Method to get all of the calculation objects in the database
-     * @return Returns a list of all the calculation objects in the database
+     * @return Returns an oberservable list of all the calculation objects in the database
      */
     public static ObservableList<CalculationModel> listCalc(){
         //Creating session
         Session session = SetupPersistence.getSession();
-        //Querying database for all objects
+        //Querying database for all objects, also fetching associated kitchen and year objects
         List<CalculationModel> list = session.createQuery("SELECT a from CalculationModel a JOIN fetch a.kitchen JOIN fetch a.year", CalculationModel.class).getResultList();
         ObservableList<CalculationModel> calculations = FXCollections.observableArrayList(list);
         //Closing session

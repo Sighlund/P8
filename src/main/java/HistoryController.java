@@ -41,19 +41,27 @@ public class HistoryController implements Initializable {
     @FXML
     private TableColumn<CalculationModel, Integer> id;
 
+    // Attribute to hold list of calculations to be displayed in table view
     private ObservableList<CalculationModel> calcList;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        // Update list of displayed calculations by fetching all calculations from the database
         calcList = CalculationPersistence.listCalc();
 
+        // Set cell value factories for all columns in the table view.
+        // Uses a PropertyValueFactory object with the parameterized type CalculationModel
+        // and the corresponding property type (i.e Integer).
+        // The name of the property in CalculationModel is passed as an argument to the PropertyValueFactory as a String
         id.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("id"));
         year.setCellValueFactory(new PropertyValueFactory<CalculationModel, YearModel>("year"));
         quarter.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("quarter"));
         kitchen.setCellValueFactory(new PropertyValueFactory<CalculationModel, KitchenModel>("kitchen"));
 
+        // Set items of the table view by passing the observable list of calculations
         tableView.setItems(calcList);
 
+        // Set selection mode of the table view to accept multiple selected rows
         tableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE
         );
