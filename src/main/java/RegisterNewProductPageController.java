@@ -60,8 +60,10 @@ public class RegisterNewProductPageController implements Initializable {
 
     public void createNewDescriptor() {
         FoodDescriptorModel foodDescriptor = new FoodDescriptorModel(
-                descriptorName.getText(), Integer.parseInt(itemNumber.getText()), ingredientList);
+                descriptorName.getText(), ingredientList);
         //FoodDescriptorPersistence.addDescriptor(foodDescriptor);
+        System.out.println(foodDescriptor.getName());
+        System.out.println(ingredientList.get(0).getContoItem().getName());
 
 
     }
@@ -105,5 +107,9 @@ public class RegisterNewProductPageController implements Initializable {
 
     public void saveInDatabase(ActionEvent e) {
         createNewDescriptor();
+        percentageTextField.clear();
+        descriptorName.clear();
+        autoCompleteTextField.clear();
+        ingredientList.clear();
     }
 }
