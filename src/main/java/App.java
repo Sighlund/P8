@@ -56,6 +56,7 @@ public class App extends Application {
     }
 
     /**
+     * Implements abstract method inherited from Application
      * Starts the application. Sets stage, scene and root to hold contents.
      * @param stage primary stage provided by this.launch()
      */
