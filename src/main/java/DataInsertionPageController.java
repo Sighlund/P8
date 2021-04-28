@@ -164,29 +164,42 @@ public class DataInsertionPageController implements Initializable {
     }
 
 
+    // Attribute to hold the secondary stage for the "Registrer ny vare" window
+    private Stage registerNewPStage;
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-
-    /*
-    This method is called when 'Register new product button' is pressed.
-    The method must open the registerNewProductPage.fxml in a new window.
-    Contents copied from: https://www.codota.com/code/java/methods/javafx.stage.Stage/initModality
-    Last visited: April 22th 2021.
+    // TODO - @Bjørn, kopierer vi stadig content fra den hjemmeside?
+    /**
+     * Event handler for the button "Registrer ny vare"
+     * Opens a modal window to enter details about the product and save in database
+     *
+     * Contents copied from: https://www.codota.com/code/java/methods/javafx.stage.Stage/initModality
+     * Last visited: April 22th 2021.
+     * @param event action event from button element
      */
-    public void openRegisterNewProductOverlay(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        Parent root = App.getRegisterNewProductPageParent();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Registrer en ny vare");
-        Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
-        stage.getIcons().add(icon);
-        stage.initModality(Modality.WINDOW_MODAL);
-        //stage.initOwner(((Node)event.getSource()).getScene().getWindow() ); //This one 'locks' the user to the window, so they can't click elsewhere.
-        stage.show();
+    public void openRegisterNewProductOverlay(ActionEvent event) {
+        // If register new product window hasn't been opened before
+        if (registerNewPStage == null) {
+            // Create new stage, set scene with fxml root, set title
+            Stage stage = new Stage();
+            stage.setScene(new Scene(App.getRegisterNewProductPageParent()));
+            stage.setTitle("Registrer en ny vare");
+
+            // Add icon to stage
+            Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
+            stage.getIcons().add(icon);
+
+            // Set stage to be a modal window //TODO - @Bjørn, hvad gør det her egentlig?
+            stage.initModality(Modality.WINDOW_MODAL);
+            //stage.initOwner(((Node)event.getSource()).getScene().getWindow() ); //This one 'locks' the user to the window, so they can't click elsewhere.
+
+            // Update reference to the stage
+            registerNewPStage = stage;
+        }
+
+        // Show stage
+        registerNewPStage.show();
     }
+
 
     /**
      * Event handler for the button "Udregn".
