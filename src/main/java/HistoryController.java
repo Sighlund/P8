@@ -67,6 +67,26 @@ public class HistoryController implements Initializable {
                 SelectionMode.MULTIPLE
         );
 
+        Integer id;
+        YearModel year;
+        Integer quarter;
+        KitchenModel kitchen;
+
+        public void displaySelected(MouseEvent event){
+            CalculationModel selected = tableView.getSelectionModel().getSelectedItem();
+
+            if(selected==null){
+                knap.setText("Intet valgt");
+            }
+            else{
+                this.id=selected.getTableId();
+                this.year=selected.getTableYear();
+                this.quarter=selected.getTableQuarter();
+                this.unit = selected.getTableUnit();
+            }
+            System.out.println(id);
+        }
+
     }
 
     /**
