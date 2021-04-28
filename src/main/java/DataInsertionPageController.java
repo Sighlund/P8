@@ -194,6 +194,7 @@ public class DataInsertionPageController implements Initializable {
      * @param event action event from button element
      */
     public void switchToCalculationPage(ActionEvent event){
+        createCalc();
         App.switchScene(App.getCalculationPageParent());
     }
 
