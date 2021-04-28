@@ -48,6 +48,7 @@ public class HistoryController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         // Update list of displayed calculations by fetching all calculations from the database
         calcList = CalculationPersistence.listCalc();
+        // TODO - listen af calculations skal opdateres, når der tilføjes en ny
 
         // Set cell value factories for all columns in the table view.
         // Uses a PropertyValueFactory object with the parameterized type CalculationModel
