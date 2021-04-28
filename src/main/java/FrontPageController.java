@@ -1,3 +1,4 @@
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,33 +10,37 @@ import java.io.IOException;
 
 public class FrontPageController {
 
+    // TODO - kan også slettes
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+    //TODO - kan slettes
     //Functions to switch between scenes
-    public void switchToScene(ActionEvent event, String page) throws IOException {
-        root = FXMLLoader.load(getClass().getResource(page));
+    public void switchToScene(ActionEvent event, Parent page) throws IOException {
+        root = page;
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void switchToSceneDataInsertion(ActionEvent event) throws IOException {
-        switchToScene(event, "dataInsertionPage.fxml");
+    /**
+     * Event handler for the button "Tilføj varer til beregning".
+     * Switches to the data insertion page.
+     * @param event action event from the button element
+     */
+    public void switchToSceneDataInsertion(ActionEvent event){
+        App.switchScene(App.getDataInsertionPageParent());
     }
 
-    public void switchToSceneHistory(ActionEvent event2) throws IOException {
-        switchToScene(event2, "history.fxml");
-    }
-
-    public void switchToCalculationPage(ActionEvent event3) throws IOException {
-        switchToScene(event3, "dataInsertionPage.fxml");
-    }
-
-    public void switchToDataInsertionPage(ActionEvent event4) throws IOException {
-        switchToScene(event4, "dataInsertionPage.fxml");
+    /**
+     * Event handler for the button "Historik".
+     * Switches to the history page.
+     * @param event2 action event from the button element
+     */
+    public void switchToSceneHistory(ActionEvent event2){
+        App.switchScene(App.getHistoryPageParent());
     }
 
 }

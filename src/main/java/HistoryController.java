@@ -86,15 +86,22 @@ public class HistoryController implements Initializable {
         System.out.println(Aar.getText() + " " + Kvartal.getText());
     }
 
+    // TODO - kan slettes?
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+    // TODO - kan slettes?
     //Functions to switch between scenes
     FrontPageController History = new FrontPageController();
 
-    public void switchToSceneFrontPage(ActionEvent event) throws IOException {
-        History.switchToScene(event, "frontPage.fxml");
+    /**
+     * Event handler for the button "Start".
+     * Switches to the front page.
+     * @param event action event from the button element
+     */
+    public void switchToSceneFrontPage(ActionEvent event){
+        App.switchScene(App.getFrontPageParent());
     }
 
     }

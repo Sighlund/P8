@@ -175,7 +175,7 @@ public class DataInsertionPageController implements Initializable {
      */
     public void openRegisterNewProductOverlay(ActionEvent event) throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("registerNewProductPage.fxml"));
+        Parent root = App.getRegisterNewProductPageParent();
         stage.setScene(new Scene(root));
         stage.setTitle("Registrer en ny vare");
         Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
@@ -185,24 +185,22 @@ public class DataInsertionPageController implements Initializable {
         stage.show();
     }
 
-
-    public void switchToCalculationPage(ActionEvent event) throws IOException {
-        //Calls the createCalc method, when "Udregn" is pressed
-        createCalc();
-        getSelectedValuesOfChoiceBoxes(); //Simply prints the currently selected values of the ChoiceBoxes.
-        root = FXMLLoader.load(getClass().getResource("calculationPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    /**
+     * Event handler for the button "Udregn".
+     * Switches to the calculation page.
+     * @param event action event from button element
+     */
+    public void switchToCalculationPage(ActionEvent event){
+        App.switchScene(App.getCalculationPageParent());
     }
 
-    public void switchToFrontMenuPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("frontPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    /**
+     * Event handler for the buttons "Tilbage" and "Start".
+     * Switches to the front page
+     * @param event action event from button element
+     */
+    public void switchToFrontMenuPage(ActionEvent event){
+        App.switchScene(App.getFrontPageParent());
     }
 
 

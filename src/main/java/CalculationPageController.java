@@ -120,14 +120,28 @@ public class CalculationPageController implements Initializable {
         VolumeC = volumeC;
     }
 
-    //functions that switch scenes. connected to buttons
-    FrontPageController Calculation = new FrontPageController();
-    public void switchToSceneFrontPage(ActionEvent event) throws IOException {
-        Calculation.switchToScene(event, "frontPage.fxml");
+    /**
+     * Event handler for the button "Start".
+     * Switches to the front page.
+     * @param event action event from the button element
+     */
+    public void switchToSceneFrontPage(ActionEvent event){
+        App.switchScene(App.getFrontPageParent());
     }
-    public void switchToDataInsertionPage(ActionEvent event) throws IOException {
-        Calculation.switchToScene(event, "dataInsertionPage.fxml");
+
+    /**
+     * Event handler for the button "Tilbage".
+     * Switches back to the data insertion page.
+     * @param event action event from the button element
+     */
+    public void switchToDataInsertionPage(ActionEvent event){
+        App.switchScene(App.getDataInsertionPageParent());
     }
+
+    //TODO Skal de her slettes Anders?
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
 }
 
