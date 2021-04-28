@@ -174,7 +174,7 @@ public class DataInsertionPageController implements Initializable {
     }
 
     /**
-     * Eventhandler for the button "Udregn".
+     * Event handler for the button "Udregn".
      * Switches to the calculation page.
      * @param event action event from button element
      */
@@ -183,7 +183,7 @@ public class DataInsertionPageController implements Initializable {
     }
 
     /**
-     * Eventhandler for the buttons "Tilbage" and "Start".
+     * Event handler for the buttons "Tilbage" and "Start".
      * Switches to the front page
      * @param event action event from button element
      */
