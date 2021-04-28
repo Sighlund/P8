@@ -61,7 +61,7 @@ public class RegisterNewProductPageController implements Initializable {
     public void createNewDescriptor() {
         FoodDescriptorModel foodDescriptor = new FoodDescriptorModel(
                 descriptorName.getText(), Integer.parseInt(itemNumber.getText()), ingredientList);
-        FoodDescriptorPersistence.addDescriptor(foodDescriptor);
+        //FoodDescriptorPersistence.addDescriptor(foodDescriptor);
 
 
     }
