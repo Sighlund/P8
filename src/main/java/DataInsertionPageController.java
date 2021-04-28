@@ -68,7 +68,7 @@ public class DataInsertionPageController implements Initializable {
                 choiceboxChooseYear.getValue(),
                 foodItems,
                 choiceboxChooseKitchen.getValue());
-        CalculationPersistence.addCalc(calculation);
+        //CalculationPersistence.addCalc(calculation);
     }
 
     //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
