@@ -11,10 +11,12 @@ import javafx.scene.chart.*;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.FoodItemModel;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CalculationPageController implements Initializable {
@@ -150,6 +152,29 @@ public class CalculationPageController implements Initializable {
         CategoryC = categoryC;
         VolumeC = volumeC;
     }
+
+    int calculationPagecalcid;
+    //Receives information from HistoryPageController
+    public void getInformation(int calcid) {
+        this.calculationPagecalcid=calcid;
+    }
+
+    //test to print id
+    public void printCalcid(){
+        System.out.println(calculationPagecalcid);
+    }
+
+    /*
+    //Receives information from HistoryPageController
+    public void getInformation(List<FoodItemModel> calcid) {
+        this.calcPageItemList=calcid;
+    }
+
+    //test to print id
+    public void printCalcid(){
+        System.out.println(calcPageItemList);
+    }
+    */
 
     /**
      * Event handler for the button "Start".

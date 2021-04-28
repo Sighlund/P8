@@ -52,5 +52,6 @@
             </yAxis>
         </BarChart>
         <CheckBox fx:id="myCheckBox" layoutX="569.0" layoutY="248.0" mnemonicParsing="false" onAction="#change" text="CheckBox" />
+      <Button layoutX="41.0" layoutY="58.0" mnemonicParsing="false" onAction="#printCalcid" text="Button" />
     </children>
 </AnchorPane>

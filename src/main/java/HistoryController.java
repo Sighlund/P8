@@ -11,15 +11,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.CalculationModel;
+import model.FoodItemModel;
 import model.KitchenModel;
 import model.YearModel;
 import persistence.CalculationPersistence;
 import persistence.KitchenPersistence;
+import persistence.QuarterPersistence;
+import persistence.YearPersistence;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -41,6 +46,13 @@ public class HistoryController implements Initializable {
     @FXML
     private TableColumn<CalculationModel, Integer> id;
 
+    @FXML
+    private ChoiceBox<KitchenModel> choiceboxChooseKitchenHis;
+    @FXML
+    private ChoiceBox<YearModel> choiceboxChooseYearHis;
+    @FXML
+    private ChoiceBox<Integer> choiceboxChooseQuarterHis;
+
     // Attribute to hold list of calculations to be displayed in table view
     private ObservableList<CalculationModel> calcList;
 
@@ -49,6 +61,12 @@ public class HistoryController implements Initializable {
         // Update list of displayed calculations by fetching all calculations from the database
         calcList = CalculationPersistence.listCalc();
         // TODO - listen af calculations skal opdateres, når der tilføjes en ny
+
+        choiceboxChooseQuarterHis.setItems(QuarterPersistence.listQuarter());
+        choiceboxChooseYearHis.setItems(YearPersistence.listYear());
+        choiceboxChooseYearHis.setConverter(YearModel.getStringConverter());
+        choiceboxChooseKitchenHis.setItems(KitchenPersistence.listKitchen());
+        choiceboxChooseKitchenHis.setConverter(KitchenModel.getStringConverter());
 
         // Set cell value factories for all columns in the table view.
         // Uses a PropertyValueFactory object with the parameterized type CalculationModel
@@ -67,27 +85,35 @@ public class HistoryController implements Initializable {
                 SelectionMode.MULTIPLE
         );
 
-        Integer id;
-        YearModel year;
-        Integer quarter;
-        KitchenModel kitchen;
+    }
 
-        public void displaySelected(MouseEvent event){
-            CalculationModel selected = tableView.getSelectionModel().getSelectedItem();
+    int calcid;
+    //private List<FoodItemModel> calcItemList = new ArrayList<>();
 
-            if(selected==null){
-                knap.setText("Intet valgt");
-            }
-            else{
-                this.id=selected.getTableId();
-                this.year=selected.getTableYear();
-                this.quarter=selected.getTableQuarter();
-                this.unit = selected.getTableUnit();
-            }
-            System.out.println(id);
-        }
+    //Gets information from selected row
+    public void getSelected(MouseEvent event){
+        CalculationModel selected = tableView.getSelectionModel().getSelectedItem();
+        this.calcid=selected.getId();
+        //this.calcItemList = selected.getFoodItemList();
+    }
+
+    //Sends calculationid to CalculationPageController
+    @FXML
+    public void sendToCalculationPageControllerAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("calculationPage.fxml"));
+        Parent root = loader.load();
+
+        CalculationPageController calculationPageController = loader.getController();
+
+        calculationPageController.getInformation(calcid);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
 
     }
+
+
 
     /**
      * Event handler for the button "Start".
