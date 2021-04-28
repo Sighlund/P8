@@ -48,7 +48,7 @@ public class CalculationPersistence {
         //Creating session
         Session session = SetupPersistence.getSession();
         //Querying database for all objects
-        List<CalculationModel> list = session.createQuery("SELECT a from CalculationModel a JOIN fetch a.kitchen", CalculationModel.class).getResultList();
+        List<CalculationModel> list = session.createQuery("SELECT a from CalculationModel a JOIN fetch a.kitchen JOIN fetch a.year", CalculationModel.class).getResultList();
         ObservableList<CalculationModel> calculations = FXCollections.observableArrayList(list);
         //Closing session
         SetupPersistence.closeSession(session);
