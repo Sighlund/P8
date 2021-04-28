@@ -120,9 +120,7 @@ public class FoodItemModel {
      * The corrected category is determined by the main ingredient in the associated food descriptor.
      * @return the name of the primary category for the food item
      */
-    public String getCategory() {
-        return foodDescriptor.getCorrectedCategory();
-    }
+    public String getCategory() { return foodDescriptor.getCorrectedCategory(); }
 
     /**
      * Method that returns the corrected subcategory for the food item.

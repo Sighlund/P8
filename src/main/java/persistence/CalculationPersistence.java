@@ -1,6 +1,8 @@
 package persistence;
 
 //Import needed classes
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.CalculationModel;
 import org.hibernate.Session;
 
@@ -42,15 +44,16 @@ public class CalculationPersistence {
      * Method to get all of the calculation objects in the database
      * @return Returns a list of all the calculation objects in the database
      */
-    public static List<CalculationModel> listCalc(){
+    public static ObservableList<CalculationModel> listCalc(){
         //Creating session
         Session session = SetupPersistence.getSession();
         //Querying database for all objects
-        List<CalculationModel> list = session.createQuery("SELECT a from CalculationModel a", CalculationModel.class).getResultList();
+        List<CalculationModel> list = session.createQuery("SELECT a from CalculationModel a JOIN fetch a.kitchen", CalculationModel.class).getResultList();
+        ObservableList<CalculationModel> calculations = FXCollections.observableArrayList(list);
         //Closing session
         SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
-        return list;
+        return calculations;
     }
 
     /**
