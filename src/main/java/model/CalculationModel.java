@@ -36,7 +36,7 @@ public class CalculationModel {
 
     // Maps a many-to-one relation between calculation and year using 'year.id' as foreign key
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "yearId", referencedColumnName = "id") // TODO - er lidt i tvivl om der skal stå 'year' eller 'id'
+    @JoinColumn(name = "yearId", referencedColumnName = "id")
     private YearModel year;
 
     // Maps a many-to-one relation between calculation and kitchen using 'kitchenId' as foreign key
@@ -66,9 +66,24 @@ public class CalculationModel {
      * @param foodItemList the list of purchased food items for the calculation
      * @param kitchen the associated kitchen for the calculation
      */
-    public CalculationModel(LocalDate dateFrom, LocalDate dateTo, Integer quarter, YearModel year, ArrayList<FoodItemModel> foodItemList, KitchenModel kitchen) {
+    public CalculationModel(LocalDate dateFrom,
+                            LocalDate dateTo,
+                            Integer quarter,
+                            YearModel year,
+                            ArrayList<FoodItemModel> foodItemList,
+                            KitchenModel kitchen) {
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
+        this.quarter = quarter;
+        this.year = year;
+        this.foodItemList = foodItemList;
+        this.kitchen = kitchen;
+    }
+
+    public CalculationModel(Integer quarter,
+                            YearModel year,
+                            ArrayList<FoodItemModel> foodItemList,
+                            KitchenModel kitchen){
         this.quarter = quarter;
         this.year = year;
         this.foodItemList = foodItemList;

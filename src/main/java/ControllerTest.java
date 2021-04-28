@@ -3,6 +3,8 @@ import persistence.KitchenPersistence;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO - kan vi slette denne klasse?
+
 public class ControllerTest {
 
     private KitchenPersistence kitchenPersistence;

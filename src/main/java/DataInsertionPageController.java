@@ -1,5 +1,3 @@
-//This jar needs to be put in libs https://nexus.gluonhq.com/nexus/content/repositories/releases/com/gluonhq/charm-glisten/6.0.6/
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,8 +20,7 @@ import java.net.URL;
 import java.util.*;
 
 import javafx.util.StringConverter;
-import model.KitchenModel;
-import model.YearModel;
+import model.*;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.*;
 
@@ -39,19 +36,39 @@ public class DataInsertionPageController implements Initializable {
     @FXML private TableColumn<ViewListItemDataInsertionPage, Double> co2prkiloValueColumn;
     @FXML private TableColumn<ViewListItemDataInsertionPage, Double> totalCo2ForItemColumn;
 
+    private List<FoodItemModel> foodItemList = new ArrayList<>();
+
     /*
     Button that adds the chosen product to the list of items that the system must calculate.
     The button may not add item to the list before a chosen product and a weight has been provided.
      */
     public void addProductToList(){
-        System.out.println("this button must add product to list");
-        //Todo
+        //Todo Kommentarer
         String productNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
-        ViewListItemDataInsertionPage newItemForList = new ViewListItemDataInsertionPage(productNameString,
-                volumeWeightInput); //ADD THE REST OF VALUES AS WELL //TODO
+        FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
+        FoodItemModel f = new FoodItemModel(volumeWeightInput, foodDescriptor);
+        foodItemList.add(f);
         //We get all items from the table as a list, and we add the new item to the list
-        insertionPageTableView.getItems().add(newItemForList);
+        insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
+                f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(),f.calcCo2()));
+    }
+
+    /**
+     * This method collects information about a calculation from the different input fields and saves it in the DB
+     * Through a cascading the foodItems are also saved in the DB
+     * The calculationModel is saved in the calculation table and foodItem is saved in the foodItem table
+     */
+    public void createCalc(){
+
+        ArrayList<FoodItemModel> foodItems = new ArrayList<>(foodItemList);
+
+        CalculationModel calculation = new CalculationModel(
+                choiceboxChooseQuarter.getValue(),
+                choiceboxChooseYear.getValue(),
+                foodItems,
+                choiceboxChooseKitchen.getValue());
+        //CalculationPersistence.addCalc(calculation);
     }
 
     //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
@@ -93,22 +110,17 @@ public class DataInsertionPageController implements Initializable {
         //TableView stuff goes here
         //TODO
         productNameColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
-        //primaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
-        //secondaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
-        volumeOfProductColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));  //Does this have to be 'String'?
-        //co2prkiloValueColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("co2prkiloValue"));   //Does this have to be 'String'?
-        //totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("totalCo2ForItem"));  //Does this have to be 'String'?
+        primaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
+        secondaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
+        volumeOfProductColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));
+        co2prkiloValueColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("co2prkiloValue"));
+        totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
 
         insertionPageTableView.setItems(getItemsForList());
     }
 
     public ObservableList<ViewListItemDataInsertionPage> getItemsForList(){
         ObservableList<ViewListItemDataInsertionPage> itemList = FXCollections.observableArrayList();
-        itemList.add(new ViewListItemDataInsertionPage("Minecraftgamer", 35.0));
-        itemList.add(new ViewListItemDataInsertionPage("FortniteGamer", 45.0));
-        itemList.add(new ViewListItemDataInsertionPage("CSGOGamer", 65.0));
-        itemList.add(new ViewListItemDataInsertionPage("WoWGamer", 150.0));
-
         return itemList;
     }
 
@@ -163,7 +175,7 @@ public class DataInsertionPageController implements Initializable {
      */
     public void openRegisterNewProductOverlay(ActionEvent event) throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("registerNewProductPage.fxml"));
+        Parent root = App.getRegisterNewProductPageParent();
         stage.setScene(new Scene(root));
         stage.setTitle("Registrer en ny vare");
         Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
@@ -173,22 +185,22 @@ public class DataInsertionPageController implements Initializable {
         stage.show();
     }
 
-
-    public void switchToCalculationPage(ActionEvent event) throws IOException {
-        getSelectedValuesOfChoiceBoxes(); //Simply prints the currently selected values of the ChoiceBoxes.
-        root = FXMLLoader.load(getClass().getResource("calculationPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    /**
+     * Event handler for the button "Udregn".
+     * Switches to the calculation page.
+     * @param event action event from button element
+     */
+    public void switchToCalculationPage(ActionEvent event){
+        App.switchScene(App.getCalculationPageParent());
     }
 
-    public void switchToFrontMenuPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("frontPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    /**
+     * Event handler for the buttons "Tilbage" and "Start".
+     * Switches to the front page
+     * @param event action event from button element
+     */
+    public void switchToFrontMenuPage(ActionEvent event){
+        App.switchScene(App.getFrontPageParent());
     }
 
 

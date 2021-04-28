@@ -975,28 +975,31 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <table id="286" parent="4" name="fooditem"/>
     <table id="287" parent="4" name="ingredient"/>
     <table id="288" parent="4" name="kitchen"/>
-    <table id="289" parent="4" name="quarter"/>
-    <table id="290" parent="4" name="year"/>
-    <column id="291" parent="283" name="id">
+    <table id="289" parent="4" name="year"/>
+    <column id="290" parent="283" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="292" parent="283" name="dateFrom">
+    <column id="291" parent="283" name="dateFrom">
       <Position>2</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="293" parent="283" name="dateTo">
+    <column id="292" parent="283" name="dateTo">
       <Position>3</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="294" parent="283" name="kitchenId">
+    <column id="293" parent="283" name="kitchenId">
       <Position>4</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="295" parent="283" name="quarterId">
+    <column id="294" parent="283" name="quarter">
       <Position>5</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="295" parent="283" name="yearId">
+      <Position>6</Position>
       <DataType>int|0s</DataType>
     </column>
     <index id="296" parent="283" name="id_UNIQUE">
@@ -1008,8 +1011,8 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <ColNames>kitchenId</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="298" parent="283" name="quarterId2_idx">
-      <ColNames>quarterId</ColNames>
+    <index id="298" parent="283" name="fk_year_year_idx">
+      <ColNames>yearId</ColNames>
       <Type>btree</Type>
     </index>
     <key id="299" parent="283" name="PRIMARY">
@@ -1026,9 +1029,9 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <RefTableName>kitchen</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="302" parent="283" name="fk_calculation_quarter">
-      <ColNames>quarterId</ColNames>
-      <RefTableName>quarter</RefTableName>
+    <foreign-key id="302" parent="283" name="fk_year_year">
+      <ColNames>yearId</ColNames>
+      <RefTableName>year</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <column id="303" parent="284" name="id">
@@ -1232,66 +1235,24 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>
-    <column id="345" parent="289" name="quarter">
+    <column id="345" parent="289" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
-    </column>
-    <column id="346" parent="289" name="id">
-      <Position>2</Position>
-      <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="347" parent="289" name="yearId">
-      <Position>3</Position>
-      <DataType>int|0s</DataType>
-    </column>
-    <index id="348" parent="289" name="id_UNIQUE">
+    <index id="346" parent="289" name="year_UNIQUE">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="349" parent="289" name="fk_quarter_year_idx">
-      <ColNames>yearId</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="350" parent="289" name="PRIMARY">
+    <key id="347" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="351" parent="289" name="id_UNIQUE">
+    <key id="348" parent="289" name="year_UNIQUE">
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
-    </key>
-    <foreign-key id="352" parent="289" name="fk_quarter_year">
-      <ColNames>yearId</ColNames>
-      <RefTableName>year</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <column id="353" parent="290" name="year">
-      <Position>1</Position>
-      <DataType>int|0s</DataType>
-    </column>
-    <column id="354" parent="290" name="id">
-      <Position>2</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
-    </column>
-    <index id="355" parent="290" name="id_UNIQUE">
-      <ColNames>id</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
-    <key id="356" parent="290" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <key id="357" parent="290" name="id_UNIQUE">
-      <ColNames>id</ColNames>
-      <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
+      <UnderlyingIndexName>year_UNIQUE</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>
