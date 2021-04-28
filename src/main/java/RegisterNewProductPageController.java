@@ -9,16 +9,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.ConcitoItemModel;
-import model.FoodDescriptorModel;
-import model.FoodItemModel;
-import model.IngredientModel;
+import model.*;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.ConcitoPersistence;
 import persistence.FoodDescriptorPersistence;
+import persistence.KitchenPersistence;
 
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -46,6 +47,8 @@ public class RegisterNewProductPageController implements Initializable {
 
     @FXML
     private TextField itemNumber;
+    @FXML
+    private Text descriptorSavedAlert;
 
     public ArrayList<IngredientModel> ingredientList = new ArrayList<>();
 
@@ -57,6 +60,8 @@ public class RegisterNewProductPageController implements Initializable {
         ingredientList.add(ingredient);
         registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), ingredient.getPercentage()));
     }
+
+
 
     public void createNewDescriptor() {
         FoodDescriptorModel foodDescriptor = new FoodDescriptorModel(
@@ -102,14 +107,32 @@ public class RegisterNewProductPageController implements Initializable {
 
     public void addIngredientButton(ActionEvent e) {
         addIngredient();
+        autoCompleteTextField.clear();
+        percentageTextField.clear();
     }
 
 
-    public void saveInDatabase(ActionEvent e) {
+    public void saveInDatabase(ActionEvent e){
         createNewDescriptor();
+        descriptorSavedAlert.setVisible(true);
         percentageTextField.clear();
         descriptorName.clear();
         autoCompleteTextField.clear();
+        itemNumber.clear();
         ingredientList.clear();
+        registerPageTableView.getItems().clear();
+        removeSavedAlert();
+    }
+
+    public void removeSavedAlert(){
+            TimerTask task = new TimerTask() {
+                public void run() {
+                    descriptorSavedAlert.setVisible(false);
+                    cancel();
+                }
+            };
+            Timer timer = new Timer(true);
+            long delay = 3000L;
+            timer.schedule(task, delay);
     }
 }
