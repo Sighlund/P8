@@ -70,4 +70,8 @@ public class YearModel {
         return stringConverter;
     }
 
+    @Override
+    public String toString() {
+        return id.toString();
+    }
 }

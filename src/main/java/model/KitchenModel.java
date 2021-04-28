@@ -81,14 +81,13 @@ public class KitchenModel {
         return list;
     }
 
+
     @Override
     public String toString(){
-        return "Kitchen{" +
-                "id=" + id +
-                ", name=" + name +
-                ", calcList=" + calcList +
-                "}";
+        return name;
     }
+
+
 
     // --- Static methods ---
 

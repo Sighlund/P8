@@ -41,29 +41,18 @@ public class HistoryController implements Initializable {
     @FXML
     private TableColumn<CalculationModel, Integer> id;
 
-   /* public ObservableList<CalculationModel> getCalculations(){
-    ObservableList<CalculationModel> calculations = FXCollections.observableArrayList();
-        for(int i=0; i<KitchenPersistence.listKitchen().size(); i++) {
-        List<CalculationModel> list = KitchenPersistence.listKitchen().get(i).getCalcList();
-            for(int j=0; j<list.size(); j++){
-                calculations.add(list.get(j));
-            }
-        }
-        return calculations;
-    }
-
-    */
+    private ObservableList<CalculationModel> calcList;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        ObservableList<CalculationModel> list = CalculationPersistence.listCalc();
+        calcList = CalculationPersistence.listCalc();
 
         id.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("id"));
         year.setCellValueFactory(new PropertyValueFactory<CalculationModel, YearModel>("year"));
         quarter.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("quarter"));
         kitchen.setCellValueFactory(new PropertyValueFactory<CalculationModel, KitchenModel>("kitchen"));
 
-        tableView.setItems(list);
+        tableView.setItems(calcList);
 
         tableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE
