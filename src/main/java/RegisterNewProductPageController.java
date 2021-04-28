@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class RegisterNewProductPageController implements Initializable{
+public class RegisterNewProductPageController implements Initializable {
 
     @FXML
     private TableView<ViewListRegisterPage> registerPageTableView;
@@ -41,13 +41,29 @@ public class RegisterNewProductPageController implements Initializable{
     @FXML
     private TextField percentageTextField;
 
+    @FXML
+    private TextField descriptorName;
 
-    public void addIngredient(){
+    @FXML
+    private TextField itemNumber;
+
+    public ArrayList<IngredientModel> ingredientList = new ArrayList<>();
+
+    public void addIngredient() {
         String ingredientNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(percentageTextField.getText());
         ConcitoItemModel concitoItem = ConcitoPersistence.getConcitoByName(ingredientNameString);
         IngredientModel ingredient = new IngredientModel(volumeWeightInput, concitoItem);
+        ingredientList.add(ingredient);
         registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), ingredient.getPercentage()));
+    }
+
+    public void createNewDescriptor() {
+        FoodDescriptorModel foodDescriptor = new FoodDescriptorModel(
+                descriptorName.getText(), Integer.parseInt(itemNumber.getText()), ingredientList);
+        FoodDescriptorPersistence.addDescriptor(foodDescriptor);
+
+
     }
 
     @Override
@@ -60,12 +76,12 @@ public class RegisterNewProductPageController implements Initializable{
         registerPageTableView.setItems(getItemsForList());
     }
 
-    public ObservableList<ViewListRegisterPage> getItemsForList(){
+    public ObservableList<ViewListRegisterPage> getItemsForList() {
         ObservableList<ViewListRegisterPage> itemList = FXCollections.observableArrayList();
         return itemList;
     }
 
-    public List<String> getConcitoNames(){
+    public List<String> getConcitoNames() {
 //        ArrayList<String> list = new ArrayList<String>();
 //        for (int i = 0; i < FoodDescriptorPersistence.listDescriptor().size(); i++) {
 //            list.add(FoodDescriptorPersistence.listDescriptor().get(i).getName());
@@ -75,7 +91,6 @@ public class RegisterNewProductPageController implements Initializable{
     }
 
 
-
 //    public void getSelectedValueOfVolumeKiloTextField(){
 //        //make if statement, that if the input contains anything else than numbers,
 //        //give an error and don't allow method to continue.
@@ -83,8 +98,12 @@ public class RegisterNewProductPageController implements Initializable{
 //        System.out.println(valueOfVolumeInput);
 //    }
 
-    public void addIngredientButton(ActionEvent e){
+    public void addIngredientButton(ActionEvent e) {
         addIngredient();
     }
 
- }
+
+    public void saveInDatabase(ActionEvent e) {
+        createNewDescriptor();
+    }
+}
