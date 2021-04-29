@@ -89,6 +89,18 @@ public class FoodDescriptorModel{
         this(name, null, null, new ArrayList<IngredientModel>());
     }
 
+    /**
+     * Contructor used for creating new fooddescriptors in the RegisterNewProductPageController
+     * @param name the of the food product the descriptor describes
+     * @param itemNumber Number itemNumber that is specified by the supplier
+     * @param ingredientList The ingredients a fooddescriptor contains.
+     */
+    public FoodDescriptorModel(String name, Integer itemNumber, ArrayList<IngredientModel> ingredientList){
+        this.name = name;
+        this.itemNumber = itemNumber;
+        this.ingredientList = ingredientList;
+    }
+
     // --- Getters and setters ---
     public Integer getId() {
         return id;

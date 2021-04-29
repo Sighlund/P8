@@ -26,4 +26,5 @@ persistence\FoodDescriptorPersistence.class
 model\ConcitoItemModel.class
 model\YearModel$1.class
 persistence\QuarterPersistence.class
+RegisterNewProductPageController$1.class
 CalculationPageController.class

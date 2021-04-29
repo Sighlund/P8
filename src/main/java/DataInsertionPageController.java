@@ -149,6 +149,7 @@ public class DataInsertionPageController implements Initializable {
     }
 
 
+    //TODO Slet denne method? tror ikke den bruges til noget
     //This method can be used to get the input value of the volume text field.
     public void getSelectedValueOfVolumeKiloTextField(){
         //make if statement, that if the input contains anything else than numbers,
@@ -161,6 +162,8 @@ public class DataInsertionPageController implements Initializable {
     public void addProductToListMethodCalls(ActionEvent e){
         addProductToList();
         getSelectedValueOfVolumeKiloTextField();
+        autoCompleteTextField.clear();
+        volumeKiloTextField.clear();
     }
 
 
