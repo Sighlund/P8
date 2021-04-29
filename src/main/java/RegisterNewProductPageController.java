@@ -128,7 +128,6 @@ public class RegisterNewProductPageController implements Initializable {
             TimerTask task = new TimerTask() {
                 public void run() {
                     descriptorSavedAlert.setVisible(false);
-                    cancel();
                 }
             };
             Timer timer = new Timer(true);
