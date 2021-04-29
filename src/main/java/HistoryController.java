@@ -103,9 +103,9 @@ public class HistoryController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("comparison.fxml"));
         Parent root = loader.load();
 
-        CalculationComparisonPageController comparisonPageController = loader.getController();
+        CalculationComparisonPageController calculationComparisonPageController = loader.getController();
 
-        comparisonPageController.getInformation(calcid);
+        calculationComparisonPageController.getInformation(calcid);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
