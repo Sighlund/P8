@@ -81,14 +81,17 @@ public class KitchenModel {
         return list;
     }
 
+    /**
+     * Overrides toString() inherited from Object
+     * to a custom string with only the name
+     * @return the name of the kitchen
+     */
     @Override
     public String toString(){
-        return "Kitchen{" +
-                "id=" + id +
-                ", name=" + name +
-                ", calcList=" + calcList +
-                "}";
+        return name;
     }
+
+
 
     // --- Static methods ---
 

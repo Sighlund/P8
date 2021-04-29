@@ -70,4 +70,13 @@ public class YearModel {
         return stringConverter;
     }
 
+    /**
+     * Overrides the toString() inherited from Object
+     * to a custom String with only the id of the year (i.e. "2020")
+     * @return the id of the year as a String
+     */
+    @Override
+    public String toString() {
+        return id.toString();
+    }
 }
