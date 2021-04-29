@@ -5,6 +5,7 @@ import model.FoodDescriptorModel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,6 +78,21 @@ public class ConcitoPersistence {
         session.delete(concitoItemModel);
         //Closing session
         SetupPersistence.closeSession(session);
+    }
+
+    /**
+     * Method to get all distinct categories from the current concito items in the database
+     * @return a list of distinct category names as strings
+     */
+    public static List<String> getDistinctCategories(){
+        //Creating session
+        Session session = SetupPersistence.getSession();
+        //Searching the database for the category names, selecting only distinct category names
+        List<String> categories = session.createQuery("select distinct c.category from ConcitoItemModel c").list();
+        //Closing session
+        SetupPersistence.closeSession(session);
+        //Returning list of category names
+        return categories;
     }
 
 }
