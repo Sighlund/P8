@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +27,8 @@ import javafx.util.StringConverter;
 import model.*;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.*;
+
+import javax.persistence.NoResultException;
 
 public class DataInsertionPageController implements Initializable {
 
@@ -168,15 +171,27 @@ public class DataInsertionPageController implements Initializable {
         autoCompleteTextField.clear();
         volumeKiloTextField.clear();
         }
-        //Catches any exception caused when running what is in the 'try'
-        catch (Exception exception){
+        //Catches exception caused when name doesn't match anything in database when running what is in the 'try'
+        catch (NoResultException exception){
+            System.out.println(exception);
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
-            errorHandlingCollection.basicErrorPopup("Navnet på varen blev ikke fundet i databasen. Tjek at navnet er korrekt");
+            errorHandlingCollection.basicErrorPopup("fejl", "Navnet på varen blev ikke fundet i databasen. Tjek at navnet er korrekt");
             //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
         }
+        //This catches every other type of exception. In this case, we only expect the 'angiv kg' field to be problematic.
+        catch (Exception exception){
+            System.out.println(exception);
+            //Instantiating an object which has the error handling methods
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("fejl", "Feltet 'angiv kg' må kun indholde tal, og kommatal skal bruge '.' i stedet for ','");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
+
     }
 
 
@@ -223,6 +238,8 @@ public class DataInsertionPageController implements Initializable {
      * @param event action event from button element
      */
     public void switchToCalculationPage(ActionEvent event){
+        //TODO Error Handling: button must check to see if user has chosen kitchen, year and quarter,
+        // and the list of items must not be empty.
         createCalc();
         App.switchScene(App.getCalculationPageParent());
     }
@@ -237,5 +254,7 @@ public class DataInsertionPageController implements Initializable {
     }
 
 
+
+    //TODO: 'Ryd Felter' Button must prompt user to confirm or cancel their choice.
 
 }
