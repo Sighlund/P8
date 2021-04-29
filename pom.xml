@@ -21,8 +21,6 @@
                 <!--Defining JDK version-->
                 <configuration>
                     <release>16</release>
-                    <source>15</source>
-                    <target>15</target>
                 </configuration>
             </plugin>
             <plugin>
