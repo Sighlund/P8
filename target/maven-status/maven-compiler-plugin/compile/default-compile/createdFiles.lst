@@ -17,6 +17,7 @@ persistence\SetupPersistence.class
 model\YearModel.class
 persistence\CalculationPersistence.class
 model\FoodItemModel.class
+ErrorHandlingCollection.class
 persistence\YearPersistence.class
 model\IngredientModel.class
 HistoryController.class

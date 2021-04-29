@@ -47,6 +47,8 @@ public class DataInsertionPageController implements Initializable {
      */
     public void addProductToList(){
         //Todo Kommentarer
+        //TODO Error Handling: 'Tilføj vare' button cannot be pressed if these 2 conditions are not met: 1) Volume input must only take doubles. 2) AutoCompleteTextField  must not take input that doesn't exist in database. Has to inform user of specific problem.
+
         String productNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
@@ -160,10 +162,21 @@ public class DataInsertionPageController implements Initializable {
 
     //Methods being called when clicking the 'Tilføj vare' button in the system
     public void addProductToListMethodCalls(ActionEvent e){
+        try {
         addProductToList();
         getSelectedValueOfVolumeKiloTextField();
         autoCompleteTextField.clear();
         volumeKiloTextField.clear();
+        }
+        //Catches any exception caused when running what is in the 'try'
+        catch (Exception exception){
+            //Instantiating an object which has the error handling methods
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("Navnet på varen blev ikke fundet i databasen. Tjek at navnet er korrekt");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
     }
 
 

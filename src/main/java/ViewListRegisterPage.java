@@ -29,4 +29,11 @@ public class ViewListRegisterPage {
     public void setAmountIngredient(Double amountIngredient) {
         this.amountIngredient = amountIngredient;
     }
+
+
+    public void basicErrorPopup(String errorMessage){
+        //must create a basic popup informing user of problem. Must display the error message.
+        System.out.println(errorMessage);
+        //App.basicErrorPopup("Navnet på varen findes ikke i databasen. Tjek at navnet er korrekt");
+    }
 }
