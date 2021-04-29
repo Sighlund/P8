@@ -5,7 +5,6 @@ App.class
 persistence\ConcitoPersistence.class
 model\CalculationModel.class
 persistence\IngredientPersistence.class
-HistoryController$1.class
 ViewListItemDataInsertionPage.class
 model\KitchenModel$1.class
 model\FoodDescriptorModel.class
@@ -18,7 +17,6 @@ persistence\SetupPersistence.class
 model\YearModel.class
 persistence\CalculationPersistence.class
 model\FoodItemModel.class
-HistoryController$2.class
 persistence\YearPersistence.class
 model\IngredientModel.class
 HistoryController.class
@@ -26,4 +24,5 @@ persistence\FoodDescriptorPersistence.class
 model\ConcitoItemModel.class
 model\YearModel$1.class
 persistence\QuarterPersistence.class
+RegisterNewProductPageController$1.class
 CalculationPageController.class

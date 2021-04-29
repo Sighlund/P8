@@ -2,18 +2,19 @@
 
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HistoryController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HistoryController">
    <children>
-      <ImageView fx:id="vegetablesImageView" fitHeight="237.0" fitWidth="1286.0" layoutY="-86.0" pickOnBounds="true">
+      <ImageView fx:id="vegetablesImageView" fitHeight="211.0" fitWidth="801.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="https://raw.githubusercontent.com/Sighlund/P8/main/src/main/resources/img/Vegetables.jpg" />
          </image>
@@ -21,64 +22,31 @@
             <Rectangle2D height="300.0" width="1500.0" />
          </viewport>
       </ImageView>
-      <Label fx:id="Filtrer" layoutX="384.0" layoutY="192.0" text="FILTRER">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="48.0" layoutX="222.0" layoutY="46.0" stroke="TRANSPARENT" strokeType="INSIDE" width="338.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="222.0" layoutY="45.0" prefHeight="48.0" prefWidth="338.0" text="HISTORIK" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="SansSerif Regular" size="18.0" />
+            <Font name="SansSerif Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="148.0" layoutY="228.0" text="År">
+      <Button layoutX="693.0" layoutY="200.0" mnemonicParsing="false" onAction="#sendToCalculationPageControllerAction" prefHeight="64.0" prefWidth="97.0" style="-fx-background-color: #27AE60;" text="Sammenlign" textFill="WHITE" />
+      <Button fx:id="START" layoutY="-1.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" />
+      <TableView fx:id="tableView" layoutX="24.0" layoutY="248.0" onMouseClicked="#getSelected" prefHeight="279.0" prefWidth="648.0">
+         <columns>
+            <TableColumn fx:id="year" prefWidth="75.0" text="År" />
+            <TableColumn fx:id="quarter" prefWidth="75.0" text="Kvartal" />
+            <TableColumn fx:id="kitchen" text="Enhed" />
+            <TableColumn fx:id="id" prefWidth="75.0" text="Id" />
+         </columns>
+      </TableView>
+      <ChoiceBox fx:id="choiceboxChooseKitchenHis" layoutX="24.0" layoutY="204.0" prefHeight="26.0" prefWidth="114.0" />
+      <ChoiceBox fx:id="choiceboxChooseYearHis" layoutX="157.0" layoutY="204.0" prefHeight="26.0" prefWidth="114.0" />
+      <ChoiceBox fx:id="choiceboxChooseQuarterHis" layoutX="287.0" layoutY="204.0" prefWidth="150.0" />
+      <Label layoutX="24.0" layoutY="182.0" text="Vælg Afdeling">
          <font>
-            <Font name="SansSerif Regular" size="14.0" />
+            <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="338.0" layoutY="228.0" text="Kvartal">
-         <font>
-            <Font name="SansSerif Regular" size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="531.0" layoutY="228.0" text="Enhed">
-         <font>
-            <Font name="SansSerif Regular" size="14.0" />
-         </font>
-      </Label>
-      <ListView fx:id="yearList" layoutX="145.0" layoutY="261.0" prefHeight="261.0" prefWidth="168.0" AnchorPane.leftAnchor="145.0" />
-      <ListView fx:id="quarterList" layoutX="338.0" layoutY="261.0" prefHeight="261.0" prefWidth="168.0" AnchorPane.leftAnchor="338.0" />
-      <ListView fx:id="unitList" layoutX="531.0" layoutY="261.0" prefHeight="261.0" prefWidth="168.0" AnchorPane.leftAnchor="531.0" />
-      <ListView fx:id="calcHistory" layoutX="786.0" layoutY="249.0" prefHeight="279.0" prefWidth="200.0" />
-      <Label fx:id="chosenYear" alignment="CENTER" layoutX="338.0" layoutY="244.0" prefHeight="18.0" prefWidth="168.0" style="-fx-background-color: WHITE;" text="Filter" />
-      <Label fx:id="chosenYearQ" alignment="CENTER" layoutX="531.0" layoutY="244.0" prefHeight="18.0" prefWidth="168.0" style="-fx-background-color: WHITE;" text="Filter" AnchorPane.leftAnchor="531.0" />
-      <Button layoutX="1160.0" layoutY="232.0" mnemonicParsing="false" onAction="#printKnap" text="Print" />
-      <Label fx:id="Aar" layoutX="786.0" layoutY="232.0" prefHeight="18.0" prefWidth="50.0" text="År" />
-      <Label fx:id="Kvartal" layoutX="836.0" layoutY="232.0" text="Kvartal" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="423.0" layoutY="31.0" prefHeight="81.0" prefWidth="441.0" text="HISTORIK" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="SansSerif Bold" size="28.0" />
-         </font>
-      </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="81.0" layoutX="423.0" layoutY="31.0" stroke="TRANSPARENT" strokeType="INSIDE" width="441.0" />
-      <Button fx:id="START" layoutX="37.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0" />
-      <Button layoutX="104.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0" />
-      <Button layoutX="1006.0" layoutY="352.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Sammenlign" textAlignment="CENTER" />
-      <Label fx:id="chosenYear1" alignment="CENTER" layoutX="145.0" layoutY="244.0" prefHeight="18.0" prefWidth="168.0" style="-fx-background-color: WHITE;" text="Filter" AnchorPane.leftAnchor="145.0" />
-      <Label fx:id="Filtrer1" layoutX="778.0" layoutY="192.0" text="UDREGNINGSOVERSIGT">
-         <font>
-            <Font name="SansSerif Regular" size="18.0" />
-         </font>
-      </Label>
-      <Text layoutX="313.0" layoutY="384.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" textAlignment="CENTER" wrappingWidth="26.681640625">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Text layoutX="506.0" layoutY="384.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" textAlignment="CENTER" wrappingWidth="26.681640625">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Text layoutX="730.0" layoutY="384.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" textAlignment="CENTER" wrappingWidth="26.681640625">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
+      <Label layoutX="157.0" layoutY="181.0" text="Vælg år" />
+      <Label layoutX="287.0" layoutY="181.0" text="Vælg kvartal" />
    </children>
 </AnchorPane>

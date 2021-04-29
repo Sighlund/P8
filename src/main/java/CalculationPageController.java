@@ -8,11 +8,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.FoodItemModel;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CalculationPageController implements Initializable {
@@ -99,6 +103,35 @@ public class CalculationPageController implements Initializable {
         MyBarChart.setVisible(false);
     }
 
+    //NYT
+    @FXML
+    public CheckBox myCheckBox;
+
+    public void change(ActionEvent event) {
+        if (myCheckBox.isSelected()) {
+            addDataBarChart("enhed 2");
+        }
+        else{
+            MyBarChart.getData().clear();
+            buildBarChart();
+            MyBarChart.setVisible(true);
+        }
+    }
+
+    //NYT
+    public void addDataBarChart(String enhednavn){
+
+        //TODO
+        //enhed 2 skulle være parameter istedet for hardcodet
+        XYChart.Series enhed2 = new XYChart.Series();
+        enhed2.setName(enhednavn);
+
+        enhed2.getData().add(new XYChart.Data("Kartoffel", 20));
+        enhed2.getData().add(new XYChart.Data("Kød", 30));
+
+        MyBarChart.getData().add(enhed2);
+    }
+
     //function that shows barchart when selected in menu
     public void handleShowBarChart(){
         MyPieChart.setVisible(false);
@@ -120,6 +153,29 @@ public class CalculationPageController implements Initializable {
         VolumeC = volumeC;
     }
 
+    int calculationPagecalcid;
+    //Receives information from HistoryPageController
+    public void getInformation(int calcid) {
+        this.calculationPagecalcid=calcid;
+    }
+
+    //test to print id
+    public void printCalcid(){
+        System.out.println(calculationPagecalcid);
+    }
+
+    /*
+    //Receives information from HistoryPageController
+    public void getInformation(List<FoodItemModel> calcid) {
+        this.calcPageItemList=calcid;
+    }
+
+    //test to print id
+    public void printCalcid(){
+        System.out.println(calcPageItemList);
+    }
+    */
+
     /**
      * Event handler for the button "Start".
      * Switches to the front page.
@@ -137,11 +193,6 @@ public class CalculationPageController implements Initializable {
     public void switchToDataInsertionPage(ActionEvent event){
         App.switchScene(App.getDataInsertionPageParent());
     }
-
-    //TODO Skal de her slettes Anders?
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
 }
 

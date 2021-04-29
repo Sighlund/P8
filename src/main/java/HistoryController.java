@@ -1,5 +1,7 @@
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,93 +9,111 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.CalculationModel;
+import model.FoodItemModel;
+import model.KitchenModel;
+import model.YearModel;
+import persistence.CalculationPersistence;
+import persistence.KitchenPersistence;
+import persistence.QuarterPersistence;
+import persistence.YearPersistence;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HistoryController implements Initializable {
 
-    //ListView refers to lists containing year, quarter, unit and saved calculations on the History page
+    //ids for tableview
     @FXML
-    private ListView<String> yearList = new ListView<>();
-    @FXML
-    private ListView<String> quarterList = new ListView<>();
-    @FXML
-    //unitList should contain units
-    private ListView<String> unitList = new ListView<>();
-    @FXML
-    //calcHistory should contain previous calculations
-    private ListView<String> calcHistory = new ListView();
+    private TableView<CalculationModel> tableView;
 
-    //Arrays is filled with year, quarter
-    String[] years = {"2020","2021","2022","2023","2024","2025"};
-    String[] quarters = {"Q1","Q2","Q3","Q4"};
-    //units has to be filled with units
-    String [] units = {};
-    // New calculations should be added
-    String [] calculations = {};
-
-    //labels are textfields that opdates with chosen year and quarter
     @FXML
-    private Label chosenYear;
-    @FXML
-    private Label chosenYearQ;
-    @FXML
+    private TableColumn<CalculationModel, YearModel> year;
 
-    //test labels for storing chosen year and quarter
-    private Label Aar;
     @FXML
-    private Label Kvartal;
+    private TableColumn<CalculationModel, Integer> quarter;
 
-    //used to opdate labels
-    String currentYear;
-    String currentYearQ;
+    @FXML
+    private TableColumn<CalculationModel, KitchenModel> kitchen;
 
-    //Initialiseres listViews
+    @FXML
+    private TableColumn<CalculationModel, Integer> id;
+
+    @FXML
+    private ChoiceBox<KitchenModel> choiceboxChooseKitchenHis;
+    @FXML
+    private ChoiceBox<YearModel> choiceboxChooseYearHis;
+    @FXML
+    private ChoiceBox<Integer> choiceboxChooseQuarterHis;
+
+    // Attribute to hold list of calculations to be displayed in table view
+    private ObservableList<CalculationModel> calcList;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        yearList.getItems().addAll(years);
-        quarterList.getItems().addAll(quarters);
-        unitList.getItems().addAll(units);
-        calcHistory.getItems().addAll(calculations);
+        // Update list of displayed calculations by fetching all calculations from the database
+        calcList = CalculationPersistence.listCalc();
+        // TODO - listen af calculations skal opdateres, når der tilføjes en ny
 
-        //Opdateres filter label with year
-        yearList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-                currentYear = yearList.getSelectionModel().getSelectedItem();
-                chosenYear.setText("valgte år: " + currentYear);
-                Aar.setText(currentYear);
-            }
-        });
-        //Opdateres filter label with quarter
-        quarterList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-                currentYearQ = quarterList.getSelectionModel().getSelectedItem();
-                chosenYearQ.setText("År: " + currentYear + " Kvartal: " + currentYearQ);
-                Kvartal.setText(currentYearQ);
-            }
-        });
+        choiceboxChooseQuarterHis.setItems(QuarterPersistence.listQuarter());
+        choiceboxChooseYearHis.setItems(YearPersistence.listYear());
+        choiceboxChooseYearHis.setConverter(YearModel.getStringConverter());
+        choiceboxChooseKitchenHis.setItems(KitchenPersistence.listKitchen());
+        choiceboxChooseKitchenHis.setConverter(KitchenModel.getStringConverter());
+
+        // Set cell value factories for all columns in the table view.
+        // Uses a PropertyValueFactory object with the parameterized type CalculationModel
+        // and the corresponding property type (i.e Integer).
+        // The name of the property in CalculationModel is passed as an argument to the PropertyValueFactory as a String
+        id.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("id"));
+        year.setCellValueFactory(new PropertyValueFactory<CalculationModel, YearModel>("year"));
+        quarter.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("quarter"));
+        kitchen.setCellValueFactory(new PropertyValueFactory<CalculationModel, KitchenModel>("kitchen"));
+
+        // Set items of the table view by passing the observable list of calculations
+        tableView.setItems(calcList);
+
+        // Set selection mode of the table view to accept multiple selected rows
+        tableView.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
+
     }
 
-    //testfunction used to print chosen year and quarter
-    public void printKnap(ActionEvent event) throws IOException {
-        System.out.println(Aar.getText() + " " + Kvartal.getText());
+    int calcid;
+    //private List<FoodItemModel> calcItemList = new ArrayList<>();
+
+    //Gets information from selected row
+    public void getSelected(MouseEvent event){
+        CalculationModel selected = tableView.getSelectionModel().getSelectedItem();
+        this.calcid=selected.getId();
+        //this.calcItemList = selected.getFoodItemList();
     }
 
-    // TODO - kan slettes?
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    //Sends calculationid to CalculationPageController
+    @FXML
+    public void sendToCalculationPageControllerAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("calculationPage.fxml"));
+        Parent root = loader.load();
 
-    // TODO - kan slettes?
-    //Functions to switch between scenes
-    FrontPageController History = new FrontPageController();
+        CalculationPageController calculationPageController = loader.getController();
+
+        calculationPageController.getInformation(calcid);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+
+
 
     /**
      * Event handler for the button "Start".

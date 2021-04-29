@@ -9,21 +9,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.ConcitoItemModel;
-import model.FoodDescriptorModel;
-import model.FoodItemModel;
-import model.IngredientModel;
+import model.*;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.ConcitoPersistence;
 import persistence.FoodDescriptorPersistence;
+import persistence.KitchenPersistence;
 
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class RegisterNewProductPageController implements Initializable{
+public class RegisterNewProductPageController implements Initializable {
 
     @FXML
     private TableView<ViewListRegisterPage> registerPageTableView;
@@ -41,13 +42,35 @@ public class RegisterNewProductPageController implements Initializable{
     @FXML
     private TextField percentageTextField;
 
+    @FXML
+    private TextField descriptorName;
 
-    public void addIngredient(){
+    @FXML
+    private TextField itemNumber;
+    @FXML
+    private Text descriptorSavedAlert;
+
+    public ArrayList<IngredientModel> ingredientList = new ArrayList<>();
+
+    public void addIngredient() {
         String ingredientNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(percentageTextField.getText());
         ConcitoItemModel concitoItem = ConcitoPersistence.getConcitoByName(ingredientNameString);
         IngredientModel ingredient = new IngredientModel(volumeWeightInput, concitoItem);
+        ingredientList.add(ingredient);
         registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), ingredient.getPercentage()));
+    }
+
+
+
+    public void createNewDescriptor() {
+        FoodDescriptorModel foodDescriptor = new FoodDescriptorModel(
+                descriptorName.getText(), ingredientList);
+        //FoodDescriptorPersistence.addDescriptor(foodDescriptor);
+        System.out.println(foodDescriptor.getName());
+        System.out.println(ingredientList.get(0).getContoItem().getName());
+
+
     }
 
     @Override
@@ -60,12 +83,12 @@ public class RegisterNewProductPageController implements Initializable{
         registerPageTableView.setItems(getItemsForList());
     }
 
-    public ObservableList<ViewListRegisterPage> getItemsForList(){
+    public ObservableList<ViewListRegisterPage> getItemsForList() {
         ObservableList<ViewListRegisterPage> itemList = FXCollections.observableArrayList();
         return itemList;
     }
 
-    public List<String> getConcitoNames(){
+    public List<String> getConcitoNames() {
 //        ArrayList<String> list = new ArrayList<String>();
 //        for (int i = 0; i < FoodDescriptorPersistence.listDescriptor().size(); i++) {
 //            list.add(FoodDescriptorPersistence.listDescriptor().get(i).getName());
@@ -75,7 +98,6 @@ public class RegisterNewProductPageController implements Initializable{
     }
 
 
-
 //    public void getSelectedValueOfVolumeKiloTextField(){
 //        //make if statement, that if the input contains anything else than numbers,
 //        //give an error and don't allow method to continue.
@@ -83,8 +105,34 @@ public class RegisterNewProductPageController implements Initializable{
 //        System.out.println(valueOfVolumeInput);
 //    }
 
-    public void addIngredientButton(ActionEvent e){
+    public void addIngredientButton(ActionEvent e) {
         addIngredient();
+        autoCompleteTextField.clear();
+        percentageTextField.clear();
     }
 
- }
+
+    public void saveInDatabase(ActionEvent e){
+        createNewDescriptor();
+        descriptorSavedAlert.setVisible(true);
+        percentageTextField.clear();
+        descriptorName.clear();
+        autoCompleteTextField.clear();
+        itemNumber.clear();
+        ingredientList.clear();
+        registerPageTableView.getItems().clear();
+        removeSavedAlert();
+    }
+
+    public void removeSavedAlert(){
+            TimerTask task = new TimerTask() {
+                public void run() {
+                    descriptorSavedAlert.setVisible(false);
+                    cancel();
+                }
+            };
+            Timer timer = new Timer(true);
+            long delay = 3000L;
+            timer.schedule(task, delay);
+    }
+}
