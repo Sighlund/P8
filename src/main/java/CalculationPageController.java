@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.FoodItemModel;
 
@@ -35,9 +37,29 @@ public class CalculationPageController implements Initializable {
     private Label CO2TotLabel;
     @FXML
     private Label CO2PrKgLabel;
+    @FXML
+    private Label VolumeLabel;
 
+    // Dummy
     String CO2Tot = "22";
     String CO2PrKg = "10";
+
+    // TableView with food items from calculation
+    @FXML
+    private TableView foodItemsTableView;
+    // Table columns
+    @FXML
+    private TableColumn productNameColumn;
+    @FXML
+    private TableColumn primaryGroupColumn;
+    @FXML
+    private TableColumn secondaryGroupColumn;
+    @FXML
+    private TableColumn volumeOfProductColumn;
+    @FXML
+    private TableColumn co2prkiloValueColumn;
+    @FXML
+    private TableColumn totalCo2ForItemColumn;
 
 
 
@@ -45,11 +67,12 @@ public class CalculationPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //calls methods to build charts
         buildPieChart();
-        buildBarChart();
+        //buildBarChart();
 
         //set value for labels
         this.CO2TotLabel.setText(CO2Tot);
         this.CO2PrKgLabel.setText(CO2PrKg);
+
     }
 
     //Pie chart
@@ -103,6 +126,9 @@ public class CalculationPageController implements Initializable {
         MyBarChart.setVisible(false);
     }
 
+
+    //TODO slettet fra interface
+    /*
     //NYT
     @FXML
     public CheckBox myCheckBox;
@@ -117,6 +143,8 @@ public class CalculationPageController implements Initializable {
             MyBarChart.setVisible(true);
         }
     }
+
+     */
 
     //NYT
     public void addDataBarChart(String enhednavn){
@@ -172,6 +200,17 @@ public class CalculationPageController implements Initializable {
         System.out.println(calcPageItemList);
     }
     */
+
+    /**
+     * Saves current instance of calculation in the database
+     * Returns true, if hibernate call went through
+     * @return true if calculation was saved, else false
+     */
+    public boolean saveCalculationToDatabase(){
+        //TODO
+
+        return false;
+    }
 
     /**
      * Event handler for the button "Start".
