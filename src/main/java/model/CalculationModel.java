@@ -3,6 +3,7 @@ package model;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 /***
@@ -222,6 +223,71 @@ public class CalculationModel {
      */
     public Double calcAveCO2prKg() {
         return (calcTotalCo2() / calcTotalKg());
+    }
+
+
+    /**
+     * Gets hash table with all categories in the calculation and associated CO2
+     * as a percentage og the total CO2 for the calculation
+     * @return hash table with categories as keys and percentages as values
+     */
+    public Hashtable<String, Double> getCategoriesPercentagesDict(){
+        // Create empty hash table
+        Hashtable dict = new Hashtable<String, Double>();
+
+        // Get list of categories
+        List<String> categories = getCategories();
+
+
+        // Iterate over all categories
+        for (int i = 0; i < categories.size(); i++){
+
+            // Create double to hold temporary subtotal
+            Double subtotal = 0.0;
+
+            // Iterate over all food items
+            for (int j = 0; j < foodItemList.size(); j++){
+
+                // If category for current food item equals current category
+                // add CO2 for food item to subtotal for the category
+                if (foodItemList.get(j).getCategory().equals(categories.get(i))){
+                    subtotal += foodItemList.get(j).calcCo2();
+                }
+            }
+
+            // Add category and CO2 percentage to the hash table
+            // using category as key and percentage as value
+            dict.put(categories.get(i), (subtotal/calcTotalCo2()*100));
+        }
+
+        // TODO slettes - debugger
+        System.out.println(dict);
+
+        return dict;
+    }
+
+    /**
+     * Private auxiliary method
+     * Gets a list of Strings with all categories present in the calculation
+     * @return list of category names
+     */
+    private List<String> getCategories(){
+        // Create empty list
+        List<String> list = new ArrayList<>();
+
+        // Iterate over food items looking for categories
+        for (int i = 0; i < foodItemList.size(); i++){
+
+            // Add category to list, if it isn't already in the list
+            if (!list.contains(foodItemList.get(i).getCategory())){
+                list.add(foodItemList.get(i).getCategory());
+            }
+        }
+
+        // TODO slettes - debug
+        System.out.println(list);
+
+        return list;
     }
 
 }
