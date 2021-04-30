@@ -22,9 +22,11 @@ public class App extends Application {
     private static Parent frontPageParent;
     private static Parent historyPageParent;
     private static Parent registerNewProductPageParent;
+    private static Parent comparisonParent;
 
-    // Reference to historyController
+    // References to controllers
     private static HistoryController historyController;
+    private static CalculationComparisonPageController comparisonController;
 
     //References to the current active stage and scene are held here.
     private static Stage stage;
@@ -44,8 +46,15 @@ public class App extends Application {
     public static Parent getRegisterNewProductPageParent() {
         return registerNewProductPageParent;
     }
+    public static Parent getComparisonParent() {
+        return comparisonParent;
+    }
+
     public static HistoryController getHistoryController() {
         return historyController;
+    }
+    public static CalculationComparisonPageController getComparisonController() {
+        return comparisonController;
     }
 
     /**
@@ -68,6 +77,13 @@ public class App extends Application {
         FXMLLoader loader = new FXMLLoader();
         historyPageParent = loader.load(getClass().getResource("history.fxml").openStream());
         historyController = loader.getController();
+
+        // For the comparison view, we also need the controller
+        // Creates FXML object to retrieve both FXML and controller
+        // Stores references to both
+        FXMLLoader loader2 = new FXMLLoader();
+        comparisonParent = loader2.load(getClass().getResource("comparison.fxml").openStream());
+        comparisonController = loader2.getController();
     }
 
     /**

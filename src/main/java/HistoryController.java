@@ -107,18 +107,21 @@ public class HistoryController implements Initializable {
     //Sends calculationid to CalculationPageController
     @FXML
     public void sendToCalculationComparisonPageControllerAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("comparison.fxml"));
-        Parent root = loader.load();
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("comparison.fxml"));
+        //Parent root = loader.load();
 
-        CalculationComparisonPageController calculationComparisonPageController = loader.getController();
+        //CalculationComparisonPageController calculationComparisonPageController = loader.getController();
 
-        calculationComparisonPageController.getInformation(calcid);
-
+        //calculationComparisonPageController.getInformation(calcid);
+        App.getComparisonController().getInformation(calcid);
+        App.switchScene(App.getComparisonParent());
+        /*
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
+        */
     }
+
 
     /**
      * Updates the table view
