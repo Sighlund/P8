@@ -26,16 +26,6 @@ import java.util.Set;
 
 public class CalculationPageController implements Initializable {
 
-    //Categories represent foodcategories and volume represent CO2e.
-    //These are used as datainputs for charts and should be replaced with real data
-    String CategoryA = "Kød";
-    int VolumeA = 60;
-    String CategoryB = "Grønsager";
-    int VolumeB = 25;
-    String CategoryC = "Fisk";
-    int VolumeC = 15;
-
-
     //Labels that display summary of calculation totals
     @FXML
     private Label CO2TotLabel;
@@ -44,6 +34,9 @@ public class CalculationPageController implements Initializable {
     @FXML
     private Label VolumeLabel;
 
+    //Pie chart
+    @FXML
+    PieChart MyPieChart;
 
     // TableView with food items from calculation
     @FXML
@@ -61,6 +54,7 @@ public class CalculationPageController implements Initializable {
     private TableColumn co2prkiloValueColumn;
     @FXML
     private TableColumn totalCo2ForItemColumn;
+
 
     // Reference to the calculation to be displayed
     private CalculationModel calculation;
@@ -91,21 +85,6 @@ public class CalculationPageController implements Initializable {
         buildPieChart();
     }
 
-    //Pie chart
-    @FXML
-    PieChart MyPieChart;
-
-    /* // TODO slettes? - obsolete
-    public void buildPieChart(){
-        //Builds pieChart and stores data
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data(CategoryA, VolumeA),
-                        new PieChart.Data(CategoryB, VolumeB),
-                        new PieChart.Data(CategoryC, VolumeC));
-        MyPieChart.setData(pieChartData);
-    }
-     */
 
     /**
      * Private method to build the pie chart based on values from the calculation object
@@ -170,6 +149,20 @@ public class CalculationPageController implements Initializable {
     }
 
 
+
+
+
+     /* // TODO slettes? - obsolete
+    public void buildPieChart(){
+        //Builds pieChart and stores data
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data(CategoryA, VolumeA),
+                        new PieChart.Data(CategoryB, VolumeB),
+                        new PieChart.Data(CategoryC, VolumeC));
+        MyPieChart.setData(pieChartData);
+    }
+     */
 
 
     /* //TODO slettes? - bar chart fjernet fra fxml
@@ -293,6 +286,15 @@ public class CalculationPageController implements Initializable {
     }
     */
 
+    // TODO slettes? - bruges ikke længere
+    //Categories represent foodcategories and volume represent CO2e.
+    //These are used as datainputs for charts and should be replaced with real data
+    String CategoryA = "Kød";
+    int VolumeA = 60;
+    String CategoryB = "Grønsager";
+    int VolumeB = 25;
+    String CategoryC = "Fisk";
+    int VolumeC = 15;
 
 }
 
