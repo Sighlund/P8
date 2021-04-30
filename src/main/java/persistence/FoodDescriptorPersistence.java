@@ -62,19 +62,23 @@ public class FoodDescriptorPersistence {
         return list;
     }
 
+    //TODO Slettes?
 //    public static List<FoodDescriptorModel> listTest(){
 //        Session session = SetupPersistence.getSession();
 //        List<FoodDescriptorModel> list = session.createQuery("select c.name from FoodDescriptorModel c",FoodDescriptorModel.class).getResultList();
 //        return list;
 //    }
 
+
+
+    //Method returns a FoodDescriptorModel when the provided String name matches an existing descriptor from the database.
     public static FoodDescriptorModel getDescriptorByName(String name){
             Session session = SetupPersistence.getSession();
             String hql = "from FoodDescriptorModel c where c.name = :name";
             Query query = session.createQuery(hql);
             query.setParameter("name", name);
+            //Returns a FoodDescriptor object based on the result found
             FoodDescriptorModel foodDescriptorModel = (FoodDescriptorModel) query.getSingleResult();
-            //TODO Error handling: If the input doesn't match something in database, it should inform the user of this.
             return foodDescriptorModel;
     }
 

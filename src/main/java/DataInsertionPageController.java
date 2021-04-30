@@ -55,20 +55,24 @@ public class DataInsertionPageController implements Initializable {
     // Property to hold autocompletion binding on autocomplete text field
     private AutoCompletionBinding autoCompletionBinding;
 
-    /*
-    Button that adds the chosen product to the list of items that the system must calculate.
-    The button may not add item to the list before a chosen product and a weight has been provided.
+    /**
+    Method called on button press that adds the chosen product to the list of items that the system must calculate.
      */
     public void addProductToList(){
-        //Todo Kommentarer
-        //TODO Error Handling: 'Tilføj vare' button cannot be pressed if these 2 conditions are not met: 1) Volume input must only take doubles. 2) AutoCompleteTextField  must not take input that doesn't exist in database. Has to inform user of specific problem.
-
+        //TODO Error Handling: 'Tilføj vare' button cannot be pressed if these 2 conditions are not met:
+        // 1) Volume input must only take doubles.
+        // 2) AutoCompleteTextField  must not take input that doesn't exist in database. Has to inform user of specific problem.
+        //Make a String variable that stores the current content of the automCpleteTextField.
         String productNameString = autoCompleteTextField.getText();
+        //Make a Double variable that stores the current content of the volumeKiloTextField.
         Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
+        //Initialises foodDescriptor object and makes call to persistance layer, to get the descriptor by the provided name.
+        //If the provided name doesn't match, an exception is thrown. It is caught in the method that called addProductToList().
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
         FoodItemModel f = new FoodItemModel(volumeWeightInput, foodDescriptor);
         foodItemList.add(f);
-        //We get all items from the table as a list, and we add the new item to the list
+        //We get all items from the table as a list (Because viewTable is stupid, and can't just append without getting the list first xd)
+        //and we add the new item to the list
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
                 f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(),f.calcCo2()));
     }
@@ -106,16 +110,19 @@ public class DataInsertionPageController implements Initializable {
     @FXML
     private ChoiceBox<Integer> choiceboxChooseQuarter;
 
-    //This method initializes a controller after its root element has already been processed.
-    //I think this means that this method is needed to 'update' the choiceboxes with options,
-    //since the page and choiceboxes has already been loaded.
-    //TODO lav javaDoc
+
+
+    /**
+     * This method initializes a controller after its root element has already been processed.
+     * I think this means that this method is needed to keep content in the view pages updated visually.
+     * @param arg0
+     * @param arg1
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         //Each ChoiceBox is filled with the created options.
         //choiceboxChooseKitchen.getItems().addAll(kitchenChoiceboxOptions.getName);
         choiceboxChooseQuarter.setItems(QuarterPersistence.listQuarter());
-
         choiceboxChooseYear.setItems(YearPersistence.listYear());
         choiceboxChooseYear.setConverter(YearModel.getStringConverter());
         choiceboxChooseKitchen.setItems(KitchenPersistence.listKitchen());
@@ -128,28 +135,25 @@ public class DataInsertionPageController implements Initializable {
         // with possible solutions (food descriptor names)
         autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
-        //TableView stuff goes here
-        //TODO
+
+        //TableView stuff goes here. Each column is told which that they are going to hold object of type PropertyValueFactory(S, T).
+        //S - The type of the class contained within the TableView.items list.
+        //T - The type of the class contained within the TableColumn cells.
+        //The strings provided at the end of the PropertyValueFactories are references to the class properties of ViewListItemDataInsertionPage.
+        //read more at: //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
         productNameColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
         primaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
         secondaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
         volumeOfProductColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));
         co2prkiloValueColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("co2prkiloValue"));
         totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
-
-        insertionPageTableView.setItems(getItemsForList());
     }
 
-    //TODO Lav JavaDoc
-    public ObservableList<ViewListItemDataInsertionPage> getItemsForList(){
-        ObservableList<ViewListItemDataInsertionPage> itemList = FXCollections.observableArrayList();
-        return itemList;
-    }
 
     //This method prints the selected values of the choiceboxes as a concatenated String.
     //This method shoulod be updated, so that it can be called to find the selected choices,
     //and pass these along to the model.
-    //TODO
+    //TODO Is never called. Delete?
     public void getSelectedValuesOfChoiceBoxes(){
         String[] selectedValueOfChoiceBoxes =
                 {choiceboxChooseKitchen.getSelectionModel().getSelectedItem().getName() + " "
@@ -243,13 +247,10 @@ public class DataInsertionPageController implements Initializable {
     // Attribute to hold the secondary stage for the "Registrer ny vare" window
     private Stage registerNewPStage;
 
-    // TODO - @Bjørn, kopierer vi stadig content fra den hjemmeside? "Ja, kopierer er måske lidt voldsomt sagt,
-    //  strukturen kommer derfra" siger Bjørn
     /**
      * Event handler for the button "Registrer ny vare"
      * Opens a modal window to enter details about the product and save in database
-     *
-     * Contents copied from: https://www.codota.com/code/java/methods/javafx.stage.Stage/initModality
+     * Contents based on: https://www.codota.com/code/java/methods/javafx.stage.Stage/initModality
      * Last visited: April 22th 2021.
      * @param event action event from button element
      */
@@ -265,24 +266,24 @@ public class DataInsertionPageController implements Initializable {
             Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
             stage.getIcons().add(icon);
 
-            // Set stage to be a modal window //TODO - @Bjørn, hvad gør det her egentlig?
-            //Det laver et modal vindue i.e. det åbner stage i et nyt vindue.
+            //https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html#initModality-javafx.stage.Modality-
+            //Set stage to have the modality of WINDOW_MODAL.
+            //The stage blocks input events from being delivered to all windows from its owner (parent) to its root. Its root is the closest ancestor window without an owner.
+            //TODO nogen der kan regne ud hvad ovenstående betyder lmao?
             stage.initModality(Modality.WINDOW_MODAL);
-            //stage.initOwner(((Node)event.getSource()).getScene().getWindow() ); //This one 'locks' the user to the window, so they can't click elsewhere.
+            //initOwner specifies the owner Window for this stage. In this case we set dataInsertionPage to be the owner.
+            //This one 'locks' the user to the window, so they can't click elsewhere.
+            stage.initOwner(((Node)event.getSource()).getScene().getWindow());
 
-            // Set event handler for Close Window button
-            // with anonymous declaration of EventHandler class
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
                     // Fetch all food descriptor names from database and update list of food descriptors to be displayed
                     updateFoodDescriptorNames();
-
                     // Dispose previous binding of autoCompletionTextField
                     autoCompletionBinding.dispose();
                     // Create new binding for autoCompletionTextField with updated food descriptor names
                     autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
-
                     // Close stage/window
                     registerNewPStage.close();
                 }
@@ -317,9 +318,6 @@ public class DataInsertionPageController implements Initializable {
     public void switchToFrontMenuPage(ActionEvent event){
         App.switchScene(App.getFrontPageParent());
     }
-
-
-
     //TODO: 'Ryd Felter' Button must prompt user to confirm or cancel their choice.
 
 }

@@ -28,7 +28,7 @@ public class ConcitoPersistence {
         return list;
     }
 
-    //TODO kommentar
+    //Method returning a List<String> object containing all the names of Concito Items.
     public static List<String> listConcitoName(){
         //Creating session
         Session session = SetupPersistence.getSession();
@@ -38,13 +38,16 @@ public class ConcitoPersistence {
         return list;
     }
 
-    //TODO kommentar
+    //Method that will return the ConcitoItemModel object that matches the String Name provided.
     public static ConcitoItemModel getConcitoByName(String name){
         Session session = SetupPersistence.getSession();
         String hql = "from ConcitoItemModel c where c.name = :name";
         Query query = session.createQuery(hql);
         query.setParameter("name", name);
+        //If the provided name doesn't match a result in the database, it will throw an exception.
+        //The exception is caught by the method that called getConcitoByName().
         ConcitoItemModel concitoItemModel = (ConcitoItemModel) query.getSingleResult();
+        //Returns the object if there was a match.
         return concitoItemModel;
     }
 

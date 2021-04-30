@@ -76,7 +76,7 @@ public class KitchenModel {
      * @return a list of strings equal to the names of all kitchens in the list
      */
     public static List<String> getString(){
-        //TODO
+        //TODO Beskrivelse af metode passer ikke med indhold lige nu
         List<String> list = null;
         return list;
     }

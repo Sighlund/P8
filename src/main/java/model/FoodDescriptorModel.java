@@ -44,7 +44,6 @@ public class FoodDescriptorModel{
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private List<FoodItemModel> foodItemList = new ArrayList<>();
-    // TODO - sum ingredient percentages must always equal 100 - skal måske varetages i controller lag?
 
 
     // --- Constructors ----
@@ -195,7 +194,7 @@ public class FoodDescriptorModel{
      */
     public String getCorrectedSubcategory() {
         IngredientModel mainIngredient = findMainIngredient();
-        //TODO
+        //TODO (Hvad er det der skal 'TODO's her?)
         String correctedSubCategory = "Ikke angivet";
 
         // Get subcategory of main ingredient if subcategory is filled out
@@ -208,7 +207,6 @@ public class FoodDescriptorModel{
         // Return the corrected subcategory
         return correctedSubCategory;
     }
-
 
     /**
      * Private method that returns the main ingredient.

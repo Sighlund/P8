@@ -14,9 +14,8 @@
       <TextField fx:id="autoCompleteTextField" layoutX="37.0" layoutY="76.0" prefHeight="26.0" prefWidth="337.0" promptText="Find ingredienser varen er udgjort af..." style="-fx-background-color: white;" />
       <TableView fx:id="registerPageTableView" layoutX="37.0" layoutY="117.0" prefHeight="143.0" prefWidth="517.0">
          <columns>
-            <TableColumn fx:id="ingredientsColumn" prefWidth="301.0" text="Ingredienser i varen" />
-            <TableColumn fx:id="percentageColumn" prefWidth="174.0" text="Mængde ingrediens i varen" />
-            <TableColumn minWidth="9.0" prefWidth="41.0" text="X" />
+            <TableColumn fx:id="ingredientsColumn" prefWidth="349.0" text="Ingredienser i varen" />
+            <TableColumn fx:id="percentageColumn" prefWidth="167.0" text="Mængde ingrediens i varen" />
          </columns>
       </TableView>
       <TextField fx:id="descriptorName" layoutX="37.0" layoutY="42.0" prefHeight="26.0" prefWidth="337.0" promptText="Giv varen et navn..." style="-fx-background-color: white;" />

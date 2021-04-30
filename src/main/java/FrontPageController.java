@@ -11,20 +11,7 @@ import java.io.IOException;
 
 public class FrontPageController {
 
-    // TODO - kan også slettes
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
-    //TODO - kan slettes
-    //Functions to switch between scenes
-    public void switchToScene(ActionEvent event, Parent page) throws IOException {
-        root = page;
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     /**
      * Event handler for the button "Tilføj varer til beregning".

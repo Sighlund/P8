@@ -2,6 +2,7 @@
 
 import javafx.beans.property.SimpleStringProperty;
 
+//TODO kommentarer
 public class ViewListItemDataInsertionPage {
 
     private SimpleStringProperty productName;
