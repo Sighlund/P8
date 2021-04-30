@@ -28,4 +28,5 @@ model\ConcitoItemModel.class
 model\YearModel$1.class
 persistence\QuarterPersistence.class
 RegisterNewProductPageController$1.class
+customException\DescriptorPercentageException.class
 CalculationPageController.class
