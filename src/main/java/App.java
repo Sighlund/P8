@@ -23,11 +23,14 @@ public class App extends Application {
     private static Parent historyPageParent;
     private static Parent registerNewProductPageParent;
 
+    // Reference to historyController
+    private static HistoryController historyController;
+
     //References to the current active stage and scene are held here.
     private static Stage stage;
     private static Scene scene;
 
-    // --- Getters and setters ----
+    // --- Getters ----
     public static Parent getDataInsertionPageParent() {
         return dataInsertionPageParent;
     }
@@ -41,7 +44,9 @@ public class App extends Application {
     public static Parent getRegisterNewProductPageParent() {
         return registerNewProductPageParent;
     }
-
+    public static HistoryController getHistoryController() {
+        return historyController;
+    }
 
     /**
      * Overrides the init() method inherited from Application.
@@ -55,8 +60,14 @@ public class App extends Application {
         calculationPageParent = FXMLLoader.load(getClass().getResource("calculationPage.fxml"));
         dataInsertionPageParent = FXMLLoader.load(getClass().getResource("dataInsertionPage.fxml"));
         frontPageParent = FXMLLoader.load(getClass().getResource("frontPage.fxml"));
-        historyPageParent = FXMLLoader.load(getClass().getResource("history.fxml"));
         registerNewProductPageParent = FXMLLoader.load(getClass().getResource("registerNewProductPage.fxml"));
+
+        // For the history view, we also need the controller
+        // Creates FXML object to retrieve both FXML and controller
+        // Stores references to both
+        FXMLLoader loader = new FXMLLoader();
+        historyPageParent = loader.load(getClass().getResource("history.fxml").openStream());
+        historyController = loader.getController();
     }
 
     /**

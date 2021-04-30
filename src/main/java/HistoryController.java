@@ -56,11 +56,18 @@ public class HistoryController implements Initializable {
     // Attribute to hold list of calculations to be displayed in table view
     private ObservableList<CalculationModel> calcList;
 
+    public void setCalcList(ObservableList<CalculationModel> calcList) {
+        this.calcList = calcList;
+    }
+
+    public ObservableList<CalculationModel> getCalcList() {
+        return calcList;
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         // Update list of displayed calculations by fetching all calculations from the database
         calcList = CalculationPersistence.listCalc();
-        // TODO - listen af calculations skal opdateres, når der tilføjes en ny
 
         choiceboxChooseQuarterHis.setItems(QuarterPersistence.listQuarter());
         choiceboxChooseYearHis.setItems(YearPersistence.listYear());
@@ -113,6 +120,16 @@ public class HistoryController implements Initializable {
 
     }
 
+    /**
+     * Updates the table view
+     */
+    public void updateTableView(){
+        // Update reference to list of all calculations
+        calcList = CalculationPersistence.listCalc();
+
+        // Update tableview by passing list of calculations
+        tableView.setItems(calcList);
+    }
 
 
     /**
