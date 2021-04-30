@@ -48,7 +48,6 @@ public class FoodItemPersistence {
         //Querying database for all objects
         List<FoodItemModel> list = session.createQuery("SELECT a from FoodItemModel a", FoodItemModel.class).getResultList();
         //Closing session
-        SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return list;
     }
@@ -64,7 +63,6 @@ public class FoodItemPersistence {
         //Searching the database for the object with the provided ID
         FoodItemModel item = session.find(FoodItemModel.class, id);
         //Closing session
-        SetupPersistence.closeSession(session);
         //Returning the found object
         return item;
     }

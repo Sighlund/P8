@@ -49,7 +49,6 @@ public class FoodDescriptorPersistence {
         //Querying database for all objects
         List<FoodDescriptorModel> list = session.createQuery("SELECT a from FoodDescriptorModel a", FoodDescriptorModel.class).getResultList();
         //Closing session
-        SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return list;
     }
@@ -90,7 +89,6 @@ public class FoodDescriptorPersistence {
         //Searching the database for the object with the provided ID
         FoodDescriptorModel descriptor = session.find(FoodDescriptorModel.class, id);
         //Closing session
-        SetupPersistence.closeSession(session);
         //Returning the found object
         return descriptor;
     }

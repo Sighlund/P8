@@ -99,13 +99,13 @@ public class HistoryController implements Initializable {
 
     //Sends calculationid to CalculationPageController
     @FXML
-    public void sendToCalculationPageControllerAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("calculationPage.fxml"));
+    public void sendToCalculationComparisonPageControllerAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("comparison.fxml"));
         Parent root = loader.load();
 
-        CalculationPageController calculationPageController = loader.getController();
+        CalculationComparisonPageController calculationComparisonPageController = loader.getController();
 
-        calculationPageController.getInformation(calcid);
+        calculationComparisonPageController.getInformation(calcid);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

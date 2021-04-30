@@ -48,6 +48,6 @@
       <Label layoutX="445.0" layoutY="160.0" text="Vælg kvartal" />
       <Button fx:id="START" layoutX="34.0" layoutY="61.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0" />
       <Button layoutX="109.0" layoutY="61.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0" />
-      <Button layoutX="1020.0" layoutY="435.0" mnemonicParsing="false" onAction="#sendToCalculationPageControllerAction" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Sammenlign" textAlignment="CENTER" AnchorPane.rightAnchor="121.0" />
+      <Button layoutX="1020.0" layoutY="435.0" mnemonicParsing="false" onAction="#sendToCalculationComparisonPageControllerAction" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Sammenlign" textAlignment="CENTER" AnchorPane.rightAnchor="121.0" />
    </children>
 </AnchorPane>

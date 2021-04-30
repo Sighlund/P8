@@ -153,16 +153,13 @@ public class CalculationPageController implements Initializable {
         VolumeC = volumeC;
     }
 
+    /*
     int calculationPagecalcid;
     //Receives information from HistoryPageController
     public void getInformation(int calcid) {
         this.calculationPagecalcid=calcid;
     }
-
-    //test to print id
-    public void printCalcid(){
-        System.out.println(calculationPagecalcid);
-    }
+     */
 
     /*
     //Receives information from HistoryPageController

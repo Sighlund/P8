@@ -19,6 +19,7 @@ model\YearModel.class
 persistence\CalculationPersistence.class
 model\FoodItemModel.class
 ErrorHandlingCollection.class
+CalculationComparisonPageController.class
 persistence\YearPersistence.class
 model\IngredientModel.class
 HistoryController.class
