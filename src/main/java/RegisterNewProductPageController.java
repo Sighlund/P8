@@ -1,3 +1,4 @@
+import customException.DescriptorPercentageException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,9 +34,7 @@ public class RegisterNewProductPageController implements Initializable {
     private TableColumn<ViewListRegisterPage, String> ingredientsColumn;
     @FXML
     private TableColumn<ViewListRegisterPage, Double> percentageColumn;
-    //private Stage stage;
-    //private Scene scene;
-    //private Parent root;
+
 
     @FXML
     private TextField autoCompleteTextField;
@@ -55,22 +54,29 @@ public class RegisterNewProductPageController implements Initializable {
 
     public void addIngredient() {
         String ingredientNameString = autoCompleteTextField.getText();
-        Double volumeWeightInput = Double.valueOf(percentageTextField.getText());
+        Double volumePercentageInput = Double.valueOf(percentageTextField.getText());
         ConcitoItemModel concitoItem = ConcitoPersistence.getConcitoByName(ingredientNameString);
-        IngredientModel ingredient = new IngredientModel(volumeWeightInput, concitoItem);
+        IngredientModel ingredient = new IngredientModel(volumePercentageInput, concitoItem);
         ingredientList.add(ingredient);
         registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), ingredient.getPercentage()));
     }
 
 
-    public void createNewDescriptor() {
+    public void createNewDescriptor() throws DescriptorPercentageException {
         FoodDescriptorModel foodDescriptor = new FoodDescriptorModel(
                 descriptorName.getText(), ingredientList);
-        FoodDescriptorPersistence.addDescriptor(foodDescriptor);
-        System.out.println(foodDescriptor.getName());
-        System.out.println(ingredientList.get(0).getContoItem().getName());
-
-
+        Double percentage = 0.0;
+        for (int i=0;i<ingredientList.size();i++) {
+            percentage += ingredientList.get(i).getPercentage();
+        }
+        System.out.println(percentage);
+        if (percentage != 100.0) {
+            throw new DescriptorPercentageException("Ingredients % must equal 100");
+        } else {
+            FoodDescriptorPersistence.addDescriptor(foodDescriptor);
+            System.out.println(foodDescriptor.getName());
+            System.out.println(ingredientList.get(0).getContoItem().getName());
+        }
     }
 
     @Override
@@ -126,18 +132,37 @@ public class RegisterNewProductPageController implements Initializable {
     }
 
 
-    public void saveInDatabase(ActionEvent e){
+    public void saveInDatabase(ActionEvent e) {
         //TODO Error Handling: button must check if the ingredients add up to 100% total precisely.
         //TODO Error Handling: button must check if user has provided a Unique name for the new foodDescriptor.
-        createNewDescriptor();
-        descriptorSavedAlert.setVisible(true);
-        percentageTextField.clear();
-        descriptorName.clear();
-        autoCompleteTextField.clear();
-        itemNumber.clear();
-        ingredientList.clear();
-        registerPageTableView.getItems().clear();
-        removeSavedAlert();
+        try {
+            createNewDescriptor();
+            descriptorSavedAlert.setVisible(true);
+            //percentageTextField.clear();
+            descriptorName.clear();
+            autoCompleteTextField.clear();
+            itemNumber.clear();
+            ingredientList.clear();
+            registerPageTableView.getItems().clear();
+            removeSavedAlert();
+        } catch (DescriptorPercentageException exception) {
+            System.out.println(exception);
+            //Instantiating an object which has the error handling methods
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("fejl", "Varens ingredienser skal tilsammen udgøre 100%");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
+        catch (Exception exception){
+            System.out.println(exception);
+            //Instantiating an object which has the error handling methods
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("fejl", "En vare med dette navn findes allerede. Vælg et andet navn");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
     }
 
     public void removeSavedAlert(){
