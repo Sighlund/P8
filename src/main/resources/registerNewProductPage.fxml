@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="287.0" prefWidth="764.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterNewProductPageController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.0" prefWidth="766.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterNewProductPageController">
    <children>
       <TextField fx:id="autoCompleteTextField" layoutX="37.0" layoutY="76.0" prefHeight="26.0" prefWidth="337.0" promptText="Find ingredienser varen er udgjort af..." style="-fx-background-color: white;" />
       <TableView fx:id="registerPageTableView" layoutX="37.0" layoutY="117.0" prefHeight="143.0" prefWidth="517.0">
@@ -30,5 +30,7 @@
          </font>
       </Label>
       <Text fx:id="descriptorSavedAlert" layoutX="695.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gemt" visible="false" wrappingWidth="30.91015625" />
+      <Button layoutX="499.0" layoutY="267.0" mnemonicParsing="false" onAction="#resetIngredientTable" style="-fx-background-color: #b44444;" text="Ryd Alt" textAlignment="CENTER" />
+      <Button layoutX="427.0" layoutY="267.0" mnemonicParsing="false" onAction="#removeSelectedRow" style="-fx-background-color: #b44444;" text="Ryd Felt" textAlignment="CENTER" />
    </children>
 </AnchorPane>

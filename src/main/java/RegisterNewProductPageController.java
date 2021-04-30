@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -66,7 +67,7 @@ public class RegisterNewProductPageController implements Initializable {
         FoodDescriptorModel foodDescriptor = new FoodDescriptorModel(
                 descriptorName.getText(), ingredientList);
         Double percentage = 0.0;
-        for (int i=0;i<ingredientList.size();i++) {
+        for (int i = 0; i < ingredientList.size(); i++) {
             percentage += ingredientList.get(i).getPercentage();
         }
         System.out.println(percentage);
@@ -109,8 +110,7 @@ public class RegisterNewProductPageController implements Initializable {
             addIngredient();
             autoCompleteTextField.clear();
             percentageTextField.clear();
-        }
-        catch (NoResultException exception){
+        } catch (NoResultException exception) {
             System.out.println(exception);
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
@@ -120,7 +120,7 @@ public class RegisterNewProductPageController implements Initializable {
             errorHandlingCollection = null;
         }
         //This catches every other type of exception. In this case, we only expect the '%-indhold i varen' field to be problematic.
-        catch (Exception exception){
+        catch (Exception exception) {
             System.out.println(exception);
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
@@ -153,8 +153,7 @@ public class RegisterNewProductPageController implements Initializable {
             errorHandlingCollection.basicErrorPopup("fejl", "Varens ingredienser skal tilsammen udgøre 100%");
             //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
-        }
-        catch (Exception exception){
+        } catch (Exception exception) {
             System.out.println(exception);
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
@@ -165,14 +164,38 @@ public class RegisterNewProductPageController implements Initializable {
         }
     }
 
-    public void removeSavedAlert(){
-            TimerTask task = new TimerTask() {
-                public void run() {
-                    descriptorSavedAlert.setVisible(false);
-                }
-            };
-            Timer timer = new Timer(true);
-            long delay = 3000L;
-            timer.schedule(task, delay);
+    /**
+     * Removes the save alert after 3 seconds (the message is made invisible)
+     */
+    public void removeSavedAlert() {
+        TimerTask task = new TimerTask() {
+            public void run() {
+                descriptorSavedAlert.setVisible(false);
+            }
+        };
+        //Daemon makes the timer low priority, aka a daemon thread, which means that when the application is closed
+        //the JVM forces this method to end
+        Timer timer = new Timer(true);
+        long delay = 3000L;
+        timer.schedule(task, delay);
     }
+
+    /**
+     * Removes all rows from the TableView
+     * @param e -
+     */
+    public void resetIngredientTable(ActionEvent e) {
+        registerPageTableView.getItems().clear();
+        ingredientList.removeAll(ingredientList);
+    }
+
+    /**
+     * Removes the selected row from the TableView
+     * @param e -
+     */
+    public void removeSelectedRow(ActionEvent e) {
+        ingredientList.removeIf(n -> (n.getContoItem().getName().equals(registerPageTableView.getSelectionModel().getSelectedItem().getIngredients())));
+        registerPageTableView.getItems().remove(registerPageTableView.getSelectionModel().getSelectedItem());
+    }
+
 }
