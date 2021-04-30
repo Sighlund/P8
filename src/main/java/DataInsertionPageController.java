@@ -123,7 +123,9 @@ public class DataInsertionPageController implements Initializable {
 
         // Update list of possible food descriptor names
         updateFoodDescriptorNames();
-        //The autoCompleteTextField is filled with possible suggestions.
+
+        // Create autoCompletionBinding object to bind the autoCompleteTextField
+        // with possible solutions (food descriptor names)
         autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
         //TableView stuff goes here
@@ -268,13 +270,20 @@ public class DataInsertionPageController implements Initializable {
             stage.initModality(Modality.WINDOW_MODAL);
             //stage.initOwner(((Node)event.getSource()).getScene().getWindow() ); //This one 'locks' the user to the window, so they can't click elsewhere.
 
-
+            // Set event handler for Close Window button
+            // with anonymous declaration of EventHandler class
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
+                    // Fetch all food descriptor names from database and update list of food descriptors to be displayed
                     updateFoodDescriptorNames();
+
+                    // Dispose previous binding of autoCompletionTextField
                     autoCompletionBinding.dispose();
+                    // Create new binding for autoCompletionTextField with updated food descriptor names
                     autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
+
+                    // Close stage/window
                     registerNewPStage.close();
                 }
             });
