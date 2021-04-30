@@ -74,8 +74,6 @@ public class CalculationPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Calls method to build chart
-        buildPieChart();
         buildTableView();
     }
 
