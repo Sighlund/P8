@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.CalculationModel;
 import persistence.CalculationPersistence;
+import persistence.SetupPersistence;
 
 import java.io.IOException;
 
@@ -82,7 +83,7 @@ public class App extends Application {
      */
     public static void main(String[] args){
         CalculationModel calc = CalculationPersistence.getCalcById(1);
-        System.out.println(calc.getFoodItemList().get(0).getFoodDescriptor().getIngredientList().get(0).getContoItem());
+        System.out.println(calc.getFoodItemList().get(0).getFoodDescriptor().getIngredientList().get(0).getContoItem().getName());
         launch();
     }
 
