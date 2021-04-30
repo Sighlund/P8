@@ -33,7 +33,8 @@ public class CalculationPageController implements Initializable {
     String CategoryC = "Fisk";
     int VolumeC = 15;
 
-    //Labels (visual text that shows Co2e). Should be replaced with real data
+
+    //Labels that display summary of calculation totals
     @FXML
     private Label CO2TotLabel;
     @FXML
@@ -41,9 +42,6 @@ public class CalculationPageController implements Initializable {
     @FXML
     private Label VolumeLabel;
 
-    // Dummy
-    String CO2Tot = "22";
-    String CO2PrKg = "10";
 
     // TableView with food items from calculation
     @FXML
@@ -65,24 +63,24 @@ public class CalculationPageController implements Initializable {
     // Reference to the calculation to be displayed
     private CalculationModel calculation;
 
-    public void setCalculation(CalculationModel calculation) {
-        this.calculation = calculation;
-    }
 
+    /**
+     * Initializes the fxml and controller on FXML load
+     * Happens on application start up
+     * @param url tja?
+     * @param rb tja?
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //calls methods to build charts
+        //Calls method to build chart
         buildPieChart();
-        //buildBarChart();
-
-        /*
-        //set value for labels
-        this.CO2TotLabel.setText(calculation.calcTotalCo2().toString());
-        this.CO2PrKgLabel.setText(calculation.calcAveCO2prKg().toString());
-         */
-
+        buildTableView();
     }
 
+    /**
+     * Public method to update the calculation view
+     * @param calc calculation to be displayed
+     */
     public void updateCalculationView(CalculationModel calc){
         this.calculation = calc;
 
@@ -95,6 +93,9 @@ public class CalculationPageController implements Initializable {
     @FXML
     PieChart MyPieChart;
 
+    /**
+     * Builds the Pie Chart by passing observable list as data to be displayed
+     */
     public void buildPieChart(){
         //Builds pieChart and stores data
         ObservableList<PieChart.Data> pieChartData =
@@ -105,6 +106,13 @@ public class CalculationPageController implements Initializable {
         MyPieChart.setData(pieChartData);
     }
 
+    /**
+     * Builds Table View
+     */
+    private void buildTableView(){
+        //TODO
+    }
+/*
     //Bar Chart
     @FXML
     private BarChart<?, ?> MyBarChart;
@@ -141,6 +149,7 @@ public class CalculationPageController implements Initializable {
         //visibility is set false as piechart is shown as default
         MyBarChart.setVisible(false);
     }
+ */
 
 
     //TODO slettet fra interface
@@ -162,6 +171,7 @@ public class CalculationPageController implements Initializable {
 
      */
 
+    /*   //TODO slettes? - barchart er fjernet fra fxml
     //NYT
     public void addDataBarChart(String enhednavn){
 
@@ -175,7 +185,10 @@ public class CalculationPageController implements Initializable {
 
         MyBarChart.getData().add(enhed2);
     }
+    */
 
+    //TODO slettes? - mulighed for at vælge chart er fjernet fra fxml
+    /*
     //function that shows barchart when selected in menu
     public void handleShowBarChart(){
         MyPieChart.setVisible(false);
@@ -187,6 +200,7 @@ public class CalculationPageController implements Initializable {
         MyPieChart.setVisible(true);
         MyBarChart.setVisible(false);
     }
+     */
 
     public void updateData(String categoryA, int volumeA, String categoryB, int volumeB, String categoryC, int volumeC){
         CategoryA = categoryA;
@@ -197,7 +211,7 @@ public class CalculationPageController implements Initializable {
         VolumeC = volumeC;
     }
 
-    /*
+    /* // TODO slettes - calculation objektet sendes direkte fra data insertion til calculation page
     int calculationPagecalcid;
     //Receives information from HistoryPageController
     public void getInformation(int calcid) {
@@ -223,7 +237,7 @@ public class CalculationPageController implements Initializable {
      * @return true if calculation was saved, else false
      */
     public boolean saveCalculationToDatabase(){
-        //TODO
+        //TODO - skal laves/flyttes fra datainsertionpage
 
         return false;
     }
