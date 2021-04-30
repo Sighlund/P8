@@ -1,6 +1,8 @@
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,8 +25,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 import model.*;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.*;
 
@@ -42,7 +46,14 @@ public class DataInsertionPageController implements Initializable {
     @FXML private TableColumn<ViewListItemDataInsertionPage, Double> co2prkiloValueColumn;
     @FXML private TableColumn<ViewListItemDataInsertionPage, Double> totalCo2ForItemColumn;
 
+    // Property that holds list of food items to be stored with the calculation
     private List<FoodItemModel> foodItemList = new ArrayList<>();
+
+    // Property that holds list of food descriptor names that can be searched for in autocompletion field
+    private List<String> foodDescriptorNames = new ArrayList<>();
+
+    // Property to hold autocompletion binding on autocomplete text field
+    private AutoCompletionBinding autoCompletionBinding;
 
     /*
     Button that adds the chosen product to the list of items that the system must calculate.
@@ -109,11 +120,10 @@ public class DataInsertionPageController implements Initializable {
         choiceboxChooseKitchen.setItems(KitchenPersistence.listKitchen());
         choiceboxChooseKitchen.setConverter(KitchenModel.getStringConverter());
 
+        // Update list of possible food descriptor names
+        updateFoodDescriptorNames();
         //The autoCompleteTextField is filled with possible suggestions.
-        //The list of suggestions needs to be dynam based on the current input.
-        //
-        //TODO
-        TextFields.bindAutoCompletion(autoCompleteTextField, getFoodDescriptorNames());
+        autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
         //TableView stuff goes here
         //TODO
@@ -144,13 +154,21 @@ public class DataInsertionPageController implements Initializable {
         System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
     }
 
+    /**
+     * Retrieves lsit of all food descriptor names from the database
+     * @return list of Strings with names for all food descriptors in the database
+     */
     public List<String> getFoodDescriptorNames(){
-//        ArrayList<String> list = new ArrayList<String>();
-//        for (int i = 0; i < FoodDescriptorPersistence.listDescriptor().size(); i++) {
-//            list.add(FoodDescriptorPersistence.listDescriptor().get(i).getName());
-//        }
         List<String> list = FoodDescriptorPersistence.listDescriptorName();
         return list;
+    }
+
+    /**
+     * Auxiliary method to update list of food descriptor names
+     * Is called when Register New Product window is closed
+     */
+    private void updateFoodDescriptorNames() {
+        foodDescriptorNames = getFoodDescriptorNames();
     }
 
 
@@ -223,9 +241,21 @@ public class DataInsertionPageController implements Initializable {
             stage.initModality(Modality.WINDOW_MODAL);
             //stage.initOwner(((Node)event.getSource()).getScene().getWindow() ); //This one 'locks' the user to the window, so they can't click elsewhere.
 
+
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    updateFoodDescriptorNames();
+                    autoCompletionBinding.dispose();
+                    autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
+                    registerNewPStage.close();
+                }
+            });
+
             // Update reference to the stage
             registerNewPStage = stage;
         }
+
 
         // Show stage
         registerNewPStage.show();
