@@ -19,8 +19,10 @@ import model.FoodItemModel;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class CalculationPageController implements Initializable {
 
@@ -87,15 +89,15 @@ public class CalculationPageController implements Initializable {
         this.VolumeLabel.setText(calc.calcTotalKg().toString());
         this.CO2TotLabel.setText(calc.calcTotalCo2().toString());
         this.CO2PrKgLabel.setText(calc.calcAveCO2prKg().toString());
+
+        buildPieChart();
     }
 
     //Pie chart
     @FXML
     PieChart MyPieChart;
 
-    /**
-     * Builds the Pie Chart by passing observable list as data to be displayed
-     */
+    /* // TODO slettes? - obsolete
     public void buildPieChart(){
         //Builds pieChart and stores data
         ObservableList<PieChart.Data> pieChartData =
@@ -105,12 +107,39 @@ public class CalculationPageController implements Initializable {
                         new PieChart.Data(CategoryC, VolumeC));
         MyPieChart.setData(pieChartData);
     }
+     */
+
+    /**
+     * Private method to build the pie chart based on values from the calculation object
+     */
+    private void buildPieChart(){
+        // Create empty observable list
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        // Get hash table with categories present in the calculation and related CO2 in percentage
+        Hashtable categories = calculation.getCategoriesPercentagesDict();
+
+        // Get all categories as a set of strings
+        Set<String> keys = categories.keySet();
+
+        // Iterate over the categories using keys
+        // Get percentage value for the category
+        for(String key: keys) {
+            // Add new pie chart data set to the observable list
+            // Each data set consists of the category (key) and the CO2 percentage (value)
+            pieChartData.add(new PieChart.Data(key, (Double) categories.get(key)));
+        }
+
+        // Update the data to be displayed in the pie chart
+        MyPieChart.setData(pieChartData);
+    }
 
     /**
      * Builds Table View
      */
     private void buildTableView(){
         //TODO
+        ;
     }
 
     /**
