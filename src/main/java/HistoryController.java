@@ -44,9 +44,6 @@ public class HistoryController implements Initializable {
     private TableColumn<CalculationModel, KitchenModel> kitchen;
 
     @FXML
-    private TableColumn<CalculationModel, Integer> id;
-
-    @FXML
     private ChoiceBox<KitchenModel> choiceboxChooseKitchenHis;
     @FXML
     private ChoiceBox<YearModel> choiceboxChooseYearHis;
@@ -71,7 +68,6 @@ public class HistoryController implements Initializable {
         // Uses a PropertyValueFactory object with the parameterized type CalculationModel
         // and the corresponding property type (i.e Integer).
         // The name of the property in CalculationModel is passed as an argument to the PropertyValueFactory as a String
-        id.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("id"));
         year.setCellValueFactory(new PropertyValueFactory<CalculationModel, YearModel>("year"));
         quarter.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("quarter"));
         kitchen.setCellValueFactory(new PropertyValueFactory<CalculationModel, KitchenModel>("kitchen"));

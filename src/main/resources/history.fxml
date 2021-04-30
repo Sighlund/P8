@@ -33,7 +33,6 @@
             <TableColumn fx:id="year" prefWidth="75.0" text="År" />
             <TableColumn fx:id="quarter" prefWidth="75.0" text="Kvartal" />
             <TableColumn fx:id="kitchen" text="Enhed" />
-            <TableColumn fx:id="id" prefWidth="75.0" text="Id" />
          </columns>
       </TableView>
       <ChoiceBox fx:id="choiceboxChooseKitchenHis" layoutX="182.0" layoutY="183.0" prefHeight="26.0" prefWidth="114.0" />
