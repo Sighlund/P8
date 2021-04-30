@@ -2,6 +2,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,8 +25,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 import model.*;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import persistence.*;
 
@@ -43,7 +46,14 @@ public class DataInsertionPageController implements Initializable {
     @FXML private TableColumn<ViewListItemDataInsertionPage, Double> co2prkiloValueColumn;
     @FXML private TableColumn<ViewListItemDataInsertionPage, Double> totalCo2ForItemColumn;
 
+    // Property that holds list of food items to be stored with the calculation
     private List<FoodItemModel> foodItemList = new ArrayList<>();
+
+    // Property that holds list of food descriptor names that can be searched for in autocompletion field
+    private List<String> foodDescriptorNames = new ArrayList<>();
+
+    // Property to hold autocompletion binding on autocomplete text field
+    private AutoCompletionBinding autoCompletionBinding;
 
     /*
     Button that adds the chosen product to the list of items that the system must calculate.
@@ -51,6 +61,8 @@ public class DataInsertionPageController implements Initializable {
      */
     public void addProductToList(){
         //Todo Kommentarer
+        //TODO Error Handling: 'Tilføj vare' button cannot be pressed if these 2 conditions are not met: 1) Volume input must only take doubles. 2) AutoCompleteTextField  must not take input that doesn't exist in database. Has to inform user of specific problem.
+
         String productNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
@@ -109,11 +121,13 @@ public class DataInsertionPageController implements Initializable {
         choiceboxChooseKitchen.setItems(KitchenPersistence.listKitchen());
         choiceboxChooseKitchen.setConverter(KitchenModel.getStringConverter());
 
+        // Update list of possible food descriptor names
+        updateFoodDescriptorNames();
         //The autoCompleteTextField is filled with possible suggestions.
-        //The list of suggestions needs to be dynam based on the current input.
-        getFoodDescriptorNames();
+        autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
         //TableView stuff goes here
+        //TODO
         productNameColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
         primaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
         secondaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
@@ -143,12 +157,33 @@ public class DataInsertionPageController implements Initializable {
     }
 
     /**
-     * Fetches name of all FoodDescriptors in the database. Method is called in the initialize method
+     * Retrieves lsit of all food descriptor names from the database
+     * @return list of Strings with names for all food descriptors in the database
      */
-    public void getFoodDescriptorNames(){
-        TextFields.bindAutoCompletion(autoCompleteTextField, FoodDescriptorPersistence.listDescriptorName());
+    public List<String> getFoodDescriptorNames(){
+        List<String> list = FoodDescriptorPersistence.listDescriptorName();
+        return list;
     }
 
+    /**
+     * Auxiliary method to update list of food descriptor names
+     * Is called when Register New Product window is closed
+     */
+    private void updateFoodDescriptorNames() {
+        foodDescriptorNames = getFoodDescriptorNames();
+    }
+
+
+    //TODO Slet denne method? tror ikke den bruges til noget
+    //This method can be used to get the input value of the volume text field.
+    public void getSelectedValueOfVolumeKiloTextField(){
+        //make if statement, that if the input contains anything else than numbers,
+        //give an error and don't allow method to continue.
+        double valueOfVolumeInput = Double.parseDouble(volumeKiloTextField.getText());
+        System.out.println(valueOfVolumeInput);
+    }
+
+    //Methods being called when clicking the 'Tilføj vare' button in the system
     /**
      * Method is called when "Tilføj vare" button is clicked. It calls the addProductToList method,
      * clears the autoCompleteTextField and clears the volumeKiloTextField
@@ -232,6 +267,17 @@ public class DataInsertionPageController implements Initializable {
             //Det laver et modal vindue i.e. det åbner stage i et nyt vindue.
             stage.initModality(Modality.WINDOW_MODAL);
             //stage.initOwner(((Node)event.getSource()).getScene().getWindow() ); //This one 'locks' the user to the window, so they can't click elsewhere.
+
+
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    updateFoodDescriptorNames();
+                    autoCompletionBinding.dispose();
+                    autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
+                    registerNewPStage.close();
+                }
+            });
 
             // Update reference to the stage
             registerNewPStage = stage;
