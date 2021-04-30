@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import persistence.CalculationPersistence;
 
 import java.io.IOException;
 
@@ -37,10 +38,12 @@ public class FrontPageController {
     /**
      * Event handler for the button "Historik".
      * Switches to the history page.
+     * Update the table view with the current list of calculations from the database.
      * @param event2 action event from the button element
      */
     public void switchToSceneHistory(ActionEvent event2){
         App.switchScene(App.getHistoryPageParent());
+        App.getHistoryController().updateTableView();
     }
 
 }

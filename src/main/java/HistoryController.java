@@ -60,7 +60,6 @@ public class HistoryController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         // Update list of displayed calculations by fetching all calculations from the database
         calcList = CalculationPersistence.listCalc();
-        // TODO - listen af calculations skal opdateres, når der tilføjes en ny
 
         choiceboxChooseQuarterHis.setItems(QuarterPersistence.listQuarter());
         choiceboxChooseYearHis.setItems(YearPersistence.listYear());
@@ -97,22 +96,37 @@ public class HistoryController implements Initializable {
         //this.calcItemList = selected.getFoodItemList();
     }
 
+    //TODO - kommentarer og cleanup
     //Sends calculationid to CalculationPageController
     @FXML
     public void sendToCalculationComparisonPageControllerAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("comparison.fxml"));
-        Parent root = loader.load();
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("comparison.fxml"));
+        //Parent root = loader.load();
 
-        CalculationComparisonPageController calculationComparisonPageController = loader.getController();
+        //CalculationComparisonPageController calculationComparisonPageController = loader.getController();
 
-        calculationComparisonPageController.getInformation(calcid);
-
+        //calculationComparisonPageController.getInformation(calcid);
+        //TODO - måske vi bare bør ændre til at den sender calc objektet og ikke id'et
+        App.getComparisonController().getInformation(calcid);
+        App.switchScene(App.getComparisonParent());
+        /*
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
+        */
     }
 
+
+    /**
+     * Updates the table view
+     */
+    public void updateTableView(){
+        // Update reference to list of all calculations
+        calcList = CalculationPersistence.listCalc();
+
+        // Update tableview by passing list of calculations
+        tableView.setItems(calcList);
+    }
 
 
     /**
