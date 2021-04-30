@@ -56,14 +56,6 @@ public class HistoryController implements Initializable {
     // Attribute to hold list of calculations to be displayed in table view
     private ObservableList<CalculationModel> calcList;
 
-    public void setCalcList(ObservableList<CalculationModel> calcList) {
-        this.calcList = calcList;
-    }
-
-    public ObservableList<CalculationModel> getCalcList() {
-        return calcList;
-    }
-
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         // Update list of displayed calculations by fetching all calculations from the database
@@ -104,6 +96,7 @@ public class HistoryController implements Initializable {
         //this.calcItemList = selected.getFoodItemList();
     }
 
+    //TODO - kommentarer og cleanup
     //Sends calculationid to CalculationPageController
     @FXML
     public void sendToCalculationComparisonPageControllerAction(ActionEvent event) throws IOException {
@@ -113,6 +106,7 @@ public class HistoryController implements Initializable {
         //CalculationComparisonPageController calculationComparisonPageController = loader.getController();
 
         //calculationComparisonPageController.getInformation(calcid);
+        //TODO - måske vi bare bør ændre til at den sender calc objektet og ikke id'et
         App.getComparisonController().getInformation(calcid);
         App.switchScene(App.getComparisonParent());
         /*
