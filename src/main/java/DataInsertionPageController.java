@@ -91,7 +91,7 @@ public class DataInsertionPageController implements Initializable {
                 choiceboxChooseYear.getValue(),
                 foodItems,
                 choiceboxChooseKitchen.getValue());
-        //CalculationPersistence.addCalc(calculation);
+        CalculationPersistence.addCalc(calculation);
     }
 
     //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
@@ -130,7 +130,9 @@ public class DataInsertionPageController implements Initializable {
 
         // Update list of possible food descriptor names
         updateFoodDescriptorNames();
-        //The autoCompleteTextField is filled with possible suggestions.
+
+        // Create autoCompletionBinding object to bind the autoCompleteTextField
+        // with possible solutions (food descriptor names)
         autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
 
@@ -276,9 +278,13 @@ public class DataInsertionPageController implements Initializable {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
+                    // Fetch all food descriptor names from database and update list of food descriptors to be displayed
                     updateFoodDescriptorNames();
+                    // Dispose previous binding of autoCompletionTextField
                     autoCompletionBinding.dispose();
+                    // Create new binding for autoCompletionTextField with updated food descriptor names
                     autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
+                    // Close stage/window
                     registerNewPStage.close();
                 }
             });
