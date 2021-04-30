@@ -14,13 +14,12 @@
       <Button layoutX="94.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFrontMenuPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0" />
       <TableView fx:id="insertionPageTableView" layoutX="174.0" layoutY="162.0" prefHeight="471.0" prefWidth="801.0">
         <columns>
-          <TableColumn fx:id="productNameColumn" prefWidth="256.0" text="Varenavn" />
+          <TableColumn fx:id="productNameColumn" prefWidth="252.0" text="Varenavn" />
           <TableColumn fx:id="primaryGroupColumn" prefWidth="124.0" text="Primærgruppe" />
-            <TableColumn fx:id="secondaryGroupColumn" prefWidth="120.0" text="Sekundærgruppe" />
-            <TableColumn fx:id="volumeOfProductColumn" prefWidth="85.0" text="Vægt Kg" />
-            <TableColumn fx:id="co2prkiloValueColumn" prefWidth="85.0" text="CO2/Kg" />
-            <TableColumn fx:id="totalCo2ForItemColumn" prefWidth="83.0" text="Total CO2" />
-            <TableColumn prefWidth="46.0" text="X" />
+            <TableColumn fx:id="secondaryGroupColumn" prefWidth="124.0" text="Sekundærgruppe" />
+            <TableColumn fx:id="volumeOfProductColumn" prefWidth="100.0" text="Vægt Kg" />
+            <TableColumn fx:id="co2prkiloValueColumn" prefWidth="100.0" text="CO2/Kg" />
+            <TableColumn fx:id="totalCo2ForItemColumn" prefWidth="100.0" text="Total CO2" />
         </columns>
       </TableView>
       <ChoiceBox id="choiceBoxQuarter" fx:id="choiceboxChooseQuarter" layoutX="826.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" />
