@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import model.CalculationModel;
 import model.FoodItemModel;
 
 import java.io.IOException;
@@ -61,7 +62,12 @@ public class CalculationPageController implements Initializable {
     @FXML
     private TableColumn totalCo2ForItemColumn;
 
+    // Reference to the calculation to be displayed
+    private CalculationModel calculation;
 
+    public void setCalculation(CalculationModel calculation) {
+        this.calculation = calculation;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,10 +75,20 @@ public class CalculationPageController implements Initializable {
         buildPieChart();
         //buildBarChart();
 
+        /*
         //set value for labels
-        this.CO2TotLabel.setText(CO2Tot);
-        this.CO2PrKgLabel.setText(CO2PrKg);
+        this.CO2TotLabel.setText(calculation.calcTotalCo2().toString());
+        this.CO2PrKgLabel.setText(calculation.calcAveCO2prKg().toString());
+         */
 
+    }
+
+    public void updateCalculationView(CalculationModel calc){
+        this.calculation = calc;
+
+        this.VolumeLabel.setText(calc.calcTotalKg().toString());
+        this.CO2TotLabel.setText(calc.calcTotalCo2().toString());
+        this.CO2PrKgLabel.setText(calc.calcAveCO2prKg().toString());
     }
 
     //Pie chart

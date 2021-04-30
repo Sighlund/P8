@@ -77,6 +77,8 @@ public class DataInsertionPageController implements Initializable {
                 f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(),f.calcCo2()));
     }
 
+    private CalculationModel calculation;
+
     /**
      * This method collects information about a calculation from the different input fields and saves it in the DB
      * Through a cascading the foodItems are also saved in the DB
@@ -91,7 +93,8 @@ public class DataInsertionPageController implements Initializable {
                 choiceboxChooseYear.getValue(),
                 foodItems,
                 choiceboxChooseKitchen.getValue());
-        //CalculationPersistence.addCalc(calculation);
+        CalculationPersistence.addCalc(calculation);
+        this.calculation = calculation;
     }
 
     //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
@@ -301,6 +304,8 @@ public class DataInsertionPageController implements Initializable {
         //TODO Error Handling: button must check to see if user has chosen kitchen, year and quarter,
         // and the list of items must not be empty.
         createCalc();
+
+        App.getCalculationController().updateCalculationView(calculation);
         App.switchScene(App.getCalculationPageParent());
     }
 
