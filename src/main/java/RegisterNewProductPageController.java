@@ -17,6 +17,7 @@ import persistence.ConcitoPersistence;
 import persistence.FoodDescriptorPersistence;
 import persistence.KitchenPersistence;
 
+import javax.persistence.NoResultException;
 import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -62,7 +63,6 @@ public class RegisterNewProductPageController implements Initializable {
     }
 
 
-
     public void createNewDescriptor() {
         FoodDescriptorModel foodDescriptor = new FoodDescriptorModel(
                 descriptorName.getText(), ingredientList);
@@ -98,21 +98,37 @@ public class RegisterNewProductPageController implements Initializable {
     }
 
 
-//    public void getSelectedValueOfVolumeKiloTextField(){
-//        //make if statement, that if the input contains anything else than numbers,
-//        //give an error and don't allow method to continue.
-//        double valueOfVolumeInput = Double.parseDouble(volumeKiloTextField.getText());
-//        System.out.println(valueOfVolumeInput);
-//    }
-
     public void addIngredientButton(ActionEvent e) {
-        addIngredient();
-        autoCompleteTextField.clear();
-        percentageTextField.clear();
+        try {
+            addIngredient();
+            autoCompleteTextField.clear();
+            percentageTextField.clear();
+        }
+        catch (NoResultException exception){
+            System.out.println(exception);
+            //Instantiating an object which has the error handling methods
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("fejl", "Navnet på ingrediensen blev ikke fundet i databasen. Tjek at navnet er korrekt");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
+        //This catches every other type of exception. In this case, we only expect the '%-indhold i varen' field to be problematic.
+        catch (Exception exception){
+            System.out.println(exception);
+            //Instantiating an object which has the error handling methods
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("fejl", "Feltet '%-indhold i varen' må kun indholde tal, og kommatal skal bruge '.' i stedet for ','");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
     }
 
 
     public void saveInDatabase(ActionEvent e){
+        //TODO Error Handling: button must check if the ingredients add up to 100% total precisely.
+        //TODO Error Handling: button must check if user has provided a Unique name for the new foodDescriptor.
         createNewDescriptor();
         descriptorSavedAlert.setVisible(true);
         percentageTextField.clear();

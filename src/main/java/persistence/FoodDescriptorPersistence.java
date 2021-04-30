@@ -70,12 +70,13 @@ public class FoodDescriptorPersistence {
 //    }
 
     public static FoodDescriptorModel getDescriptorByName(String name){
-        Session session = SetupPersistence.getSession();
-        String hql = "from FoodDescriptorModel c where c.name = :name";
-        Query query = session.createQuery(hql);
-        query.setParameter("name", name);
-        FoodDescriptorModel foodDescriptorModel = (FoodDescriptorModel) query.getSingleResult();
-        return foodDescriptorModel;
+            Session session = SetupPersistence.getSession();
+            String hql = "from FoodDescriptorModel c where c.name = :name";
+            Query query = session.createQuery(hql);
+            query.setParameter("name", name);
+            FoodDescriptorModel foodDescriptorModel = (FoodDescriptorModel) query.getSingleResult();
+            //TODO Error handling: If the input doesn't match something in database, it should inform the user of this.
+            return foodDescriptorModel;
     }
 
     /**
