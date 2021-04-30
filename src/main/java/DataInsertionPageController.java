@@ -50,7 +50,6 @@ public class DataInsertionPageController implements Initializable {
      */
     public void addProductToList(){
         //Todo Kommentarer
-        //TODO Error Handling: 'Tilføj vare' button cannot be pressed if these 2 conditions are not met: 1) Volume input must only take doubles. 2) AutoCompleteTextField  must not take input that doesn't exist in database. Has to inform user of specific problem.
 
         String productNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
@@ -111,12 +110,9 @@ public class DataInsertionPageController implements Initializable {
 
         //The autoCompleteTextField is filled with possible suggestions.
         //The list of suggestions needs to be dynam based on the current input.
-        //
-        //TODO
         TextFields.bindAutoCompletion(autoCompleteTextField, getFoodDescriptorNames());
 
         //TableView stuff goes here
-        //TODO
         productNameColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
         primaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
         secondaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
@@ -154,20 +150,10 @@ public class DataInsertionPageController implements Initializable {
     }
 
 
-    //TODO Slet denne method? tror ikke den bruges til noget
-    //This method can be used to get the input value of the volume text field.
-    public void getSelectedValueOfVolumeKiloTextField(){
-        //make if statement, that if the input contains anything else than numbers,
-        //give an error and don't allow method to continue.
-        double valueOfVolumeInput = Double.parseDouble(volumeKiloTextField.getText());
-        System.out.println(valueOfVolumeInput);
-    }
-
     //Methods being called when clicking the 'Tilføj vare' button in the system
     public void addProductToListMethodCalls(ActionEvent e){
         try {
         addProductToList();
-        getSelectedValueOfVolumeKiloTextField();
         autoCompleteTextField.clear();
         volumeKiloTextField.clear();
         }
