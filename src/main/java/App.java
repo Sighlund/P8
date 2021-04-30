@@ -4,6 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.CalculationModel;
+import persistence.CalculationPersistence;
+import persistence.SetupPersistence;
+
 import java.io.IOException;
 
 /**
@@ -78,8 +82,12 @@ public class App extends Application {
      * @param args command line arguments
      */
     public static void main(String[] args){
+        CalculationModel calc = CalculationPersistence.getCalcById(1);
+        System.out.println(calc.getFoodItemList().get(0).getFoodDescriptor().getIngredientList().get(0).getContoItem().getName());
         launch();
     }
+
+
 
     /**
      * Auxiliary method to switch scenes from controllers. The controllers pass respective root.
@@ -89,4 +97,6 @@ public class App extends Application {
         scene.setRoot(page);
         stage.setScene(scene);
     }
+
+
 }

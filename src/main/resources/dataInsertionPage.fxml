@@ -34,6 +34,7 @@
       <Button layoutX="766.0" layoutY="126.0" mnemonicParsing="false" onAction="#addProductToListMethodCalls" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Tilføj Vare" textAlignment="CENTER" />
       <Button layoutX="1023.0" layoutY="386.0" mnemonicParsing="false" onAction="#switchToCalculationPage" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Udregn" textAlignment="CENTER" AnchorPane.rightAnchor="121.0" />
       <TextField fx:id="autoCompleteTextField" layoutX="174.0" layoutY="129.0" prefHeight="25.0" prefWidth="477.0" promptText="Søg efter en vare..." />
-      <Button layoutX="907.0" layoutY="639.0" mnemonicParsing="false" style="-fx-background-color: #b44444;" text="Ryd Felter" textAlignment="CENTER" />
+      <Button layoutX="907.0" layoutY="639.0" mnemonicParsing="false" onAction="#resetCalculationTable" style="-fx-background-color: #b44444;" text="Ryd Alt" textAlignment="CENTER" />
+      <Button layoutX="832.0" layoutY="639.0" mnemonicParsing="false" onAction="#removeSelectedRow" style="-fx-background-color: #b44444;" text="Ryd Felt" textAlignment="CENTER" />
    </children>
 </AnchorPane>
