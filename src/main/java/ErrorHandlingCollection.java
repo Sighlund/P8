@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 //Apply different methods from this class when handling different errors.
 public class ErrorHandlingCollection {
     public void basicErrorPopup(String title, String errorMessage){
-        //TODO must create a basic popup informing user of problem. Must display the error message.
+        //Creates a basic popup informing user of problem. Displays the error message.
         System.out.println(errorMessage);
 
         Stage window = new Stage();
