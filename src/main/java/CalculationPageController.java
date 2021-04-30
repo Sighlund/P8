@@ -112,7 +112,40 @@ public class CalculationPageController implements Initializable {
     private void buildTableView(){
         //TODO
     }
-/*
+
+    /**
+     * Saves current instance of calculation in the database
+     * Returns true, if hibernate call went through
+     * @return true if calculation was saved, else false
+     */
+    public boolean saveCalculationToDatabase(){
+        //TODO - skal laves/flyttes fra datainsertionpage
+
+        return false;
+    }
+
+    /**
+     * Event handler for the button "Start".
+     * Switches to the front page.
+     * @param event action event from the button element
+     */
+    public void switchToSceneFrontPage(ActionEvent event){
+        App.switchScene(App.getFrontPageParent());
+    }
+
+    /**
+     * Event handler for the button "Tilbage".
+     * Switches back to the data insertion page.
+     * @param event action event from the button element
+     */
+    public void switchToDataInsertionPage(ActionEvent event){
+        App.switchScene(App.getDataInsertionPageParent());
+    }
+
+
+
+
+    /* //TODO slettes? - bar chart fjernet fra fxml
     //Bar Chart
     @FXML
     private BarChart<?, ?> MyBarChart;
@@ -202,6 +235,7 @@ public class CalculationPageController implements Initializable {
     }
      */
 
+    /* // TODO slettes - bruges ikke
     public void updateData(String categoryA, int volumeA, String categoryB, int volumeB, String categoryC, int volumeC){
         CategoryA = categoryA;
         VolumeA = volumeA;
@@ -210,6 +244,7 @@ public class CalculationPageController implements Initializable {
         CategoryC = categoryC;
         VolumeC = volumeC;
     }
+    */
 
     /* // TODO slettes - calculation objektet sendes direkte fra data insertion til calculation page
     int calculationPagecalcid;
@@ -231,34 +266,6 @@ public class CalculationPageController implements Initializable {
     }
     */
 
-    /**
-     * Saves current instance of calculation in the database
-     * Returns true, if hibernate call went through
-     * @return true if calculation was saved, else false
-     */
-    public boolean saveCalculationToDatabase(){
-        //TODO - skal laves/flyttes fra datainsertionpage
-
-        return false;
-    }
-
-    /**
-     * Event handler for the button "Start".
-     * Switches to the front page.
-     * @param event action event from the button element
-     */
-    public void switchToSceneFrontPage(ActionEvent event){
-        App.switchScene(App.getFrontPageParent());
-    }
-
-    /**
-     * Event handler for the button "Tilbage".
-     * Switches back to the data insertion page.
-     * @param event action event from the button element
-     */
-    public void switchToDataInsertionPage(ActionEvent event){
-        App.switchScene(App.getDataInsertionPageParent());
-    }
 
 }
 
