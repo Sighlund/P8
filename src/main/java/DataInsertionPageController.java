@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,7 +51,6 @@ public class DataInsertionPageController implements Initializable {
      */
     public void addProductToList(){
         //Todo Kommentarer
-
         String productNameString = autoCompleteTextField.getText();
         Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
@@ -97,6 +97,7 @@ public class DataInsertionPageController implements Initializable {
     //This method initializes a controller after its root element has already been processed.
     //I think this means that this method is needed to 'update' the choiceboxes with options,
     //since the page and choiceboxes has already been loaded.
+    //TODO lav javaDoc
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         //Each ChoiceBox is filled with the created options.
@@ -110,7 +111,7 @@ public class DataInsertionPageController implements Initializable {
 
         //The autoCompleteTextField is filled with possible suggestions.
         //The list of suggestions needs to be dynam based on the current input.
-        TextFields.bindAutoCompletion(autoCompleteTextField, getFoodDescriptorNames());
+        getFoodDescriptorNames();
 
         //TableView stuff goes here
         productNameColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
@@ -123,6 +124,7 @@ public class DataInsertionPageController implements Initializable {
         insertionPageTableView.setItems(getItemsForList());
     }
 
+    //TODO Lav JavaDoc
     public ObservableList<ViewListItemDataInsertionPage> getItemsForList(){
         ObservableList<ViewListItemDataInsertionPage> itemList = FXCollections.observableArrayList();
         return itemList;
@@ -140,17 +142,18 @@ public class DataInsertionPageController implements Initializable {
         System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
     }
 
-    public List<String> getFoodDescriptorNames(){
-//        ArrayList<String> list = new ArrayList<String>();
-//        for (int i = 0; i < FoodDescriptorPersistence.listDescriptor().size(); i++) {
-//            list.add(FoodDescriptorPersistence.listDescriptor().get(i).getName());
-//        }
-        List<String> list = FoodDescriptorPersistence.listDescriptorName();
-        return list;
+    /**
+     * Fetches name of all FoodDescriptors in the database. Method is called in the initialize method
+     */
+    public void getFoodDescriptorNames(){
+        TextFields.bindAutoCompletion(autoCompleteTextField, FoodDescriptorPersistence.listDescriptorName());
     }
 
-
-    //Methods being called when clicking the 'Tilføj vare' button in the system
+    /**
+     * Method is called when "Tilføj vare" button is clicked. It calls the addProductToList method,
+     * clears the autoCompleteTextField and clears the volumeKiloTextField
+     * @param e -
+     */
     public void addProductToListMethodCalls(ActionEvent e){
         try {
         addProductToList();
@@ -180,11 +183,31 @@ public class DataInsertionPageController implements Initializable {
 
     }
 
+    /**
+     * Removes all rows from the TableView
+     * @param e -
+     */
+    public void resetCalculationTable(ActionEvent e){
+        insertionPageTableView.getItems().clear();
+        foodItemList.removeAll(foodItemList);
+    }
+
+    /**
+     * Removes the selected row from the TableView
+     * @param e -
+     */
+    public void removeSelectedRow(ActionEvent e) {
+        foodItemList.removeIf(n -> (n.getName().equals(insertionPageTableView.getSelectionModel().getSelectedItem().getProductName())));
+        insertionPageTableView.getItems().remove(insertionPageTableView.getSelectionModel().getSelectedItem());
+    }
+
+
 
     // Attribute to hold the secondary stage for the "Registrer ny vare" window
     private Stage registerNewPStage;
 
-    // TODO - @Bjørn, kopierer vi stadig content fra den hjemmeside?
+    // TODO - @Bjørn, kopierer vi stadig content fra den hjemmeside? "Ja, kopierer er måske lidt voldsomt sagt,
+    //  strukturen kommer derfra" siger Bjørn
     /**
      * Event handler for the button "Registrer ny vare"
      * Opens a modal window to enter details about the product and save in database
@@ -206,6 +229,7 @@ public class DataInsertionPageController implements Initializable {
             stage.getIcons().add(icon);
 
             // Set stage to be a modal window //TODO - @Bjørn, hvad gør det her egentlig?
+            //Det laver et modal vindue i.e. det åbner stage i et nyt vindue.
             stage.initModality(Modality.WINDOW_MODAL);
             //stage.initOwner(((Node)event.getSource()).getScene().getWindow() ); //This one 'locks' the user to the window, so they can't click elsewhere.
 
