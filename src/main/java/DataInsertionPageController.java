@@ -227,8 +227,13 @@ public class DataInsertionPageController implements Initializable {
      * @param e -
      */
     public void resetCalculationTable(ActionEvent e){
-        insertionPageTableView.getItems().clear();
-        foodItemList.removeAll(foodItemList);
+        ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+
+        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alt?")){
+            insertionPageTableView.getItems().clear();
+            foodItemList.removeAll(foodItemList);
+        }
+        errorHandlingCollection = null;
     }
 
     /**
