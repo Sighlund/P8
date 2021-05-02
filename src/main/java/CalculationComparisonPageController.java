@@ -5,6 +5,8 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import model.CalculationModel;
+import persistence.CalculationPersistence;
 import persistence.ConcitoPersistence;
 
 import java.lang.reflect.Array;
@@ -130,6 +132,7 @@ public class CalculationComparisonPageController implements Initializable {
         MyStackedBarChart.getData().clear();
         buildStackedBarChart(enhed);
         buildStackedBarChart(enhed2);
+        System.out.println(CalculationPersistence.getCalcById(calcid));
     }
 
     /**
