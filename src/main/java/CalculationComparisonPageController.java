@@ -104,25 +104,22 @@ public class CalculationComparisonPageController implements Initializable {
     
 
 
-    String enhed = "enhed1";
+    String enhed;
     String enhed2 = "enhed2";
 
-    int calc;
+    CalculationModel calc;
     //Receives information from HistoryPageController
-    public void getInformation(int calcid) {
+    public void getInformation(CalculationModel calcid) {
         this.calc=calcid;
         MyStackedBarChart.getData().clear();
-        buildStackedBarChart(enhed, enhed2);
-        System.out.println(CalculationPersistence.getCalcById(calc).calcTotalKg());
+        System.out.println(calcid.getKitchen());
+        enhed = calc.getKitchen().getName();
 
-        List<List> listOfMixedTypes = new ArrayList<List>();
-        ArrayList<String> listOfStrings = new ArrayList<String>();
-        listOfStrings.add("enhed");
-        ArrayList<Integer> listOfIntegers = new ArrayList<Integer>();
-        listOfIntegers.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13));
-        listOfMixedTypes.add(listOfStrings);
-        listOfMixedTypes.add(listOfIntegers);
-        System.out.println(listOfMixedTypes.get(1).get(2));
+        ArrayList<Integer> enhed1volumes = new ArrayList<Integer>();
+        enhed1volumes.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13));
+        System.out.println(enhed1volumes.get(1));
+
+        buildStackedBarChart(enhed, enhed2);
     }
 
     /**
