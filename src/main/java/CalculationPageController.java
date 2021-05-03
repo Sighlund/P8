@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.CalculationModel;
 import model.FoodItemModel;
+import persistence.CalculationPersistence;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -185,10 +186,9 @@ public class CalculationPageController implements Initializable {
      * Returns true, if hibernate call went through
      * @return true if calculation was saved, else false
      */
-    public boolean saveCalculationToDatabase(){
-        //TODO - skal laves/flyttes fra datainsertionpage
-
-        return false;
+    public void saveCalculationToDatabase(){
+        //CalculationPersistence.addCalc(calculation);
+        // TODO - skal den ikke kun opdatere, hvis den allerede findes?
     }
 
     /**
