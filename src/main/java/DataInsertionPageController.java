@@ -65,17 +65,17 @@ public class DataInsertionPageController implements Initializable {
     /**
      * Method called on button press that adds the chosen product to the list of items that the system must calculate.
      */
-    public void addProductToList() {
-        //TODO Error Handling: 'Tilføj vare' button cannot be pressed if these 2 conditions are not met:
-        // 1) Volume input must only take doubles.
-        // 2) AutoCompleteTextField  must not take input that doesn't exist in database. Has to inform user of specific problem.
-        //Make a String variable that stores the current content of the automCpleteTextField.
+    public void addProductToList(){
+        //Make a String variable that stores the current content of the autoCompleteTextField.
         String productNameString = autoCompleteTextField.getText();
-        //Make a Double variable that stores the current content of the volumeKiloTextField.
-        Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
+
         //Initialises foodDescriptor object and makes call to persistance layer, to get the descriptor by the provided name.
         //If the provided name doesn't match, an exception is thrown. It is caught in the method that called addProductToList().
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
+
+        //Make a Double variable that stores the current content of the volumeKiloTextField.
+        Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
+
         FoodItemModel f = new FoodItemModel(volumeWeightInput, foodDescriptor);
         foodItemList.add(f);
         //We get all items from the table as a list (Because viewTable is stupid, and can't just append without getting the list first xd)
@@ -83,6 +83,8 @@ public class DataInsertionPageController implements Initializable {
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
                 f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(), f.calcCo2()));
     }
+
+
 
     private CalculationModel calculation;
 
@@ -160,7 +162,7 @@ public class DataInsertionPageController implements Initializable {
     }
 
     /**
-     * Retrieves lsit of all food descriptor names from the database
+     * Retrieves list of all food descriptor names from the database
      *
      * @return list of Strings with names for all food descriptors in the database
      */
@@ -193,7 +195,7 @@ public class DataInsertionPageController implements Initializable {
         }
         //Catches exception caused when name doesn't match anything in database when running what is in the 'try'
         catch (NoResultException exception) {
-            System.out.println(exception);
+            exception.printStackTrace();
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
@@ -201,9 +203,10 @@ public class DataInsertionPageController implements Initializable {
             //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
         }
-        //This catches every other type of exception. In this case, we only expect the 'angiv kg' field to be problematic.
+
+        //This catches every type of exception. In this case, we only expect the 'angiv kg' field to be problematic.
         catch (Exception exception) {
-            System.out.println(exception);
+            exception.printStackTrace();
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
@@ -211,6 +214,7 @@ public class DataInsertionPageController implements Initializable {
             //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
         }
+
 
     }
 
@@ -238,8 +242,20 @@ public class DataInsertionPageController implements Initializable {
      * @param e -
      */
     public void removeSelectedRow(ActionEvent e) {
-        foodItemList.removeIf(n -> (n.getName().equals(insertionPageTableView.getSelectionModel().getSelectedItem().getProductName())));
-        insertionPageTableView.getItems().remove(insertionPageTableView.getSelectionModel().getSelectedItem());
+        ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+
+        try {
+            if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil fjerne denne række?")) {
+                foodItemList.removeIf(n -> (n.getName().equals(insertionPageTableView.getSelectionModel().getSelectedItem().getProductName())));
+                insertionPageTableView.getItems().remove(insertionPageTableView.getSelectionModel().getSelectedItem());
+            }
+        }
+        catch (NullPointerException exception){
+            System.out.println(exception + ". Exception thrown because no row was selected for deletion. It doesn't break anything. Move along.");
+        }
+        finally {
+            errorHandlingCollection = null;
+        }
     }
 
 
@@ -301,7 +317,6 @@ public class DataInsertionPageController implements Initializable {
     /**
      * Event handler for the button "Udregn".
      * Switches to the calculation page.
-     *
      * @param event action event from button element
      */
     public void switchToCalculationPage(ActionEvent event) {
@@ -310,8 +325,7 @@ public class DataInsertionPageController implements Initializable {
             App.getCalculationController().updateCalculationView(calculation);
             App.switchScene(App.getCalculationPageParent());
         } catch (Exception exception) {
-            System.out.println(exception);
-
+            exception.printStackTrace();
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
             errorHandlingCollection.basicErrorPopup("fejl", "Husk at vælge 'Afdeling', 'År' og 'Kvartal'");
