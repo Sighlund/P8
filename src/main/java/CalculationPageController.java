@@ -1,9 +1,13 @@
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.CalculationModel;
@@ -21,6 +26,7 @@ import model.FoodItemModel;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -74,7 +80,8 @@ public class CalculationPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        MyPieChart.setLegendSide(Side.RIGHT);
+        MyPieChart.setLabelsVisible(false);
     }
 
     /**
@@ -88,9 +95,9 @@ public class CalculationPageController implements Initializable {
 
     private void buildView(){
         // Fill out labels with basic information about the calculation
-        this.VolumeLabel.setText(calculation.calcTotalKg().toString() + " kg");
-        this.CO2TotLabel.setText(calculation.calcTotalCo2().toString() + " kg CO2e");
-        this.CO2PrKgLabel.setText(calculation.calcAveCO2prKg().toString() + " kg CO2e/kg");
+        this.VolumeLabel.setText(format(calculation.calcTotalKg()) + " kg");
+        this.CO2TotLabel.setText(format(calculation.calcTotalCo2())+ " kg CO2e");
+        this.CO2PrKgLabel.setText(format(calculation.calcAveCO2prKg()) + " kg CO2e/kg");
         this.kitchen.setText(calculation.getKitchen().toString());
         this.period.setText(calculation.getQuarter() + ". kvartal  " + calculation.getYear().toString());
 
@@ -119,11 +126,15 @@ public class CalculationPageController implements Initializable {
         for(String key: keys) {
             // Add new pie chart data set to the observable list
             // Each data set consists of the category (key) and the CO2 percentage (value)
-            pieChartData.add(new PieChart.Data(key, (Double) categories.get(key)));
+            PieChart.Data data = new PieChart.Data(key, (Double) categories.get(key));
+            data.nameProperty().bind(Bindings.concat(data.getName(), " ", Math.round(data.getPieValue()), "%"));
+            pieChartData.add(data);
         }
 
         // Update the data to be displayed in the pie chart
         MyPieChart.setData(pieChartData);
+
+
     }
 
     /**
@@ -159,6 +170,11 @@ public class CalculationPageController implements Initializable {
         }
     }
 
+    private String format(Double d){
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        String format = numberFormat.format(d);
+        return format;
+    }
 
     private void seeDetails(){
         //TODO - se detaljer for enkelt kategori - eventhandler, der ændrer pie chart og table view
