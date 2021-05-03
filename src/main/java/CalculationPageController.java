@@ -28,10 +28,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class CalculationPageController implements Initializable {
 
@@ -125,16 +122,20 @@ public class CalculationPageController implements Initializable {
         // Iterate over the categories using keys
         // Get percentage value for the category
         for(String key: keys) {
-            // Add new pie chart data set to the observable list
-            // Each data set consists of the category (key) and the CO2 percentage (value)
+
+            // Create new pie chart data object
+            // consists of the category (key) and the CO2 percentage (value)
             PieChart.Data data = new PieChart.Data(key, (Double) categories.get(key));
+
+            // Bind the name property of the data object to reflect category name and percentage value
             data.nameProperty().bind(Bindings.concat(data.getName(), " ", Math.round(data.getPieValue()), "%"));
+
+            // Add data object to the observable list of pie chart data
             pieChartData.add(data);
         }
 
         // Update the data to be displayed in the pie chart
         MyPieChart.setData(pieChartData);
-
 
     }
 
@@ -179,6 +180,8 @@ public class CalculationPageController implements Initializable {
 
     private void seeDetails(){
         //TODO - se detaljer for enkelt kategori - eventhandler, der ændrer pie chart og table view
+        // Get subcategories for specific category from calculation - as hash table
+        // build piechart with new hash table
     }
 
     /**
