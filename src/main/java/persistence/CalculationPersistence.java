@@ -50,8 +50,10 @@ public class CalculationPersistence {
         //Querying database for all objects, also fetching associated kitchen and year objects
         List<CalculationModel> list = session.createQuery("SELECT a from CalculationModel a JOIN fetch a.kitchen JOIN fetch a.year", CalculationModel.class).getResultList();
         ObservableList<CalculationModel> calculations = FXCollections.observableArrayList(list);
+        SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return calculations;
+
     }
 
     /**
@@ -64,6 +66,7 @@ public class CalculationPersistence {
         Session session = SetupPersistence.getSession();
         //Searching the database for the object with the provided ID
         CalculationModel calculationModel = session.find(CalculationModel.class, id);
+        SetupPersistence.closeSession(session);
         //Returning the found object
         return calculationModel;
     }
