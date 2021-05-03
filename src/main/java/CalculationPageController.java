@@ -116,7 +116,11 @@ public class CalculationPageController implements Initializable {
      */
     private void buildTableView(){
         //TODO
-        ;
+    }
+
+
+    private void seeDetails(){
+        //TODO - se detaljer for enkelt kategori - eventhandler, der ændrer pie chart og table view
     }
 
     /**
