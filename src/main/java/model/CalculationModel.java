@@ -266,6 +266,18 @@ public class CalculationModel {
         return dict;
     }
 
+    public Hashtable<String, Double> getSubcategoriesPercentagesDict(){
+        //TODO - get subcategories
+
+        // Create empty hash table
+        Hashtable dict = new Hashtable<String, Double>();
+
+        // Get list of categories
+        List<String> subcategories = getSubcategories("CATEGORY");
+
+        return dict;
+    }
+
     /**
      * Private auxiliary method
      * Gets a list of Strings with all categories present in the calculation
@@ -286,6 +298,20 @@ public class CalculationModel {
 
         // TODO slettes - debug
         System.out.println(list);
+
+        return list;
+    }
+
+    private List<String> getSubcategories(String category){
+        List<String> list = new ArrayList<>();
+
+        for (FoodItemModel f : foodItemList){
+            if (category.equals(f.getCategory())){
+                if (!list.contains(f.getSubcategory())){
+                    list.add(f.getSubcategory());
+                }
+            }
+        }
 
         return list;
     }
