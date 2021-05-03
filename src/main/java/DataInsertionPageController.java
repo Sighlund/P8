@@ -149,19 +149,6 @@ public class DataInsertionPageController implements Initializable {
         totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
     }
 
-
-    //This method prints the selected values of the choiceboxes as a concatenated String.
-    //This method shoulod be updated, so that it can be called to find the selected choices,
-    //and pass these along to the model.
-    //TODO Is never called. Delete?
-    public void getSelectedValuesOfChoiceBoxes(){
-        String[] selectedValueOfChoiceBoxes =
-                {choiceboxChooseKitchen.getSelectionModel().getSelectedItem().getName() + " "
-                        + choiceboxChooseYear.getSelectionModel().getSelectedItem().getId() + " "
-                + choiceboxChooseQuarter.getValue()};
-        System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
-    }
-
     /**
      * Retrieves lsit of all food descriptor names from the database
      * @return list of Strings with names for all food descriptors in the database
@@ -177,16 +164,6 @@ public class DataInsertionPageController implements Initializable {
      */
     private void updateFoodDescriptorNames() {
         foodDescriptorNames = getFoodDescriptorNames();
-    }
-
-
-    //TODO Slet denne method? tror ikke den bruges til noget
-    //This method can be used to get the input value of the volume text field.
-    public void getSelectedValueOfVolumeKiloTextField(){
-        //make if statement, that if the input contains anything else than numbers,
-        //give an error and don't allow method to continue.
-        double valueOfVolumeInput = Double.parseDouble(volumeKiloTextField.getText());
-        System.out.println(valueOfVolumeInput);
     }
 
     //Methods being called when clicking the 'Tilføj vare' button in the system
@@ -234,6 +211,9 @@ public class DataInsertionPageController implements Initializable {
         if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alt?")){
             insertionPageTableView.getItems().clear();
             foodItemList.removeAll(foodItemList);
+            choiceboxChooseKitchen.getSelectionModel().clearSelection();
+            choiceboxChooseYear.getSelectionModel().clearSelection();
+            choiceboxChooseQuarter.getSelectionModel().clearSelection();
         }
         errorHandlingCollection = null;
     }
@@ -308,11 +288,19 @@ public class DataInsertionPageController implements Initializable {
      * Switches to the calculation page.
      * @param event action event from button element
      */
-    public void switchToCalculationPage(ActionEvent event){
-        //TODO Error Handling: button must check to see if user has chosen kitchen, year and quarter,
-        // and the list of items must not be empty.
-        createCalc();
-        App.switchScene(App.getCalculationPageParent());
+    public void switchToCalculationPage(ActionEvent event) {
+        try {
+            createCalc();
+            App.switchScene(App.getCalculationPageParent());
+        } catch (Exception exception) {
+            System.out.println(exception);
+
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("fejl", "Husk at vælge 'Afdeling', 'År' og 'Kvartal'");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
     }
 
     /**
