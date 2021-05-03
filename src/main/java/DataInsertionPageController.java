@@ -59,6 +59,9 @@ public class DataInsertionPageController implements Initializable {
     Method called on button press that adds the chosen product to the list of items that the system must calculate.
      */
     public void addProductToList(){
+        //TODO Error Handling: 'Tilføj vare' button cannot be pressed if these 2 conditions are not met:
+        // 1) Volume input must only take doubles.
+        // 2) AutoCompleteTextField  must not take input that doesn't exist in database. Has to inform user of specific problem.
         //Make a String variable that stores the current content of the automCpleteTextField.
         String productNameString = autoCompleteTextField.getText();
         //Make a Double variable that stores the current content of the volumeKiloTextField.
@@ -203,11 +206,16 @@ public class DataInsertionPageController implements Initializable {
      * @param e -
      */
     public void resetCalculationTable(ActionEvent e){
-        insertionPageTableView.getItems().clear();
-        foodItemList.removeAll(foodItemList);
-        choiceboxChooseKitchen.getSelectionModel().clearSelection();
-        choiceboxChooseYear.getSelectionModel().clearSelection();
-        choiceboxChooseQuarter.getSelectionModel().clearSelection();
+        ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+
+        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alt?")){
+            insertionPageTableView.getItems().clear();
+            foodItemList.removeAll(foodItemList);
+            choiceboxChooseKitchen.getSelectionModel().clearSelection();
+            choiceboxChooseYear.getSelectionModel().clearSelection();
+            choiceboxChooseQuarter.getSelectionModel().clearSelection();
+        }
+        errorHandlingCollection = null;
     }
 
     /**
