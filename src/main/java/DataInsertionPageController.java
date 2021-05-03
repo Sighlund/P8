@@ -37,14 +37,21 @@ import javax.persistence.NoResultException;
 public class DataInsertionPageController implements Initializable {
 
     //Configuring tableView table:
-    @FXML private TableView<ViewListItemDataInsertionPage> insertionPageTableView;
+    @FXML
+    private TableView<ViewListItemDataInsertionPage> insertionPageTableView;
     //Creating each column, telling which parent and input datatype it has.
-    @FXML private TableColumn<ViewListItemDataInsertionPage, String> productNameColumn;
-    @FXML private TableColumn<ViewListItemDataInsertionPage, String> primaryGroupColumn;
-    @FXML private TableColumn<ViewListItemDataInsertionPage, String> secondaryGroupColumn;
-    @FXML private TableColumn<ViewListItemDataInsertionPage, Double> volumeOfProductColumn;
-    @FXML private TableColumn<ViewListItemDataInsertionPage, Double> co2prkiloValueColumn;
-    @FXML private TableColumn<ViewListItemDataInsertionPage, Double> totalCo2ForItemColumn;
+    @FXML
+    private TableColumn<ViewListItemDataInsertionPage, String> productNameColumn;
+    @FXML
+    private TableColumn<ViewListItemDataInsertionPage, String> primaryGroupColumn;
+    @FXML
+    private TableColumn<ViewListItemDataInsertionPage, String> secondaryGroupColumn;
+    @FXML
+    private TableColumn<ViewListItemDataInsertionPage, Double> volumeOfProductColumn;
+    @FXML
+    private TableColumn<ViewListItemDataInsertionPage, Double> co2prkiloValueColumn;
+    @FXML
+    private TableColumn<ViewListItemDataInsertionPage, Double> totalCo2ForItemColumn;
 
     // Property that holds list of food items to be stored with the calculation
     private List<FoodItemModel> foodItemList = new ArrayList<>();
@@ -56,9 +63,9 @@ public class DataInsertionPageController implements Initializable {
     private AutoCompletionBinding autoCompletionBinding;
 
     /**
-    Method called on button press that adds the chosen product to the list of items that the system must calculate.
+     * Method called on button press that adds the chosen product to the list of items that the system must calculate.
      */
-    public void addProductToList(){
+    public void addProductToList() {
         //TODO Error Handling: 'Tilføj vare' button cannot be pressed if these 2 conditions are not met:
         // 1) Volume input must only take doubles.
         // 2) AutoCompleteTextField  must not take input that doesn't exist in database. Has to inform user of specific problem.
@@ -74,7 +81,7 @@ public class DataInsertionPageController implements Initializable {
         //We get all items from the table as a list (Because viewTable is stupid, and can't just append without getting the list first xd)
         //and we add the new item to the list
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
-                f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(),f.calcCo2()));
+                f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(), f.calcCo2()));
     }
 
     private CalculationModel calculation;
@@ -84,7 +91,7 @@ public class DataInsertionPageController implements Initializable {
      * Through a cascading the foodItems are also saved in the DB
      * The calculationModel is saved in the calculation table and foodItem is saved in the foodItem table
      */
-    public void createCalc(){
+    public void createCalc() {
 
         ArrayList<FoodItemModel> foodItems = new ArrayList<>(foodItemList);
 
@@ -114,10 +121,10 @@ public class DataInsertionPageController implements Initializable {
     private ChoiceBox<Integer> choiceboxChooseQuarter;
 
 
-
     /**
      * This method initializes a controller after its root element has already been processed.
      * I think this means that this method is needed to keep content in the view pages updated visually.
+     *
      * @param arg0
      * @param arg1
      */
@@ -154,9 +161,10 @@ public class DataInsertionPageController implements Initializable {
 
     /**
      * Retrieves lsit of all food descriptor names from the database
+     *
      * @return list of Strings with names for all food descriptors in the database
      */
-    public List<String> getFoodDescriptorNames(){
+    public List<String> getFoodDescriptorNames() {
         List<String> list = FoodDescriptorPersistence.listDescriptorName();
         return list;
     }
@@ -170,19 +178,21 @@ public class DataInsertionPageController implements Initializable {
     }
 
     //Methods being called when clicking the 'Tilføj vare' button in the system
+
     /**
      * Method is called when "Tilføj vare" button is clicked. It calls the addProductToList method,
      * clears the autoCompleteTextField and clears the volumeKiloTextField
+     *
      * @param e -
      */
-    public void addProductToListMethodCalls(ActionEvent e){
+    public void addProductToListMethodCalls(ActionEvent e) {
         try {
-        addProductToList();
-        autoCompleteTextField.clear();
-        volumeKiloTextField.clear();
+            addProductToList();
+            autoCompleteTextField.clear();
+            volumeKiloTextField.clear();
         }
         //Catches exception caused when name doesn't match anything in database when running what is in the 'try'
-        catch (NoResultException exception){
+        catch (NoResultException exception) {
             System.out.println(exception);
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
@@ -192,7 +202,7 @@ public class DataInsertionPageController implements Initializable {
             errorHandlingCollection = null;
         }
         //This catches every other type of exception. In this case, we only expect the 'angiv kg' field to be problematic.
-        catch (Exception exception){
+        catch (Exception exception) {
             System.out.println(exception);
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
@@ -206,12 +216,13 @@ public class DataInsertionPageController implements Initializable {
 
     /**
      * Removes all rows from the TableView
+     *
      * @param e -
      */
-    public void resetCalculationTable(ActionEvent e){
+    public void resetCalculationTable(ActionEvent e) {
         ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
 
-        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alt?")){
+        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alt?")) {
             insertionPageTableView.getItems().clear();
             foodItemList.removeAll(foodItemList);
             choiceboxChooseKitchen.getSelectionModel().clearSelection();
@@ -223,13 +234,13 @@ public class DataInsertionPageController implements Initializable {
 
     /**
      * Removes the selected row from the TableView
+     *
      * @param e -
      */
     public void removeSelectedRow(ActionEvent e) {
         foodItemList.removeIf(n -> (n.getName().equals(insertionPageTableView.getSelectionModel().getSelectedItem().getProductName())));
         insertionPageTableView.getItems().remove(insertionPageTableView.getSelectionModel().getSelectedItem());
     }
-
 
 
     // Attribute to hold the secondary stage for the "Registrer ny vare" window
@@ -240,6 +251,7 @@ public class DataInsertionPageController implements Initializable {
      * Opens a modal window to enter details about the product and save in database
      * Contents based on: https://www.codota.com/code/java/methods/javafx.stage.Stage/initModality
      * Last visited: April 22th 2021.
+     *
      * @param event action event from button element
      */
     public void openRegisterNewProductOverlay(ActionEvent event) {
@@ -261,7 +273,7 @@ public class DataInsertionPageController implements Initializable {
             stage.initModality(Modality.WINDOW_MODAL);
             //initOwner specifies the owner Window for this stage. In this case we set dataInsertionPage to be the owner.
             //This one 'locks' the user to the window, so they can't click elsewhere.
-            stage.initOwner(((Node)event.getSource()).getScene().getWindow());
+            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
 
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -289,6 +301,7 @@ public class DataInsertionPageController implements Initializable {
     /**
      * Event handler for the button "Udregn".
      * Switches to the calculation page.
+     *
      * @param event action event from button element
      */
     public void switchToCalculationPage(ActionEvent event) {
@@ -305,15 +318,16 @@ public class DataInsertionPageController implements Initializable {
             //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
         }
-
-    /**
-     * Event handler for the buttons "Tilbage" and "Start".
-     * Switches to the front page
-     * @param event action event from button element
-     */
-    public void switchToFrontMenuPage(ActionEvent event){
-        App.switchScene(App.getFrontPageParent());
     }
-    //TODO: 'Ryd Felter' Button must prompt user to confirm or cancel their choice.
 
-}
+        /**
+         * Event handler for the buttons "Tilbage" and "Start".
+         * Switches to the front page
+         * @param event action event from button element
+         */
+        public void switchToFrontMenuPage (ActionEvent event){
+            App.switchScene(App.getFrontPageParent());
+        }
+        //TODO: 'Ryd Felter' Button must prompt user to confirm or cancel their choice.
+
+    }
