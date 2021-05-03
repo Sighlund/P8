@@ -28,6 +28,8 @@ public class App extends Application {
     private static HistoryController historyController;
     private static CalculationComparisonPageController comparisonController;
 
+    private static CalculationPageController calculationController;
+
     //References to the current active stage and scene are held here.
     private static Stage stage;
     private static Scene scene;
@@ -56,6 +58,9 @@ public class App extends Application {
     public static CalculationComparisonPageController getComparisonController() {
         return comparisonController;
     }
+    public static CalculationPageController getCalculationController() {
+        return calculationController;
+    }
 
     /**
      * Overrides the init() method inherited from Application.
@@ -66,7 +71,6 @@ public class App extends Application {
     @Override
     public void init() throws IOException{
         //We fill the roots with respective .fxml files from harddrive.
-        calculationPageParent = FXMLLoader.load(getClass().getResource("calculationPage.fxml"));
         dataInsertionPageParent = FXMLLoader.load(getClass().getResource("dataInsertionPage.fxml"));
         frontPageParent = FXMLLoader.load(getClass().getResource("frontPage.fxml"));
         registerNewProductPageParent = FXMLLoader.load(getClass().getResource("registerNewProductPage.fxml"));
@@ -84,6 +88,13 @@ public class App extends Application {
         FXMLLoader loader2 = new FXMLLoader();
         comparisonParent = loader2.load(getClass().getResource("comparison.fxml").openStream());
         comparisonController = loader2.getController();
+
+        // For the calculation view, we also need the controller
+        // Creates FXML object to retrieve both FXML and controller
+        // Stores references to both
+        FXMLLoader loader3 = new FXMLLoader();
+        calculationPageParent = loader3.load(getClass().getResource("calculationPage.fxml").openStream());
+        calculationController = loader3.getController();
     }
 
     /**

@@ -62,15 +62,6 @@ public class FoodDescriptorPersistence {
         return list;
     }
 
-    //TODO Slettes?
-//    public static List<FoodDescriptorModel> listTest(){
-//        Session session = SetupPersistence.getSession();
-//        List<FoodDescriptorModel> list = session.createQuery("select c.name from FoodDescriptorModel c",FoodDescriptorModel.class).getResultList();
-//        return list;
-//    }
-
-
-
     //Method returns a FoodDescriptorModel when the provided String name matches an existing descriptor from the database.
     public static FoodDescriptorModel getDescriptorByName(String name){
             Session session = SetupPersistence.getSession();
