@@ -82,13 +82,13 @@ public class HistoryController implements Initializable {
 
     }
 
-    int calcid;
+    CalculationModel calcid;
     //private List<FoodItemModel> calcItemList = new ArrayList<>();
 
     //Gets information from selected row
     public void getSelected(MouseEvent event){
         CalculationModel selected = tableView.getSelectionModel().getSelectedItem();
-        this.calcid=selected.getId();
+        this.calcid=selected;
         //this.calcItemList = selected.getFoodItemList();
     }
 
