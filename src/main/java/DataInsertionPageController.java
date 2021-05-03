@@ -133,7 +133,9 @@ public class DataInsertionPageController implements Initializable {
 
         // Update list of possible food descriptor names
         updateFoodDescriptorNames();
-        //The autoCompleteTextField is filled with possible suggestions.
+
+        // Create autoCompletionBinding object to bind the autoCompleteTextField
+        // with possible solutions (food descriptor names)
         autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
 
@@ -148,19 +150,6 @@ public class DataInsertionPageController implements Initializable {
         volumeOfProductColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));
         co2prkiloValueColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("co2prkiloValue"));
         totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
-    }
-
-
-    //This method prints the selected values of the choiceboxes as a concatenated String.
-    //This method shoulod be updated, so that it can be called to find the selected choices,
-    //and pass these along to the model.
-    //TODO Is never called. Delete?
-    public void getSelectedValuesOfChoiceBoxes(){
-        String[] selectedValueOfChoiceBoxes =
-                {choiceboxChooseKitchen.getSelectionModel().getSelectedItem().getName() + " "
-                        + choiceboxChooseYear.getSelectionModel().getSelectedItem().getId() + " "
-                + choiceboxChooseQuarter.getValue()};
-        System.out.println(Arrays.toString(selectedValueOfChoiceBoxes));
     }
 
     /**
@@ -178,16 +167,6 @@ public class DataInsertionPageController implements Initializable {
      */
     private void updateFoodDescriptorNames() {
         foodDescriptorNames = getFoodDescriptorNames();
-    }
-
-
-    //TODO Slet denne method? tror ikke den bruges til noget
-    //This method can be used to get the input value of the volume text field.
-    public void getSelectedValueOfVolumeKiloTextField(){
-        //make if statement, that if the input contains anything else than numbers,
-        //give an error and don't allow method to continue.
-        double valueOfVolumeInput = Double.parseDouble(volumeKiloTextField.getText());
-        System.out.println(valueOfVolumeInput);
     }
 
     //Methods being called when clicking the 'Tilføj vare' button in the system
@@ -230,8 +209,16 @@ public class DataInsertionPageController implements Initializable {
      * @param e -
      */
     public void resetCalculationTable(ActionEvent e){
-        insertionPageTableView.getItems().clear();
-        foodItemList.removeAll(foodItemList);
+        ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+
+        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alt?")){
+            insertionPageTableView.getItems().clear();
+            foodItemList.removeAll(foodItemList);
+            choiceboxChooseKitchen.getSelectionModel().clearSelection();
+            choiceboxChooseYear.getSelectionModel().clearSelection();
+            choiceboxChooseQuarter.getSelectionModel().clearSelection();
+        }
+        errorHandlingCollection = null;
     }
 
     /**
@@ -279,9 +266,13 @@ public class DataInsertionPageController implements Initializable {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
+                    // Fetch all food descriptor names from database and update list of food descriptors to be displayed
                     updateFoodDescriptorNames();
+                    // Dispose previous binding of autoCompletionTextField
                     autoCompletionBinding.dispose();
+                    // Create new binding for autoCompletionTextField with updated food descriptor names
                     autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
+                    // Close stage/window
                     registerNewPStage.close();
                 }
             });
@@ -300,14 +291,20 @@ public class DataInsertionPageController implements Initializable {
      * Switches to the calculation page.
      * @param event action event from button element
      */
-    public void switchToCalculationPage(ActionEvent event){
-        //TODO Error Handling: button must check to see if user has chosen kitchen, year and quarter,
-        // and the list of items must not be empty.
-        createCalc();
+    public void switchToCalculationPage(ActionEvent event) {
+        try {
+            createCalc();
+            App.getCalculationController().updateCalculationView(calculation);
+            App.switchScene(App.getCalculationPageParent());
+        } catch (Exception exception) {
+            System.out.println(exception);
 
-        App.getCalculationController().updateCalculationView(calculation);
-        App.switchScene(App.getCalculationPageParent());
-    }
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("fejl", "Husk at vælge 'Afdeling', 'År' og 'Kvartal'");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
 
     /**
      * Event handler for the buttons "Tilbage" and "Start".
