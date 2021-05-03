@@ -12,6 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.CalculationModel;
 import model.FoodItemModel;
@@ -68,7 +69,7 @@ public class CalculationPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        buildTableView();
+
     }
 
     /**
@@ -83,6 +84,7 @@ public class CalculationPageController implements Initializable {
         this.CO2PrKgLabel.setText(calc.calcAveCO2prKg().toString());
 
         buildPieChart();
+        buildTableView();
     }
 
 
@@ -112,10 +114,36 @@ public class CalculationPageController implements Initializable {
     }
 
     /**
-     * Builds Table View
+     * Builds Table View displaying all food items in the calculation
      */
     private void buildTableView(){
-        //TODO
+        // Clear table for previously displayed food items
+        foodItemsTableView.getItems().clear();
+
+        // Each column is told which that they are going to hold object of type PropertyValueFactory<S, T>.
+        // S: The class contained in the column (in this case a simplified, proxy class for foodItem)
+        // T: The class contained and displayed in a particular cell
+        // TODO - duplicated code. Er vi ligeglade?
+        productNameColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
+        primaryGroupColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
+        secondaryGroupColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
+        volumeOfProductColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));
+        co2prkiloValueColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("co2prkiloValue"));
+        totalCo2ForItemColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
+
+        // Add all food items from the calculation to the table to be displayed
+        for (FoodItemModel f : calculation.getFoodItemList()){
+            // Uses simplified, proxy class to convert values from the foodItem object to values
+            // accepted by the table view
+            foodItemsTableView.getItems().add(new ViewListItemDataInsertionPage(
+                    f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(), f.calcCo2()));
+        }
     }
 
 
