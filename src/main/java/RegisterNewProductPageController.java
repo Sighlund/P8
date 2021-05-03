@@ -133,8 +133,6 @@ public class RegisterNewProductPageController implements Initializable {
 
 
     public void saveInDatabase(ActionEvent e) {
-        //TODO Error Handling: button must check if the ingredients add up to 100% total precisely.
-        //TODO Error Handling: button must check if user has provided a Unique name for the new foodDescriptor.
         try {
             createNewDescriptor();
             descriptorSavedAlert.setVisible(true);
