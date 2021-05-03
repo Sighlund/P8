@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.CalculationModel;
 import model.FoodItemModel;
@@ -34,6 +35,10 @@ public class CalculationPageController implements Initializable {
     private Label CO2PrKgLabel;
     @FXML
     private Label VolumeLabel;
+    @FXML
+    private Label kitchen;
+    @FXML
+    private Label period;
 
     //Pie chart
     @FXML
@@ -78,15 +83,23 @@ public class CalculationPageController implements Initializable {
      */
     public void updateCalculationView(CalculationModel calc){
         this.calculation = calc;
-
-        this.VolumeLabel.setText(calc.calcTotalKg().toString());
-        this.CO2TotLabel.setText(calc.calcTotalCo2().toString());
-        this.CO2PrKgLabel.setText(calc.calcAveCO2prKg().toString());
-
-        buildPieChart();
-        buildTableView();
+        buildView();
     }
 
+    private void buildView(){
+        // Fill out labels with basic information about the calculation
+        this.VolumeLabel.setText(calculation.calcTotalKg().toString() + " kg");
+        this.CO2TotLabel.setText(calculation.calcTotalCo2().toString() + " kg CO2e");
+        this.CO2PrKgLabel.setText(calculation.calcAveCO2prKg().toString() + " kg CO2e/kg");
+        this.kitchen.setText(calculation.getKitchen().toString());
+        this.period.setText(calculation.getQuarter() + ". kvartal  " + calculation.getYear().toString());
+
+        // Build pie chart
+        buildPieChart();
+
+        // Build pie chart displaying food items
+        buildTableView();
+    }
 
     /**
      * Private method to build the pie chart based on values from the calculation object
