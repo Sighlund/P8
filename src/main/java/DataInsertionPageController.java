@@ -93,9 +93,11 @@ public class DataInsertionPageController implements Initializable {
      */
     public void createCalc() {
 
-        CalculationPersistence.getCalcFromChoicebox(choiceboxChooseQuarter.getValue(),
-                choiceboxChooseYear.getValue().getId(),
-                choiceboxChooseKitchen.getValue().getId());
+        //TODO kig på det her, hvis i vil. Vi kan ikke få det til at virke(Søren og Mads)
+        //Se også CalculationPersistence linje 80, hvor kaldet til DB bliver lavet
+//        CalculationPersistence.getCalcFromChoicebox(choiceboxChooseQuarter.getValue(),
+//                choiceboxChooseYear.getValue(),
+//                choiceboxChooseKitchen.getValue());
 
         ArrayList<FoodItemModel> foodItems = new ArrayList<>(foodItemList);
 
