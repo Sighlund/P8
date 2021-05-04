@@ -49,8 +49,9 @@ public class CalculationComparisonPageController implements Initializable {
     }
 
     /**
-     * Creates all series for the stacked bar chart
-     * based on categories present in all calculations to be displayed.
+     * Creates all series for the stacked bar chart based on
+     * categories present in all calculations to be displayed
+     * and adds them to the stacked bar chart
      *
      * The method also adds values to each series based on values from each calculation
      */
@@ -68,6 +69,7 @@ public class CalculationComparisonPageController implements Initializable {
             series.setName(cat);
 
             // Iterate over all calculations to be displayed in the stacked bar chart
+            //TODO - anne har lidt en drøm om at gøre det her til en privat metode for at encapsulate
             for (CalculationModel calc : calcs){
 
                 // Get hash table with percentage values for each category in the current calculation
