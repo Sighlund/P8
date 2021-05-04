@@ -52,7 +52,7 @@ public class KitchenPersistence {
         List<KitchenModel> query = session.createQuery("SELECT a from KitchenModel a", KitchenModel.class).getResultList();
         //Closing session
         ObservableList<KitchenModel> kitchens = FXCollections.observableArrayList(query);
-
+        SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return kitchens;
     }
@@ -68,6 +68,7 @@ public class KitchenPersistence {
         //Searching the database for the object with the provided ID
         KitchenModel kitchen = session.find(KitchenModel.class, id);
         //Closing session
+        SetupPersistence.closeSession(session);
         //Returning the found object
         return kitchen;
     }

@@ -36,7 +36,7 @@ public class FoodDescriptorModel{
 
     // Maps a one-to-many relationship between foodDescriptor and ingredient using 'foodDescriptorId' as foreign key
     // Cascades all Hibernate actions from the foodDescriptor entity to its related ingredients
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private List<IngredientModel> ingredientList = new ArrayList<>();
 

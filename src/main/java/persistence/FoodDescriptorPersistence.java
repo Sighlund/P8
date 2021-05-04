@@ -49,6 +49,7 @@ public class FoodDescriptorPersistence {
         //Querying database for all objects
         List<FoodDescriptorModel> list = session.createQuery("SELECT a from FoodDescriptorModel a", FoodDescriptorModel.class).getResultList();
         //Closing session
+        SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return list;
     }
@@ -58,19 +59,21 @@ public class FoodDescriptorPersistence {
         Session session = SetupPersistence.getSession();
         //Querying database for all objects' names
         List<String> list = session.createQuery("select c.name from FoodDescriptorModel c").list();
+        SetupPersistence.closeSession(session);
         //Return list of objects' names retrieved from the database
         return list;
     }
 
     //Method returns a FoodDescriptorModel when the provided String name matches an existing descriptor from the database.
     public static FoodDescriptorModel getDescriptorByName(String name){
-            Session session = SetupPersistence.getSession();
-            String hql = "from FoodDescriptorModel c where c.name = :name";
-            Query query = session.createQuery(hql);
-            query.setParameter("name", name);
-            //Returns a FoodDescriptor object based on the result found
-            FoodDescriptorModel foodDescriptorModel = (FoodDescriptorModel) query.getSingleResult();
-            return foodDescriptorModel;
+        Session session = SetupPersistence.getSession();
+        String hql = "from FoodDescriptorModel c where c.name = :name";
+        Query query = session.createQuery(hql);
+        query.setParameter("name", name);
+        //Returns a FoodDescriptor object based on the result found
+        FoodDescriptorModel foodDescriptorModel = (FoodDescriptorModel) query.getSingleResult();
+        SetupPersistence.closeSession(session);
+        return foodDescriptorModel;
     }
 
     /**
@@ -84,6 +87,7 @@ public class FoodDescriptorPersistence {
         //Searching the database for the object with the provided ID
         FoodDescriptorModel descriptor = session.find(FoodDescriptorModel.class, id);
         //Closing session
+        SetupPersistence.closeSession(session);
         //Returning the found object
         return descriptor;
     }

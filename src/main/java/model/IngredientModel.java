@@ -27,7 +27,7 @@ public class IngredientModel {
     private Double percentage;
 
     // Maps a many-to-one relation between ingredient and concitoItem using 'concitoItemId' as foreign key
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "concitoItemId", referencedColumnName = "id")
     private ConcitoItemModel contoItem;
 

@@ -52,7 +52,7 @@ public class YearPersistence {
         List<YearModel> query = session.createQuery("SELECT a from YearModel a", YearModel.class).getResultList();
         //Closing session
         ObservableList<YearModel> years = FXCollections.observableArrayList(query);
-
+        SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return years;
     }
@@ -68,6 +68,7 @@ public class YearPersistence {
         //Searching the database for the object with the provided ID
         YearModel yearModel = session.find(YearModel.class, id);
         //Closing session
+        SetupPersistence.closeSession(session);
         //Returning the found object
         return yearModel;
     }

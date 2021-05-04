@@ -29,10 +29,6 @@ public class CalculationModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDate dateFrom;
-
-    private LocalDate dateTo;
-
     private Integer quarter;
 
     // Maps a many-to-one relation between calculation and year using 'year.id' as foreign key
@@ -47,7 +43,7 @@ public class CalculationModel {
 
     // Maps a one-to-many relation between calculation and foodItem using 'calculationId' as foreign key
     // Cascades all Hibernate actions from the calculation entity to its related foodItems
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "calculationId", referencedColumnName = "id")
     private List<FoodItemModel> foodItemList = new ArrayList<>();
 
@@ -62,29 +58,13 @@ public class CalculationModel {
 
     /**
      * Constructs a calculation with the given time period, list of food items, and associated kitchen.
-     * @param dateFrom the start date for the time period
-     * @param dateTo the end date for the time period
      * @param foodItemList the list of purchased food items for the calculation
      * @param kitchen the associated kitchen for the calculation
      */
-    public CalculationModel(LocalDate dateFrom,
-                            LocalDate dateTo,
-                            Integer quarter,
-                            YearModel year,
-                            ArrayList<FoodItemModel> foodItemList,
-                            KitchenModel kitchen) {
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
-        this.quarter = quarter;
-        this.year = year;
-        this.foodItemList = foodItemList;
-        this.kitchen = kitchen;
-    }
-
     public CalculationModel(Integer quarter,
                             YearModel year,
                             ArrayList<FoodItemModel> foodItemList,
-                            KitchenModel kitchen){
+                            KitchenModel kitchen) {
         this.quarter = quarter;
         this.year = year;
         this.foodItemList = foodItemList;
@@ -107,22 +87,6 @@ public class CalculationModel {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public LocalDate getDateFrom() {
-        return dateFrom;
-    }
-
-    public void setDateFrom(LocalDate dateFrom) {
-        this.dateFrom = dateFrom;
-    }
-
-    public LocalDate getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(LocalDate dateTo) {
-        this.dateTo = dateTo;
     }
 
     public Integer getQuarter() {

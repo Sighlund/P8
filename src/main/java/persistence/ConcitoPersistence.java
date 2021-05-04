@@ -47,6 +47,7 @@ public class ConcitoPersistence {
         //If the provided name doesn't match a result in the database, it will throw an exception.
         //The exception is caught by the method that called getConcitoByName().
         ConcitoItemModel concitoItemModel = (ConcitoItemModel) query.getSingleResult();
+        SetupPersistence.closeSession(session);
         //Returns the object if there was a match.
         return concitoItemModel;
     }
@@ -62,6 +63,7 @@ public class ConcitoPersistence {
         //Searching the database for the object with the provided ID
         ConcitoItemModel concitoItemModel = session.find(ConcitoItemModel.class, id);
         //Closing session
+        SetupPersistence.closeSession(session);
         //Returning the found object
         return concitoItemModel;
     }
