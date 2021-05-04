@@ -8,28 +8,22 @@ public class ViewListItemDataInsertionPage {
     private SimpleStringProperty productName;
     private SimpleStringProperty primaryGroup;
     private SimpleStringProperty secondaryGroup;
-    private Double volumeOfProduct;
-    private Double co2prkiloValue;
-    private Double totalCo2ForItem;
+    private SimpleStringProperty volumeOfProduct;
+    private SimpleStringProperty co2prkiloValue;
+    private SimpleStringProperty totalCo2ForItem;
 
     public ViewListItemDataInsertionPage(String productName,
                                          String primaryGroup,
                                          String secondaryGroup,
-                                         Double volumeOfProduct,
-                                         Double co2prkiloValue,
-                                         Double totalCo2ForItem) {
+                                         String volumeOfProduct,
+                                         String co2prkiloValue,
+                                         String totalCo2ForItem) {
         this.productName = new SimpleStringProperty(productName);
         this.primaryGroup = new SimpleStringProperty(primaryGroup);
         this.secondaryGroup = new SimpleStringProperty(secondaryGroup);
-        //The Math.round is used to round the property values to 2 decimals.
-        //Here is how it works:
-            // Double value = 12345.67891111
-            // value*100.0 = 1234567.891111
-            //Math.round(1234567.891111) = 1234568.000000 -> 1234568 (round to nearest value)
-            //1234568 / 100 = 12345.68
-        this.volumeOfProduct = Math.round(volumeOfProduct * 100.0) / 100.0;
-        this.co2prkiloValue = Math.round(co2prkiloValue * 100.0) / 100.0;
-        this.totalCo2ForItem = Math.round(totalCo2ForItem * 100.0) / 100.0;
+        this.volumeOfProduct = new SimpleStringProperty(volumeOfProduct);
+        this.co2prkiloValue = new SimpleStringProperty(co2prkiloValue);
+        this.totalCo2ForItem = new SimpleStringProperty(totalCo2ForItem);
     }
 
 
@@ -46,12 +40,14 @@ public class ViewListItemDataInsertionPage {
         this.productName.set(productName);
     }
 
-    public Double getVolumeOfProduct() {
-        return volumeOfProduct;
+    public String getVolumeOfProduct() {
+        return volumeOfProduct.get();
     }
 
-    public void setVolumeOfProduct(Double volumeOfProduct) {
-        this.volumeOfProduct = volumeOfProduct;
+    public SimpleStringProperty volumeOfProductProperty() {return volumeOfProduct;}
+
+    public void setVolumeOfProduct(String volumeOfProduct) {
+        this.volumeOfProduct.set(volumeOfProduct);
     }
 
     public String getPrimaryGroup() {
@@ -78,19 +74,23 @@ public class ViewListItemDataInsertionPage {
         this.secondaryGroup.set(secondaryGroup);
     }
 
-    public Double getCo2prkiloValue() {
-        return co2prkiloValue;
+    public String getCo2prkiloValue() {
+        return co2prkiloValue.get();
     }
 
-    public void setCo2prkiloValue(Double co2prkiloValue) {
-        this.co2prkiloValue = co2prkiloValue;
+    public SimpleStringProperty Co2prkiloValueProperty() {return co2prkiloValue;}
+
+    public void setCo2prkiloValue(String co2prkiloValue) {
+        this.co2prkiloValue.set(co2prkiloValue);
     }
 
-    public Double getTotalCo2ForItem() {
-        return totalCo2ForItem;
+    public String getTotalCo2ForItem() {
+        return totalCo2ForItem.get();
     }
 
-    public void setTotalCo2ForItem(Double totalCo2ForItem) {
-        this.totalCo2ForItem = totalCo2ForItem;
+    public SimpleStringProperty TotalCo2ForItemProperty() {return totalCo2ForItem;}
+
+    public void setTotalCo2ForItem(String totalCo2ForItem) {
+        this.totalCo2ForItem.set(totalCo2ForItem);
     }
 }

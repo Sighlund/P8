@@ -179,12 +179,12 @@ public class CalculationPageController implements Initializable {
                 new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
 
         // Add all food items from the calculation to the table to be displayed
-        for (FoodItemModel f : calculation.getFoodItemList()){
-            // Uses simplified, proxy class to convert values from the foodItem object to values
-            // accepted by the table view
-            foodItemsTableView.getItems().add(new ViewListItemDataInsertionPage(
-                    f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(), f.calcCo2()));
-        }
+//        for (FoodItemModel f : calculation.getFoodItemList()){
+//            // Uses simplified, proxy class to convert values from the foodItem object to values
+//            // accepted by the table view
+//            foodItemsTableView.getItems().add(new ViewListItemDataInsertionPage(
+//                    f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(), f.calcCo2()));
+        //}
     }
 
     private String format(Double d){
