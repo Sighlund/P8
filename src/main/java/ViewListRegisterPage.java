@@ -10,6 +10,7 @@ public class ViewListRegisterPage {
         this.amountIngredient = amountIngredient;
     }
 
+    //TODO overvej at rydde op i disse, så de der ikke bruges fjernes.
     public String getIngredients() {
         return ingredients.get();
     }
@@ -31,9 +32,9 @@ public class ViewListRegisterPage {
     }
 
 
-    public void basicErrorPopup(String errorMessage){
-        //must create a basic popup informing user of problem. Must display the error message.
-        System.out.println(errorMessage);
-        //App.basicErrorPopup("Navnet på varen findes ikke i databasen. Tjek at navnet er korrekt");
-    }
+//    public void basicErrorPopup(String errorMessage){
+//        //must create a basic popup informing user of problem. Must display the error message.
+//        System.out.println(errorMessage);
+//        //App.basicErrorPopup("Navnet på varen findes ikke i databasen. Tjek at navnet er korrekt");
+//    }
 }

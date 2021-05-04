@@ -21,11 +21,19 @@ public class ViewListItemDataInsertionPage {
         this.productName = new SimpleStringProperty(productName);
         this.primaryGroup = new SimpleStringProperty(primaryGroup);
         this.secondaryGroup = new SimpleStringProperty(secondaryGroup);
-        this.volumeOfProduct = volumeOfProduct;
-        this.co2prkiloValue = co2prkiloValue;
-        this.totalCo2ForItem = totalCo2ForItem;
+        //The Math.round is used to round the property values to 2 decimals.
+        //Here is how it works:
+            // Double value = 12345.67891111
+            // value*100.0 = 1234567.891111
+            //Math.round(1234567.891111) = 1234568.000000 -> 1234568 (round to nearest value)
+            //1234568 / 100 = 12345.68
+        this.volumeOfProduct = Math.round(volumeOfProduct * 100.0) / 100.0;
+        this.co2prkiloValue = Math.round(co2prkiloValue * 100.0) / 100.0;
+        this.totalCo2ForItem = Math.round(totalCo2ForItem * 100.0) / 100.0;
     }
 
+
+    //TODO overvej at rydde op i disse, så de der ikke bruges fjernes.
     public String getProductName() {
         return productName.get();
     }
