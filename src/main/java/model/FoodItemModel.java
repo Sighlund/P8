@@ -28,7 +28,7 @@ public class FoodItemModel {
     private Double volume;
 
     // Maps a many-to-one relation between foodItem and foodDescriptor using 'foodDescriptorId' as foreign key
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "foodDescriptorId", referencedColumnName = "id")
     private FoodDescriptorModel foodDescriptor;
 

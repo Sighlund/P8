@@ -55,8 +55,8 @@ public class RegisterNewProductPageController implements Initializable {
 
     public void addIngredient() {
         String ingredientNameString = autoCompleteTextField.getText();
-        Double volumePercentageInput = Double.valueOf(percentageTextField.getText());
         ConcitoItemModel concitoItem = ConcitoPersistence.getConcitoByName(ingredientNameString);
+        Double volumePercentageInput = Double.valueOf(percentageTextField.getText());
         IngredientModel ingredient = new IngredientModel(volumePercentageInput, concitoItem);
         ingredientList.add(ingredient);
         registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), ingredient.getPercentage()));
@@ -111,7 +111,7 @@ public class RegisterNewProductPageController implements Initializable {
             autoCompleteTextField.clear();
             percentageTextField.clear();
         } catch (NoResultException exception) {
-            System.out.println(exception);
+            exception.printStackTrace();
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
@@ -121,7 +121,7 @@ public class RegisterNewProductPageController implements Initializable {
         }
         //This catches every other type of exception. In this case, we only expect the '%-indhold i varen' field to be problematic.
         catch (Exception exception) {
-            System.out.println(exception);
+            exception.printStackTrace();
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
@@ -144,7 +144,7 @@ public class RegisterNewProductPageController implements Initializable {
             registerPageTableView.getItems().clear();
             removeSavedAlert();
         } catch (DescriptorPercentageException exception) {
-            System.out.println(exception);
+            exception.printStackTrace();
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
@@ -152,7 +152,7 @@ public class RegisterNewProductPageController implements Initializable {
             //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
         } catch (Exception exception) {
-            System.out.println(exception);
+            exception.printStackTrace();
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
@@ -183,8 +183,13 @@ public class RegisterNewProductPageController implements Initializable {
      * @param e -
      */
     public void resetIngredientTable(ActionEvent e) {
-        registerPageTableView.getItems().clear();
-        ingredientList.removeAll(ingredientList);
+        ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+
+        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alle ingredienser?")) {
+            registerPageTableView.getItems().clear();
+            ingredientList.removeAll(ingredientList);
+        }
+        errorHandlingCollection = null;
     }
 
     /**
@@ -192,8 +197,14 @@ public class RegisterNewProductPageController implements Initializable {
      * @param e -
      */
     public void removeSelectedRow(ActionEvent e) {
-        ingredientList.removeIf(n -> (n.getContoItem().getName().equals(registerPageTableView.getSelectionModel().getSelectedItem().getIngredients())));
-        registerPageTableView.getItems().remove(registerPageTableView.getSelectionModel().getSelectedItem());
+        ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+
+        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil fjerne denne række?")) {
+            ingredientList.removeIf(n -> (n.getContoItem().getName().equals(registerPageTableView.getSelectionModel().getSelectedItem().getIngredients())));
+            registerPageTableView.getItems().remove(registerPageTableView.getSelectionModel().getSelectedItem());
+        }
+        errorHandlingCollection = null;
+
     }
 
 }

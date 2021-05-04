@@ -24,11 +24,9 @@ DROP TABLE IF EXISTS `calculation`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `calculation` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `dateFrom` datetime DEFAULT NULL,
-  `dateTo` datetime DEFAULT NULL,
-  `kitchenId` int DEFAULT NULL,
-  `quarter` int DEFAULT NULL,
-  `yearId` int DEFAULT NULL,
+  `kitchenId` int NOT NULL,
+  `quarter` int NOT NULL,
+  `yearId` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_calculation_kitchen_idx` (`kitchenId`),
@@ -44,7 +42,7 @@ CREATE TABLE `calculation` (
 
 LOCK TABLES `calculation` WRITE;
 /*!40000 ALTER TABLE `calculation` DISABLE KEYS */;
-INSERT INTO `calculation` VALUES (1,'2020-10-01 00:00:00','2020-12-31 00:00:00',1,4,2020);
+INSERT INTO `calculation` VALUES (1,1,4,2020);
 /*!40000 ALTER TABLE `calculation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,4 +221,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-27  9:56:37
+-- Dump completed on 2021-05-03 11:37:45
