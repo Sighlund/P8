@@ -88,7 +88,9 @@ public class ViewListItemDataInsertionPage {
         return totalCo2ForItem.get();
     }
 
-    public SimpleStringProperty TotalCo2ForItemProperty() {return totalCo2ForItem;}
+    public SimpleStringProperty TotalCo2ForItemProperty() {
+        return totalCo2ForItem;
+    }
 
     public void setTotalCo2ForItem(String totalCo2ForItem) {
         this.totalCo2ForItem.set(totalCo2ForItem);

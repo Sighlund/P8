@@ -22,6 +22,7 @@ import persistence.KitchenPersistence;
 
 import javax.persistence.NoResultException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class RegisterNewProductPageController implements Initializable {
     @FXML
     private TableColumn<ViewListRegisterPage, String> ingredientsColumn;
     @FXML
-    private TableColumn<ViewListRegisterPage, Double> percentageColumn;
+    private TableColumn<ViewListRegisterPage, String> percentageColumn;
 
 
     @FXML
@@ -56,14 +57,31 @@ public class RegisterNewProductPageController implements Initializable {
 
     public void addIngredient() throws IngredientPercentageException {
         String ingredientNameString = autoCompleteTextField.getText();
+
         ConcitoItemModel concitoItem = ConcitoPersistence.getConcitoByName(ingredientNameString);
-        Double volumePercentageInput = Double.valueOf(percentageTextField.getText());
+
+        String commaConvert = percentageTextField.getText().replace(',', '.');
+
+        Double volumePercentageInput = Double.valueOf(commaConvert);
+
         if (volumePercentageInput > 100 || volumePercentageInput <= 0){
             throw new IngredientPercentageException("Ingredient percentage must be greater than 0 and not greater than 100");
         }
+
         IngredientModel ingredient = new IngredientModel(volumePercentageInput, concitoItem);
+
         ingredientList.add(ingredient);
-        registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), ingredient.getPercentage()));
+
+        String percentageComma = format(ingredient.getPercentage()).replace('.',',');
+
+        registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), percentageComma));
+    }
+
+    //TODO måske bare kald den method der er i CalculationPageController ved samme navn
+    private String format(Double d){
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        String format = numberFormat.format(d);
+        return format;
     }
 
 
@@ -89,7 +107,7 @@ public class RegisterNewProductPageController implements Initializable {
         TextFields.bindAutoCompletion(autoCompleteTextField, getConcitoNames());
 
         ingredientsColumn.setCellValueFactory(new PropertyValueFactory<ViewListRegisterPage, String>("ingredients"));
-        percentageColumn.setCellValueFactory(new PropertyValueFactory<ViewListRegisterPage, Double>("amountIngredient"));
+        percentageColumn.setCellValueFactory(new PropertyValueFactory<ViewListRegisterPage, String>("amountIngredient"));
 
         registerPageTableView.setItems(getItemsForList());
     }
