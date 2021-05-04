@@ -4,8 +4,12 @@ package persistence;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.CalculationModel;
+import model.KitchenModel;
+import model.YearModel;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 /**
@@ -69,6 +73,20 @@ public class CalculationPersistence {
         SetupPersistence.closeSession(session);
         //Returning the found object
         return calculationModel;
+    }
+
+    public static void getCalcFromChoicebox(Integer quarter, Integer year, Integer kitchen){
+        //Creating session
+        Session session = SetupPersistence.getSession();
+        String hql = "select id from CalculationModel c where c.quarter = :quarter and" +
+                "c.year = :year and" +
+                "c.kitchen = :kitchen";
+        Query query = session.createNativeQuery(hql);
+        query.setParameter("quarter", quarter);
+        query.setParameter("year", year);
+        query.setParameter("kitchen", kitchen);
+        CalculationModel calculationModel = (CalculationModel) query;
+        System.out.println(calculationModel.getId());
     }
 
     /**
