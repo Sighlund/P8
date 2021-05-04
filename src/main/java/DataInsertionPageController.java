@@ -95,6 +95,12 @@ public class DataInsertionPageController implements Initializable {
      */
     public void createCalc() {
 
+        //TODO kig på det her, hvis i vil. Vi kan ikke få det til at virke(Søren og Mads)
+        //Se også CalculationPersistence linje 80, hvor kaldet til DB bliver lavet
+//        CalculationPersistence.getCalcFromChoicebox(choiceboxChooseQuarter.getValue(),
+//                choiceboxChooseYear.getValue(),
+//                choiceboxChooseKitchen.getValue());
+
         ArrayList<FoodItemModel> foodItems = new ArrayList<>(foodItemList);
 
         CalculationModel calculation = new CalculationModel(
@@ -102,7 +108,7 @@ public class DataInsertionPageController implements Initializable {
                 choiceboxChooseYear.getValue(),
                 foodItems,
                 choiceboxChooseKitchen.getValue());
-        CalculationPersistence.addCalc(calculation);
+        //CalculationPersistence.addCalc(calculation);
         this.calculation = calculation;
     }
 

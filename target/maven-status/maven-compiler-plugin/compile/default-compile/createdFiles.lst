@@ -1,5 +1,6 @@
 ControllerTest.class
 DataInsertionPageController.class
+customException\IngredientPercentageException.class
 persistence\KitchenPersistence.class
 App.class
 DataInsertionPageController$1.class

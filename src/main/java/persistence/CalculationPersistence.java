@@ -4,8 +4,13 @@ package persistence;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.CalculationModel;
+import model.KitchenModel;
+import model.YearModel;
 import org.hibernate.Session;
 
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 /**
@@ -70,6 +75,21 @@ public class CalculationPersistence {
         //Returning the found object
         return calculationModel;
     }
+
+
+    //TODO problemet her hænger sammen med DataInsertionPageController linje 96(Der er en TODO der, hvis det ikke er
+    //på linje 96 mere. Vi (Søren og Mads) kan ikke få det til at virke, så feel free to try
+//    public static void getCalcFromChoicebox(Integer quarter, YearModel year, KitchenModel kitchen){
+//        //Creating session
+//        Session session = SetupPersistence.getSession();
+//        String hql = "select id from Calculation where quarter = :quarter AND yearId = :year AND kitchenId = :kitchen";
+//        Query query = session.createNativeQuery(hql, CalculationModel.class);
+//        query.setParameter("quarter", quarter);
+//        query.setParameter("year", year);
+//        query.setParameter("kitchen", kitchen);
+//        CalculationModel calculationModel = (CalculationModel) query.getSingleResult();
+//        System.out.println(calculationModel.getId());
+//    }
 
     /**
      * Method for deleting a calculation object by ID

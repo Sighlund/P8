@@ -5,6 +5,8 @@
 <?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -27,5 +29,11 @@
             <Font name="SansSerif Bold" size="18.0" />
          </font>
       </Label>
+      <MenuButton layoutX="1020.0" layoutY="126.0" mnemonicParsing="false" text="Digram">
+        <items>
+          <MenuItem fx:id="procentMenuItem" mnemonicParsing="false" onAction="#showPercentage" text="Procent" />
+          <MenuItem fx:id="kgCo2MenuItem" mnemonicParsing="false" onAction="#showKgCo2" text="Kg Co2" />
+        </items>
+      </MenuButton>
    </children>
 </AnchorPane>
