@@ -27,21 +27,36 @@ public class CalculationComparisonPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //calls methods to build the stacked bar chart
     }
 
+    // Property to hold list of categories to be displayed in bar chart
     private List<String> categories = new ArrayList<>();
+
+    // Property to hold list of calculations to be displayed in bar chart
     private List<CalculationModel> calcs = new ArrayList<>();
 
     //Building StackedBarChart
-    public void buildStackedBarChart(String... args){
+    public void buildStackedBarChart(){
         // Clear any previous data
         MyStackedBarChart.getData().clear();
         categories.clear();
 
+        // Call private method to create series, add data to them, and add all series to the chart
+        addSeriesToChart();
+
+        // Set gap for the bar chart
+        MyStackedBarChart.setCategoryGap(200);
+    }
+
+    /**
+     * Creates all series for the stacked bar chart
+     * based on categories present in all calculations to be displayed.
+     *
+     * The method also adds values to each series based on values from each calculation
+     */
+    private void addSeriesToChart(){
         // Get categories to display as stacked bars
         categories = getAllCategories();
-
 
         // Iterate over list of categories
         for (String cat : categories) {
@@ -49,35 +64,37 @@ public class CalculationComparisonPageController implements Initializable {
             // Create a new series for each category, each taking a String and a Number value
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 
-            // Set name of new series to equal the current category
+            // Set name of the new series to equal the current category
             series.setName(cat);
 
-            // Iterate over all calculations to be displayed
-            for (CalculationModel c : calcs){
+            // Iterate over all calculations to be displayed in the stacked bar chart
+            for (CalculationModel calc : calcs){
 
-                // Get hash table with percentages for each category in the current calculation
-                Hashtable<String, Double> ht = c.getCategoriesPercentagesDict();
+                // Get hash table with percentage values for each category in the current calculation
+                Hashtable<String, Double> ht = calc.getCategoriesPercentagesDict();
 
-                // Get set of keys in the hash table to be able to access the categories present in the calculation
+                // Get set of keys in the hash table to be able
+                // to access the categories and their percentage values in the calculation
                 Set<String> keys = ht.keySet();
 
                 // If the current category is present in the current calculation create a new Data object
                 // with the name of the kitchen for the calculation
                 // and the percentage value for the current category
                 if (keys.contains(cat)) {
-                    series.getData().add(new XYChart.Data<>(c.getKitchen().toString(), ht.get(cat)));
+                    series.getData().add(new XYChart.Data<>(calc.getKitchen().toString(), ht.get(cat)));
                 }
             }
 
-            // Add the new series (category) to the stacked bar chart
+            // Add the new series (category) with all the data values to the stacked bar chart
             MyStackedBarChart.getData().add(series);
-
         }
-
-        // Set gap for the bar chart
-        MyStackedBarChart.setCategoryGap(200);
     }
 
+
+    /**
+     * Gets all categories to present in bar chart based on the calculations to be displayed
+     * @return a list of Strings with all categories to display
+     */
     private List<String> getAllCategories(){
 
         // Create list to hold all categories for all calculations to be displayed
@@ -104,12 +121,16 @@ public class CalculationComparisonPageController implements Initializable {
         return allCategories;
     }
 
-    //Receives information from HistoryPageController
+    /**
+     * Receives information from history controller
+     * Is called whenever the user switches from the history scene to the comparison scene
+     * @param calcs a list of the calculations to be displayed for comparison
+     */
     public void getInformation(ObservableList<CalculationModel> calcs) {
+        // Update property holding all calculations to be displayed
         this.calcs=calcs;
-        //MyStackedBarChart.getData().clear();
-        //ystem.out.println(calcid.getKitchen());
 
+        // Build the stacked bar chart
         buildStackedBarChart();
     }
 
