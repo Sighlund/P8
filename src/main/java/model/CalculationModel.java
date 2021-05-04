@@ -243,11 +243,10 @@ public class CalculationModel {
     }
 
     /**
-     * Private auxiliary method
      * Gets a list of Strings with all categories present in the calculation
      * @return list of category names
      */
-    private List<String> getCategories(){
+    public List<String> getCategories(){
         // Create empty list
         List<String> list = new ArrayList<>();
 

@@ -83,12 +83,16 @@ public class HistoryController implements Initializable {
     }
 
     CalculationModel calcid;
+
+    private ObservableList<CalculationModel> selectedCalcs;
+
     //private List<FoodItemModel> calcItemList = new ArrayList<>();
 
     //Gets information from selected row
     public void getSelected(MouseEvent event){
-        CalculationModel selected = tableView.getSelectionModel().getSelectedItem();
-        this.calcid=selected;
+        //CalculationModel selected = tableView.getSelectionModel().getSelectedItem();
+        this.selectedCalcs = tableView.getSelectionModel().getSelectedItems();
+        //this.calcid=selected;
         //this.calcItemList = selected.getFoodItemList();
     }
 
@@ -103,7 +107,7 @@ public class HistoryController implements Initializable {
 
         //calculationComparisonPageController.getInformation(calcid);
         //TODO - måske vi bare bør ændre til at den sender calc objektet og ikke id'et
-        App.getComparisonController().getInformation(calcid);
+        App.getComparisonController().getInformation(selectedCalcs);
         App.switchScene(App.getComparisonParent());
         /*
         Stage stage = new Stage();
