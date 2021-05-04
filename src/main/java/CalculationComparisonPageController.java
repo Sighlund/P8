@@ -40,31 +40,33 @@ public class CalculationComparisonPageController implements Initializable {
 
     private ObservableList<XYChart.Series<String, Number>> displayedSeries;
 
-    @FXML
-    void showKgCo2(ActionEvent event) {
-        showTotals = true;
-        setSeriesData();
-    }
-
-    @FXML
-    void showPercentage(ActionEvent event) {
-        showTotals = false;
-        setSeriesData();
-    }
-
     // Property to hold list of categories to be displayed in bar chart
     private List<String> categories = new ArrayList<>();
 
     // Property to hold list of calculations to be displayed in bar chart
     private List<CalculationModel> calcs = new ArrayList<>();
 
-    //Building StackedBarChart
+
+    /**
+     * Receives information from history controller
+     * Is called whenever the user switches from the history scene to the comparison scene
+     * @param calcs a list of the calculations to be displayed for comparison
+     */
+    public void getInformation(ObservableList<CalculationModel> calcs) {
+        // Update property holding all calculations to be displayed
+        this.calcs=calcs;
+
+        // Build the stacked bar chart
+        buildStackedBarChart();
+    }
+
+
+    /**
+     * Builds the stacked bar chart
+     */
     public void buildStackedBarChart(){
         // Clear any previous data
         MyStackedBarChart.getData().clear();
-
-        //displayedSeries.clear();
-        //categories.clear();
 
         // Call private method to create series, add data to them, and add all series to the chart
         addSeriesToChart();
@@ -72,13 +74,21 @@ public class CalculationComparisonPageController implements Initializable {
         // Store reference to all the displayed series
         this.displayedSeries = MyStackedBarChart.getData();
 
+        // Add data to all series (default is percentage values)
         setSeriesData();
+
+        // Set label for y-axis
+        yAxis.setLabel("Procent af samlet CO2e for hele indkøbet");
+
 
         // Set gap for the bar chart
         MyStackedBarChart.setCategoryGap(200);
 
-        // Set animation to false (it messes with the data when changing from percentage to totals and vice versa
+        // Set animation to false (it messes with the data when changing from percentage to totals and vice versa)
         MyStackedBarChart.setAnimated(false);
+
+        // Set label for x-axis
+        xAxis.setLabel("Køkken og periode");
     }
 
 
@@ -106,23 +116,22 @@ public class CalculationComparisonPageController implements Initializable {
     }
 
 
-
     /**
      * Sets the data values for each series in the stacked bar chart
      */
     private void setSeriesData(){
 
         for (XYChart.Series<String, Number> s : displayedSeries){
+            // Clear previous data in the series
             s.getData().clear();
-        }
 
-        for (XYChart.Series<String, Number> s : displayedSeries){
             // Iterate over all calculations to be displayed in the stacked bar chart
             for (CalculationModel calc : calcs){
 
                 // Default: get hash table with percentage values for each category in the current calculation
                 Hashtable<String, Double> ht = calc.getCategoriesPercentagesDict();
 
+                // If showTotals is selected: get hash table with total values for kg CO2 for each category
                 if (showTotals){
                     ht = calc.getCategoriesTotalDict();
                 }
@@ -172,18 +181,34 @@ public class CalculationComparisonPageController implements Initializable {
         return allCategories;
     }
 
-    /**
-     * Receives information from history controller
-     * Is called whenever the user switches from the history scene to the comparison scene
-     * @param calcs a list of the calculations to be displayed for comparison
-     */
-    public void getInformation(ObservableList<CalculationModel> calcs) {
-        // Update property holding all calculations to be displayed
-        this.calcs=calcs;
 
-        // Build the stacked bar chart
-        buildStackedBarChart();
+
+
+    /**
+     * Event handler for menu bar item: "Kg Co2"
+     * Updates all series with new data, displaying CO2 totals for each category
+     * @param event
+     */
+    @FXML
+    void showKgCo2(ActionEvent event) {
+        showTotals = true;
+        setSeriesData();
+        yAxis.setLabel("Kg CO2e");
+
     }
+
+    /**
+     * Event handler for menu bar item: "Procent"
+     * Updates all series with new data, displaying percentages for CO2 for each category
+     * @param event
+     */
+    @FXML
+    void showPercentage(ActionEvent event) {
+        showTotals = false;
+        setSeriesData();
+        yAxis.setLabel("Procent af samlet CO2e for hele indkøbet");
+    }
+
 
     /**
      * Event handler for the button "Start".
