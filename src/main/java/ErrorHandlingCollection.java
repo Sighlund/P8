@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.Optional;
 
@@ -79,6 +80,27 @@ public class ErrorHandlingCollection {
             else{
                 return false;
             }
+    }
+
+
+    //ressource used: https://stackoverflow.com/questions/26619566/javafx-stage-close-handler  Answer by user Domenico
+    //Method that will check if the last calculation made has been saved. If not, it will make popup alerting the user.
+    public void checkIfCalculationIsSavedPopup(WindowEvent event) {
+        //if the current calculation has not been saved, make popup to inform user
+        if (CalculationPageController.isCalculationSaved() == false) {
+            //Documentation of this method is the same as confirmChoicePopup(). Go see that.
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Nej");
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Ja, gem ikke");
+            alert.setTitle("Din udregning er ikke gemt");
+            alert.setHeaderText(String.format("Din udregning er ikke gemt. Vil du fortsætte uden at gemme?"));
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get().equals(ButtonType.CANCEL)) {
+                App.switchScene(App.getCalculationPageParent());
+                event.consume();
+                }
+        }
     }
 
 

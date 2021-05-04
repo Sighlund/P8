@@ -1,14 +1,18 @@
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.CalculationModel;
 import persistence.CalculationPersistence;
 import persistence.SetupPersistence;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * The App class holds the main method of the application.
@@ -111,6 +115,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
+        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
+
         //Updates the current active stage to equal the one filled in this method.
         this.stage = stage;
     }
@@ -135,6 +141,18 @@ public class App extends Application {
         scene.setRoot(page);
         stage.setScene(scene);
     }
+
+    /**
+     *Method being called when user triggers a WindowEvent. In this case, we use it when the user tries to exit the application.
+     * @param event in this case, event is the user trying to close the window.
+     */
+    private void closeWindowEvent(WindowEvent event) {
+        System.out.println("User exited the application. System checks whether current calculation has been saved. If not, popup shows.");
+        ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+        errorHandlingCollection.checkIfCalculationIsSavedPopup(event);
+        errorHandlingCollection = null;
+    }
+
 
 
 }

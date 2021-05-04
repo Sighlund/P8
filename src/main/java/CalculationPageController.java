@@ -32,6 +32,21 @@ import java.util.*;
 
 public class CalculationPageController implements Initializable {
 
+    //Boolean state to keep track of whether the calculation has been saved or not. Useful when the user tries to exit without saving.
+    //We set it to 'true' by default, because it will be updated to 'false' as soon as a calculation has been made.
+    //When a calculation is saved, it is updated to 'true' again.
+    //This is done, in order to avoid popup when existing program without having made a calculation.
+    private static boolean calculationSaved = true;
+
+    //Getter for checking state of calculationSaved
+    public static boolean isCalculationSaved() {
+        return calculationSaved;
+    }
+    //Setter for updating state calculationSaved
+    public static void setCalculationSaved(boolean calculationSaved) {
+        CalculationPageController.calculationSaved = calculationSaved;
+    }
+
     //Labels that display summary of calculation totals
     @FXML
     private Label CO2TotLabel;
@@ -192,6 +207,9 @@ public class CalculationPageController implements Initializable {
     public void saveCalculationToDatabase(){
         //CalculationPersistence.addCalc(calculation);
         // TODO - skal den ikke kun opdatere, hvis den allerede findes?
+        //We update the bool state keeping track of whether the current calculation has been saved, to true.
+        //This state is changed back to 'false', once the user pressed 'Udregn' button again.
+        CalculationPageController.setCalculationSaved(true);
     }
 
     /**
@@ -359,6 +377,7 @@ public class CalculationPageController implements Initializable {
     int VolumeB = 25;
     String CategoryC = "Fisk";
     int VolumeC = 15;
+
 
 }
 
