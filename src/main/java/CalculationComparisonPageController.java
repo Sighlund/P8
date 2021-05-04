@@ -36,14 +36,20 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     private MenuItem kgCo2MenuItem;
 
+    private boolean showTotals = false;
+
+    private ObservableList<XYChart.Series<String, Number>> displayedSeries;
+
     @FXML
     void showKgCo2(ActionEvent event) {
-
+        showTotals = true;
+        setSeriesData();
     }
 
     @FXML
     void showPercentage(ActionEvent event) {
-
+        showTotals = false;
+        setSeriesData();
     }
 
     // Property to hold list of categories to be displayed in bar chart
@@ -56,21 +62,30 @@ public class CalculationComparisonPageController implements Initializable {
     public void buildStackedBarChart(){
         // Clear any previous data
         MyStackedBarChart.getData().clear();
-        categories.clear();
+
+        //displayedSeries.clear();
+        //categories.clear();
 
         // Call private method to create series, add data to them, and add all series to the chart
         addSeriesToChart();
 
+        // Store reference to all the displayed series
+        this.displayedSeries = MyStackedBarChart.getData();
+
+        setSeriesData();
+
         // Set gap for the bar chart
         MyStackedBarChart.setCategoryGap(200);
+
+        // Set animation to false (it messes with the data when changing from percentage to totals and vice versa
+        MyStackedBarChart.setAnimated(false);
     }
+
 
     /**
      * Creates all series for the stacked bar chart based on
      * categories present in all calculations to be displayed
      * and adds them to the stacked bar chart
-     *
-     * The method also adds values to each series based on values from each calculation
      */
     private void addSeriesToChart(){
         // Get categories to display as stacked bars
@@ -85,12 +100,32 @@ public class CalculationComparisonPageController implements Initializable {
             // Set name of the new series to equal the current category
             series.setName(cat);
 
+            // Add the new series (category) with all the data values to the stacked bar chart
+            MyStackedBarChart.getData().add(series);
+        }
+    }
+
+
+
+    /**
+     * Sets the data values for each series in the stacked bar chart
+     */
+    private void setSeriesData(){
+
+        for (XYChart.Series<String, Number> s : displayedSeries){
+            s.getData().clear();
+        }
+
+        for (XYChart.Series<String, Number> s : displayedSeries){
             // Iterate over all calculations to be displayed in the stacked bar chart
-            //TODO - anne har lidt en drøm om at gøre det her til en privat metode for at encapsulate
             for (CalculationModel calc : calcs){
 
-                // Get hash table with percentage values for each category in the current calculation
+                // Default: get hash table with percentage values for each category in the current calculation
                 Hashtable<String, Double> ht = calc.getCategoriesPercentagesDict();
+
+                if (showTotals){
+                    ht = calc.getCategoriesTotalDict();
+                }
 
                 // Get set of keys in the hash table to be able
                 // to access the categories and their percentage values in the calculation
@@ -99,13 +134,10 @@ public class CalculationComparisonPageController implements Initializable {
                 // If the current category is present in the current calculation create a new Data object
                 // with the name of the kitchen for the calculation
                 // and the percentage value for the current category
-                if (keys.contains(cat)) {
-                    series.getData().add(new XYChart.Data<>(calc.getKitchen().toString(), ht.get(cat)));
+                if (keys.contains(s.getName())) {
+                    s.getData().add(new XYChart.Data<>(calc.getKitchen().toString(), ht.get(s.getName())));
                 }
             }
-
-            // Add the new series (category) with all the data values to the stacked bar chart
-            MyStackedBarChart.getData().add(series);
         }
     }
 
