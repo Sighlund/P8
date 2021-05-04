@@ -1,3 +1,4 @@
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -5,6 +6,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.MenuItem;
 import model.CalculationModel;
 import persistence.CalculationPersistence;
 import persistence.ConcitoPersistence;
@@ -26,92 +28,129 @@ public class CalculationComparisonPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //calls methods to build the stacked bar chart
     }
 
-    //Categories used for stacking the bar chart
-    List<String> arr = ConcitoPersistence.getDistinctCategories();
-    String Category1 = arr.get(0);
-    String Category2 = arr.get(1);
-    String Category3 = arr.get(2);
-    String Category4 = arr.get(3);
-    String Category5 = arr.get(4);
-    String Category6 = arr.get(5);
-    String Category7 = arr.get(6);
-    String Category8 = arr.get(7);
-    String Category9 = arr.get(8);
-    String Category10 = arr.get(9);
-    String Category11 = arr.get(10);
-    String Category12 = arr.get(11);
-    String Category13 = arr.get(12);
+    @FXML
+    private MenuItem procentMenuItem;
+
+    @FXML
+    private MenuItem kgCo2MenuItem;
+
+    @FXML
+    void showKgCo2(ActionEvent event) {
+
+    }
+
+    @FXML
+    void showPercentage(ActionEvent event) {
+
+    }
+
+    // Property to hold list of categories to be displayed in bar chart
+    private List<String> categories = new ArrayList<>();
+
+    // Property to hold list of calculations to be displayed in bar chart
+    private List<CalculationModel> calcs = new ArrayList<>();
 
     //Building StackedBarChart
-    public void buildStackedBarChart(String... args){
+    public void buildStackedBarChart(){
+        // Clear any previous data
+        MyStackedBarChart.getData().clear();
+        categories.clear();
 
-        XYChart.Series<String, Number> Category1 = new XYChart.Series<>();
-        Category1.setName(arr.get(0));
-        XYChart.Series<String, Number> Category2 = new XYChart.Series<>();
-        Category2.setName(arr.get(1));
-        XYChart.Series<String, Number> Category3 = new XYChart.Series<>();
-        Category3.setName(arr.get(2));
-        XYChart.Series<String, Number> Category4 = new XYChart.Series<>();
-        Category4.setName(arr.get(3));
-        XYChart.Series<String, Number> Category5 = new XYChart.Series<>();
-        Category5.setName(arr.get(4));
-        XYChart.Series<String, Number> Category6 = new XYChart.Series<>();
-        Category6.setName(arr.get(5));
-        XYChart.Series<String, Number> Category7 = new XYChart.Series<>();
-        Category7.setName(arr.get(6));
-        XYChart.Series<String, Number> Category8 = new XYChart.Series<>();
-        Category8.setName(arr.get(7));
-        XYChart.Series<String, Number> Category9 = new XYChart.Series<>();
-        Category9.setName(arr.get(8));
-        XYChart.Series<String, Number> Category10 = new XYChart.Series<>();
-        Category10.setName(arr.get(9));
-        XYChart.Series<String, Number> Category11 = new XYChart.Series<>();
-        Category11.setName(arr.get(10));
-        XYChart.Series<String, Number> Category12 = new XYChart.Series<>();
-        Category12.setName(arr.get(11));
-        XYChart.Series<String, Number> Category13 = new XYChart.Series<>();
-        Category13.setName(arr.get(12));
+        // Call private method to create series, add data to them, and add all series to the chart
+        addSeriesToChart();
 
-        for(String arg: args) {
-            Category1.getData().add(new XYChart.Data<>(arg, 7));
-            Category2.getData().add(new XYChart.Data<>(arg, 9));
-            Category3.getData().add(new XYChart.Data<>(arg, 14));
-            Category4.getData().add(new XYChart.Data<>(arg, 7));
-            Category5.getData().add(new XYChart.Data<>(arg, 9));
-            Category6.getData().add(new XYChart.Data<>(arg, 8));
-            Category7.getData().add(new XYChart.Data<>(arg, 13));
-            Category8.getData().add(new XYChart.Data<>(arg, 8));
-            Category9.getData().add(new XYChart.Data<>(arg, 8));
-            Category10.getData().add(new XYChart.Data<>(arg, 5));
-            Category11.getData().add(new XYChart.Data<>(arg, 6));
-            Category12.getData().add(new XYChart.Data<>(arg, 10));
-            Category13.getData().add(new XYChart.Data<>(arg, 1));
-
-          }
+        // Set gap for the bar chart
         MyStackedBarChart.setCategoryGap(200);
-        MyStackedBarChart.getData().addAll(Category1, Category2, Category3, Category4, Category5, Category6, Category7, Category8, Category9, Category10, Category11, Category12, Category13);
-
     }
 
-    String enhed;
-    String enhed2 = "enhed2";
+    /**
+     * Creates all series for the stacked bar chart based on
+     * categories present in all calculations to be displayed
+     * and adds them to the stacked bar chart
+     *
+     * The method also adds values to each series based on values from each calculation
+     */
+    private void addSeriesToChart(){
+        // Get categories to display as stacked bars
+        categories = getAllCategories();
 
-    CalculationModel calc;
-    //Receives information from HistoryPageController
-    public void getInformation(CalculationModel calcid) {
-        this.calc=calcid;
-        MyStackedBarChart.getData().clear();
-        System.out.println(calcid.getKitchen());
-        enhed = calc.toString();
+        // Iterate over list of categories
+        for (String cat : categories) {
 
-        ArrayList<Integer> enhed1volumes = new ArrayList<Integer>();
-        enhed1volumes.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13));
-        System.out.println(enhed1volumes.get(2));
+            // Create a new series for each category, each taking a String and a Number value
+            XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 
-        buildStackedBarChart(enhed, enhed2);
+            // Set name of the new series to equal the current category
+            series.setName(cat);
+
+            // Iterate over all calculations to be displayed in the stacked bar chart
+            //TODO - anne har lidt en drøm om at gøre det her til en privat metode for at encapsulate
+            for (CalculationModel calc : calcs){
+
+                // Get hash table with percentage values for each category in the current calculation
+                Hashtable<String, Double> ht = calc.getCategoriesPercentagesDict();
+
+                // Get set of keys in the hash table to be able
+                // to access the categories and their percentage values in the calculation
+                Set<String> keys = ht.keySet();
+
+                // If the current category is present in the current calculation create a new Data object
+                // with the name of the kitchen for the calculation
+                // and the percentage value for the current category
+                if (keys.contains(cat)) {
+                    series.getData().add(new XYChart.Data<>(calc.getKitchen().toString(), ht.get(cat)));
+                }
+            }
+
+            // Add the new series (category) with all the data values to the stacked bar chart
+            MyStackedBarChart.getData().add(series);
+        }
+    }
+
+
+    /**
+     * Gets all categories to present in bar chart based on the calculations to be displayed
+     * @return a list of Strings with all categories to display
+     */
+    private List<String> getAllCategories(){
+
+        // Create list to hold all categories for all calculations to be displayed
+        List<String> allCategories = new ArrayList<>();
+
+        // Iterate over all calculations to be displayed
+        for (CalculationModel c : calcs){
+
+            // Get categories in the current calculation
+            List<String> categories = c.getCategories();
+
+            // Iterate over those categories
+            for (String cat : categories){
+
+                // If the category is not already represented in the list of categories
+                // for all calculations combined, add it to the list
+                if(!allCategories.contains(cat)){
+                    allCategories.add(cat);
+                }
+            }
+        }
+
+        // Return list with all distinct categories for all calculations combined
+        return allCategories;
+    }
+
+    /**
+     * Receives information from history controller
+     * Is called whenever the user switches from the history scene to the comparison scene
+     * @param calcs a list of the calculations to be displayed for comparison
+     */
+    public void getInformation(ObservableList<CalculationModel> calcs) {
+        // Update property holding all calculations to be displayed
+        this.calcs=calcs;
+
+        // Build the stacked bar chart
+        buildStackedBarChart();
     }
 
     /**
