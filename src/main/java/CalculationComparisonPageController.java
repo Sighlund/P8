@@ -6,6 +6,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.MenuItem;
 import model.CalculationModel;
 import persistence.CalculationPersistence;
 import persistence.ConcitoPersistence;
@@ -27,6 +28,22 @@ public class CalculationComparisonPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
+
+    @FXML
+    private MenuItem procentMenuItem;
+
+    @FXML
+    private MenuItem kgCo2MenuItem;
+
+    @FXML
+    void showKgCo2(ActionEvent event) {
+
+    }
+
+    @FXML
+    void showPercentage(ActionEvent event) {
+
     }
 
     // Property to hold list of categories to be displayed in bar chart
