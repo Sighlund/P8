@@ -195,86 +195,73 @@ public class CalculationModel {
      * as a percentage og the total CO2 for the calculation
      * @return hash table with categories as keys and percentages as values
      */
-    public Hashtable<String, Double> getCategoriesPercentagesDict(){
+    public Hashtable<String, Double> getCategoriesPercentagesHt(){
         // Create empty hash table
-        Hashtable dict = new Hashtable<String, Double>();
+        Hashtable ht = new Hashtable<String, Double>();
 
         // Get list of categories
         List<String> categories = getCategories();
 
-
         // Iterate over all categories
         for (int i = 0; i < categories.size(); i++){
 
-            // Create double to hold temporary subtotal
-            Double subtotal = 0.0;
-
-            // Iterate over all food items
-            for (int j = 0; j < foodItemList.size(); j++){
-
-                // If category for current food item equals current category
-                // add CO2 for food item to subtotal for the category
-                if (foodItemList.get(j).getCategory().equals(categories.get(i))){
-                    subtotal += foodItemList.get(j).calcCo2();
-                }
-            }
+            // Create double to hold subtotal
+            Double subtotal = getSubtotalForCategory(categories.get(i));
 
             // Add category and CO2 percentage to the hash table
             // using category as key and percentage as value
-            dict.put(categories.get(i), (subtotal/calcTotalCo2()*100));
+            ht.put(categories.get(i), (subtotal/calcTotalCo2()*100));
         }
 
         // TODO slettes - debugger
-        System.out.println(dict);
+        System.out.println(ht);
 
-        return dict;
+        return ht;
     }
 
-    public Hashtable<String, Double> getSubcategoriesPercentagesDict(){
+
+    /**
+     * Gets hash table with percentages for all subcategories for a specific category
+     * @return a hash table with the category as key and percentage value as value
+     */
+    public Hashtable<String, Double> getSubcategoriesPercentagesHt(String category){
         //TODO - get subcategories
 
         // Create empty hash table
-        Hashtable dict = new Hashtable<String, Double>();
+        Hashtable ht = new Hashtable<String, Double>();
 
         // Get list of categories
         List<String> subcategories = getSubcategories("CATEGORY");
 
-        return dict;
+        return ht;
     }
 
-    public Hashtable<String, Double> getCategoriesTotalDict(){
+    /**
+     * Gets subtotals for each category represented in the calculation
+     * @return a hashtable with the category as key and subtotal as value
+     */
+    public Hashtable<String, Double> getCategoriesTotalHt(){
         // Create empty hash table
-        Hashtable dict = new Hashtable<String, Double>();
+        Hashtable ht = new Hashtable<String, Double>();
 
         // Get list of categories
         List<String> categories = getCategories();
 
-
         // Iterate over all categories
         for (int i = 0; i < categories.size(); i++){
 
-            // Create double to hold temporary subtotal
-            Double subtotal = 0.0;
-
-            // Iterate over all food items
-            for (int j = 0; j < foodItemList.size(); j++){
-
-                // If category for current food item equals current category
-                // add CO2 for food item to subtotal for the category
-                if (foodItemList.get(j).getCategory().equals(categories.get(i))){
-                    subtotal += foodItemList.get(j).calcCo2();
-                }
-            }
+            // Create double to hold subtotal
+            Double subtotal = getSubtotalForCategory(categories.get(i));
 
             // Add category and CO2 percentage to the hash table
-            // using category as key and percentage as value
-            dict.put(categories.get(i), subtotal);
+            // using category as key and subtotal as value
+            ht.put(categories.get(i), subtotal);
         }
 
         // TODO slettes - debugger
-        System.out.println(dict);
+        System.out.println(ht);
 
-        return dict;
+        return ht;
     }
 
     /**
@@ -300,6 +287,11 @@ public class CalculationModel {
         return list;
     }
 
+    /**
+     * Gets all subcategories for a specific category
+     * @param category the category to get subcategories for
+     * @return a list of subcategories
+     */
     private List<String> getSubcategories(String category){
         List<String> list = new ArrayList<>();
 
@@ -312,6 +304,29 @@ public class CalculationModel {
         }
 
         return list;
+    }
+
+    /**
+     * Gets the CO2 subtotal for a specific category
+     * @param category the category to get the subtotal for
+     * @return CO2e in kg
+     */
+    private Double getSubtotalForCategory(String category){
+
+        // Create double to hold temporary subtotal
+        Double subtotal = 0.0;
+
+        // Iterate over all food items
+        for (int j = 0; j < foodItemList.size(); j++){
+
+            // If category for current food item equals current category
+            // add CO2 for food item to subtotal for the category
+            if (foodItemList.get(j).getCategory().equals(category)){
+                subtotal += foodItemList.get(j).calcCo2();
+            }
+        }
+
+        return subtotal;
     }
 
 }

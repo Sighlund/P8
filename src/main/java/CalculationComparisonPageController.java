@@ -26,25 +26,29 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     private NumberAxis yAxis;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
-
     @FXML
     private MenuItem procentMenuItem;
 
     @FXML
     private MenuItem kgCo2MenuItem;
 
+
+    // State to determine whether to show totals or percentages in stacked bar chart
     private boolean showTotals = false;
 
+    // Property to hold observable list of all displayed series in the stacked bar chart
     private ObservableList<XYChart.Series<String, Number>> displayedSeries;
+
+    // Property to hold list of calculations to be displayed in bar chart
+    private List<CalculationModel> calcs = new ArrayList<>();
 
     // Property to hold list of categories to be displayed in bar chart
     private List<String> categories = new ArrayList<>();
 
-    // Property to hold list of calculations to be displayed in bar chart
-    private List<CalculationModel> calcs = new ArrayList<>();
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+    }
 
 
     /**
@@ -64,9 +68,19 @@ public class CalculationComparisonPageController implements Initializable {
     /**
      * Builds the stacked bar chart
      */
-    public void buildStackedBarChart(){
+    private void buildStackedBarChart(){
         // Clear any previous data
         MyStackedBarChart.getData().clear();
+
+        // Set label for y-axis and showTotals as false
+        yAxis.setLabel("Procent af samlet CO2e for hele indkøbet");
+        showTotals = false;
+
+        // Set label for x-axis
+        xAxis.setLabel("Køkken og periode");
+
+        // Set gap for the bar chart
+        MyStackedBarChart.setCategoryGap(100);
 
         // Call private method to create series, add data to them, and add all series to the chart
         addSeriesToChart();
@@ -77,18 +91,9 @@ public class CalculationComparisonPageController implements Initializable {
         // Add data to all series (default is percentage values)
         setSeriesData();
 
-        // Set label for y-axis
-        yAxis.setLabel("Procent af samlet CO2e for hele indkøbet");
-
-
-        // Set gap for the bar chart
-        MyStackedBarChart.setCategoryGap(200);
-
         // Set animation to false (it messes with the data when changing from percentage to totals and vice versa)
         MyStackedBarChart.setAnimated(false);
 
-        // Set label for x-axis
-        xAxis.setLabel("Køkken og periode");
     }
 
 
@@ -120,29 +125,34 @@ public class CalculationComparisonPageController implements Initializable {
      * Sets the data values for each series in the stacked bar chart
      */
     private void setSeriesData(){
-
+        // Iterate over the displayed series
         for (XYChart.Series<String, Number> s : displayedSeries){
-            // Clear previous data in the series
+
+            // Clear previous data in the current series
             s.getData().clear();
 
-            // Iterate over all calculations to be displayed in the stacked bar chart
+            // Iterate over all calculations to be displayed
             for (CalculationModel calc : calcs){
 
-                // Default: get hash table with percentage values for each category in the current calculation
-                Hashtable<String, Double> ht = calc.getCategoriesPercentagesDict();
+                // Create hash table to store values for the current calculation
+                Hashtable<String, Double> ht;
 
                 // If showTotals is selected: get hash table with total values for kg CO2 for each category
+                // Else, get hash table with percentage values for each category
                 if (showTotals){
-                    ht = calc.getCategoriesTotalDict();
+                    ht = calc.getCategoriesTotalHt();
+                }
+                else {
+                    ht = calc.getCategoriesPercentagesHt();
                 }
 
                 // Get set of keys in the hash table to be able
-                // to access the categories and their percentage values in the calculation
+                // to access the categories and their values
                 Set<String> keys = ht.keySet();
 
                 // If the current category is present in the current calculation create a new Data object
                 // with name of kitchen, quarter, year as name
-                // and the percentage value for the current category
+                // and the corresponding hash table value as data value
                 if (keys.contains(s.getName())) {
                     s.getData().add(new XYChart.Data<>(
                             (calc.getKitchen().toString() + " " + calc.getQuarter() + ". kvartal " + calc.getYear().toString()),
@@ -182,8 +192,6 @@ public class CalculationComparisonPageController implements Initializable {
         // Return list with all distinct categories for all calculations combined
         return allCategories;
     }
-
-
 
 
     /**
