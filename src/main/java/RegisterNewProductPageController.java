@@ -1,4 +1,5 @@
 import customException.DescriptorPercentageException;
+import customException.IngredientPercentageException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,10 +54,13 @@ public class RegisterNewProductPageController implements Initializable {
 
     public ArrayList<IngredientModel> ingredientList = new ArrayList<>();
 
-    public void addIngredient() {
+    public void addIngredient() throws IngredientPercentageException {
         String ingredientNameString = autoCompleteTextField.getText();
         ConcitoItemModel concitoItem = ConcitoPersistence.getConcitoByName(ingredientNameString);
         Double volumePercentageInput = Double.valueOf(percentageTextField.getText());
+        if (volumePercentageInput > 100 || volumePercentageInput <= 0){
+            throw new IngredientPercentageException("Ingredient percentage must be greater than 0 and not greater than 100");
+        }
         IngredientModel ingredient = new IngredientModel(volumePercentageInput, concitoItem);
         ingredientList.add(ingredient);
         registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), ingredient.getPercentage()));
@@ -110,7 +114,16 @@ public class RegisterNewProductPageController implements Initializable {
             addIngredient();
             autoCompleteTextField.clear();
             percentageTextField.clear();
-        } catch (NoResultException exception) {
+        } catch (IngredientPercentageException exception){
+            exception.printStackTrace();
+            //Instantiating an object which has the error handling methods
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            //We call upon the method which creates a popup with the provided string.
+            errorHandlingCollection.basicErrorPopup("fejl", "%-mængde i varen skal være større end 0 og ikke større end 100");
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            errorHandlingCollection = null;
+        }
+        catch (NoResultException exception) {
             exception.printStackTrace();
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
