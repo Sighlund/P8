@@ -141,10 +141,12 @@ public class CalculationComparisonPageController implements Initializable {
                 Set<String> keys = ht.keySet();
 
                 // If the current category is present in the current calculation create a new Data object
-                // with the name of the kitchen for the calculation
+                // with name of kitchen, quarter, year as name
                 // and the percentage value for the current category
                 if (keys.contains(s.getName())) {
-                    s.getData().add(new XYChart.Data<>(calc.getKitchen().toString(), ht.get(s.getName())));
+                    s.getData().add(new XYChart.Data<>(
+                            (calc.getKitchen().toString() + " " + calc.getQuarter() + ". kvartal " + calc.getYear().toString()),
+                            ht.get(s.getName())));
                 }
             }
         }

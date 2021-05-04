@@ -205,7 +205,7 @@ public class CalculationPageController implements Initializable {
      * @return true if calculation was saved, else false
      */
     public void saveCalculationToDatabase(){
-        //CalculationPersistence.addCalc(calculation);
+        CalculationPersistence.addCalc(calculation);
         // TODO - skal den ikke kun opdatere, hvis den allerede findes?
         //We update the bool state keeping track of whether the current calculation has been saved, to true.
         //This state is changed back to 'false', once the user pressed 'Udregn' button again.
