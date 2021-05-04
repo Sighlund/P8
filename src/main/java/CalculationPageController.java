@@ -1,9 +1,13 @@
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,17 +16,19 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.CalculationModel;
 import model.FoodItemModel;
+import persistence.CalculationPersistence;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.text.DecimalFormat;
+import java.util.*;
 
 public class CalculationPageController implements Initializable {
 
@@ -33,6 +39,10 @@ public class CalculationPageController implements Initializable {
     private Label CO2PrKgLabel;
     @FXML
     private Label VolumeLabel;
+    @FXML
+    private Label kitchen;
+    @FXML
+    private Label period;
 
     //Pie chart
     @FXML
@@ -68,7 +78,8 @@ public class CalculationPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        buildTableView();
+        MyPieChart.setLegendSide(Side.RIGHT);
+        MyPieChart.setLabelsVisible(false);
     }
 
     /**
@@ -77,14 +88,23 @@ public class CalculationPageController implements Initializable {
      */
     public void updateCalculationView(CalculationModel calc){
         this.calculation = calc;
-
-        this.VolumeLabel.setText(calc.calcTotalKg().toString());
-        this.CO2TotLabel.setText(calc.calcTotalCo2().toString());
-        this.CO2PrKgLabel.setText(calc.calcAveCO2prKg().toString());
-
-        buildPieChart();
+        buildView();
     }
 
+    private void buildView(){
+        // Fill out labels with basic information about the calculation
+        this.VolumeLabel.setText(format(calculation.calcTotalKg()) + " kg");
+        this.CO2TotLabel.setText(format(calculation.calcTotalCo2())+ " kg CO2e");
+        this.CO2PrKgLabel.setText(format(calculation.calcAveCO2prKg()) + " kg CO2e/kg");
+        this.kitchen.setText(calculation.getKitchen().toString());
+        this.period.setText(calculation.getQuarter() + ". kvartal  " + calculation.getYear().toString());
+
+        // Build pie chart
+        buildPieChart();
+
+        // Build pie chart displaying food items
+        buildTableView();
+    }
 
     /**
      * Private method to build the pie chart based on values from the calculation object
@@ -102,21 +122,66 @@ public class CalculationPageController implements Initializable {
         // Iterate over the categories using keys
         // Get percentage value for the category
         for(String key: keys) {
-            // Add new pie chart data set to the observable list
-            // Each data set consists of the category (key) and the CO2 percentage (value)
-            pieChartData.add(new PieChart.Data(key, (Double) categories.get(key)));
+
+            // Create new pie chart data object
+            // consists of the category (key) and the CO2 percentage (value)
+            PieChart.Data data = new PieChart.Data(key, (Double) categories.get(key));
+
+            // Bind the name property of the data object to reflect category name and percentage value
+            data.nameProperty().bind(Bindings.concat(data.getName(), " ", Math.round(data.getPieValue()), "%"));
+
+            // Add data object to the observable list of pie chart data
+            pieChartData.add(data);
         }
 
         // Update the data to be displayed in the pie chart
         MyPieChart.setData(pieChartData);
+
     }
 
     /**
-     * Builds Table View
+     * Builds Table View displaying all food items in the calculation
      */
     private void buildTableView(){
-        //TODO
-        ;
+        // Clear table for previously displayed food items
+        foodItemsTableView.getItems().clear();
+
+        // Each column is told which that they are going to hold object of type PropertyValueFactory<S, T>.
+        // S: The class contained in the column (in this case a simplified, proxy class for foodItem)
+        // T: The class contained and displayed in a particular cell
+        // TODO - duplicated code. Er vi ligeglade?
+        productNameColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
+        primaryGroupColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
+        secondaryGroupColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
+        volumeOfProductColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));
+        co2prkiloValueColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("co2prkiloValue"));
+        totalCo2ForItemColumn.setCellValueFactory(
+                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
+
+        // Add all food items from the calculation to the table to be displayed
+        for (FoodItemModel f : calculation.getFoodItemList()){
+            // Uses simplified, proxy class to convert values from the foodItem object to values
+            // accepted by the table view
+            foodItemsTableView.getItems().add(new ViewListItemDataInsertionPage(
+                    f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(), f.calcCo2()));
+        }
+    }
+
+    private String format(Double d){
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        String format = numberFormat.format(d);
+        return format;
+    }
+
+    private void seeDetails(){
+        //TODO - se detaljer for enkelt kategori - eventhandler, der ændrer pie chart og table view
+        // Get subcategories for specific category from calculation - as hash table
+        // build piechart with new hash table
     }
 
     /**
@@ -124,10 +189,9 @@ public class CalculationPageController implements Initializable {
      * Returns true, if hibernate call went through
      * @return true if calculation was saved, else false
      */
-    public boolean saveCalculationToDatabase(){
-        //TODO - skal laves/flyttes fra datainsertionpage
-
-        return false;
+    public void saveCalculationToDatabase(){
+        //CalculationPersistence.addCalc(calculation);
+        // TODO - skal den ikke kun opdatere, hvis den allerede findes?
     }
 
     /**

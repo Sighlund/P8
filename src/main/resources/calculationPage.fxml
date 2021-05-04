@@ -11,30 +11,30 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalculationPageController">
    <children>
-      <PieChart fx:id="MyPieChart" layoutX="498.0" layoutY="85.0" prefHeight="285.0" prefWidth="285.0" />
-      <Label layoutX="1063.0" layoutY="189.0" text="Co2e pr. Kg indkøb">
+      <PieChart fx:id="MyPieChart" layoutX="242.0" layoutY="37.0" prefHeight="362.0" prefWidth="801.0" />
+      <Label layoutX="1063.0" layoutY="293.0" prefHeight="16.0" prefWidth="136.0" text="Co2e pr. kg indkøb">
          <font>
             <Font name="SansSerif Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="1063.0" layoutY="124.0" prefHeight="18.0" prefWidth="84.0" text="Total CO2e">
+      <Label layoutX="1063.0" layoutY="190.0" prefHeight="18.0" prefWidth="84.0" text="Total CO2e">
          <font>
             <Font name="SansSerif Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="CO2TotLabel" layoutX="1063.0" layoutY="142.0" prefHeight="18.0" prefWidth="84.0" text="CO2e">
+      <Label fx:id="CO2TotLabel" layoutX="1063.0" layoutY="208.0" prefHeight="18.0" prefWidth="152.0" text="CO2e">
          <font>
             <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="CO2PrKgLabel" layoutX="1063.0" layoutY="205.0" text="CO2e pr. Kg">
+      <Label fx:id="CO2PrKgLabel" layoutX="1063.0" layoutY="309.0" prefHeight="15.0" prefWidth="152.0" text="CO2e pr. Kg">
          <font>
             <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
       <Button layoutX="24.0" layoutY="51.0" mnemonicParsing="false" onAction="#switchToDataInsertionPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0" />
       <Button fx:id="START" layoutX="99.0" layoutY="51.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0" />
-      <TableView fx:id="foodItemsTableView" layoutX="240.0" layoutY="381.0" prefHeight="325.0" prefWidth="801.0">
+      <TableView fx:id="foodItemsTableView" layoutX="240.0" layoutY="409.0" prefHeight="297.0" prefWidth="801.0">
          <columns>
             <TableColumn fx:id="productNameColumn" prefWidth="252.0" text="Varenavn" />
             <TableColumn fx:id="primaryGroupColumn" prefWidth="124.0" text="Primærgruppe" />
@@ -44,17 +44,37 @@
             <TableColumn fx:id="totalCo2ForItemColumn" prefWidth="100.0" text="Total CO2" />
          </columns>
       </TableView>
-      <Label layoutX="1063.0" layoutY="249.0" text="Total kilogram indkøbt">
+      <Label layoutX="1063.0" layoutY="241.0" text="Total indkøbt vægt">
          <font>
             <Font name="SansSerif Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="VolumeLabel" layoutX="1063.0" layoutY="265.0" text="Kilogram indkøbt">
+      <Label fx:id="VolumeLabel" layoutX="1063.0" layoutY="257.0" prefHeight="15.0" prefWidth="152.0" text="Kilogram indkøbt">
          <font>
             <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
       <Button layoutX="1071.0" layoutY="467.0" mnemonicParsing="false" onAction="#saveCalculationToDatabase" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Gem udregning" textAlignment="CENTER" />
+      <Label layoutX="1063.0" layoutY="94.0" prefHeight="18.0" prefWidth="84.0" text="Køkken">
+         <font>
+            <Font name="SansSerif Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="kitchen" layoutX="1063.0" layoutY="112.0" prefHeight="18.0" prefWidth="136.0" text="Køkken">
+         <font>
+            <Font name="SansSerif Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="1064.0" layoutY="142.0" prefHeight="18.0" prefWidth="84.0" text="Periode">
+         <font>
+            <Font name="SansSerif Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="period" layoutX="1064.0" layoutY="160.0" prefHeight="18.0" prefWidth="136.0" text="Periode">
+         <font>
+            <Font name="SansSerif Regular" size="12.0" />
+         </font>
+      </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="48.0" layoutX="476.0" layoutY="14.0" stroke="TRANSPARENT" strokeType="INSIDE" width="338.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="14.0" prefHeight="48.0" prefWidth="338.0" text="BEREGNING" textAlignment="CENTER" textFill="WHITE">
          <font>
