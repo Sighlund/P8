@@ -8,6 +8,8 @@ public class ViewListItemDataInsertionPage {
     private SimpleStringProperty productName;
     private SimpleStringProperty primaryGroup;
     private SimpleStringProperty secondaryGroup;
+
+    //TODO Måske format disse til string, og så i constructor brug format til at ændre
     private Double volumeOfProduct;
     private Double co2prkiloValue;
     private Double totalCo2ForItem;
@@ -21,6 +23,8 @@ public class ViewListItemDataInsertionPage {
         this.productName = new SimpleStringProperty(productName);
         this.primaryGroup = new SimpleStringProperty(primaryGroup);
         this.secondaryGroup = new SimpleStringProperty(secondaryGroup);
+
+        //TODO format disse til strings.
         this.volumeOfProduct = volumeOfProduct;
         this.co2prkiloValue = co2prkiloValue;
         this.totalCo2ForItem = totalCo2ForItem;

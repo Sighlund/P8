@@ -105,7 +105,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage){
         scene = new Scene(frontPageParent);
-        stage.setTitle("👨‍🍳👨‍🍳👨‍🍳Den store Bagedyst sæsonafslutning😎😎😎");
+        stage.setTitle("CO2 Beregner");
         Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
         stage.getIcons().add(icon);
         stage.setScene(scene);

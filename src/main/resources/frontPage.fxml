@@ -15,7 +15,7 @@
          <graphic>
             <ImageView fitHeight="207.0" fitWidth="284.0" pickOnBounds="true">
                <image>
-                  <Image url="https://raw.githubusercontent.com/Sighlund/P8/main/src/main/resources/img/AddGoods.jpg" />
+                  <Image url="https://github.com/BigGamerFan/p8pictures/blob/main/AddGoods.PNG?raw=true" />
                </image>
             </ImageView>
          </graphic>
@@ -26,7 +26,7 @@
          <graphic>
             <ImageView fitHeight="207.0" fitWidth="284.0" pickOnBounds="true">
                <image>
-                  <Image url="https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Database.jpg?raw=true" />
+                  <Image url="https://github.com/BigGamerFan/p8pictures/blob/main/Database.PNG?raw=true" />
                </image>
             </ImageView>
          </graphic>
@@ -37,7 +37,7 @@
          <graphic>
             <ImageView fitHeight="207.0" fitWidth="284.0" pickOnBounds="true">
                <image>
-                  <Image url="https://raw.githubusercontent.com/Sighlund/P8/main/src/main/resources/img/Historik.jpg" />
+                  <Image url="https://github.com/BigGamerFan/p8pictures/blob/main/Historik.PNG?raw=true" />
                </image>
             </ImageView>
          </graphic>
@@ -46,7 +46,7 @@
          </font></Button>
       <ImageView fx:id="vegetablesImageView" fitHeight="242.0" fitWidth="1280.0" layoutY="-2.0" pickOnBounds="true">
          <image>
-            <Image url="https://raw.githubusercontent.com/Sighlund/P8/main/src/main/resources/img/Vegetables.jpg" />
+            <Image url="https://github.com/BigGamerFan/p8pictures/blob/main/Vegetables.PNG?raw=true" />
          </image>
          <viewport>
             <Rectangle2D height="300.0" width="1500.0" />
