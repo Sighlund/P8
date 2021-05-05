@@ -339,4 +339,5 @@ public class CalculationComparisonPageController implements Initializable {
     public void switchToHistoryPage(ActionEvent event){
         App.switchScene(App.getHistoryPageParent());
     }
+
 }
