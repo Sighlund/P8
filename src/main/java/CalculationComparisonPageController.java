@@ -8,10 +8,7 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.MenuItem;
 import model.CalculationModel;
-import persistence.CalculationPersistence;
-import persistence.ConcitoPersistence;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
 
@@ -26,15 +23,22 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     private NumberAxis yAxis;
 
-    @FXML
-    private MenuItem procentMenuItem;
 
     @FXML
-    private MenuItem kgCo2MenuItem;
+    private MenuItem co2PMenuItem;
 
+    @FXML
+    private MenuItem coKgMenuItem;
 
-    // State to determine whether to show totals or percentages in stacked bar chart
-    private boolean showTotals = false;
+    @FXML
+    private MenuItem volPMenuItem;
+
+    @FXML
+    private MenuItem volKgMenuItem;
+
+    @FXML
+    private MenuItem co2PrKgMenuItem;
+
 
     // Property to hold observable list of all displayed series in the stacked bar chart
     private ObservableList<XYChart.Series<String, Number>> displayedSeries;
@@ -74,7 +78,7 @@ public class CalculationComparisonPageController implements Initializable {
 
         // Set label for y-axis and showTotals as false
         yAxis.setLabel("Procent af samlet CO2e for hele indkøbet");
-        showTotals = false;
+        barChartOpt = 1;
 
         // Set label for x-axis
         xAxis.setLabel("Køkken og periode");
@@ -135,15 +139,21 @@ public class CalculationComparisonPageController implements Initializable {
             for (CalculationModel calc : calcs){
 
                 // Create hash table to store values for the current calculation
-                Hashtable<String, Double> ht;
+                Hashtable<String, Double> ht = calc.getCategoriesCo2PercentagesHt();
 
                 // If showTotals is selected: get hash table with total values for kg CO2 for each category
                 // Else, get hash table with percentage values for each category
-                if (showTotals){
-                    ht = calc.getCategoriesTotalHt();
+                if (barChartOpt == 2){
+                    ht = calc.getCategoriesCo2KgHt();
+                }
+                else if (barChartOpt == 3){
+                    //TODO show vol p
+                }
+                else if (barChartOpt == 4) {
+                    // TODO show vol kg
                 }
                 else {
-                    ht = calc.getCategoriesPercentagesHt();
+                    ht = calc.getCategoriesCo2PercentagesHt();
                 }
 
                 // Get set of keys in the hash table to be able
@@ -194,18 +204,19 @@ public class CalculationComparisonPageController implements Initializable {
     }
 
 
-    /**
-     * Event handler for menu bar item: "Kg Co2"
-     * Updates all series with new data, displaying CO2 totals for each category
-     * @param event
-     */
-    @FXML
-    void showKgCo2(ActionEvent event) {
-        showTotals = true;
-        setSeriesData();
-        yAxis.setLabel("Kg CO2e");
 
-    }
+
+    // State to determine whether to show totals or percentages in stacked bar chart
+    //private boolean showTotals = false;
+
+
+    // 1 = Co2 percentage
+    // 2 = Co2 kg
+    // 3 = Volume percentage
+    // 4 = Volume kg
+    // 5 = Kg Co2 pr kg volume
+    private int barChartOpt = 1;
+
 
     /**
      * Event handler for menu bar item: "Procent"
@@ -213,11 +224,41 @@ public class CalculationComparisonPageController implements Initializable {
      * @param event
      */
     @FXML
-    void showPercentage(ActionEvent event) {
-        showTotals = false;
+    void showCo2P(ActionEvent event) {
+        barChartOpt = 1;
         setSeriesData();
         yAxis.setLabel("Procent af samlet CO2e for hele indkøbet");
     }
+
+
+    /**
+     * Event handler for menu bar item: "Kg Co2"
+     * Updates all series with new data, displaying CO2 totals for each category
+     * @param event
+     */
+    @FXML
+    void showCo2Kg(ActionEvent event) {
+        barChartOpt = 2;
+        setSeriesData();
+        yAxis.setLabel("Kg CO2e");
+    }
+
+
+    @FXML
+    void showVolKg(ActionEvent event) {
+
+    }
+
+    @FXML
+    void showVolP(ActionEvent event) {
+
+    }
+
+    @FXML
+    void showCo2PrKg(ActionEvent event) {
+
+    }
+
 
 
     /**

@@ -195,7 +195,7 @@ public class CalculationModel {
      * as a percentage og the total CO2 for the calculation
      * @return hash table with categories as keys and percentages as values
      */
-    public Hashtable<String, Double> getCategoriesPercentagesHt(){
+    public Hashtable<String, Double> getCategoriesCo2PercentagesHt(){
         // Create empty hash table
         Hashtable ht = new Hashtable<String, Double>();
 
@@ -206,7 +206,7 @@ public class CalculationModel {
         for (int i = 0; i < categories.size(); i++){
 
             // Create double to hold subtotal
-            Double subtotal = getSubtotalForCategory(categories.get(i));
+            Double subtotal = getCo2SubtotalForCategory(categories.get(i));
 
             // Add category and CO2 percentage to the hash table
             // using category as key and percentage as value
@@ -240,7 +240,7 @@ public class CalculationModel {
      * Gets subtotals for each category represented in the calculation
      * @return a hashtable with the category as key and subtotal as value
      */
-    public Hashtable<String, Double> getCategoriesTotalHt(){
+    public Hashtable<String, Double> getCategoriesCo2KgHt(){
         // Create empty hash table
         Hashtable ht = new Hashtable<String, Double>();
 
@@ -251,7 +251,7 @@ public class CalculationModel {
         for (int i = 0; i < categories.size(); i++){
 
             // Create double to hold subtotal
-            Double subtotal = getSubtotalForCategory(categories.get(i));
+            Double subtotal = getCo2SubtotalForCategory(categories.get(i));
 
             // Add category and CO2 percentage to the hash table
             // using category as key and subtotal as value
@@ -311,7 +311,7 @@ public class CalculationModel {
      * @param category the category to get the subtotal for
      * @return CO2e in kg
      */
-    private Double getSubtotalForCategory(String category){
+    private Double getCo2SubtotalForCategory(String category){
 
         // Create double to hold temporary subtotal
         Double subtotal = 0.0;
@@ -323,6 +323,61 @@ public class CalculationModel {
             // add CO2 for food item to subtotal for the category
             if (foodItemList.get(j).getCategory().equals(category)){
                 subtotal += foodItemList.get(j).calcCo2();
+            }
+        }
+
+        return subtotal;
+    }
+
+
+    public Hashtable<String, Double> getCategoriesVolPercentagesHt(){
+        // Create empty hash table
+        Hashtable ht = new Hashtable<String, Double>();
+
+        // Get list of categories
+        List<String> categories = getCategories();
+
+        // Iterate over all categories
+        for (int i = 0; i < categories.size(); i++){
+
+            // Create double to hold subtotal
+            Double subtotal = getVolSubtotalForCategory(categories.get(i));
+
+            // Add category and CO2 percentage to the hash table
+            // using category as key and subtotal as value
+            ht.put(categories.get(i), subtotal);
+        }
+
+        // TODO slettes - debugger
+        System.out.println(ht);
+
+        return ht;
+    }
+
+    public Hashtable<String, Double> getCategoriesVolKgHt(){
+        // Create empty hash table
+        Hashtable ht = new Hashtable<String, Double>();
+
+        // Get list of categories
+        List<String> categories = getCategories();
+
+        return ht;
+    }
+
+
+
+    private Double getVolSubtotalForCategory(String category){
+
+        // Create double to hold temporary subtotal
+        Double subtotal = 0.0;
+
+        // Iterate over all food items
+        for (int j = 0; j < foodItemList.size(); j++){
+
+            // If category for current food item equals current category
+            // add CO2 for food item to subtotal for the category
+            if (foodItemList.get(j).getCategory().equals(category)){
+                subtotal += foodItemList.get(j).getVolume();
             }
         }
 
