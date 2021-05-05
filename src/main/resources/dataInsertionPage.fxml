@@ -30,7 +30,7 @@
       <Label layoutX="174.0" layoutY="77.0" prefHeight="18.0" prefWidth="477.0" text="Vælg Afdeling..." />
       <Label layoutX="667.0" layoutY="77.0" prefHeight="18.0" prefWidth="150.0" text="År for udregning..." />
       <Label layoutX="826.0" layoutY="77.0" prefHeight="18.0" prefWidth="150.0" text="Kvartal for udregning..." />
-      <TextField fx:id="volumeKiloTextField" layoutX="667.0" layoutY="128.0" prefHeight="26.0" prefWidth="88.0" promptText="Angiv Kg..." style="-fx-background-color: white;" />
+      <TextField fx:id="volumeKiloTextField" layoutX="667.0" layoutY="128.0" onAction="#addProductToListMethodCalls" prefHeight="26.0" prefWidth="88.0" promptText="Angiv Kg..." style="-fx-background-color: white;" />
       <Button layoutX="876.0" layoutY="126.0" mnemonicParsing="false" onAction="#openRegisterNewProductOverlay" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Reg. Ny vare" textAlignment="CENTER" />
       <Button layoutX="766.0" layoutY="126.0" mnemonicParsing="false" onAction="#addProductToListMethodCalls" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Tilføj Vare" textAlignment="CENTER" />
       <Button layoutX="1023.0" layoutY="386.0" mnemonicParsing="false" onAction="#switchToCalculationPage" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Udregn" textAlignment="CENTER" AnchorPane.rightAnchor="121.0" />

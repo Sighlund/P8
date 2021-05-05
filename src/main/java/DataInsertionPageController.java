@@ -277,7 +277,6 @@ public class DataInsertionPageController implements Initializable {
         }
     }
 
-
     // Attribute to hold the secondary stage for the "Registrer ny vare" window
     private Stage registerNewPStage;
 
