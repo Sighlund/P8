@@ -109,10 +109,11 @@ public class DataInsertionPageController implements Initializable {
     public void createCalc() {
 
         //TODO kig på det her, hvis i vil. Vi kan ikke få det til at virke(Søren og Mads)
-        //Se også CalculationPersistence linje 80, hvor kaldet til DB bliver lavet
-//        CalculationPersistence.getCalcFromChoicebox(choiceboxChooseQuarter.getValue(),
-//                choiceboxChooseYear.getValue(),
-//                choiceboxChooseKitchen.getValue());
+//        Se også CalculationPersistence linje 80, hvor kaldet til DB bliver lavet
+//        CalculationPersistence.getCalcFromChoicebox(
+//                choiceboxChooseKitchen.getValue().getId(),
+//                choiceboxChooseQuarter.getValue(),
+//                choiceboxChooseYear.getValue().getId());
 
         ArrayList<FoodItemModel> foodItems = new ArrayList<>(foodItemList);
 
@@ -337,20 +338,20 @@ public class DataInsertionPageController implements Initializable {
      * @param event action event from button element
      */
     public void switchToCalculationPage(ActionEvent event) {
-        try {
+        //try {
             createCalc();
             App.getCalculationController().updateCalculationView(calculation);
             App.switchScene(App.getCalculationPageParent());
             //If the calculation made it through, we update the state keeping track of whether the current calculation has been saved or not, to false.
             CalculationPageController.setCalculationSaved(false);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
-            //We call upon the method which creates a popup with the provided string.
-            errorHandlingCollection.basicErrorPopup("fejl", "Husk at vælge 'Afdeling', 'År' og 'Kvartal'");
-            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
-            errorHandlingCollection = null;
-        }
+//        } catch (Exception exception) {
+//            exception.printStackTrace();
+//            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+//            //We call upon the method which creates a popup with the provided string.
+//            errorHandlingCollection.basicErrorPopup("fejl", "Husk at vælge 'Afdeling', 'År' og 'Kvartal'");
+//            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+//            errorHandlingCollection = null;
+       //}
     }
 
         /**
