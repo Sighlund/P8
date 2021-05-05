@@ -203,6 +203,12 @@ public class HistoryController implements Initializable {
         // Add all selected calculations from table view
         // to list of calculations in table view (chosen)
         calcsForComp.addAll(selectedCalcs);
+
+        if (calcsForComp.size() > 4){
+            // TODO throw exception, der giver fejlmeddelse om,
+            //  at der maks må tilføjes 4 calculations til tabellen (vi har ikke plads til mere på comparison)
+            //  Bjørn/Mads/Søren? :D
+        }
     }
 
     /**
