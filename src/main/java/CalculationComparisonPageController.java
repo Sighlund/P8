@@ -2,10 +2,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.StackedBarChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.MenuItem;
 import model.CalculationModel;
 
@@ -22,10 +19,21 @@ public class CalculationComparisonPageController implements Initializable {
     private StackedBarChart<String, Number> MyStackedBarChart;
 
     @FXML
-    private CategoryAxis xAxis;
+    private CategoryAxis stackedBarXAxis;
 
     @FXML
-    private NumberAxis yAxis;
+    private NumberAxis stackedBarYAxis;
+
+
+    @FXML
+    private BarChart<String, Number> barChart;
+
+    @FXML
+    private CategoryAxis barXaxis;
+
+    @FXML
+    private NumberAxis barYAxis;
+
 
 
     @FXML
@@ -81,11 +89,10 @@ public class CalculationComparisonPageController implements Initializable {
         MyStackedBarChart.getData().clear();
 
         // Set label for y-axis and showTotals as false
-        yAxis.setLabel("Procentdel af samlet CO2e for perioden");
-        barChartOpt = 1;
+        stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
 
         // Set label for x-axis
-        xAxis.setLabel("Køkken og periode");
+        stackedBarXAxis.setLabel("Køkken og periode");
 
         // Set gap for the bar chart
         MyStackedBarChart.setCategoryGap(100);
@@ -97,7 +104,7 @@ public class CalculationComparisonPageController implements Initializable {
         this.displayedSeries = MyStackedBarChart.getData();
 
         // Add data to all series (default is percentage values)
-        setSeriesData();
+        setSeriesData(1);
 
         // Set animation to false (it messes with the data when changing from percentage to totals and vice versa)
         MyStackedBarChart.setAnimated(false);
@@ -132,7 +139,11 @@ public class CalculationComparisonPageController implements Initializable {
     /**
      * Sets the data values for each series in the stacked bar chart
      */
-    private void setSeriesData(){
+    private void setSeriesData(int option){
+
+        barChart.setVisible(false);
+
+
         // Iterate over the displayed series
         for (XYChart.Series<String, Number> s : displayedSeries){
 
@@ -143,21 +154,21 @@ public class CalculationComparisonPageController implements Initializable {
             for (CalculationModel calc : calcs){
 
                 // Create hash table to store values for the current calculation
-                Hashtable<String, Double> ht = calc.getCategoriesCo2PercentagesHt();
+                Hashtable<String, Double> ht;
 
-                // If showTotals is selected: get hash table with total values for kg CO2 for each category
-                // Else, get hash table with percentage values for each category
-                if (barChartOpt == 2){
-                    ht = calc.getCategoriesCo2KgHt();
+                // Get hash table with data to display from the calculation
+                // Default, get hash table with percentage values for each category
+                if (option == 2){
+                    ht = calc.getCategoriesCo2KgHt(); // Gets CO2 subtotal values in kg for each category
                 }
-                else if (barChartOpt == 3){
-                    ht = calc.getCategoriesVolPercentagesHt();
+                else if (option == 3){
+                    ht = calc.getCategoriesVolPercentagesHt(); // Gets volume subtotal values in percentage for each category
                 }
-                else if (barChartOpt == 4) {
-                    ht = calc.getCategoriesVolKgHt();
+                else if (option == 4) {
+                    ht = calc.getCategoriesVolKgHt(); // Gets volume subtotal values in kg for each category
                 }
                 else {
-                    ht = calc.getCategoriesCo2PercentagesHt();
+                    ht = calc.getCategoriesCo2PercentagesHt(); // Gets CO2 subtotal values in percentage for each category
                 }
 
                 // Get set of keys in the hash table to be able
@@ -165,15 +176,19 @@ public class CalculationComparisonPageController implements Initializable {
                 Set<String> keys = ht.keySet();
 
                 // If the current category is present in the current calculation create a new Data object
-                // with name of kitchen, quarter, year as name
+                // with name of kitchen, quarter, year as category name
                 // and the corresponding hash table value as data value
                 if (keys.contains(s.getName())) {
                     s.getData().add(new XYChart.Data<>(
-                            (calc.getKitchen().toString() + " " + calc.getQuarter() + ". kvartal " + calc.getYear().toString()),
+                            (calc.getKitchen().toString() + " " +
+                                    calc.getQuarter() + ". kvartal " +
+                                    calc.getYear().toString()),
                             ht.get(s.getName())));
                 }
             }
         }
+
+        MyStackedBarChart.setVisible(true);
     }
 
 
@@ -208,19 +223,14 @@ public class CalculationComparisonPageController implements Initializable {
     }
 
 
-
-
-    // State to determine whether to show totals or percentages in stacked bar chart
-    //private boolean showTotals = false;
-
-
+    /*
     // 1 = Co2 percentage
     // 2 = Co2 kg
     // 3 = Volume percentage
     // 4 = Volume kg
-    // 5 = Kg Co2 pr kg volume
     private int barChartOpt = 1;
 
+     */
 
     /**
      * Event handler for menu bar item: "Procent"
@@ -229,9 +239,8 @@ public class CalculationComparisonPageController implements Initializable {
      */
     @FXML
     void showCo2P(ActionEvent event) {
-        barChartOpt = 1;
-        setSeriesData();
-        yAxis.setLabel("Procentdel af samlet CO2e for perioden");
+        setSeriesData(1);
+        stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
     }
 
 
@@ -242,32 +251,68 @@ public class CalculationComparisonPageController implements Initializable {
      */
     @FXML
     void showCo2Kg(ActionEvent event) {
-        barChartOpt = 2;
-        setSeriesData();
-        yAxis.setLabel("Kg CO2e");
+        setSeriesData(2);
+        stackedBarYAxis.setLabel("Kg CO2e");
     }
 
     @FXML
     void showVolP(ActionEvent event) {
-        barChartOpt = 3;
-        setSeriesData();
-        yAxis.setLabel("Procentdel af samlet vægt for perioden");
+        setSeriesData(3);
+        stackedBarYAxis.setLabel("Procentdel af samlet vægt for perioden");
     }
 
     @FXML
     void showVolKg(ActionEvent event) {
-        barChartOpt = 4;
-        setSeriesData();
-        yAxis.setLabel("Kg fødevare");
+        setSeriesData(4);
+        stackedBarYAxis.setLabel("Kg fødevare");
     }
-
 
 
     @FXML
     void showCo2PrKg(ActionEvent event) {
-
+        buildBarChart();
     }
 
+    /**
+     * Builds and displays simple bar chart showing average CO2e pr Kg food for each calculation
+     */
+    private void buildBarChart() {
+
+        // Set stacked bar chart to not visible
+        MyStackedBarChart.setVisible(false);
+
+        // Set x- and y-axis
+        barXaxis.setLabel("Køkken og periode");
+        barYAxis.setLabel("Kg CO2e pr kg fødevare");
+
+        // Set gap between displayed categories on the x-axis
+        barChart.setCategoryGap(100);
+
+        // Clear any previous data in the chart
+        barChart.getData().clear();
+
+        // Create one new series and set name
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Gennemsnitlig kg Co2 pr. kg fødevare");
+
+        // Iterate over displayed calculations
+        for (CalculationModel c : calcs){
+            // Add new data object to the series for each calculation
+            // using kitchen, quarter, and year category name
+            // and calculated CO2 value as data value
+            series.getData().add(new XYChart.Data<>(
+                    ((c.getKitchen().toString() + " " +
+                            c.getQuarter() + ". kvartal " +
+                            c.getYear().toString())),
+                    c.calcAveCO2prKg()));
+        }
+
+        // Add the series data to bar chart
+        barChart.getData().add(series);
+
+        // Set bar chart to be visible
+        barChart.setVisible(true);
+    }
 
 
     /**
