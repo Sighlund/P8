@@ -21,7 +21,7 @@
             <TableColumn fx:id="secondaryGroupColumn" prefWidth="124.0" text="Sekundærgruppe" />
             <TableColumn fx:id="volumeOfProductColumn" prefWidth="100.0" text="Vægt Kg" />
             <TableColumn fx:id="co2prkiloValueColumn" prefWidth="100.0" text="CO2/Kg" />
-            <TableColumn fx:id="totalCo2ForItemColumn" prefWidth="100.0" text="Total CO2" />
+            <TableColumn fx:id="totalCo2ForItemColumn" prefWidth="100.0" text="Total CO2 Kg" />
         </columns>
       </TableView>
       <ChoiceBox id="choiceBoxQuarter" fx:id="choiceboxChooseQuarter" layoutX="826.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" />
