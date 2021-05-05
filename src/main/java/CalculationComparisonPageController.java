@@ -50,10 +50,16 @@ public class CalculationComparisonPageController implements Initializable {
     private MenuItem co2PrKgMenuItem;
 
     @FXML
-    private Button Button1;
+    private Button InfoButton1;
 
     @FXML
-    private Button Button2;
+    private Button InfoButton2;
+
+    @FXML
+    private Button InfoButton3;
+
+    @FXML
+    private Button InfoButton4;
 
     @FXML
     private CheckBox checkbox1;
@@ -62,16 +68,41 @@ public class CalculationComparisonPageController implements Initializable {
     private CheckBox checkbox2;
 
     @FXML
+    private CheckBox checkbox3;
+
+    @FXML
+    private CheckBox checkbox4;
+
+    @FXML
     private Label LabelKategori1;
 
     @FXML
     private Label LabelKategori2;
 
     @FXML
+    private Label LabelKategori3;
+
+    @FXML
+    private Label LabelKategori4;
+
+
+    @FXML
     private Text søjle2Titel;
 
     @FXML
+    private Text søjle3Titel;
+
+    @FXML
+    private Text søjle4Titel;
+
+    @FXML
     private Label viskategorierLabel2;
+
+    @FXML
+    private Label viskategorierLabel3;
+
+    @FXML
+    private Label viskategorierLabel4;
 
     // Property to hold observable list of all displayed series in the stacked bar chart
     private ObservableList<XYChart.Series<String, Number>> displayedSeries;
@@ -100,6 +131,7 @@ public class CalculationComparisonPageController implements Initializable {
         // Build the stacked bar chart
         buildStackedBarChart();
 
+        // Updates labels with co2prkg, kitchen and quarter
         getBasicTextInfo();
 
         // Display values from calculation(s) as CO2 values in percentage for each category
@@ -107,42 +139,74 @@ public class CalculationComparisonPageController implements Initializable {
         showCo2P(new ActionEvent());
     }
 
+    // Arrays used to store information for labels
     String[] calInfoText = new String[4];
     String[] labelCategoryText = new String[4];
 
+    // x is used when assigning basic text to labels
     String x;
 
     public void getBasicTextInfo(){
+        // loops through calcs size and updates labels with co2prkg, kitchen and quarter. LabelCategoryText is set to "" to avoid null error
         for(int i=0; i<calcs.size(); i++) {
             this.x = calcs.get(i).getKitchen().toString()
                     + ", kvartal " + calcs.get(i).getQuarter().toString() + "\n" + "Co2 pr Kg: " + format(calcs.get(i).calcAveCO2prKg()) + "\n";
         Array.set(calInfoText,i,x);
         labelCategoryText[i]="";
-
         }
-        Button1.setText(calInfoText[0]);
-        Button2.setText(calInfoText[1]);
-        Button2.setVisible(false);
+
+        //Buttons are updated with basic text. Other than calc 1 is set as non visible unless there is a calculation that matches
+        InfoButton1.setText(calInfoText[0]);
+        InfoButton2.setText(calInfoText[1]);
+        InfoButton3.setText(calInfoText[2]);
+        InfoButton4.setText(calInfoText[3]);
+        InfoButton2.setVisible(false);
         checkbox2.setVisible(false);
         viskategorierLabel2.setVisible(false);
         søjle2Titel.setVisible(false);
+        InfoButton3.setVisible(false);
+        checkbox3.setVisible(false);
+        viskategorierLabel3.setVisible(false);
+        søjle3Titel.setVisible(false);
+        InfoButton4.setVisible(false);
+        checkbox4.setVisible(false);
+        viskategorierLabel4.setVisible(false);
+        søjle4Titel.setVisible(false);
+        InfoButton4.setVisible(false);
+        checkbox4.setVisible(false);
         LabelKategori1.setVisible(false);
         LabelKategori2.setVisible(false);
+        LabelKategori3.setVisible(false);
+        LabelKategori4.setVisible(false);
 
         if(calcs.size()>1){
-            Button2.setVisible(true);
+            InfoButton2.setVisible(true);
             checkbox2.setVisible(true);
             viskategorierLabel2.setVisible(true);
             søjle2Titel.setVisible(true);
+            if(calcs.size()>2){
+                InfoButton3.setVisible(true);
+                checkbox3.setVisible(true);
+                viskategorierLabel3.setVisible(true);
+                søjle3Titel.setVisible(true);
+                if(calcs.size()>3){
+                    InfoButton4.setVisible(true);
+                    checkbox4.setVisible(true);
+                    viskategorierLabel4.setVisible(true);
+                    søjle4Titel.setVisible(true);
+                }
+            }
         }
     }
 
+    // sets decimal number to two. Used when updating label information
     private String format(Double d){
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         String format = numberFormat.format(d);
         return format;
     }
 
+    // Following 4 similar functions shows category information if checkbox is checked
     public void Label1Visible(ActionEvent event){
         if(checkbox1.isSelected()) {
             LabelKategori1.setVisible(true);
@@ -159,6 +223,44 @@ public class CalculationComparisonPageController implements Initializable {
         else{
             LabelKategori2.setVisible(false);
         }
+    }
+
+    public void Label3Visible(ActionEvent event){
+        if(checkbox3.isSelected()) {
+            LabelKategori3.setVisible(true);
+        }
+        else{
+            LabelKategori3.setVisible(false);
+        }
+    }
+
+    public void Label4Visible(ActionEvent event){
+        if(checkbox3.isSelected()) {
+            LabelKategori4.setVisible(true);
+        }
+        else{
+            LabelKategori4.setVisible(false);
+        }
+    }
+
+    public void switchToCalculationPageCalc1(ActionEvent event) {
+            App.getCalculationController().updateCalculationView(calcs.get(0));
+            App.switchScene(App.getCalculationPageParent());
+    }
+
+    public void switchToCalculationPageCalc2(ActionEvent event) {
+        App.getCalculationController().updateCalculationView(calcs.get(1));
+        App.switchScene(App.getCalculationPageParent());
+    }
+
+    public void switchToCalculationPageCalc3(ActionEvent event) {
+        App.getCalculationController().updateCalculationView(calcs.get(2));
+        App.switchScene(App.getCalculationPageParent());
+    }
+
+    public void switchToCalculationPageCalc4(ActionEvent event) {
+        App.getCalculationController().updateCalculationView(calcs.get(3));
+        App.switchScene(App.getCalculationPageParent());
     }
 
     /**
@@ -264,6 +366,7 @@ public class CalculationComparisonPageController implements Initializable {
                 // If the current category is present in the current calculation add a new Data object to the series
                 // using name of kitchen, quarter, year as category name
                 // and the corresponding hash table value as data value
+                // sets label category text
                 if (keys.contains(s.getName())) {
                     s.getData().add(new XYChart.Data<>(
                             (calc.getKitchen().toString() + " " +
@@ -277,8 +380,11 @@ public class CalculationComparisonPageController implements Initializable {
             }
         }
 
+        // assigns label category text
         LabelKategori1.setText(labelCategoryText[0]);
         LabelKategori2.setText(labelCategoryText[1]);
+        LabelKategori3.setText(labelCategoryText[2]);
+        LabelKategori3.setText(labelCategoryText[3]);
 
         // Ensure that the stacked bar chart is visible
         if (!stackedBarChart.isVisible()){
