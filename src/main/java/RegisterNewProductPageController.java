@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -104,6 +101,8 @@ public class RegisterNewProductPageController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         TextFields.bindAutoCompletion(autoCompleteTextField, getConcitoNames());
+
+        tree();
 
         ingredientsColumn.setCellValueFactory(new PropertyValueFactory<ViewListRegisterPage, String>("ingredients"));
         percentageColumn.setCellValueFactory(new PropertyValueFactory<ViewListRegisterPage, String>("amountIngredient"));
@@ -234,7 +233,22 @@ public class RegisterNewProductPageController implements Initializable {
             registerPageTableView.getItems().remove(registerPageTableView.getSelectionModel().getSelectedItem());
         }
         errorHandlingCollection = null;
-
     }
+
+    public void tree() {
+        TreeItem<String> root = new TreeItem<>("Root");
+
+        TreeItem<String> item1 = new TreeItem<>("Item 1");
+        TreeItem<String> item11 = new TreeItem<>("Item 1.1");
+        TreeItem<String> item12 = new TreeItem<>("Item 1.2");
+        item1.getChildren().addAll(item11, item12);
+
+        TreeItem<String> item2 = new TreeItem<>("Item 2");
+
+        root.getChildren().addAll(item1, item2);
+    }
+
+
+
 
 }
