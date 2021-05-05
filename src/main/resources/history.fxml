@@ -71,7 +71,7 @@
             <Font name="SansSerif Regular" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="585.0" layoutY="429.0" mnemonicParsing="false" onAction="#addCalcToChosenTable" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Tilføj ➡" textAlignment="CENTER" />
+      <Button layoutX="585.0" layoutY="429.0" mnemonicParsing="false" onAction="#addCalcToChosenTable" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #32cd32;" text="Tilføj ➡" textAlignment="CENTER" />
       <Button layoutX="585.0" layoutY="479.0" mnemonicParsing="false" onAction="#removeCalcFromChosenTable" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #b44444;" text="⬅ Fjern" textAlignment="CENTER" />
    </children>
 </AnchorPane>
