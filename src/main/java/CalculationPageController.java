@@ -152,7 +152,6 @@ public class CalculationPageController implements Initializable {
         // Each column is told which that they are going to hold object of type PropertyValueFactory<S, T>.
         // S: The class contained in the column (in this case a simplified, proxy class for foodItem)
         // T: The class contained and displayed in a particular cell
-        // TODO - duplicated code. Er vi ligeglade?
         productNameColumn.setCellValueFactory(
                 new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
         primaryGroupColumn.setCellValueFactory(
@@ -191,6 +190,7 @@ public class CalculationPageController implements Initializable {
         //TODO - se detaljer for enkelt kategori - eventhandler, der ændrer pie chart og table view
         // Get subcategories for specific category from calculation - as hash table
         // build piechart with new hash table
+        // Fremtidigt arbejde
     }
 
     /**
@@ -199,8 +199,7 @@ public class CalculationPageController implements Initializable {
      * @return true if calculation was saved, else false
      */
     public void saveCalculationToDatabase(){
-        CalculationPersistence.addCalc(calculation);
-        // TODO - skal den ikke kun opdatere, hvis den allerede findes?
+        //CalculationPersistence.addCalc(calculation);
         //We update the bool state keeping track of whether the current calculation has been saved, to true.
         //This state is changed back to 'false', once the user pressed 'Udregn' button again.
         CalculationPageController.setCalculationSaved(true);

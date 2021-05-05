@@ -41,9 +41,6 @@ public class KitchenModel {
 
     }
 
-    //TODO - constructor overloading mangler
-
-
     // --- Getters and setters ---
     public Integer getId() {
         return id;
@@ -71,16 +68,6 @@ public class KitchenModel {
 
 
     // --- Instance methods ---
-    /**
-     * Method that returns kitchen names as a list of strings
-     * @return a list of strings equal to the names of all kitchens in the list
-     */
-    public static List<String> getString(){
-        //TODO Beskrivelse af metode passer ikke med indhold lige nu
-        List<String> list = null;
-        return list;
-    }
-
     /**
      * Overrides toString() inherited from Object
      * to a custom string with only the name

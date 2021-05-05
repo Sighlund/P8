@@ -147,10 +147,10 @@ public class CalculationComparisonPageController implements Initializable {
                     ht = calc.getCategoriesCo2KgHt();
                 }
                 else if (barChartOpt == 3){
-                    //TODO show vol p
+                    //TODO show vol p Anne
                 }
                 else if (barChartOpt == 4) {
-                    // TODO show vol kg
+                    // TODO show vol kg Anne
                 }
                 else {
                     ht = calc.getCategoriesCo2PercentagesHt();

@@ -194,7 +194,7 @@ public class FoodDescriptorModel{
      */
     public String getCorrectedSubcategory() {
         IngredientModel mainIngredient = findMainIngredient();
-        //TODO (Hvad er det der skal 'TODO's her?)
+        //TODO Subcatory virker ikke - fremtidigt arbejde
         String correctedSubCategory = "Ikke angivet";
 
         // Get subcategory of main ingredient if subcategory is filled out
