@@ -3,11 +3,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import model.CalculationModel;
 
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.ArrayList;
@@ -47,6 +49,29 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     private MenuItem co2PrKgMenuItem;
 
+    @FXML
+    private Button Button1;
+
+    @FXML
+    private Button Button2;
+
+    @FXML
+    private CheckBox checkbox1;
+
+    @FXML
+    private CheckBox checkbox2;
+
+    @FXML
+    private Label LabelKategori1;
+
+    @FXML
+    private Label LabelKategori2;
+
+    @FXML
+    private Text søjle2Titel;
+
+    @FXML
+    private Label viskategorierLabel2;
 
     // Property to hold observable list of all displayed series in the stacked bar chart
     private ObservableList<XYChart.Series<String, Number>> displayedSeries;
@@ -75,11 +100,66 @@ public class CalculationComparisonPageController implements Initializable {
         // Build the stacked bar chart
         buildStackedBarChart();
 
+        getBasicTextInfo();
+
         // Display values from calculation(s) as CO2 values in percentage for each category
         // by calling event handler for that specific menu item in menu button
         showCo2P(new ActionEvent());
     }
 
+    String[] calInfoText = new String[4];
+    String[] labelCategoryText = new String[4];
+
+    String x;
+
+    public void getBasicTextInfo(){
+        for(int i=0; i<calcs.size(); i++) {
+            this.x = calcs.get(i).getKitchen().toString()
+                    + ", kvartal " + calcs.get(i).getQuarter().toString() + "\n" + "Co2 pr Kg: " + format(calcs.get(i).calcAveCO2prKg()) + "\n";
+        Array.set(calInfoText,i,x);
+        labelCategoryText[i]="";
+
+        }
+        Button1.setText(calInfoText[0]);
+        Button2.setText(calInfoText[1]);
+        Button2.setVisible(false);
+        checkbox2.setVisible(false);
+        viskategorierLabel2.setVisible(false);
+        søjle2Titel.setVisible(false);
+        LabelKategori1.setVisible(false);
+        LabelKategori2.setVisible(false);
+
+        if(calcs.size()>1){
+            Button2.setVisible(true);
+            checkbox2.setVisible(true);
+            viskategorierLabel2.setVisible(true);
+            søjle2Titel.setVisible(true);
+        }
+    }
+
+    private String format(Double d){
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        String format = numberFormat.format(d);
+        return format;
+    }
+
+    public void Label1Visible(ActionEvent event){
+        if(checkbox1.isSelected()) {
+            LabelKategori1.setVisible(true);
+        }
+        else{
+            LabelKategori1.setVisible(false);
+        }
+    }
+
+    public void Label2Visible(ActionEvent event){
+        if(checkbox2.isSelected()) {
+            LabelKategori2.setVisible(true);
+        }
+        else{
+            LabelKategori2.setVisible(false);
+        }
+    }
 
     /**
      * Builds the stacked bar chart and adds data
@@ -141,6 +221,8 @@ public class CalculationComparisonPageController implements Initializable {
      */
     private void setSeriesData(int option){
 
+        getBasicTextInfo();
+
         // Ensure that the simple bar chart is hidden
         if (barChart.isVisible()){
             barChart.setVisible(false);
@@ -151,6 +233,8 @@ public class CalculationComparisonPageController implements Initializable {
 
             // Clear previous data in the current series
             s.getData().clear();
+
+            int i = 0;
 
             // Iterate over all calculations to be displayed
             for (CalculationModel calc : calcs){
@@ -186,15 +270,22 @@ public class CalculationComparisonPageController implements Initializable {
                                     calc.getQuarter() + ". kvartal " +
                                     calc.getYear().toString()),
                             ht.get(s.getName())));
+
+                    labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": "+ "\n" + format(ht.get(s.getName())) + "%" + "\n";
                 }
+                i++;
             }
         }
+
+        LabelKategori1.setText(labelCategoryText[0]);
+        LabelKategori2.setText(labelCategoryText[1]);
 
         // Ensure that the stacked bar chart is visible
         if (!stackedBarChart.isVisible()){
             stackedBarChart.setVisible(true);
         }
     }
+
 
 
     /**
