@@ -76,22 +76,23 @@ public class CalculationComparisonPageController implements Initializable {
 
 
     /**
-     * Builds the stacked bar chart
+     * Builds the stacked bar chart and adds data
      */
     private void buildStackedBarChart(){
         // Clear any previous data
         stackedBarChart.getData().clear();
 
-        // Set label for y-axis and showTotals as false
+        // Set label for y-axis and x-axis
         stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
-
-        // Set label for x-axis
         stackedBarXAxis.setLabel("Køkken og periode");
 
         // Set gap for the bar chart
         stackedBarChart.setCategoryGap(100);
 
-        // Call private method to create series, add data to them, and add all series to the chart
+        // Set animation to false (it messes with the data when changing data sets)
+        stackedBarChart.setAnimated(false);
+
+        // Call private method to create series and add all series to the chart
         addSeriesToChart();
 
         // Store reference to all the displayed series
@@ -99,10 +100,6 @@ public class CalculationComparisonPageController implements Initializable {
 
         // Add data to all series (default is percentage values)
         setSeriesData(1);
-
-        // Set animation to false (it messes with the data when changing from percentage to totals and vice versa)
-        stackedBarChart.setAnimated(false);
-
     }
 
 
@@ -132,13 +129,22 @@ public class CalculationComparisonPageController implements Initializable {
 
     /**
      * Sets the data values for each series in the stacked bar chart
+     * based on the chosen option
+     *
+     * @param option the values, the user would like to have displayed
+     *               1 = CO2 subtotal values in percentage for each category
+     *               2 = CO2 subtotal values in kg for each category
+     *               3 = Volume subtotal values in percentage for each category
+     *               4 = Volume subtotal values in kg for each category
      */
     private void setSeriesData(int option){
 
-        barChart.setVisible(false);
+        // Ensure that the simple bar chart is hidden
+        if (barChart.isVisible()){
+            barChart.setVisible(false);
+        }
 
-
-        // Iterate over the displayed series
+        // Iterate over the series in the stacked bar chart
         for (XYChart.Series<String, Number> s : displayedSeries){
 
             // Clear previous data in the current series
@@ -150,8 +156,8 @@ public class CalculationComparisonPageController implements Initializable {
                 // Create hash table to store values for the current calculation
                 Hashtable<String, Double> ht;
 
-                // Get hash table with data to display from the calculation
-                // Default, get hash table with percentage values for each category
+                // Get hash table with data to display from the calculation based on the chosen option
+                // Default, get hash table with CO2 percentage values for each category
                 if (option == 2){
                     ht = calc.getCategoriesCo2KgHt(); // Gets CO2 subtotal values in kg for each category
                 }
@@ -169,8 +175,8 @@ public class CalculationComparisonPageController implements Initializable {
                 // to access the categories and their values
                 Set<String> keys = ht.keySet();
 
-                // If the current category is present in the current calculation create a new Data object
-                // with name of kitchen, quarter, year as category name
+                // If the current category is present in the current calculation add a new Data object to the series
+                // using name of kitchen, quarter, year as category name
                 // and the corresponding hash table value as data value
                 if (keys.contains(s.getName())) {
                     s.getData().add(new XYChart.Data<>(
@@ -182,7 +188,10 @@ public class CalculationComparisonPageController implements Initializable {
             }
         }
 
-        stackedBarChart.setVisible(true);
+        // Ensure that the stacked bar chart is visible
+        if (!stackedBarChart.isVisible()){
+            stackedBarChart.setVisible(true);
+        }
     }
 
 
@@ -216,56 +225,6 @@ public class CalculationComparisonPageController implements Initializable {
         return allCategories;
     }
 
-
-    /*
-    // 1 = Co2 percentage
-    // 2 = Co2 kg
-    // 3 = Volume percentage
-    // 4 = Volume kg
-    private int barChartOpt = 1;
-
-     */
-
-    /**
-     * Event handler for menu bar item: "Procent"
-     * Updates all series with new data, displaying percentages for CO2 for each category
-     * @param event
-     */
-    @FXML
-    void showCo2P(ActionEvent event) {
-        setSeriesData(1);
-        stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
-    }
-
-
-    /**
-     * Event handler for menu bar item: "Kg Co2"
-     * Updates all series with new data, displaying CO2 totals for each category
-     * @param event
-     */
-    @FXML
-    void showCo2Kg(ActionEvent event) {
-        setSeriesData(2);
-        stackedBarYAxis.setLabel("Kg CO2e");
-    }
-
-    @FXML
-    void showVolP(ActionEvent event) {
-        setSeriesData(3);
-        stackedBarYAxis.setLabel("Procentdel af samlet vægt for perioden");
-    }
-
-    @FXML
-    void showVolKg(ActionEvent event) {
-        setSeriesData(4);
-        stackedBarYAxis.setLabel("Kg fødevare");
-    }
-
-
-    @FXML
-    void showCo2PrKg(ActionEvent event) {
-        buildBarChart();
-    }
 
     /**
      * Builds and displays simple bar chart showing average CO2e pr Kg food for each calculation
@@ -306,6 +265,60 @@ public class CalculationComparisonPageController implements Initializable {
 
         // Set bar chart to be visible
         barChart.setVisible(true);
+    }
+
+
+
+    /**
+     * Event handler for menu bar item: "Procent" TODO anne
+     * Updates all series with new data, displaying percentages for CO2 for each category
+     * @param event
+     */
+    @FXML
+    void showCo2P(ActionEvent event) {
+        setSeriesData(1);
+        stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
+    }
+
+
+    /**
+     * Event handler for menu bar item: "Kg Co2" TODO anne
+     * Updates all series with new data, displaying CO2 totals for each category
+     * @param event
+     */
+    @FXML
+    void showCo2Kg(ActionEvent event) {
+        setSeriesData(2);
+        stackedBarYAxis.setLabel("Kg CO2e");
+    }
+
+    /**
+     * Event handler for TODO anne
+     * @param event
+     */
+    @FXML
+    void showVolP(ActionEvent event) {
+        setSeriesData(3);
+        stackedBarYAxis.setLabel("Procentdel af samlet vægt for perioden");
+    }
+
+    /**
+     * Event handler for TODO anne
+     * @param event
+     */
+    @FXML
+    void showVolKg(ActionEvent event) {
+        setSeriesData(4);
+        stackedBarYAxis.setLabel("Kg fødevare");
+    }
+
+    /**
+     * Event handler for TODO anne
+     * @param event
+     */
+    @FXML
+    void showCo2PrKg(ActionEvent event) {
+        buildBarChart();
     }
 
 
