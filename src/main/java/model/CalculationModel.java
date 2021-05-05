@@ -155,13 +155,6 @@ public class CalculationModel {
     }
 
     /**
-     * Method that saves the current calculation instance to the database
-     */
-    public void saveToDb() {
-        //TODO - save calculation to Db. Skal nok varetages af persistence lag?
-    }
-
-    /**
      * Method that adds given food item to the list of food items
      * @param foodItem food item to be added
      */
@@ -213,7 +206,7 @@ public class CalculationModel {
             ht.put(categories.get(i), (subtotal/calcTotalCo2()*100));
         }
 
-        // TODO slettes - debugger
+        // TODO slettes - debugger Anne
         System.out.println(ht);
 
         return ht;
@@ -225,7 +218,7 @@ public class CalculationModel {
      * @return a hash table with the category as key and percentage value as value
      */
     public Hashtable<String, Double> getSubcategoriesPercentagesHt(String category){
-        //TODO - get subcategories
+        //TODO - get subcategories Anne
 
         // Create empty hash table
         Hashtable ht = new Hashtable<String, Double>();
@@ -258,7 +251,7 @@ public class CalculationModel {
             ht.put(categories.get(i), subtotal);
         }
 
-        // TODO slettes - debugger
+        // TODO slettes - debugger Anne
         System.out.println(ht);
 
         return ht;
@@ -281,7 +274,7 @@ public class CalculationModel {
             }
         }
 
-        // TODO slettes - debug
+        // TODO slettes - debug Anne
         System.out.println(list);
 
         return list;
@@ -348,7 +341,7 @@ public class CalculationModel {
             ht.put(categories.get(i), subtotal);
         }
 
-        // TODO slettes - debugger
+        // TODO slettes - debugger Anne
         System.out.println(ht);
 
         return ht;

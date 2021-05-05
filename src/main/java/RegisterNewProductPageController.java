@@ -77,7 +77,6 @@ public class RegisterNewProductPageController implements Initializable {
         registerPageTableView.getItems().add(new ViewListRegisterPage(ingredient.getContoItem().getName(), percentageComma));
     }
 
-    //TODO måske bare kald den method der er i CalculationPageController ved samme navn
     private String format(Double d){
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         String format = numberFormat.format(d);

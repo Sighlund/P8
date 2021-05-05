@@ -93,8 +93,6 @@ public class DataInsertionPageController implements Initializable {
                 f.getName(), f.getCategory(), f.getSubcategory(), volumeComma, co2PrKgComma, calcCo2Comma));
     }
 
-
-    //TODO måske bare kald den method der er i CalculationPageController ved samme navn
     private String format(Double d){
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         String format = numberFormat.format(d);
@@ -306,7 +304,6 @@ public class DataInsertionPageController implements Initializable {
             //https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html#initModality-javafx.stage.Modality-
             //Set stage to have the modality of WINDOW_MODAL.
             //The stage blocks input events from being delivered to all windows from its owner (parent) to its root. Its root is the closest ancestor window without an owner.
-            //TODO nogen der kan regne ud hvad ovenstående betyder lmao?
             stage.initModality(Modality.WINDOW_MODAL);
             //initOwner specifies the owner Window for this stage. In this case we set dataInsertionPage to be the owner.
             //This one 'locks' the user to the window, so they can't click elsewhere.
@@ -365,6 +362,5 @@ public class DataInsertionPageController implements Initializable {
         public void switchToFrontMenuPage (ActionEvent event){
             App.switchScene(App.getFrontPageParent());
         }
-        //TODO: 'Ryd Felter' Button must prompt user to confirm or cancel their choice.
 
     }
