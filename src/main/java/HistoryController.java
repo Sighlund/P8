@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.CalculationModel;
 import model.FoodItemModel;
@@ -30,19 +31,7 @@ import java.util.ResourceBundle;
 
 public class HistoryController implements Initializable {
 
-    //ids for tableview
-    @FXML
-    private TableView<CalculationModel> tableView;
-
-    @FXML
-    private TableColumn<CalculationModel, YearModel> year;
-
-    @FXML
-    private TableColumn<CalculationModel, Integer> quarter;
-
-    @FXML
-    private TableColumn<CalculationModel, KitchenModel> kitchen;
-
+    // Filter choiceboxes
     @FXML
     private ChoiceBox<KitchenModel> choiceboxChooseKitchenHis;
     @FXML
@@ -50,8 +39,36 @@ public class HistoryController implements Initializable {
     @FXML
     private ChoiceBox<Integer> choiceboxChooseQuarterHis;
 
-    // Attribute to hold list of calculations to be displayed in table view
+    // Table view with available calculations (left)
+    @FXML
+    private TableView<CalculationModel> tableView;
+    @FXML
+    private TableColumn<CalculationModel, YearModel> year;
+    @FXML
+    private TableColumn<CalculationModel, Integer> quarter;
+    @FXML
+    private TableColumn<CalculationModel, KitchenModel> kitchen;
+
+    // Table view with selected calculations for comparison (right)
+    @FXML
+    private TableView<CalculationModel> tableViewRight;
+    @FXML
+    private TableColumn<CalculationModel, KitchenModel> kitchenRight;
+    @FXML
+    private TableColumn<CalculationModel, YearModel> yearRight;
+    @FXML
+    private TableColumn<CalculationModel, Integer> quarterRight;
+
+
+    // Attribute to hold list of calculations to be displayed in left table view
     private ObservableList<CalculationModel> calcList;
+
+    // Attribute to hold list of selected calculations from the left table view
+    private ObservableList<CalculationModel> selectedCalcs;
+
+    // Attribute to hold list of calculations in RIGHT table view
+    // this list is sent to the comparison page
+    private ObservableList<CalculationModel> calcsForComp = FXCollections.observableArrayList(new ArrayList<>());
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -80,9 +97,20 @@ public class HistoryController implements Initializable {
                 SelectionMode.MULTIPLE
         );
 
+        // Set cell value factories for RIGHT table view
+        yearRight.setCellValueFactory(new PropertyValueFactory<CalculationModel, YearModel>("year"));
+        quarterRight.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("quarter"));
+        kitchenRight.setCellValueFactory(new PropertyValueFactory<CalculationModel, KitchenModel>("kitchen"));
+
+        // Set placeholder for RIGHT table view
+        tableViewRight.setPlaceholder(new Text("Tilføj beregninger fra listen til venstre for at sammenligne"));
+
+        tableViewRight.setItems(calcsForComp);
+
+        tableViewRight.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
-    private ObservableList<CalculationModel> selectedCalcs;
+
 
     //Gets information from selected row
     public void getSelected(MouseEvent event){
@@ -93,7 +121,7 @@ public class HistoryController implements Initializable {
     //Sends calculationid to CalculationPageController
     @FXML
     public void sendToCalculationComparisonPageControllerAction(ActionEvent event) throws IOException {
-        App.getComparisonController().getInformation(selectedCalcs);
+        App.getComparisonController().getInformation(calcsForComp);
         App.switchScene(App.getComparisonParent());
     }
 
@@ -137,19 +165,23 @@ public class HistoryController implements Initializable {
         //			- Hvis Periode er valgt, fjern alle som ikke har denne periode.
     }
 
-    //Button 'Tilføj ->' used for adding the chosen calculation to the table of chosenCalcs
-    //TODO Anne
+
     public void addCalcToChosenTable(){
+        // Add all selected calculations from table view
+        // to list of calculations in table view (chosen)
+        calcsForComp.addAll(selectedCalcs);
 
     }
 
     //Button '<- Fjern' used for removing the chosen calculation from the table of chosenCalcs
     //TODO Anne
     public void removeCalcFromChosenTable(){
+        ObservableList<CalculationModel> calcs = tableViewRight.getSelectionModel().getSelectedItems();
 
+        calcsForComp.removeAll(calcs);
     }
 
-    }
+}
 
 
 

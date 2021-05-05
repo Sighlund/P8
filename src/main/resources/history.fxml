@@ -59,11 +59,11 @@
             <Font name="SansSerif Regular" size="16.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView1" layoutX="692.0" layoutY="277.0" onMouseClicked="#getSelected" prefHeight="384.0" prefWidth="394.0">
+      <TableView fx:id="tableViewRight" layoutX="692.0" layoutY="277.0" onMouseClicked="#getSelected" prefHeight="384.0" prefWidth="394.0">
          <columns>
-            <TableColumn fx:id="kitchen1" prefWidth="175.0" text="Afdeling" />
-            <TableColumn fx:id="year1" prefWidth="120.0" text="År" />
-            <TableColumn fx:id="quarter1" prefWidth="97.0" text="Kvartal" />
+            <TableColumn fx:id="kitchenRight" prefWidth="175.0" text="Afdeling" />
+            <TableColumn fx:id="yearRight" prefWidth="120.0" text="År" />
+            <TableColumn fx:id="quarterRight" prefWidth="97.0" text="Kvartal" />
          </columns>
       </TableView>
       <Label layoutX="692.0" layoutY="257.0" prefHeight="20.0" prefWidth="394.0" text="Udvalgte beregninger">
