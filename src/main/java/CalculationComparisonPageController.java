@@ -15,22 +15,20 @@ import java.util.ResourceBundle;
 
 public class CalculationComparisonPageController implements Initializable {
 
+    // Stacked bar chart and its x- and y-axis
     @FXML
-    private StackedBarChart<String, Number> MyStackedBarChart;
-
+    private StackedBarChart<String, Number> stackedBarChart;
     @FXML
     private CategoryAxis stackedBarXAxis;
-
     @FXML
     private NumberAxis stackedBarYAxis;
 
 
+    // Simple bar chart and its x- and y-axis
     @FXML
     private BarChart<String, Number> barChart;
-
     @FXML
     private CategoryAxis barXaxis;
-
     @FXML
     private NumberAxis barYAxis;
 
@@ -38,16 +36,12 @@ public class CalculationComparisonPageController implements Initializable {
 
     @FXML
     private MenuItem co2PMenuItem;
-
     @FXML
     private MenuItem coKgMenuItem;
-
     @FXML
     private MenuItem volPMenuItem;
-
     @FXML
     private MenuItem volKgMenuItem;
-
     @FXML
     private MenuItem co2PrKgMenuItem;
 
@@ -86,7 +80,7 @@ public class CalculationComparisonPageController implements Initializable {
      */
     private void buildStackedBarChart(){
         // Clear any previous data
-        MyStackedBarChart.getData().clear();
+        stackedBarChart.getData().clear();
 
         // Set label for y-axis and showTotals as false
         stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
@@ -95,19 +89,19 @@ public class CalculationComparisonPageController implements Initializable {
         stackedBarXAxis.setLabel("Køkken og periode");
 
         // Set gap for the bar chart
-        MyStackedBarChart.setCategoryGap(100);
+        stackedBarChart.setCategoryGap(100);
 
         // Call private method to create series, add data to them, and add all series to the chart
         addSeriesToChart();
 
         // Store reference to all the displayed series
-        this.displayedSeries = MyStackedBarChart.getData();
+        this.displayedSeries = stackedBarChart.getData();
 
         // Add data to all series (default is percentage values)
         setSeriesData(1);
 
         // Set animation to false (it messes with the data when changing from percentage to totals and vice versa)
-        MyStackedBarChart.setAnimated(false);
+        stackedBarChart.setAnimated(false);
 
     }
 
@@ -131,7 +125,7 @@ public class CalculationComparisonPageController implements Initializable {
             series.setName(cat);
 
             // Add the new series (category) with all the data values to the stacked bar chart
-            MyStackedBarChart.getData().add(series);
+            stackedBarChart.getData().add(series);
         }
     }
 
@@ -188,7 +182,7 @@ public class CalculationComparisonPageController implements Initializable {
             }
         }
 
-        MyStackedBarChart.setVisible(true);
+        stackedBarChart.setVisible(true);
     }
 
 
@@ -279,7 +273,7 @@ public class CalculationComparisonPageController implements Initializable {
     private void buildBarChart() {
 
         // Set stacked bar chart to not visible
-        MyStackedBarChart.setVisible(false);
+        stackedBarChart.setVisible(false);
 
         // Set x- and y-axis
         barXaxis.setLabel("Køkken og periode");
