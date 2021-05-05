@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import model.CalculationModel;
 
@@ -33,11 +34,12 @@ public class CalculationComparisonPageController implements Initializable {
     private NumberAxis barYAxis;
 
 
-
+    @FXML
+    private MenuButton diagramMenuBtn;
     @FXML
     private MenuItem co2PMenuItem;
     @FXML
-    private MenuItem coKgMenuItem;
+    private MenuItem co2KgMenuItem;
     @FXML
     private MenuItem volPMenuItem;
     @FXML
@@ -72,6 +74,10 @@ public class CalculationComparisonPageController implements Initializable {
 
         // Build the stacked bar chart
         buildStackedBarChart();
+
+        // Display values from calculation(s) as CO2 values in percentage for each category
+        // by calling event handler for that specific menu item in menu button
+        showCo2P(new ActionEvent());
     }
 
 
@@ -82,8 +88,7 @@ public class CalculationComparisonPageController implements Initializable {
         // Clear any previous data
         stackedBarChart.getData().clear();
 
-        // Set label for y-axis and x-axis
-        stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
+        // Set label for y-axis
         stackedBarXAxis.setLabel("Køkken og periode");
 
         // Set gap for the bar chart
@@ -97,9 +102,6 @@ public class CalculationComparisonPageController implements Initializable {
 
         // Store reference to all the displayed series
         this.displayedSeries = stackedBarChart.getData();
-
-        // Add data to all series (default is percentage values)
-        setSeriesData(1);
     }
 
 
@@ -109,14 +111,14 @@ public class CalculationComparisonPageController implements Initializable {
      * and adds them to the stacked bar chart
      */
     private void addSeriesToChart(){
-        // Get categories to display as stacked bars
+        // Get list of categories to display as stacked bars (x-axis)
         categories = getAllCategories();
 
         // Iterate over list of categories
         for (String cat : categories) {
 
             // Create a new series for each category, each taking a String and a Number value
-            XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
 
             // Set name of the new series to equal the current category
             series.setName(cat);
@@ -132,7 +134,7 @@ public class CalculationComparisonPageController implements Initializable {
      * based on the chosen option
      *
      * @param option the values, the user would like to have displayed
-     *               1 = CO2 subtotal values in percentage for each category
+     *               default = CO2 subtotal values in percentage for each category
      *               2 = CO2 subtotal values in kg for each category
      *               3 = Volume subtotal values in percentage for each category
      *               4 = Volume subtotal values in kg for each category
@@ -278,6 +280,7 @@ public class CalculationComparisonPageController implements Initializable {
     void showCo2P(ActionEvent event) {
         setSeriesData(1);
         stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
+        diagramMenuBtn.setText(co2PMenuItem.getText());
     }
 
 
@@ -290,6 +293,7 @@ public class CalculationComparisonPageController implements Initializable {
     void showCo2Kg(ActionEvent event) {
         setSeriesData(2);
         stackedBarYAxis.setLabel("Kg CO2e");
+        diagramMenuBtn.setText(co2KgMenuItem.getText());
     }
 
     /**
@@ -300,6 +304,7 @@ public class CalculationComparisonPageController implements Initializable {
     void showVolP(ActionEvent event) {
         setSeriesData(3);
         stackedBarYAxis.setLabel("Procentdel af samlet vægt for perioden");
+        diagramMenuBtn.setText(volPMenuItem.getText());
     }
 
     /**
@@ -310,6 +315,7 @@ public class CalculationComparisonPageController implements Initializable {
     void showVolKg(ActionEvent event) {
         setSeriesData(4);
         stackedBarYAxis.setLabel("Kg fødevare");
+        diagramMenuBtn.setText(volKgMenuItem.getText());
     }
 
     /**
@@ -319,6 +325,7 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     void showCo2PrKg(ActionEvent event) {
         buildBarChart();
+        diagramMenuBtn.setText(co2PrKgMenuItem.getText());
     }
 
 

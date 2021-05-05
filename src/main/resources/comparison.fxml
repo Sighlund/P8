@@ -31,10 +31,10 @@
             <Font name="SansSerif Bold" size="18.0" />
          </font>
       </Label>
-      <MenuButton layoutX="1020.0" layoutY="126.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Digram">
+      <MenuButton fx:id="diagramMenuBtn" layoutX="1020.0" layoutY="126.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Diagram">
         <items>
-          <MenuItem fx:id="co2PMenuItem" mnemonicParsing="false" onAction="#showCo2P" text="CO2 i procent" />
-          <MenuItem fx:id="coKgMenuItem" mnemonicParsing="false" onAction="#showCo2Kg" text="CO2 i kg" />
+          <MenuItem fx:id="co2PMenuItem" mnemonicParsing="false" onAction="#showCo2P" text="CO2e i procent" />
+          <MenuItem fx:id="co2KgMenuItem" mnemonicParsing="false" onAction="#showCo2Kg" text="CO2e i kg" />
             <MenuItem fx:id="volPMenuItem" mnemonicParsing="false" onAction="#showVolP" text="Vægt i procent" />
             <MenuItem fx:id="volKgMenuItem" mnemonicParsing="false" onAction="#showVolKg" text="Vægt i kg" />
             <MenuItem fx:id="co2PrKgMenuItem" mnemonicParsing="false" onAction="#showCo2PrKg" text="Gennemsnitlig CO2 pr. kg" />
