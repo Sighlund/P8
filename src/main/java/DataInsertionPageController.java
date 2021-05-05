@@ -167,7 +167,6 @@ public class DataInsertionPageController implements Initializable {
         // with possible solutions (food descriptor names)
         autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
-
         //TableView stuff goes here. Each column is told which that they are going to hold object of type PropertyValueFactory(S, T).
         //S - The type of the class contained within the TableView.items list.
         //T - The type of the class contained within the TableColumn cells.
