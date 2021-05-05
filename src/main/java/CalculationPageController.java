@@ -172,18 +172,24 @@ public class CalculationPageController implements Initializable {
         secondaryGroupColumn.setCellValueFactory(
                 new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
         volumeOfProductColumn.setCellValueFactory(
-                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("volumeOfProduct"));
         co2prkiloValueColumn.setCellValueFactory(
-                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("co2prkiloValue"));
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("co2prkiloValue"));
         totalCo2ForItemColumn.setCellValueFactory(
-                new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
+                new PropertyValueFactory<ViewListItemDataInsertionPage, String>("totalCo2ForItem"));
 
         // Add all food items from the calculation to the table to be displayed
         for (FoodItemModel f : calculation.getFoodItemList()){
+
+            String volumeComma = format(f.getVolume()).replace('.', ',');
+            Double co2PrKg = f.calcCo2PrKg();
+            Double calcCo2 = f.calcCo2();
+            String co2PrKgComma = format(co2PrKg).replace('.',',');
+            String calcCo2Comma = format(calcCo2).replace('.',',');
             // Uses simplified, proxy class to convert values from the foodItem object to values
             // accepted by the table view
             foodItemsTableView.getItems().add(new ViewListItemDataInsertionPage(
-                    f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(), f.calcCo2()));
+                    f.getName(), f.getCategory(), f.getSubcategory(), volumeComma, co2PrKgComma, calcCo2Comma));
         }
     }
 

@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,11 +48,11 @@ public class DataInsertionPageController implements Initializable {
     @FXML
     private TableColumn<ViewListItemDataInsertionPage, String> secondaryGroupColumn;
     @FXML
-    private TableColumn<ViewListItemDataInsertionPage, Double> volumeOfProductColumn;
+    private TableColumn<ViewListItemDataInsertionPage, String> volumeOfProductColumn;
     @FXML
-    private TableColumn<ViewListItemDataInsertionPage, Double> co2prkiloValueColumn;
+    private TableColumn<ViewListItemDataInsertionPage, String> co2prkiloValueColumn;
     @FXML
-    private TableColumn<ViewListItemDataInsertionPage, Double> totalCo2ForItemColumn;
+    private TableColumn<ViewListItemDataInsertionPage, String> totalCo2ForItemColumn;
 
     // Property that holds list of food items to be stored with the calculation
     private List<FoodItemModel> foodItemList = new ArrayList<>();
@@ -73,18 +74,32 @@ public class DataInsertionPageController implements Initializable {
         //If the provided name doesn't match, an exception is thrown. It is caught in the method that called addProductToList().
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
 
+        String commaConvert = volumeKiloTextField.getText().replace(',', '.');
+
         //Make a Double variable that stores the current content of the volumeKiloTextField.
-        Double volumeWeightInput = Double.valueOf(volumeKiloTextField.getText());
+        Double volumeWeightInput = Double.valueOf(commaConvert);
 
         FoodItemModel f = new FoodItemModel(volumeWeightInput, foodDescriptor);
         foodItemList.add(f);
+
+        String volumeComma = format(f.getVolume()).replace('.', ',');
+        Double co2PrKg = f.calcCo2PrKg();
+        Double calcCo2 = f.calcCo2();
+        String co2PrKgComma = format(co2PrKg).replace('.',',');
+        String calcCo2Comma = format(calcCo2).replace('.',',');
         //We get all items from the table as a list (Because viewTable is stupid, and can't just append without getting the list first xd)
         //and we add the new item to the list
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
-                f.getName(), f.getCategory(), f.getSubcategory(), f.getVolume(), f.calcCo2PrKg(), f.calcCo2()));
+                f.getName(), f.getCategory(), f.getSubcategory(), volumeComma, co2PrKgComma, calcCo2Comma));
     }
 
 
+    //TODO måske bare kald den method der er i CalculationPageController ved samme navn
+    private String format(Double d){
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        String format = numberFormat.format(d);
+        return format;
+    }
 
     private CalculationModel calculation;
 
@@ -162,9 +177,9 @@ public class DataInsertionPageController implements Initializable {
         productNameColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
         primaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
         secondaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
-        volumeOfProductColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("volumeOfProduct"));
-        co2prkiloValueColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("co2prkiloValue"));
-        totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, Double>("totalCo2ForItem"));
+        volumeOfProductColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("volumeOfProduct"));
+        co2prkiloValueColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("co2prkiloValue"));
+        totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("totalCo2ForItem"));
     }
 
     /**
