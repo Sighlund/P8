@@ -111,12 +111,42 @@ public class HistoryController implements Initializable {
 
 
     /**
-     * Event handler for the button "Start".
+     * Event handler for the button "Menu".
      * Switches to the front page.
      * @param event action event from the button element
      */
     public void switchToSceneFrontPage(ActionEvent event){
         App.switchScene(App.getFrontPageParent());
+    }
+
+
+    //TODO Bjørn
+    //Button 'Anvend Filtre' used for applying the chosen filters from the choiceBoxes.
+    public void applyChosenFilters(){
+        //Printing this for fun. Remove later.
+        System.out.println(choiceboxChooseKitchenHis.getValue());
+        System.out.println(choiceboxChooseQuarterHis.getValue());
+        System.out.println(choiceboxChooseYearHis.getValue());
+
+
+    //TODO: - Knappen skal:
+        //		- Genindlæse hele listen
+        //		- Fjerne alle som ikke opfylder:
+        //			- Hvis køkken er valgt, fjern alle som ikke har dette køkken.
+        //			- Hvis år er valgt, fjern alle som ikke har dette år.
+        //			- Hvis Periode er valgt, fjern alle som ikke har denne periode.
+    }
+
+    //Button 'Tilføj ->' used for adding the chosen calculation to the table of chosenCalcs
+    //TODO Anne
+    public void addCalcToChosenTable(){
+
+    }
+
+    //Button '<- Fjern' used for removing the chosen calculation from the table of chosenCalcs
+    //TODO Anne
+    public void removeCalcFromChosenTable(){
+
     }
 
     }

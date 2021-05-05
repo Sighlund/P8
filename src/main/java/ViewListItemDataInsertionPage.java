@@ -2,7 +2,9 @@
 
 import javafx.beans.property.SimpleStringProperty;
 
-//TODO kommentarer
+/**
+ * Class used to create the objects that will be used to populate our viewList
+ */
 public class ViewListItemDataInsertionPage {
 
     private SimpleStringProperty productName;
@@ -12,6 +14,7 @@ public class ViewListItemDataInsertionPage {
     private SimpleStringProperty co2prkiloValue;
     private SimpleStringProperty totalCo2ForItem;
 
+    //Constructor called every time user presses 'Tilføj vare' button.
     public ViewListItemDataInsertionPage(String productName,
                                          String primaryGroup,
                                          String secondaryGroup,
@@ -27,7 +30,6 @@ public class ViewListItemDataInsertionPage {
     }
 
 
-    //TODO overvej at rydde op i disse, så de der ikke bruges fjernes.
     public String getProductName() {
         return productName.get();
     }
@@ -38,16 +40,6 @@ public class ViewListItemDataInsertionPage {
 
     public void setProductName(String productName) {
         this.productName.set(productName);
-    }
-
-    public String getVolumeOfProduct() {
-        return volumeOfProduct.get();
-    }
-
-    public SimpleStringProperty volumeOfProductProperty() {return volumeOfProduct;}
-
-    public void setVolumeOfProduct(String volumeOfProduct) {
-        this.volumeOfProduct.set(volumeOfProduct);
     }
 
     public String getPrimaryGroup() {
@@ -74,11 +66,25 @@ public class ViewListItemDataInsertionPage {
         this.secondaryGroup.set(secondaryGroup);
     }
 
+    public String getVolumeOfProduct() {
+        return volumeOfProduct.get();
+    }
+
+    public SimpleStringProperty volumeOfProductProperty() {
+        return volumeOfProduct;
+    }
+
+    public void setVolumeOfProduct(String volumeOfProduct) {
+        this.volumeOfProduct.set(volumeOfProduct);
+    }
+
     public String getCo2prkiloValue() {
         return co2prkiloValue.get();
     }
 
-    public SimpleStringProperty Co2prkiloValueProperty() {return co2prkiloValue;}
+    public SimpleStringProperty co2prkiloValueProperty() {
+        return co2prkiloValue;
+    }
 
     public void setCo2prkiloValue(String co2prkiloValue) {
         this.co2prkiloValue.set(co2prkiloValue);
@@ -88,7 +94,7 @@ public class ViewListItemDataInsertionPage {
         return totalCo2ForItem.get();
     }
 
-    public SimpleStringProperty TotalCo2ForItemProperty() {
+    public SimpleStringProperty totalCo2ForItemProperty() {
         return totalCo2ForItem;
     }
 
