@@ -10,7 +10,11 @@ import javafx.scene.control.MenuItem;
 import model.CalculationModel;
 
 import java.net.URL;
-import java.util.*;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.ResourceBundle;
 
 public class CalculationComparisonPageController implements Initializable {
 
@@ -77,7 +81,7 @@ public class CalculationComparisonPageController implements Initializable {
         MyStackedBarChart.getData().clear();
 
         // Set label for y-axis and showTotals as false
-        yAxis.setLabel("Procent af samlet CO2e for hele indkøbet");
+        yAxis.setLabel("Procentdel af samlet CO2e for perioden");
         barChartOpt = 1;
 
         // Set label for x-axis
@@ -147,10 +151,10 @@ public class CalculationComparisonPageController implements Initializable {
                     ht = calc.getCategoriesCo2KgHt();
                 }
                 else if (barChartOpt == 3){
-                    //TODO show vol p Anne
+                    ht = calc.getCategoriesVolPercentagesHt();
                 }
                 else if (barChartOpt == 4) {
-                    // TODO show vol kg Anne
+                    ht = calc.getCategoriesVolKgHt();
                 }
                 else {
                     ht = calc.getCategoriesCo2PercentagesHt();
@@ -227,7 +231,7 @@ public class CalculationComparisonPageController implements Initializable {
     void showCo2P(ActionEvent event) {
         barChartOpt = 1;
         setSeriesData();
-        yAxis.setLabel("Procent af samlet CO2e for hele indkøbet");
+        yAxis.setLabel("Procentdel af samlet CO2e for perioden");
     }
 
 
@@ -243,16 +247,21 @@ public class CalculationComparisonPageController implements Initializable {
         yAxis.setLabel("Kg CO2e");
     }
 
+    @FXML
+    void showVolP(ActionEvent event) {
+        barChartOpt = 3;
+        setSeriesData();
+        yAxis.setLabel("Procentdel af samlet vægt for perioden");
+    }
 
     @FXML
     void showVolKg(ActionEvent event) {
-
+        barChartOpt = 4;
+        setSeriesData();
+        yAxis.setLabel("Kg fødevare");
     }
 
-    @FXML
-    void showVolP(ActionEvent event) {
 
-    }
 
     @FXML
     void showCo2PrKg(ActionEvent event) {
