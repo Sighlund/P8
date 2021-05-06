@@ -31,8 +31,8 @@ public class App extends Application {
     // References to controllers
     private static HistoryController historyController;
     private static CalculationComparisonPageController comparisonController;
-
     private static CalculationPageController calculationController;
+    private static DataInsertionPageController dataInsertionController;
 
     //References to the current active stage and scene are held here.
     private static Stage stage;
@@ -75,7 +75,6 @@ public class App extends Application {
     @Override
     public void init() throws IOException{
         //We fill the roots with respective .fxml files from harddrive.
-        dataInsertionPageParent = FXMLLoader.load(getClass().getResource("dataInsertionPage.fxml"));
         frontPageParent = FXMLLoader.load(getClass().getResource("frontPage.fxml"));
         registerNewProductPageParent = FXMLLoader.load(getClass().getResource("registerNewProductPage.fxml"));
 
@@ -92,6 +91,8 @@ public class App extends Application {
         FXMLLoader loader2 = new FXMLLoader();
         comparisonParent = loader2.load(getClass().getResource("comparison.fxml").openStream());
         comparisonController = loader2.getController();
+        // Store reference to scene parent in controller
+        comparisonController.setThisFxml(comparisonParent);
 
         // For the calculation view, we also need the controller
         // Creates FXML object to retrieve both FXML and controller
@@ -99,6 +100,15 @@ public class App extends Application {
         FXMLLoader loader3 = new FXMLLoader();
         calculationPageParent = loader3.load(getClass().getResource("calculationPage.fxml").openStream());
         calculationController = loader3.getController();
+
+        // For the data insertion view, we also need the controller
+        // Creates FXML object to retrieve both FXML and controller
+        // Stores references to both
+        FXMLLoader loader4 = new FXMLLoader();
+        dataInsertionPageParent = loader4.load(getClass().getResource("dataInsertionPage.fxml").openStream());
+        dataInsertionController = loader4.getController();
+        // Store reference to scene parent in controller
+        dataInsertionController.setThisFxml(dataInsertionPageParent);
     }
 
     /**

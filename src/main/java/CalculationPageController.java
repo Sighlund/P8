@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.Parent;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -215,13 +216,20 @@ public class CalculationPageController implements Initializable {
         App.switchScene(App.getFrontPageParent());
     }
 
+
+    private Parent cameFrom;
+
+    public void setCameFrom(Parent cameFrom) {
+        this.cameFrom = cameFrom;
+    }
+
     /**
      * Event handler for the button "Tilbage".
      * Switches back to the data insertion page.
      * @param event action event from the button element
      */
     public void switchToDataInsertionPage(ActionEvent event){
-        App.switchScene(App.getDataInsertionPageParent());
+        App.switchScene(cameFrom);
     }
 
 }
