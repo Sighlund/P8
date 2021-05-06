@@ -217,6 +217,8 @@ public class CalculationPageController implements Initializable {
     }
 
 
+    // Property to hold which parent scene (view page) the user came from
+    // to get to this page
     private Parent cameFrom;
 
     public void setCameFrom(Parent cameFrom) {

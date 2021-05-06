@@ -333,6 +333,7 @@ public class DataInsertionPageController implements Initializable {
         registerNewPStage.show();
     }
 
+    // Property to hold parent scene for this controller
     private Parent thisFxml;
 
     public void setThisFxml(Parent thisFxml) {
