@@ -126,6 +126,7 @@ public class App extends Application {
      * @param args command line arguments
      */
     public static void main(String[] args){
+        CalculationPersistence.test();
         CalculationModel calc = CalculationPersistence.getCalcById(1);
         System.out.println(calc.getFoodItemList().get(0).getFoodDescriptor().getIngredientList().get(0).getContoItem().getName());
         launch();
@@ -152,7 +153,6 @@ public class App extends Application {
         errorHandlingCollection.checkIfCalculationIsSavedPopup(event);
         errorHandlingCollection = null;
     }
-
 
 
 }

@@ -23,10 +23,15 @@
           <NumberAxis fx:id="stackedBarYAxis" side="LEFT" />
         </yAxis>
       </StackedBarChart>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToHistoryPage" style="-fx-background-color: dodgerblue;" text="Tilbage" />
-      <Button layoutX="75.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="48.0" layoutX="476.0" layoutY="14.0" stroke="TRANSPARENT" strokeType="INSIDE" width="338.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="15.0" prefHeight="48.0" prefWidth="338.0" text="SAMMENLIGNING" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="27.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToHistoryPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textFill="WHITE" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="99.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" textFill="WHITE" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="16.0" prefHeight="48.0" prefWidth="225.0" style="-fx-background-color: BLACK;" text="SAMMENLIGNING" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
          </font>
