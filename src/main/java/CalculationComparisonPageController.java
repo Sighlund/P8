@@ -85,16 +85,6 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     private Label LabelKategori4;
 
-
-    @FXML
-    private Text søjle2Titel;
-
-    @FXML
-    private Text søjle3Titel;
-
-    @FXML
-    private Text søjle4Titel;
-
     @FXML
     private Label viskategorierLabel2;
 
@@ -189,17 +179,15 @@ public class CalculationComparisonPageController implements Initializable {
         InfoButton2.setVisible(false);
         checkbox2.setVisible(false);
         viskategorierLabel2.setVisible(false);
-        søjle2Titel.setVisible(false);
+
         InfoButton3.setVisible(false);
         checkbox3.setVisible(false);
         viskategorierLabel3.setVisible(false);
-        søjle3Titel.setVisible(false);
+
         InfoButton4.setVisible(false);
         checkbox4.setVisible(false);
         viskategorierLabel4.setVisible(false);
-        søjle4Titel.setVisible(false);
-        InfoButton4.setVisible(false);
-        checkbox4.setVisible(false);
+
         LabelKategori1.setVisible(false);
         LabelKategori2.setVisible(false);
         LabelKategori3.setVisible(false);
@@ -209,17 +197,14 @@ public class CalculationComparisonPageController implements Initializable {
             InfoButton2.setVisible(true);
             checkbox2.setVisible(true);
             viskategorierLabel2.setVisible(true);
-            søjle2Titel.setVisible(true);
             if(calcs.size()>2){
                 InfoButton3.setVisible(true);
                 checkbox3.setVisible(true);
                 viskategorierLabel3.setVisible(true);
-                søjle3Titel.setVisible(true);
                 if(calcs.size()>3){
                     InfoButton4.setVisible(true);
                     checkbox4.setVisible(true);
                     viskategorierLabel4.setVisible(true);
-                    søjle4Titel.setVisible(true);
                 }
             }
         }
@@ -400,7 +385,13 @@ public class CalculationComparisonPageController implements Initializable {
                                     calc.getYear().toString()),
                             ht.get(s.getName())));
 
-                    labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": "+ "\n" + format(ht.get(s.getName())) + "\n";
+                    labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": "+ "\n" + format(ht.get(s.getName()));
+                    if(option==1 || option==3 || option==5){
+                        labelCategoryText[i] = labelCategoryText[i]+"%"  + "\n";
+                    }
+                    else{
+                        labelCategoryText[i] = labelCategoryText[i]+"kg"  + "\n";
+                    }
                 }
                 i++;
             }
