@@ -31,27 +31,18 @@ import java.util.ResourceBundle;
 
 public class RegisterNewProductPageController implements Initializable {
 
-    @FXML
-    private TableView<ViewListRegisterPage> registerPageTableView;
-    @FXML
-    private TableColumn<ViewListRegisterPage, String> ingredientsColumn;
-    @FXML
-    private TableColumn<ViewListRegisterPage, String> percentageColumn;
+    @FXML private TableView<ViewListRegisterPage> registerPageTableView;
+    @FXML private TableColumn<ViewListRegisterPage, String> ingredientsColumn;
+    @FXML private TableColumn<ViewListRegisterPage, String> percentageColumn;
+    @FXML private TextField autoCompleteTextField;
+    @FXML private TextField percentageTextField;
+    @FXML private TextField descriptorName;
+    @FXML private TextField itemNumber;
+    @FXML private Text descriptorSavedAlert;
 
 
-    @FXML
-    private TextField autoCompleteTextField;
 
-    @FXML
-    private TextField percentageTextField;
 
-    @FXML
-    private TextField descriptorName;
-
-    @FXML
-    private TextField itemNumber;
-    @FXML
-    private Text descriptorSavedAlert;
 
     public ArrayList<IngredientModel> ingredientList = new ArrayList<>();
 
