@@ -13,4 +13,24 @@ public class ViewListRegisterPage {
     public String getIngredients() {
         return ingredients.get();
     }
+
+    public SimpleStringProperty ingredientsProperty() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients.set(ingredients);
+    }
+
+    public String getAmountIngredient() {
+        return amountIngredient.get();
+    }
+
+    public SimpleStringProperty amountIngredientProperty() {
+        return amountIngredient;
+    }
+
+    public void setAmountIngredient(String amountIngredient) {
+        this.amountIngredient.set(amountIngredient);
+    }
 }
