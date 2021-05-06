@@ -53,9 +53,12 @@ public class HistoryController implements Initializable {
     // Attribute to hold list of calculations to be displayed in table view
     private ObservableList<CalculationModel> calcList;
 
-    // Attribute to hold list of all calculations from database. By having it be an attribute, we only need to load once.
-    //Bjørn: Jeg har ikke kunnet få denne her til at virke. Tror enten det er pga. listcalc() er static,
-    //og måske fordi ObservableList der returneres, har listeners på sig.
+
+    //TODO Bjørn: Jeg har forsøgt at lave en variable uden for metodernes scope, som skulle holde
+    // på en ObservableList<CalculationModel> med alle calcs i systemet. Jeg kunne ikke få det til at virke.
+    // Tror enten det var pga. listcalc() er static, og måske fordi ObservableList der returneres, har listeners på sig.
+    // Jeg forsøgte at caste skidtet frem og tilbage på alle mulige måder, og benytte mig af andre typer af ArrayList og List.
+    //Attribute to hold list of all calculations from database. By having it be an attribute, we only need to load once.
     //private ObservableList<CalculationModel> allCalcsList = CalculationPersistence.listCalc();
 
     // Attribute to hold list of selected calculations from the left table view
@@ -132,10 +135,9 @@ public class HistoryController implements Initializable {
      * Updates the table view
      * Gets called from the front page
      */
-    public void updateTableViewFirstTime(){
+    public void updateTableViewAllCalcs(){
         // Update reference to list of all calculations
         calcList = CalculationPersistence.listCalc();
-
         // Update tableview by passing list of calculations
         tableView.setItems(calcList);
     }
@@ -226,9 +228,16 @@ public class HistoryController implements Initializable {
         tableView.setItems(tempCalcList);
     }
 
+    /**
+     * Method that will clear the current chosen filters and reload the viewtable with all the calcs in the system.
+     */
     public void clearChosenFilters(){
-        //TODO Lav knap som fjerner de valgte filtre, så choiceboxene ikke har noget selected.
-        // Skal også genindlæse calcs og vise i viewTable.
+        //Clears the choiceBoxes
+        choiceboxChooseKitchenHis.getSelectionModel().clearSelection();
+        choiceboxChooseYearHis.getSelectionModel().clearSelection();
+        choiceboxChooseQuarterHis.getSelectionModel().clearSelection();
+        //Updates the tableview to hold all calcs in system.
+        updateTableViewAllCalcs();
     }
 
 
