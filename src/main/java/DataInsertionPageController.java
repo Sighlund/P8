@@ -108,8 +108,6 @@ public class DataInsertionPageController implements Initializable {
      * The calculationModel is saved in the calculation table and foodItem is saved in the foodItem table
      */
     public void createCalc() {
-
-        //TODO kig på det her, hvis i vil. Vi kan ikke få det til at virke(Søren og Mads)
 //        Se også CalculationPersistence linje 80, hvor kaldet til DB bliver lavet
         CalculationModel retrivedCalc = CalculationPersistence.getCalcFromChoicebox(choiceboxChooseKitchen.getValue().getId(),
                 choiceboxChooseQuarter.getValue(),
@@ -123,10 +121,8 @@ public class DataInsertionPageController implements Initializable {
                     choiceboxChooseYear.getValue(),
                     foodItems,
                     choiceboxChooseKitchen.getValue());
-            //CalculationPersistence.addCalc(calculation);
             this.calculation = calculation;
         } else {
-            //retrivedCalc.getFoodItemList().addAll(foodItems);
             ArrayList<FoodItemModel> combinedFoodItems = new ArrayList<FoodItemModel>();
             combinedFoodItems.addAll(retrivedCalc.getFoodItemList());
             combinedFoodItems.addAll(foodItems);
