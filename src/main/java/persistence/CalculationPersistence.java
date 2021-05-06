@@ -79,33 +79,24 @@ public class CalculationPersistence {
         return calculationModel;
     }
 
-
-    //TODO problemet her hænger sammen med DataInsertionPageController linje 96(Der er en TODO der, hvis det ikke er
-    //på linje 96 mere. Vi (Søren og Mads) kan ikke få det til at virke, så feel free to try
-//    public static void getCalcFromChoicebox(Integer kitchen, Integer quarter, Integer year){
-//        //Creating session
-//        Session session = SetupPersistence.getSession();
-//        String sql = "select id from calculation where id = '%' AND kitchenId = :kitchen AND quarter = :quarter AND yearId = :year";
-//        Query query = session.createNativeQuery(sql, CalculationModel.class);
-//        query.setParameter("kitchen", kitchen);
-//        query.setParameter("quarter", quarter);
-//        query.setParameter("year", year);
-//        //CalculationModel calculationModel = (CalculationModel) ;
-//        System.out.println(query.getResultList());
-//    }
-
-    public static void test(){
+    public static CalculationModel getCalcFromChoicebox(Integer kitchen, Integer quarter, Integer year){
+        //Creating session
         Session session = SetupPersistence.getSession();
-        String sql = "select id from calculation where id = id and quarter = 4 AND kitchenId = 1 AND yearId = 2020";
+        String sql = "select id from calculation where id = id AND kitchenId = :kitchen AND quarter = :quarter AND yearId = :year";
         Query query = session.createNativeQuery(sql);
-        System.out.println(query.getResultList());
+        query.setParameter("kitchen", kitchen);
+        query.setParameter("quarter", quarter);
+        query.setParameter("year", year);
         List<Object> result = query.getResultList();
-        List<Integer> list = new ArrayList<>();
+        CalculationModel calculation = null;
+        SetupPersistence.closeSession(session);
 
         for(int i=0; i<result.size();i++){
-            Integer test = (Integer) result.get(i);
-            System.out.println(getCalcById(test).getId());
+            Integer id = (Integer) result.get(i);
+             calculation = getCalcById(id);
         }
+        return calculation;
+
     }
 
     /**
