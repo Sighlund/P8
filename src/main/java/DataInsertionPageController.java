@@ -105,12 +105,13 @@ public class DataInsertionPageController implements Initializable {
 
     /**
      * This method collects information about a calculation from the different input fields and either creates a new
-     * entru in the database or or adds it to an existing entry.
+     * entry in the database or or adds it to an existing entry.
      * Through a cascading the foodItems are also saved in the DB
      * The calculationModel is saved in the calculation table and foodItem is saved in the foodItem table
      */
     public void createCalc() {
-        // TODO Se også CalculationPersistence linje 80, hvor kaldet til DB bliver lavet
+        //Calling the getCalcFromChoiceBox method in CalculationPersistence and giving it the values from the
+        //choiceboxes as parameters. The calculation it fetches is saved in the retrivedCalc object
         CalculationModel retrivedCalc = CalculationPersistence.getCalcFromChoicebox(choiceboxChooseKitchen.getValue().getId(),
                 choiceboxChooseQuarter.getValue(),
                 choiceboxChooseYear.getValue().getId());
