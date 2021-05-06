@@ -12,33 +12,53 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DataInsertionPageController">
    <children>
-      <Button layoutX="27.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFrontMenuPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0" />
-      <Button layoutX="94.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFrontMenuPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0" />
+      <Button layoutX="27.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFrontMenuPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="94.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToFrontMenuPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <TableView fx:id="insertionPageTableView" layoutX="174.0" layoutY="162.0" prefHeight="471.0" prefWidth="801.0">
         <columns>
           <TableColumn fx:id="productNameColumn" prefWidth="252.0" text="Varenavn" />
           <TableColumn fx:id="primaryGroupColumn" prefWidth="124.0" text="Primærgruppe" />
             <TableColumn fx:id="secondaryGroupColumn" prefWidth="124.0" text="Sekundærgruppe" />
-            <TableColumn fx:id="volumeOfProductColumn" prefWidth="100.0" text="Vægt Kg" />
-            <TableColumn fx:id="co2prkiloValueColumn" prefWidth="100.0" text="CO2/Kg" />
-            <TableColumn fx:id="totalCo2ForItemColumn" prefWidth="100.0" text="Total CO2 Kg" />
+            <TableColumn fx:id="volumeOfProductColumn" prefWidth="100.0" text="Vægt kg" />
+            <TableColumn fx:id="co2prkiloValueColumn" prefWidth="100.0" text="CO2/kg" />
+            <TableColumn fx:id="totalCo2ForItemColumn" prefWidth="100.0" text="Total CO2 kg" />
         </columns>
       </TableView>
       <ChoiceBox id="choiceBoxQuarter" fx:id="choiceboxChooseQuarter" layoutX="826.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" />
       <ChoiceBox id="choiceBoxYear" fx:id="choiceboxChooseYear" layoutX="667.0" layoutY="95.0" prefHeight="26.0" prefWidth="150.0" />
       <ChoiceBox id="choiceBoxKitchen" fx:id="choiceboxChooseKitchen" layoutX="174.0" layoutY="95.0" prefHeight="26.0" prefWidth="477.0" AnchorPane.leftAnchor="174.0" />
-      <Label layoutX="174.0" layoutY="77.0" prefHeight="18.0" prefWidth="477.0" text="Vælg Afdeling..." />
+      <Label layoutX="174.0" layoutY="77.0" prefHeight="18.0" prefWidth="477.0" text="Vælg afdeling..." />
       <Label layoutX="667.0" layoutY="77.0" prefHeight="18.0" prefWidth="150.0" text="År for udregning..." />
       <Label layoutX="826.0" layoutY="77.0" prefHeight="18.0" prefWidth="150.0" text="Kvartal for udregning..." />
-      <TextField fx:id="volumeKiloTextField" layoutX="667.0" layoutY="128.0" prefHeight="26.0" prefWidth="88.0" promptText="Angiv Kg..." style="-fx-background-color: white;" />
-      <Button layoutX="876.0" layoutY="126.0" mnemonicParsing="false" onAction="#openRegisterNewProductOverlay" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Reg. Ny Vare" textAlignment="CENTER" />
-      <Button layoutX="766.0" layoutY="126.0" mnemonicParsing="false" onAction="#addProductToListMethodCalls" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Tilføj Vare" textAlignment="CENTER" />
-      <Button layoutX="1023.0" layoutY="386.0" mnemonicParsing="false" onAction="#switchToCalculationPage" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Udregn" textAlignment="CENTER" AnchorPane.rightAnchor="121.0" />
+      <TextField fx:id="volumeKiloTextField" layoutX="667.0" layoutY="128.0" onAction="#addProductToListMethodCalls" prefHeight="26.0" prefWidth="88.0" promptText="Angiv kg..." style="-fx-background-color: white;" />
+      <Button layoutX="876.0" layoutY="126.0" mnemonicParsing="false" onAction="#openRegisterNewProductOverlay" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #018849;" text="Reg. ny vare" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="766.0" layoutY="126.0" mnemonicParsing="false" onAction="#addProductToListMethodCalls" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #018849;" text="Tilføj vare" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="1023.0" layoutY="386.0" mnemonicParsing="false" onAction="#switchToCalculationPage" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Udregn" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="121.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <TextField fx:id="autoCompleteTextField" layoutX="174.0" layoutY="129.0" prefHeight="25.0" prefWidth="477.0" promptText="Søg efter en vare..." />
-      <Button layoutX="907.0" layoutY="639.0" mnemonicParsing="false" onAction="#resetCalculationTable" style="-fx-background-color: #b44444;" text="Ryd Alt" textAlignment="CENTER" />
-      <Button layoutX="832.0" layoutY="639.0" mnemonicParsing="false" onAction="#removeSelectedRow" style="-fx-background-color: #b44444;" text="Ryd Felt" textAlignment="CENTER" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="48.0" layoutX="471.0" layoutY="4.0" stroke="TRANSPARENT" strokeType="INSIDE" width="338.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="4.0" prefHeight="48.0" prefWidth="338.0" text="TILFØJ VARER TIL BEREGNING" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="907.0" layoutY="639.0" mnemonicParsing="false" onAction="#resetCalculationTable" style="-fx-background-color: #d9534f;" text="Ryd alt" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="832.0" layoutY="639.0" mnemonicParsing="false" onAction="#removeSelectedRow" style="-fx-background-color: #d9534f;" text="Ryd felt" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="471.0" layoutY="4.0" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: BLACK;" text="TILFØJ VARER TIL BEREGNING" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
          </font>

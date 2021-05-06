@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.StackedBarChart?>
@@ -7,36 +8,53 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalculationComparisonPageController">
    <children>
-      <StackedBarChart fx:id="MyStackedBarChart" layoutX="127.0" layoutY="117.0" prefHeight="535.0" prefWidth="801.0">
+      <StackedBarChart fx:id="stackedBarChart" layoutX="127.0" layoutY="117.0" prefHeight="535.0" prefWidth="801.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+          <CategoryAxis fx:id="stackedBarXAxis" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="yAxis" side="LEFT" />
+          <NumberAxis fx:id="stackedBarYAxis" side="LEFT" />
         </yAxis>
       </StackedBarChart>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToHistoryPage" style="-fx-background-color: dodgerblue;" text="Tilbage" />
-      <Button layoutX="75.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="48.0" layoutX="476.0" layoutY="14.0" stroke="TRANSPARENT" strokeType="INSIDE" width="338.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="15.0" prefHeight="48.0" prefWidth="338.0" text="SAMMENLIGNING" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="27.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToHistoryPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textFill="WHITE" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="99.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" textFill="WHITE" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="16.0" prefHeight="48.0" prefWidth="225.0" style="-fx-background-color: BLACK;" text="SAMMENLIGNING" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
          </font>
       </Label>
-      <MenuButton layoutX="1020.0" layoutY="126.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Digram">
+      <MenuButton fx:id="diagramMenuBtn" layoutX="1020.0" layoutY="126.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Diagram">
         <items>
-          <MenuItem fx:id="co2PMenuItem" mnemonicParsing="false" onAction="#showCo2P" text="CO2 i procent" />
-          <MenuItem fx:id="coKgMenuItem" mnemonicParsing="false" onAction="#showCo2Kg" text="CO2 i kg" />
+          <MenuItem fx:id="co2PMenuItem" mnemonicParsing="false" onAction="#showCo2P" text="CO2e i procent" />
+          <MenuItem fx:id="co2KgMenuItem" mnemonicParsing="false" onAction="#showCo2Kg" text="CO2e i kg" />
             <MenuItem fx:id="volPMenuItem" mnemonicParsing="false" onAction="#showVolP" text="Vægt i procent" />
             <MenuItem fx:id="volKgMenuItem" mnemonicParsing="false" onAction="#showVolKg" text="Vægt i kg" />
             <MenuItem fx:id="co2PrKgMenuItem" mnemonicParsing="false" onAction="#showCo2PrKg" text="Gennemsnitlig CO2 pr. kg" />
         </items>
+         <tooltip>
+            <Tooltip text="Vælg hvordan de valgte data skal vises" />
+         </tooltip>
       </MenuButton>
+      <BarChart fx:id="barChart" animated="false" layoutX="127.0" layoutY="117.0" prefHeight="535.0" prefWidth="801.0" visible="false">
+        <xAxis>
+          <CategoryAxis fx:id="barXaxis" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="barYAxis" side="LEFT" />
+        </yAxis>
+      </BarChart>
    </children>
 </AnchorPane>

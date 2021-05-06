@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -22,8 +23,7 @@
             <Rectangle2D height="300.0" width="1500.0" />
          </viewport>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="48.0" layoutX="466.0" layoutY="46.0" stroke="TRANSPARENT" strokeType="INSIDE" width="338.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="466.0" layoutY="46.0" prefHeight="48.0" prefWidth="338.0" text="HISTORIK" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="46.0" prefHeight="45.0" prefWidth="225.0" style="-fx-background-color: BLACK;" text="HISTORIK" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
          </font>
@@ -38,7 +38,7 @@
       <ChoiceBox fx:id="choiceboxChooseKitchenHis" layoutX="182.0" layoutY="220.0" prefHeight="26.0" prefWidth="114.0" />
       <ChoiceBox fx:id="choiceboxChooseYearHis" layoutX="301.0" layoutY="220.0" prefHeight="26.0" prefWidth="100.0" />
       <ChoiceBox fx:id="choiceboxChooseQuarterHis" layoutX="408.0" layoutY="221.0" prefHeight="25.0" prefWidth="84.0" />
-      <Label layoutX="182.0" layoutY="206.0" text="Vælg Afdeling...">
+      <Label layoutX="182.0" layoutY="206.0" text="Vælg afdeling...">
          <font>
             <Font name="SansSerif Regular" size="12.0" />
          </font>
