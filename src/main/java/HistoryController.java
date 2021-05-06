@@ -114,6 +114,9 @@ public class HistoryController implements Initializable {
         tableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE
         );
+
+        // Set placeholder
+        tableView.setPlaceholder(new Text("Der findes ingen udregniner for de anvendte filtre"));
     }
 
     /**
