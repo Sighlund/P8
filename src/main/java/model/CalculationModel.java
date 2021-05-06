@@ -217,17 +217,29 @@ public class CalculationModel {
 
 
     /**
-     * Gets hash table with percentages for all subcategories for a specific category
-     * @return a hash table with the category as key and percentage value as value
+     * Gets hash table with Co2 subtotal values for all subcategories
+     * in the given category
+     * @return a hash table with the category as key and CO2e value in kg
      */
-    public Hashtable<String, Double> getSubcategoriesPercentagesHt(String category){
-        //TODO - get subcategories Anne
+    public Hashtable<String, Double> getSubcategoriesCo2KgHt(String category){
 
         // Create empty hash table
         Hashtable ht = new Hashtable<String, Double>();
 
-        // Get list of categories
-        List<String> subcategories = getSubcategories("CATEGORY");
+        // Get list of subcategories
+        List<String> subcategories = getSubcategories(category);
+
+        // Iterate over all subcategories
+        for (String sc : subcategories){
+
+            // Create double to hold subtotal for subcategory
+            Double subtotal = getSubTotalForSubcategory(sc);
+
+            // Add category and CO2 value to the hash table
+            // using category as key and CO2 as value
+            ht.put(sc, subtotal);
+
+        }
 
         return ht;
     }
@@ -322,6 +334,24 @@ public class CalculationModel {
             // add CO2 for food item to subtotal for the category
             if (foodItemList.get(j).getCategory().equals(category)){
                 subtotal += foodItemList.get(j).calcCo2();
+            }
+        }
+
+        return subtotal;
+    }
+
+    private Double getSubTotalForSubcategory(String subcategory){
+
+        // Create double to hold temporary subtotal
+        Double subtotal = 0.0;
+
+        // Iterate over all food items
+        for (FoodItemModel f : foodItemList){
+
+            // If subcategory for current food item equals current subcategory
+            // add CO2 for food item to subtotal for the subcategory
+            if (f.getSubcategory().equals(subcategory)){
+                subtotal += f.calcCo2();
             }
         }
 

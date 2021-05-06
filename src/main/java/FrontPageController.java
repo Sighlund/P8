@@ -24,13 +24,16 @@ public class FrontPageController {
 
     /**
      * Event handler for the button "Historik".
-     * Switches to the history page.
      * Update the table view with the current list of calculations from the database.
+     * Switches to the history page.
      * @param event2 action event from the button element
      */
     public void switchToSceneHistory(ActionEvent event2){
-        App.switchScene(App.getHistoryPageParent());
+        // Update information in the table view displaying available calculations
         App.getHistoryController().updateTableView();
+
+        // Switch to the history pages
+        App.switchScene(App.getHistoryPageParent());
     }
 
 }

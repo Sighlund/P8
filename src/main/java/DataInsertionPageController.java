@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -167,7 +168,6 @@ public class DataInsertionPageController implements Initializable {
         // with possible solutions (food descriptor names)
         autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
-
         //TableView stuff goes here. Each column is told which that they are going to hold object of type PropertyValueFactory(S, T).
         //S - The type of the class contained within the TableView.items list.
         //T - The type of the class contained within the TableColumn cells.
@@ -179,6 +179,8 @@ public class DataInsertionPageController implements Initializable {
         volumeOfProductColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("volumeOfProduct"));
         co2prkiloValueColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("co2prkiloValue"));
         totalCo2ForItemColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("totalCo2ForItem"));
+
+        insertionPageTableView.setPlaceholder(new Text("Tilføj varer ved at finde en passende fødevaretype i søgefeltet og angive indkøbt vægt"));
     }
 
     /**
