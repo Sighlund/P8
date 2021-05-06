@@ -50,8 +50,9 @@ public class KitchenPersistence {
         Session session = SetupPersistence.getSession();
         //Querying database for all objects
         List<KitchenModel> query = session.createQuery("SELECT a from KitchenModel a", KitchenModel.class).getResultList();
-        //Closing session
+        //Converting list to an observable list
         ObservableList<KitchenModel> kitchens = FXCollections.observableArrayList(query);
+        //Closing session
         SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return kitchens;
