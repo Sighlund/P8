@@ -1,10 +1,13 @@
 package model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Hashtable;
+import java.util.Collections;
+import java.util.Set;
+
 
 /***
  * The CalculationModel class implements the model layer of Calculation.
@@ -277,6 +280,9 @@ public class CalculationModel {
         // TODO slettes - debug Anne
         System.out.println(list);
 
+        // Sort the list alphabetically
+        Collections.sort(list);
+
         return list;
     }
 
@@ -338,7 +344,7 @@ public class CalculationModel {
 
             // Add category and CO2 percentage to the hash table
             // using category as key and subtotal as value
-            ht.put(categories.get(i), subtotal);
+            ht.put(categories.get(i), subtotal/calcTotalKg()*100);
         }
 
         // TODO slettes - debugger Anne
@@ -354,9 +360,22 @@ public class CalculationModel {
         // Get list of categories
         List<String> categories = getCategories();
 
+        // Iterate over all categories
+        for (int i = 0; i < categories.size(); i++){
+
+            // Create double to hold subtotal
+            Double subtotal = getVolSubtotalForCategory(categories.get(i));
+
+            // Add category and CO2 percentage to the hash table
+            // using category as key and subtotal as value
+            ht.put(categories.get(i), subtotal);
+        }
+
+        // TODO slettes - debugger Anne
+        System.out.println(ht);
+
         return ht;
     }
-
 
 
     private Double getVolSubtotalForCategory(String category){
@@ -375,6 +394,21 @@ public class CalculationModel {
         }
 
         return subtotal;
+    }
+
+
+
+    // TODO - optimering Anne
+    public Hashtable<String, Double> test(){
+        Hashtable ht = getCategoriesVolKgHt();
+
+        Set<String> keys = ht.keySet();
+
+        for (String key : keys){
+            ht.put(key, ((Double) ht.get(key) / calcTotalKg()*100));
+        }
+
+        return ht;
     }
 
 }
