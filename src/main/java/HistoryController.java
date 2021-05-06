@@ -34,35 +34,29 @@ import java.util.ResourceBundle;
 public class HistoryController implements Initializable {
 
     // Filter choiceboxes
-    @FXML
-    private ChoiceBox<KitchenModel> choiceboxChooseKitchenHis;
-    @FXML
-    private ChoiceBox<YearModel> choiceboxChooseYearHis;
-    @FXML
-    private ChoiceBox<Integer> choiceboxChooseQuarterHis;
+    @FXML private ChoiceBox<KitchenModel> choiceboxChooseKitchenHis;
+    @FXML private ChoiceBox<YearModel> choiceboxChooseYearHis;
+    @FXML private ChoiceBox<Integer> choiceboxChooseQuarterHis;
 
     // Table view with available calculations (left)
-    @FXML
-    private TableView<CalculationModel> tableView;
-    @FXML
-    private TableColumn<CalculationModel, YearModel> year;
-    @FXML
-    private TableColumn<CalculationModel, Integer> quarter;
-    @FXML
-    private TableColumn<CalculationModel, KitchenModel> kitchen;
+    @FXML private TableView<CalculationModel> tableView;
+    @FXML private TableColumn<CalculationModel, YearModel> year;
+    @FXML private TableColumn<CalculationModel, Integer> quarter;
+    @FXML private TableColumn<CalculationModel, KitchenModel> kitchen;
 
     // Table view with selected calculations for comparison (right)
-    @FXML
-    private TableView<CalculationModel> tableViewRight;
-    @FXML
-    private TableColumn<CalculationModel, KitchenModel> kitchenRight;
-    @FXML
-    private TableColumn<CalculationModel, YearModel> yearRight;
-    @FXML
-    private TableColumn<CalculationModel, Integer> quarterRight;
+    @FXML private TableView<CalculationModel> tableViewRight;
+    @FXML private TableColumn<CalculationModel, KitchenModel> kitchenRight;
+    @FXML private TableColumn<CalculationModel, YearModel> yearRight;
+    @FXML private TableColumn<CalculationModel, Integer> quarterRight;
 
     // Attribute to hold list of calculations to be displayed in table view
     private ObservableList<CalculationModel> calcList;
+
+    // Attribute to hold list of all calculations from database. By having it be an attribute, we only need to load once.
+    //Bjørn: Jeg har ikke kunnet få denne her til at virke. Tror enten det er pga. listcalc() er static,
+    //og måske fordi ObservableList der returneres, har listeners på sig.
+    //private ObservableList<CalculationModel> allCalcsList = CalculationPersistence.listCalc();
 
     // Attribute to hold list of selected calculations from the left table view
     private ObservableList<CalculationModel> selectedCalcs;
@@ -81,7 +75,6 @@ public class HistoryController implements Initializable {
 
         // Builds right table view, displaying the calculations chosen for comparison
         buildRightTableView();
-
     }
 
     /**
@@ -139,7 +132,7 @@ public class HistoryController implements Initializable {
      * Updates the table view
      * Gets called from the front page
      */
-    public void updateTableView(){
+    public void updateTableViewFirstTime(){
         // Update reference to list of all calculations
         calcList = CalculationPersistence.listCalc();
 
@@ -248,10 +241,13 @@ public class HistoryController implements Initializable {
         // to list of calculations in table view (chosen)
         calcsForComp.addAll(selectedCalcs);
 
+        //If the list of chosen calculations contains more than 4 calculations,
+        //popup with error message is shown, and the calculations are removed from the list again.
         if (calcsForComp.size() > 4){
-            // TODO throw exception, der giver fejlmeddelse om,
-            //  at der maks må tilføjes 4 calculations til tabellen (vi har ikke plads til mere på comparison)
-            //  Bjørn/Mads/Søren? :D
+            ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
+            errorHandlingCollection.basicErrorPopup("For mange beregninger", "Der må højst være 4 beregninger i listen over udvalgte beregninger.");
+            errorHandlingCollection = null;
+            calcsForComp.removeAll(selectedCalcs);
         }
     }
 
