@@ -1,3 +1,4 @@
+import com.sun.javafx.charts.Legend;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -5,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -67,6 +69,9 @@ public class CalculationPageController implements Initializable {
     private TableColumn co2prkiloValueColumn;
     @FXML
     private TableColumn totalCo2ForItemColumn;
+
+    @FXML
+    private Label PieChartLabel;
 
 
     // Reference to the calculation to be displayed
@@ -131,7 +136,7 @@ public class CalculationPageController implements Initializable {
             PieChart.Data data = new PieChart.Data(key, (Double) categories.get(key));
 
             // Bind the name property of the data object to reflect category name and percentage value
-            data.nameProperty().bind(Bindings.concat(data.getName(), " ", Math.round(data.getPieValue()), "%"));
+            data.nameProperty().bind(Bindings.concat(data.getName(), " \n", Math.round(data.getPieValue()), "% "));
 
             // Add data object to the observable list of pie chart data
             pieChartData.add(data);
@@ -178,6 +183,7 @@ public class CalculationPageController implements Initializable {
             foodItemsTableView.getItems().add(new ViewListItemDataInsertionPage(
                     f.getName(), f.getCategory(), f.getSubcategory(), volumeComma, co2PrKgComma, calcCo2Comma));
         }
+
     }
 
     private String format(Double d){
