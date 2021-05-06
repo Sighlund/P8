@@ -10,7 +10,6 @@ public class ViewListRegisterPage {
         this.amountIngredient = new SimpleStringProperty(amountIngredient);
     }
 
-    //TODO overvej at rydde op i disse, så de der ikke bruges fjernes.
     public String getIngredients() {
         return ingredients.get();
     }
@@ -27,7 +26,7 @@ public class ViewListRegisterPage {
         return amountIngredient.get();
     }
 
-    public SimpleStringProperty AmountIngredientProperty() {
+    public SimpleStringProperty amountIngredientProperty() {
         return amountIngredient;
     }
 
