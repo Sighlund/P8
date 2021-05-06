@@ -6,11 +6,14 @@ import javafx.collections.ObservableList;
 import model.CalculationModel;
 import model.KitchenModel;
 import model.YearModel;
+import netscape.javascript.JSObject;
 import org.hibernate.Session;
 
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -79,17 +82,31 @@ public class CalculationPersistence {
 
     //TODO problemet her hænger sammen med DataInsertionPageController linje 96(Der er en TODO der, hvis det ikke er
     //på linje 96 mere. Vi (Søren og Mads) kan ikke få det til at virke, så feel free to try
-//    public static void getCalcFromChoicebox(Integer quarter, YearModel year, KitchenModel kitchen){
+//    public static void getCalcFromChoicebox(Integer kitchen, Integer quarter, Integer year){
 //        //Creating session
 //        Session session = SetupPersistence.getSession();
-//        String hql = "select id from Calculation where quarter = :quarter AND yearId = :year AND kitchenId = :kitchen";
-//        Query query = session.createNativeQuery(hql, CalculationModel.class);
+//        String sql = "select id from calculation where id = '%' AND kitchenId = :kitchen AND quarter = :quarter AND yearId = :year";
+//        Query query = session.createNativeQuery(sql, CalculationModel.class);
+//        query.setParameter("kitchen", kitchen);
 //        query.setParameter("quarter", quarter);
 //        query.setParameter("year", year);
-//        query.setParameter("kitchen", kitchen);
-//        CalculationModel calculationModel = (CalculationModel) query.getSingleResult();
-//        System.out.println(calculationModel.getId());
+//        //CalculationModel calculationModel = (CalculationModel) ;
+//        System.out.println(query.getResultList());
 //    }
+
+    public static void test(){
+        Session session = SetupPersistence.getSession();
+        String sql = "select id from calculation where id = id and quarter = 4 AND kitchenId = 1 AND yearId = 2020";
+        Query query = session.createNativeQuery(sql);
+        System.out.println(query.getResultList());
+        List<Object> result = query.getResultList();
+        List<Integer> list = new ArrayList<>();
+
+        for(int i=0; i<result.size();i++){
+            Integer test = (Integer) result.get(i);
+            System.out.println(getCalcById(test).getId());
+        }
+    }
 
     /**
      * Method for deleting a calculation object by ID

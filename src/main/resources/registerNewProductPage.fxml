@@ -12,24 +12,36 @@
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.0" prefWidth="766.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterNewProductPageController">
    <children>
       <TextField fx:id="autoCompleteTextField" layoutX="37.0" layoutY="76.0" prefHeight="26.0" prefWidth="337.0" promptText="Find ingredienser varen er udgjort af..." style="-fx-background-color: white;" />
-      <TableView fx:id="registerPageTableView" layoutX="37.0" layoutY="117.0" prefHeight="143.0" prefWidth="517.0">
+      <TableView fx:id="registerPageTableView" layoutX="37.0" layoutY="117.0" prefHeight="143.0" prefWidth="496.0">
          <columns>
-            <TableColumn fx:id="ingredientsColumn" prefWidth="349.0" text="Ingredienser i varen" />
-            <TableColumn fx:id="percentageColumn" prefWidth="167.0" text="Mængde ingrediens i varen" />
+            <TableColumn fx:id="ingredientsColumn" prefWidth="326.0" text="Ingredienser i varen" />
+            <TableColumn fx:id="percentageColumn" prefWidth="168.0" text="Mængde ingrediens i varen" />
          </columns>
       </TableView>
       <TextField fx:id="descriptorName" layoutX="37.0" layoutY="42.0" prefHeight="26.0" prefWidth="337.0" promptText="Giv varen et navn..." style="-fx-background-color: white;" />
-      <Button layoutX="536.0" layoutY="71.0" mnemonicParsing="false" onAction="#addIngredientButton" prefHeight="36.0" prefWidth="108.0" style="-fx-background-color: limegreen;" text="Tilføj ingrediens" textAlignment="CENTER" />
-      <Button layoutX="590.0" layoutY="175.0" mnemonicParsing="false" onAction="#saveInDatabase" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: limegreen;" text="Registrer varen i databasen" textAlignment="CENTER" AnchorPane.rightAnchor="34.0" />
+      <Button layoutX="550.0" layoutY="71.0" mnemonicParsing="false" onAction="#addIngredientButton" prefHeight="36.0" prefWidth="108.0" style="-fx-background-color: #018849;" text="Tilføj ingrediens" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="550.0" layoutY="175.0" mnemonicParsing="false" onAction="#saveInDatabase" prefHeight="50.0" prefWidth="171.0" style="-fx-background-color: #018849;" text="Registrer varen i databasen" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="45.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <TextField fx:id="itemNumber" layoutX="381.0" layoutY="42.0" prefHeight="26.0" prefWidth="150.0" promptText="Varenummer..." style="-fx-background-color: white;" />
       <TextField fx:id="percentageTextField" layoutX="381.0" layoutY="76.0" prefHeight="26.0" prefWidth="150.0" promptText="\%-indhold i varen..." style="-fx-background-color: white;" />
       <Label layoutX="37.0" layoutY="12.0" prefHeight="17.0" prefWidth="337.0" text="Registrer en vare">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
       <Text fx:id="descriptorSavedAlert" layoutX="695.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gemt" visible="false" wrappingWidth="30.91015625" />
-      <Button layoutX="499.0" layoutY="267.0" mnemonicParsing="false" onAction="#resetIngredientTable" style="-fx-background-color: #b44444;" text="Ryd Alt" textAlignment="CENTER" />
-      <Button layoutX="427.0" layoutY="267.0" mnemonicParsing="false" onAction="#removeSelectedRow" style="-fx-background-color: #b44444;" text="Ryd Felt" textAlignment="CENTER" />
+      <Button layoutX="477.0" layoutY="267.0" mnemonicParsing="false" onAction="#resetIngredientTable" style="-fx-background-color: #d9534f;" text="Ryd alt" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="397.0" layoutY="267.0" mnemonicParsing="false" onAction="#removeSelectedRow" style="-fx-background-color: #d9534f;" text="Ryd felt" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>

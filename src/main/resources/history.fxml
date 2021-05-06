@@ -22,8 +22,7 @@
             <Rectangle2D height="300.0" width="1500.0" />
          </viewport>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c2c2c280" height="48.0" layoutX="466.0" layoutY="46.0" stroke="TRANSPARENT" strokeType="INSIDE" width="338.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="466.0" layoutY="46.0" prefHeight="48.0" prefWidth="338.0" text="HISTORIK" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="46.0" prefHeight="45.0" prefWidth="225.0" style="-fx-background-color: BLACK;" text="HISTORIK" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
          </font>
@@ -38,17 +37,29 @@
       <ChoiceBox fx:id="choiceboxChooseKitchenHis" layoutX="182.0" layoutY="220.0" prefHeight="26.0" prefWidth="114.0" />
       <ChoiceBox fx:id="choiceboxChooseYearHis" layoutX="301.0" layoutY="220.0" prefHeight="26.0" prefWidth="100.0" />
       <ChoiceBox fx:id="choiceboxChooseQuarterHis" layoutX="408.0" layoutY="221.0" prefHeight="25.0" prefWidth="84.0" />
-      <Label layoutX="182.0" layoutY="206.0" text="Vælg Afdeling...">
+      <Label layoutX="182.0" layoutY="206.0" text="Vælg afdeling...">
          <font>
             <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
       <Label layoutX="301.0" layoutY="205.0" text="Vælg år..." />
       <Label layoutX="408.0" layoutY="205.0" text="Vælg kvartal..." />
-      <Button fx:id="START" layoutX="34.0" layoutY="61.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0" />
-      <Button layoutX="109.0" layoutY="61.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0" />
-      <Button layoutX="1108.0" layoutY="444.0" mnemonicParsing="false" onAction="#sendToCalculationComparisonPageControllerAction" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: limegreen;" text="Sammenlign" textAlignment="CENTER" AnchorPane.rightAnchor="36.0" />
-      <Button layoutX="498.0" layoutY="218.0" mnemonicParsing="false" onAction="#applyChosenFilters" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: limegreen;" text="Anvend Filtre" textAlignment="CENTER" />
+      <Button fx:id="START" layoutX="34.0" layoutY="61.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="109.0" layoutY="61.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Menu" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="1108.0" layoutY="444.0" mnemonicParsing="false" onAction="#sendToCalculationComparisonPageControllerAction" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Sammenlign" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="36.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="498.0" layoutY="218.0" mnemonicParsing="false" onAction="#applyChosenFilters" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #018849;" text="Anvend" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <Label layoutX="182.0" layoutY="257.0" prefHeight="20.0" prefWidth="394.0" text="Tilgængelige beregninger">
          <font>
             <Font name="SansSerif Regular" size="16.0" />
@@ -71,7 +82,18 @@
             <Font name="SansSerif Regular" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="585.0" layoutY="429.0" mnemonicParsing="false" onAction="#addCalcToChosenTable" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #32cd32;" text="Tilføj ➡" textAlignment="CENTER" />
-      <Button layoutX="585.0" layoutY="479.0" mnemonicParsing="false" onAction="#removeCalcFromChosenTable" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #b44444;" text="⬅ Fjern" textAlignment="CENTER" />
+      <Button layoutX="585.0" layoutY="429.0" mnemonicParsing="false" onAction="#addCalcToChosenTable" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #018849;" text="Tilføj ➡" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="585.0" layoutY="479.0" mnemonicParsing="false" onAction="#removeCalcFromChosenTable" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #d9534f;" text="⬅ Fjern" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="395.0" layoutY="169.0" mnemonicParsing="false" onAction="#clearChosenFilters" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #d9534f;" text="Nulstil" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
