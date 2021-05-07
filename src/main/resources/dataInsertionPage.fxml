@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -39,11 +40,17 @@
       <Button layoutX="876.0" layoutY="126.0" mnemonicParsing="false" onAction="#openRegisterNewProductOverlay" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #018849;" text="Reg. ny vare" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
-         </font></Button>
+         </font>
+         <tooltip>
+            <Tooltip text="Hvis varen ikke kan findes i databasen, skal der registreres en ny vare ved at trykke på denne knap." />
+         </tooltip></Button>
       <Button layoutX="766.0" layoutY="126.0" mnemonicParsing="false" onAction="#addProductToListMethodCalls" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #018849;" text="Tilføj vare" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
-         </font></Button>
+         </font>
+         <tooltip>
+            <Tooltip text="Brug denne knap til at tilføje en vare der allerede er i databasen." />
+         </tooltip></Button>
       <Button layoutX="1023.0" layoutY="386.0" mnemonicParsing="false" onAction="#switchToCalculationPage" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Udregn" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="121.0">
          <font>
             <Font name="System Bold" size="12.0" />

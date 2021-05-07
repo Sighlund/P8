@@ -54,25 +54,40 @@ public class FoodDescriptorPersistence {
         return list;
     }
 
+    /**
+     * Method for getting the name of all the foodDescriptors
+     * @return Returns a list with the name of all the foodDescriptors
+     */
     public static List<String> listDescriptorName(){
         //Creating session
         Session session = SetupPersistence.getSession();
         //Querying database for all objects' names
         List<String> list = session.createQuery("select c.name from FoodDescriptorModel c").list();
+        //Close the session
         SetupPersistence.closeSession(session);
         //Return list of objects' names retrieved from the database
         return list;
     }
 
-    //Method returns a FoodDescriptorModel when the provided String name matches an existing descriptor from the database.
+    /**
+     * Method to get a specific foodDescriptor by name
+     * @param name The name of the foodDescriptor that is being searched for
+     * @return Return the foodDescriptor object that was found
+     */
     public static FoodDescriptorModel getDescriptorByName(String name){
+        //Creating session
         Session session = SetupPersistence.getSession();
+        //Creating hibernate query
         String hql = "from FoodDescriptorModel c where c.name = :name";
+        //Converting the hibernate query string to an actual query
         Query query = session.createQuery(hql);
+        //Setting the parameter of :name in the hql query
         query.setParameter("name", name);
         //Returns a FoodDescriptor object based on the result found
         FoodDescriptorModel foodDescriptorModel = (FoodDescriptorModel) query.getSingleResult();
+        //Closing session
         SetupPersistence.closeSession(session);
+        //Returns the foodDescriptor that was found
         return foodDescriptorModel;
     }
 

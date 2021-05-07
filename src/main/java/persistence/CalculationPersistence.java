@@ -79,22 +79,44 @@ public class CalculationPersistence {
         return calculationModel;
     }
 
+    /**
+     * Method for checking if a calculation exists containing the user input from the DataInsertionPage
+     * @param kitchen Takes the chosen kitchen as an Integer as that is how it is stored in the DB
+     * @param quarter Takes the chosen quarter
+     * @param year Takes the chosen year
+     * @return Returns the calculation object if a calculation with the user input exists. Otherwise it returns null
+     */
     public static CalculationModel getCalcFromChoicebox(Integer kitchen, Integer quarter, Integer year){
         //Creating session
         Session session = SetupPersistence.getSession();
+        //Creating an SQL query that selects the id of a calculation where all the parameters from the argument list
+        //is present
         String sql = "select id from calculation where id = id AND kitchenId = :kitchen AND quarter = :quarter AND yearId = :year";
+        //Converting the SQL query string into an actual query
         Query query = session.createNativeQuery(sql);
+        //Setting paramters for the variables in the SQL string
         query.setParameter("kitchen", kitchen);
         query.setParameter("quarter", quarter);
         query.setParameter("year", year);
+        //Saving the query result in a list of objects, because that is the return type
         List<Object> result = query.getResultList();
+        //Creating a calculation object and setting it to null
         CalculationModel calculation = null;
+        //Closing the session
         SetupPersistence.closeSession(session);
 
+        //Iterating over the results' size. If the query did not find any calculation containing the parameters from the
+        //argument list then the size will be zero, and it will skip this for loop. If the query did find an calculation
+        //id then it will loop through the for loop
         for(int i=0; i<result.size();i++){
+            //Creating a Interger to store the id from calculation object that was found in the query
             Integer id = (Integer) result.get(i);
-             calculation = getCalcById(id);
+            //Querying the DB for the calculation object with the ID that was found by the query and saving it in the
+            //calculation object
+            calculation = getCalcById(id);
         }
+        //Returning the calculation object. If a calculation was found then the object that was found will be store in
+        //this calculation object. If the query did not find anything this will be null
         return calculation;
 
     }

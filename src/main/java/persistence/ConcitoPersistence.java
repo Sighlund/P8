@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * The ConcitoPersistence class enables data exchange between the application and the SQL database.
- * It has 3 different Hibernate operations that allows for data transfer between SQL elements and Java objects.
+ * It has a number of different Hibernate operations that allows for data transfer between SQL elements and Java objects.
  */
 public class ConcitoPersistence {
 
@@ -24,29 +24,44 @@ public class ConcitoPersistence {
         //Querying database for all objects
         List<ConcitoItemModel> list = session.createQuery("SELECT a from ConcitoItemModel a", ConcitoItemModel.class).getResultList();
         //Closing session
+        SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return list;
     }
 
-    //Method returning a List<String> object containing all the names of Concito Items.
+    /**
+     * Method for getting a list of the name of all concito items
+     * @return Returns a list of the name of all concito items.
+     */
     public static List<String> listConcitoName(){
         //Creating session
         Session session = SetupPersistence.getSession();
         //Querying database for all objects' names
         List<String> list = session.createQuery("select c.name from ConcitoItemModel c").list();
+        //Closing session
+        SetupPersistence.closeSession(session);
         //Return list of objects' names retrieved from the database
         return list;
     }
 
-    //Method that will return the ConcitoItemModel object that matches the String Name provided.
+    /**
+     * Method to get a specific concito item by name
+     * @param name The name of the concito item that is being searched for
+     * @return Return the concito object that was found
+     */
     public static ConcitoItemModel getConcitoByName(String name){
+        //Creating session
         Session session = SetupPersistence.getSession();
+        //Querying database for concito item with the name provided in the argument list
         String hql = "from ConcitoItemModel c where c.name = :name";
+        //Converting the String til an actual HQL query
         Query query = session.createQuery(hql);
+        //Setting the parameter for name in the query
         query.setParameter("name", name);
         //If the provided name doesn't match a result in the database, it will throw an exception.
         //The exception is caught by the method that called getConcitoByName().
         ConcitoItemModel concitoItemModel = (ConcitoItemModel) query.getSingleResult();
+        //Closing session
         SetupPersistence.closeSession(session);
         //Returns the object if there was a match.
         return concitoItemModel;

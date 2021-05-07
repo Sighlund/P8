@@ -50,8 +50,9 @@ public class YearPersistence {
         Session session = SetupPersistence.getSession();
         //Querying database for all objects
         List<YearModel> query = session.createQuery("SELECT a from YearModel a", YearModel.class).getResultList();
-        //Closing session
+        //Converting list to an observable list
         ObservableList<YearModel> years = FXCollections.observableArrayList(query);
+        //Closing session
         SetupPersistence.closeSession(session);
         //Returning list of objects retrieved from the database
         return years;

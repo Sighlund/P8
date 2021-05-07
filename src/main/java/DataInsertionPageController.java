@@ -48,26 +48,27 @@ public class DataInsertionPageController implements Initializable {
     @FXML private TableColumn<ViewListItemDataInsertionPage, String> co2prkiloValueColumn;
     @FXML private TableColumn<ViewListItemDataInsertionPage, String> totalCo2ForItemColumn;
 
-    // Property that holds list of food items to be stored with the calculation
+    // Property that holds list of food items to be stored with the calculation.
     private List<FoodItemModel> foodItemList = new ArrayList<>();
 
-    // Property that holds list of food descriptor names that can be searched for in autocompletion field
+    // Property that holds list of food descriptor names that can be searched for in autocompletion field.
     private List<String> foodDescriptorNames = new ArrayList<>();
 
-    // Property to hold autocompletion binding on autocomplete text field
+    // Property to hold autocompletion binding on autocomplete text field.
     private AutoCompletionBinding autoCompletionBinding;
 
     /**
      * Method called on button press that adds the chosen product to the list of items that the system must calculate.
      */
     public void addProductToList(){
-        //Make a String variable that stores the current content of the autoCompleteTextField.
+        // Make a String variable that stores the current content of the autoCompleteTextField.
         String productNameString = autoCompleteTextField.getText();
 
         //Initialises foodDescriptor object and makes call to persistance layer, to get the descriptor by the provided name.
         //If the provided name doesn't match, an exception is thrown. It is caught in the method that called addProductToList().
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
 
+        // TODO
         String commaConvert = volumeKiloTextField.getText().replace(',', '.');
 
         //Make a Double variable that stores the current content of the volumeKiloTextField.
@@ -86,7 +87,7 @@ public class DataInsertionPageController implements Initializable {
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
                 f.getName(), f.getCategory(), f.getSubcategory(), volumeComma, co2PrKgComma, calcCo2Comma));
     }
-
+    // Ensures that quantities in the TableView are only displayed with two decimals
     private String format(Double d){
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         String format = numberFormat.format(d);
@@ -96,30 +97,29 @@ public class DataInsertionPageController implements Initializable {
     private CalculationModel calculation;
 
     /**
-     * This method collects information about a calculation from the different input fields and saves it in the DB
+     * This method collects information about a calculation from the different input fields and either creates a new
+     * entry in the database or or adds it to an existing entry.
      * Through a cascading the foodItems are also saved in the DB
      * The calculationModel is saved in the calculation table and foodItem is saved in the foodItem table
      */
     public void createCalc() {
-
-        //TODO kig på det her, hvis i vil. Vi kan ikke få det til at virke(Søren og Mads)
-//        Se også CalculationPersistence linje 80, hvor kaldet til DB bliver lavet
+        //Calling the getCalcFromChoiceBox method in CalculationPersistence and giving it the values from the
+        //choiceboxes as parameters. The calculation it fetches is saved in the retrivedCalc object
         CalculationModel retrivedCalc = CalculationPersistence.getCalcFromChoicebox(choiceboxChooseKitchen.getValue().getId(),
                 choiceboxChooseQuarter.getValue(),
                 choiceboxChooseYear.getValue().getId());
 
         ArrayList<FoodItemModel> foodItems = new ArrayList<>(foodItemList);
-
+        // If retrieved ID from database equals NULL then create a new calculation entry
         if(retrivedCalc == null) {
             CalculationModel calculation = new CalculationModel(
                     choiceboxChooseQuarter.getValue(),
                     choiceboxChooseYear.getValue(),
                     foodItems,
                     choiceboxChooseKitchen.getValue());
-            //CalculationPersistence.addCalc(calculation);
             this.calculation = calculation;
+            // Else add foodItems in list to existing calculation with the retrieved ID
         } else {
-            //retrivedCalc.getFoodItemList().addAll(foodItems);
             ArrayList<FoodItemModel> combinedFoodItems = new ArrayList<FoodItemModel>();
             combinedFoodItems.addAll(retrivedCalc.getFoodItemList());
             combinedFoodItems.addAll(foodItems);
@@ -247,7 +247,8 @@ public class DataInsertionPageController implements Initializable {
     }
 
     /**
-     * Removes all rows from the TableView
+     * Removes all rows from the TableView and prompts a message to the user to confirm that they in fact want to
+     * delete everything.
      *
      * @param e -
      */
@@ -265,7 +266,8 @@ public class DataInsertionPageController implements Initializable {
     }
 
     /**
-     * Removes the selected row from the TableView
+     * Removes the selected row from the TableView and prompts a message to the user to confirm that they in fact want
+     * delete the selected row.
      *
      * @param e -
      */
