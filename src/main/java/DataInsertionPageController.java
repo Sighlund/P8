@@ -38,22 +38,15 @@ import javax.persistence.NoResultException;
 
 public class DataInsertionPageController implements Initializable {
 
-    // Configuring tableView table:
-    @FXML
-    private TableView<ViewListItemDataInsertionPage> insertionPageTableView;
-    // Creating each column, telling which parent and input datatype it has.
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> productNameColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> primaryGroupColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> secondaryGroupColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> volumeOfProductColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> co2prkiloValueColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> totalCo2ForItemColumn;
+    //Configuring tableView table:
+    @FXML private TableView<ViewListItemDataInsertionPage> insertionPageTableView;
+    //Creating each column, telling which parent and input datatype it has.
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> productNameColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> primaryGroupColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> secondaryGroupColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> volumeOfProductColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> co2prkiloValueColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> totalCo2ForItemColumn;
 
     // Property that holds list of food items to be stored with the calculation.
     private List<FoodItemModel> foodItemList = new ArrayList<>();
@@ -71,14 +64,14 @@ public class DataInsertionPageController implements Initializable {
         // Make a String variable that stores the current content of the autoCompleteTextField.
         String productNameString = autoCompleteTextField.getText();
 
-        // Initialises foodDescriptor object and makes call to persistance layer, to get the descriptor by the provided name.
-        // If the provided name doesn't match, an exception is thrown. It is caught in the method that called addProductToList().
+        //Initialises foodDescriptor object and makes call to persistance layer, to get the descriptor by the provided name.
+        //If the provided name doesn't match, an exception is thrown. It is caught in the method that called addProductToList().
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
 
         // TODO
         String commaConvert = volumeKiloTextField.getText().replace(',', '.');
 
-        // Make a Double variable that stores the current content of the volumeKiloTextField.
+        //Make a Double variable that stores the current content of the volumeKiloTextField.
         Double volumeWeightInput = Double.valueOf(commaConvert);
 
         FoodItemModel f = new FoodItemModel(volumeWeightInput, foodDescriptor);
@@ -89,8 +82,8 @@ public class DataInsertionPageController implements Initializable {
         Double calcCo2 = f.calcCo2();
         String co2PrKgComma = format(co2PrKg).replace('.',',');
         String calcCo2Comma = format(calcCo2).replace('.',',');
-        // We get all items from the table as a list (Because viewTable is stupid, and can't just append without getting the list first xd)
-        // and we add the new item to the list
+        //We get all items from the table as a list (Because viewTable is stupid, and can't just append without getting the list first xd)
+        //and we add the new item to the list
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
                 f.getName(), f.getCategory(), f.getSubcategory(), volumeComma, co2PrKgComma, calcCo2Comma));
     }
@@ -140,15 +133,15 @@ public class DataInsertionPageController implements Initializable {
         }
     }
 
-    // Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
+    //Video followed when creating autoCompleteTextField: https://www.youtube.com/watch?v=SkXYg3M0hOQ
     @FXML
     private TextField autoCompleteTextField;
 
     @FXML
     private TextField volumeKiloTextField;
 
-    // Injecting related .fxml, in order to identify components in the .fxml by their ID.
-    // In this case, 'choiceboxChooseKitchen' is the chosen ID of a ChoiceBox in the dataInsertionPage.fxml
+    //Injecting related .fxml, in order to identify components in the .fxml by their ID.
+    //In this case, 'choiceboxChooseKitchen' is the chosen ID of a ChoiceBox in the dataInsertionPage.fxml
     @FXML
     private ChoiceBox<KitchenModel> choiceboxChooseKitchen;
     @FXML
@@ -181,11 +174,11 @@ public class DataInsertionPageController implements Initializable {
         // with possible solutions (food descriptor names)
         autoCompletionBinding = TextFields.bindAutoCompletion(autoCompleteTextField, foodDescriptorNames);
 
-        // TableView stuff goes here. Each column is told which that they are going to hold object of type PropertyValueFactory(S, T).
-        // S - The type of the class contained within the TableView.items list.
-        // T - The type of the class contained within the TableColumn cells.
-        // The strings provided at the end of the PropertyValueFactories are references to the class properties of ViewListItemDataInsertionPage.
-        // Read more at: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
+        //TableView stuff goes here. Each column is told which that they are going to hold object of type PropertyValueFactory(S, T).
+        //S - The type of the class contained within the TableView.items list.
+        //T - The type of the class contained within the TableColumn cells.
+        //The strings provided at the end of the PropertyValueFactories are references to the class properties of ViewListItemDataInsertionPage.
+        //read more at: //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/PropertyValueFactory.html
         productNameColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("productName"));
         primaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("primaryGroup"));
         secondaryGroupColumn.setCellValueFactory(new PropertyValueFactory<ViewListItemDataInsertionPage, String>("secondaryGroup"));
@@ -228,25 +221,25 @@ public class DataInsertionPageController implements Initializable {
             autoCompleteTextField.clear();
             volumeKiloTextField.clear();
         }
-        // Catches exception caused when name doesn't match anything in database when running what is in the 'try'
+        //Catches exception caused when name doesn't match anything in database when running what is in the 'try'
         catch (NoResultException exception) {
             exception.printStackTrace();
-            // Instantiating an object which has the error handling methods
+            //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
-            // We call upon the method which creates a popup with the provided string.
+            //We call upon the method which creates a popup with the provided string.
             errorHandlingCollection.basicErrorPopup("fejl", "Navnet på varen blev ikke fundet i databasen. Tjek at navnet er korrekt");
-            // Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
         }
 
-        // This catches every type of exception. In this case, we only expect the 'angiv kg' field to be problematic.
+        //This catches every type of exception. In this case, we only expect the 'angiv kg' field to be problematic.
         catch (Exception exception) {
             exception.printStackTrace();
-            // Instantiating an object which has the error handling methods
+            //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
-            // We call upon the method which creates a popup with the provided string.
+            //We call upon the method which creates a popup with the provided string.
             errorHandlingCollection.basicErrorPopup("fejl", "Feltet 'angiv kg' må kun indholde tal, og kommatal skal bruge '.' i stedet for ','");
-            // Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
         }
 
@@ -318,12 +311,12 @@ public class DataInsertionPageController implements Initializable {
             Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
             stage.getIcons().add(icon);
 
-            // https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html#initModality-javafx.stage.Modality-
-            // Set stage to have the modality of WINDOW_MODAL.
-            // The stage blocks input events from being delivered to all windows from its owner (parent) to its root. Its root is the closest ancestor window without an owner.
+            //https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html#initModality-javafx.stage.Modality-
+            //Set stage to have the modality of WINDOW_MODAL.
+            //The stage blocks input events from being delivered to all windows from its owner (parent) to its root. Its root is the closest ancestor window without an owner.
             stage.initModality(Modality.WINDOW_MODAL);
-            // initOwner specifies the owner Window for this stage. In this case we set dataInsertionPage to be the owner.
-            // This one 'locks' the user to the window, so they can't click elsewhere.
+            //initOwner specifies the owner Window for this stage. In this case we set dataInsertionPage to be the owner.
+            //This one 'locks' the user to the window, so they can't click elsewhere.
             stage.initOwner(((Node) event.getSource()).getScene().getWindow());
 
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -348,6 +341,7 @@ public class DataInsertionPageController implements Initializable {
         registerNewPStage.show();
     }
 
+
     /**
      * Event handler for the button "Udregn".
      * Switches to the calculation page.
@@ -358,14 +352,14 @@ public class DataInsertionPageController implements Initializable {
             createCalc();
             App.getCalculationController().updateCalculationView(calculation);
             App.switchScene(App.getCalculationPageParent());
-            // If the calculation made it through, we update the state keeping track of whether the current calculation has been saved or not, to false.
+            //If the calculation made it through, we update the state keeping track of whether the current calculation has been saved or not, to false.
             CalculationPageController.setCalculationSaved(false);
         } catch (Exception exception) {
             exception.printStackTrace();
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
-            // We call upon the method which creates a popup with the provided string.
+            //We call upon the method which creates a popup with the provided string.
             errorHandlingCollection.basicErrorPopup("fejl", "Husk at vælge 'Afdeling', 'År' og 'Kvartal'");
-            // Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
+            //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
        }
     }
