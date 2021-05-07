@@ -208,10 +208,6 @@ public class CalculationModel {
             // using category as key and percentage as value
             ht.put(categories.get(i), (subtotal/calcTotalCo2()*100));
         }
-
-        // TODO slettes - debugger Anne
-        System.out.println(ht);
-
         return ht;
     }
 
@@ -265,10 +261,6 @@ public class CalculationModel {
             // using category as key and subtotal as value
             ht.put(categories.get(i), subtotal);
         }
-
-        // TODO slettes - debugger Anne
-        System.out.println(ht);
-
         return ht;
     }
 
@@ -288,10 +280,6 @@ public class CalculationModel {
                 list.add(foodItemList.get(i).getCategory());
             }
         }
-
-        // TODO slettes - debug Anne
-        System.out.println(list);
-
         // Sort the list alphabetically
         Collections.sort(list);
 
@@ -376,10 +364,6 @@ public class CalculationModel {
             // using category as key and subtotal as value
             ht.put(categories.get(i), subtotal/calcTotalKg()*100);
         }
-
-        // TODO slettes - debugger Anne
-        System.out.println(ht);
-
         return ht;
     }
 
@@ -400,10 +384,6 @@ public class CalculationModel {
             // using category as key and subtotal as value
             ht.put(categories.get(i), subtotal);
         }
-
-        // TODO slettes - debugger Anne
-        System.out.println(ht);
-
         return ht;
     }
 

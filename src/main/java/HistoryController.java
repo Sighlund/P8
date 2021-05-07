@@ -53,14 +53,6 @@ public class HistoryController implements Initializable {
     // Attribute to hold list of calculations to be displayed in table view
     private ObservableList<CalculationModel> calcList;
 
-
-    //TODO Bjørn: Jeg har forsøgt at lave en variable uden for metodernes scope, som skulle holde
-    // på en ObservableList<CalculationModel> med alle calcs i systemet. Jeg kunne ikke få det til at virke.
-    // Tror enten det var pga. listcalc() er static, og måske fordi ObservableList der returneres, har listeners på sig.
-    // Jeg forsøgte at caste skidtet frem og tilbage på alle mulige måder, og benytte mig af andre typer af ArrayList og List.
-    //Attribute to hold list of all calculations from database. By having it be an attribute, we only need to load once.
-    //private ObservableList<CalculationModel> allCalcsList = CalculationPersistence.listCalc();
-
     // Attribute to hold list of selected calculations from the left table view
     private ObservableList<CalculationModel> selectedCalcs;
 
@@ -202,12 +194,9 @@ public class HistoryController implements Initializable {
         //This if statement is much like the above. There are slight differences
         // in the things we check the equality of, since the data types and model methods vary a bit.
         if (choiceboxChooseYearHis.getValue() != null){
-            System.out.println(choiceboxChooseYearHis.getValue().getClass());
             for (CalculationModel specificCalc: tempCalcList){
                 if (!choiceboxChooseYearHis.getValue().getId().equals(specificCalc.getYear().getId())){
-                    System.out.println(tempCalcList);
                     toRemoveList.add(specificCalc);
-                    System.out.println(toRemoveList);
                 }
             }
         }
@@ -218,9 +207,7 @@ public class HistoryController implements Initializable {
             for (CalculationModel specificCalc: tempCalcList){
                 //If each specific calcs getKitchen().getName from tempCalcList does not match value of what is in the choiceboxChooseKitchenHis
                 if (!choiceboxChooseQuarterHis.getValue().equals(specificCalc.getQuarter())){
-                    System.out.println(tempCalcList);
                     toRemoveList.add(specificCalc);
-                    System.out.println(toRemoveList);
                 }
             }
         }
