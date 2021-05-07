@@ -143,15 +143,19 @@ public class CalculationComparisonPageController implements Initializable {
 
     public void getBasicTextInfo(){
         // loops through calcs size and updates labels with co2prkg, kitchen and quarter. LabelCategoryText is set to "" to avoid null error
+
         for(int i=0; i<calcs.size(); i++) {
+            /*
             this.x = calcs.get(i).getKitchen().toString()
                     + "\n" + "År " + calcs.get(i).getYear().toString() + ", kvartal " + calcs.get(i).getQuarter().toString() + "\n" + "Co2 pr Kg: " + format(calcs.get(i).calcAveCO2prKg()) + "\n";
         Array.set(calInfoText,i,x);
+             */
         labelCategoryText[i]="";
         }
 
         // buttons are updated with basic text.
         // hover effect is added
+        /*
         InfoButton1.setText(calInfoText[0]);
         InfoButton1.setOnMouseEntered(e -> InfoButton1.setStyle(hoverColor));
         InfoButton1.setOnMouseExited(e -> InfoButton1.setStyle(backGroundColor));
@@ -164,6 +168,8 @@ public class CalculationComparisonPageController implements Initializable {
         InfoButton4.setText(calInfoText[3]);
         InfoButton4.setOnMouseEntered(e -> InfoButton4.setStyle(hoverColor));
         InfoButton4.setOnMouseExited(e -> InfoButton4.setStyle(backGroundColor));
+
+         */
 
         // we adjust the labels to the minor 'bug' that new stacked charts are added in the middle
 //        if(calcs.size()==3){
@@ -297,6 +303,9 @@ public class CalculationComparisonPageController implements Initializable {
         // Set label for y-axis
         stackedBarXAxis.setLabel("Køkken og periode");
 
+        // Set categories on the x-axis
+        stackedBarXAxis.getCategories().addAll(getAllCategories());
+
         // Set gap for the bar chart
         stackedBarChart.setCategoryGap(100);
 
@@ -305,9 +314,6 @@ public class CalculationComparisonPageController implements Initializable {
 
         // Call private method to create series and add all series to the chart
         addSeriesToChart();
-
-        // Store reference to all the displayed series
-        this.displayedSeries = stackedBarChart.getData();
     }
 
 
@@ -317,6 +323,24 @@ public class CalculationComparisonPageController implements Initializable {
      * and adds them to the stacked bar chart
      */
     private void addSeriesToChart(){
+
+        /*
+        for (CalculationModel calc : calcs){
+            // Create a new series for each category, each taking a String and a Number value
+            XYChart.Series series = new XYChart.Series<>();
+
+            // Set name for the series
+            series.setName(
+                    calc.getKitchen().toString() + " " +
+                    calc.getQuarter() + ". kvartal " +
+                    calc.getYear().toString());
+
+            // Add new series to stacked bar chart
+            stackedBarChart.getData().add(series);
+        }
+
+         */
+
         // Get list of categories to display as stacked bars (x-axis)
         categories = getAllCategories();
 
@@ -332,6 +356,11 @@ public class CalculationComparisonPageController implements Initializable {
             // Add the new series (category) with all the data values to the stacked bar chart
             stackedBarChart.getData().add(series);
         }
+
+        // Store reference to all the displayed series
+        this.displayedSeries = stackedBarChart.getData();
+
+
     }
 
 
@@ -354,67 +383,155 @@ public class CalculationComparisonPageController implements Initializable {
             barChart.setVisible(false);
         }
 
-        // Iterate over the series in the stacked bar chart
-        for (XYChart.Series<String, Number> s : displayedSeries){
+        int i = 0;
 
-            // Clear previous data in the current series
-            s.getData().clear();
+        for (XYChart.Series ss : displayedSeries) {
+            ss.getData().clear();
+        }
 
-            int i = 0;
 
-            // Iterate over all calculations to be displayed
-            for (CalculationModel calc : calcs){
+        // Iterate over all calculations
+        for (CalculationModel calc : this.calcs) {
 
-                // Create hash table to store values for the current calculation
-                Hashtable<String, Double> ht;
+            //TODO debug slet
+            System.out.println(calc.getQuarter());
 
-                // Get hash table with data to display from the calculation based on the chosen option
-                // Default, get hash table with CO2 percentage values for each category
-                if (option == 2){
-                    ht = calc.getCategoriesCo2KgHt(); // Gets CO2 subtotal values in kg for each category
-                }
-                else if (option == 3){
-                    ht = calc.getCategoriesVolPercentagesHt(); // Gets volume subtotal values in percentage for each category
-                }
-                else if (option == 4) {
-                    ht = calc.getCategoriesVolKgHt(); // Gets volume subtotal values in kg for each category
-                }
-                else {
-                    ht = calc.getCategoriesCo2PercentagesHt(); // Gets CO2 subtotal values in percentage for each category
-                }
+            // Create hash table to store values for the current calculation
+            Hashtable<String, Double> ht;
 
-                // Get set of keys in the hash table to be able
-                // to access the categories and their values
-                Set<String> keys = ht.keySet();
+            // Get hashtable with data to display from the calculation based on the chosen option
+            // Default, get hash table with CO2 percentage values for each category
+            if (option == 2) {
+                ht = calc.getCategoriesCo2KgHt(); // Gets CO2 subtotal values in kg for each category
+            } else if (option == 3) {
+                ht = calc.getCategoriesVolPercentagesHt(); // Gets volume subtotal values in percentage for each category
+            } else if (option == 4) {
+                ht = calc.getCategoriesVolKgHt(); // Gets volume subtotal values in kg for each category
+            } else {
+                ht = calc.getCategoriesCo2PercentagesHt(); // Gets CO2 subtotal values in percentage for each category
+            }
+
+            // Get set of keys in the hash table to be able
+            // to access the categories and their values
+            Set<String> keys = ht.keySet();
+
+            for (XYChart.Series s : displayedSeries) {
 
                 // If the current category is present in the current calculation add a new Data object to the series
                 // using name of kitchen, quarter, year as category name
                 // and the corresponding hash table value as data value
                 // sets label category text
-                if (keys.contains(s.getName())) {
-                    s.getData().add(new XYChart.Data<>(
-                            (calc.getKitchen().toString() + " " +
-                                    calc.getQuarter() + ". kvartal " +
-                                    calc.getYear().toString()),
-                            ht.get(s.getName())));
 
-                    labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": "+ "\n" + format(ht.get(s.getName()));
-                    if(option==1 || option==3 || option==5){
-                        labelCategoryText[i] = labelCategoryText[i]+"%"  + "\n";
+                String name = calc.getKitchen().toString() + " " +
+                        calc.getQuarter() + ". kvartal " +
+                        calc.getYear().toString();
+
+                Double value = 0.0;
+
+                if (keys.contains(s.getName())){
+                    value = ht.get(s.getName());
+
+                    labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": " + "\n" + format(value);
+                    if (option == 1 || option == 3 || option == 5) {
+                        labelCategoryText[i] = labelCategoryText[i] + "%" + "\n";
+                    } else {
+                        labelCategoryText[i] = labelCategoryText[i] + "kg" + "\n";
                     }
-                    else{
-                        labelCategoryText[i] = labelCategoryText[i]+"kg"  + "\n";
-                    }
+
+                    System.out.println(labelCategoryText[i]);
+
                 }
-                i++;
+
+                s.getData().add(new XYChart.Data<>(name, value));
+
+
             }
+            i++;
+
         }
 
-        // assigns label category text
-        LabelKategori1.setText(labelCategoryText[0]);
-        LabelKategori2.setText(labelCategoryText[1]);
-        LabelKategori3.setText(labelCategoryText[2]);
-        LabelKategori3.setText(labelCategoryText[3]);
+/*
+            // Iterate over the series in the stacked bar chart
+            for (XYChart.Series<String, Number> s : displayedSeries) {
+
+                // Clear previous data in the current series
+                s.getData().clear();
+
+                int i = 0;
+
+                // Iterate over all calculations to be displayed
+                for (CalculationModel calc : calcs) {
+
+                    this.x = calc.getKitchen().toString()
+                            + "\n" + "År " + calc.getYear().toString() + ", kvartal " + calc.getQuarter().toString() + "\n" + "Co2 pr Kg: " + format(calc.calcAveCO2prKg()) + "\n";
+                    Array.set(calInfoText, i, x);
+
+                    // Create hash table to store values for the current calculation
+                    Hashtable<String, Double> ht;
+
+                    // Get hashtable with data to display from the calculation based on the chosen option
+                    // Default, get hash table with CO2 percentage values for each category
+                    if (option == 2) {
+                        ht = calc.getCategoriesCo2KgHt(); // Gets CO2 subtotal values in kg for each category
+                    } else if (option == 3) {
+                        ht = calc.getCategoriesVolPercentagesHt(); // Gets volume subtotal values in percentage for each category
+                    } else if (option == 4) {
+                        ht = calc.getCategoriesVolKgHt(); // Gets volume subtotal values in kg for each category
+                    } else {
+                        ht = calc.getCategoriesCo2PercentagesHt(); // Gets CO2 subtotal values in percentage for each category
+                    }
+
+                    // Get set of keys in the hash table to be able
+                    // to access the categories and their values
+                    Set<String> keys = ht.keySet();
+
+                    // If the current category is present in the current calculation add a new Data object to the series
+                    // using name of kitchen, quarter, year as category name
+                    // and the corresponding hash table value as data value
+                    // sets label category text
+                    if (keys.contains(s.getName())) {
+                        s.getData().add(new XYChart.Data<>(
+                                (calc.getKitchen().toString() + " " +
+                                        calc.getQuarter() + ". kvartal " +
+                                        calc.getYear().toString()),
+                                ht.get(s.getName())));
+
+                        labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": " + "\n" + format(ht.get(s.getName()));
+                        if (option == 1 || option == 3 || option == 5) {
+                            labelCategoryText[i] = labelCategoryText[i] + "%" + "\n";
+                        } else {
+                            labelCategoryText[i] = labelCategoryText[i] + "kg" + "\n";
+                        }
+                    }
+                    i++;
+                }
+
+            }
+
+ */
+
+            // assigns label category text
+            LabelKategori1.setText(labelCategoryText[0]);
+            LabelKategori2.setText(labelCategoryText[1]);
+            LabelKategori3.setText(labelCategoryText[2]);
+            LabelKategori4.setText(labelCategoryText[3]);
+
+            InfoButton1.setText(calInfoText[0]);
+            InfoButton1.setOnMouseEntered(e -> InfoButton1.setStyle(hoverColor));
+            InfoButton1.setOnMouseExited(e -> InfoButton1.setStyle(backGroundColor));
+            InfoButton2.setText(calInfoText[1]);
+            InfoButton2.setOnMouseEntered(e -> InfoButton2.setStyle(hoverColor));
+            InfoButton2.setOnMouseExited(e -> InfoButton2.setStyle(backGroundColor));
+            InfoButton3.setText(calInfoText[2]);
+            InfoButton3.setOnMouseEntered(e -> InfoButton3.setStyle(hoverColor));
+            InfoButton3.setOnMouseExited(e -> InfoButton3.setStyle(backGroundColor));
+            InfoButton4.setText(calInfoText[3]);
+            InfoButton4.setOnMouseEntered(e -> InfoButton4.setStyle(hoverColor));
+            InfoButton4.setOnMouseExited(e -> InfoButton4.setStyle(backGroundColor));
+
+
+
+        /*
         // we adjust the labels to the minor 'bug' that new stacked charts are added in the middle
         if(calcs.size()==3){
             LabelKategori2.setText(labelCategoryText[2]);
@@ -425,12 +542,13 @@ public class CalculationComparisonPageController implements Initializable {
             LabelKategori3.setText(labelCategoryText[3]);
             LabelKategori4.setText(labelCategoryText[1]);
         }
+         */
 
-        // Ensure that the stacked bar chart is visible
-        if (!stackedBarChart.isVisible()){
-            stackedBarChart.setVisible(true);
+            // Ensure that the stacked bar chart is visible
+            if (!stackedBarChart.isVisible()) {
+                stackedBarChart.setVisible(true);
+            }
         }
-    }
 
 
 
