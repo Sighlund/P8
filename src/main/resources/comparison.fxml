@@ -36,13 +36,13 @@
             <Font name="SansSerif Bold" size="18.0" />
          </font>
       </Label>
-      <MenuButton fx:id="diagramMenuBtn" layoutX="1020.0" layoutY="126.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Diagram">
+      <MenuButton fx:id="diagramMenuBtn" layoutX="974.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="270.0" text="Diagram">
         <items>
-          <MenuItem fx:id="co2PMenuItem" mnemonicParsing="false" onAction="#showCo2P" text="CO2e i procent" />
-          <MenuItem fx:id="co2KgMenuItem" mnemonicParsing="false" onAction="#showCo2Kg" text="CO2e i kg" />
-            <MenuItem fx:id="volPMenuItem" mnemonicParsing="false" onAction="#showVolP" text="Vægt i procent" />
-            <MenuItem fx:id="volKgMenuItem" mnemonicParsing="false" onAction="#showVolKg" text="Vægt i kg" />
-            <MenuItem fx:id="co2PrKgMenuItem" mnemonicParsing="false" onAction="#showCo2PrKg" text="Gennemsnitlig CO2 pr. kg" />
+          <MenuItem fx:id="co2PMenuItem" mnemonicParsing="false" onAction="#showCo2P" text="CO2e-fordeling af fødevarer" />
+          <MenuItem fx:id="co2KgMenuItem" mnemonicParsing="false" onAction="#showCo2Kg" text="Vægten af CO2e for beregning" />
+            <MenuItem fx:id="volPMenuItem" mnemonicParsing="false" onAction="#showVolP" text="Vægtfordeling af fødevarer" />
+            <MenuItem fx:id="volKgMenuItem" mnemonicParsing="false" onAction="#showVolKg" text="Vægten af fødevarer" />
+            <MenuItem fx:id="co2PrKgMenuItem" mnemonicParsing="false" onAction="#showCo2PrKg" text="Gennemsnitlig CO2e pr. kg" />
         </items>
          <tooltip>
             <Tooltip text="Vælg hvordan de valgte data skal vises" />
@@ -84,5 +84,6 @@
       <Label fx:id="LabelKategori4" alignment="TOP_LEFT" layoutX="769.0" layoutY="212.0" opacity="0.8" prefHeight="169.0" prefWidth="162.0" style="-fx-background-color: #D3D3D3;" text="Label" />
       <Label fx:id="LabelKategori3" alignment="TOP_LEFT" layoutX="578.0" layoutY="212.0" opacity="0.8" prefHeight="169.0" prefWidth="162.0" style="-fx-background-color: #D3D3D3;" text="Label" />
       <Label fx:id="LabelKategori2" alignment="TOP_LEFT" layoutX="385.0" layoutY="212.0" opacity="0.8" prefHeight="169.0" prefWidth="162.0" style="-fx-background-color: #D3D3D3;" text="Label" />
+      <Label layoutX="974.0" layoutY="117.0" prefHeight="18.0" prefWidth="195.0" text="Vælg visning af data..." />
    </children>
 </AnchorPane>
