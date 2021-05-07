@@ -11,7 +11,9 @@ import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import model.CalculationModel;
 import model.FoodItemModel;
 import persistence.CalculationPersistence;
@@ -69,9 +71,10 @@ public class CalculationPageController implements Initializable {
     private TableColumn co2prkiloValueColumn;
     @FXML
     private TableColumn totalCo2ForItemColumn;
-
     @FXML
     private Label PieChartLabel;
+    @FXML
+    private Text descriptorSavedAlert;
 
 
     // Reference to the calculation to be displayed
@@ -210,9 +213,32 @@ public class CalculationPageController implements Initializable {
             System.out.println("The calculation the user created does not exist. A new one will be created");
             CalculationPersistence.addCalc(calculation);
         }
+        //Sets the "gemt" alert message to true
+        descriptorSavedAlert.setVisible(true);
+        removeSavedAlert();
         //We update the bool state keeping track of whether the current calculation has been saved, to true.
         //This state is changed back to 'false', once the user pressed 'Udregn' button again.
         CalculationPageController.setCalculationSaved(true);
+    }
+
+    /**
+     * Removes the save alert after 3 seconds (the message is made invisible)
+     */
+    public void removeSavedAlert() {
+        //Creates a new TimerTask that will set the "gemt" alert message to false after the TimerTask is over
+        TimerTask task = new TimerTask() {
+            public void run() {
+                descriptorSavedAlert.setVisible(false);
+            }
+        };
+        //Creates a new timer that will be used to define how long the "gemt" alert message will be shown
+        //Daemon makes the timer low priority, aka a daemon thread, which means that when the application is closed
+        //the JVM forces this method to end (This is what the "true" in the parenthesis means)
+        Timer timer = new Timer(true);
+        //The timer is set to countdown 3000 milliseconds aka 3 seconds.
+        long delay = 3000L;
+        //Starts the timer
+        timer.schedule(task, delay);
     }
 
     /**
