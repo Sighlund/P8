@@ -276,8 +276,6 @@ public class CalculationComparisonPageController implements Initializable {
             // Store index of the calculation in the calcs list
             int i = calcs.indexOf(calc);
 
-            System.out.println("Calc index: " + i + name);
-
             // Store text for label, using the index of the calculation
             calInfoText[i] = name + "\nCo2 pr Kg: " + format(calc.calcAveCO2prKg());
 
