@@ -1,3 +1,4 @@
+import com.sun.javafx.charts.Legend;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -5,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-import javafx.scene.Parent;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -68,6 +68,9 @@ public class CalculationPageController implements Initializable {
     private TableColumn co2prkiloValueColumn;
     @FXML
     private TableColumn totalCo2ForItemColumn;
+
+    @FXML
+    private Label PieChartLabel;
 
 
     // Reference to the calculation to be displayed
@@ -132,7 +135,7 @@ public class CalculationPageController implements Initializable {
             PieChart.Data data = new PieChart.Data(key, (Double) categories.get(key));
 
             // Bind the name property of the data object to reflect category name and percentage value
-            data.nameProperty().bind(Bindings.concat(data.getName(), " ", Math.round(data.getPieValue()), "%"));
+            data.nameProperty().bind(Bindings.concat(data.getName(), " \n", Math.round(data.getPieValue()), "% "));
 
             // Add data object to the observable list of pie chart data
             pieChartData.add(data);
@@ -200,8 +203,12 @@ public class CalculationPageController implements Initializable {
      * @return true if calculation was saved, else false
      */
     public void saveCalculationToDatabase(){
-        CalculationPersistence.addCalc(calculation);
-
+        try {
+            CalculationPersistence.updateCalc(calculation);
+        }catch (Exception e){
+            System.out.println("The calculation the user created does not exist. A new one will be created");
+            CalculationPersistence.addCalc(calculation);
+        }
         //We update the bool state keeping track of whether the current calculation has been saved, to true.
         //This state is changed back to 'false', once the user pressed 'Udregn' button again.
         CalculationPageController.setCalculationSaved(true);
