@@ -39,21 +39,14 @@ import javax.persistence.NoResultException;
 public class DataInsertionPageController implements Initializable {
 
     //Configuring tableView table:
-    @FXML
-    private TableView<ViewListItemDataInsertionPage> insertionPageTableView;
+    @FXML private TableView<ViewListItemDataInsertionPage> insertionPageTableView;
     //Creating each column, telling which parent and input datatype it has.
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> productNameColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> primaryGroupColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> secondaryGroupColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> volumeOfProductColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> co2prkiloValueColumn;
-    @FXML
-    private TableColumn<ViewListItemDataInsertionPage, String> totalCo2ForItemColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> productNameColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> primaryGroupColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> secondaryGroupColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> volumeOfProductColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> co2prkiloValueColumn;
+    @FXML private TableColumn<ViewListItemDataInsertionPage, String> totalCo2ForItemColumn;
 
     // Property that holds list of food items to be stored with the calculation
     private List<FoodItemModel> foodItemList = new ArrayList<>();
