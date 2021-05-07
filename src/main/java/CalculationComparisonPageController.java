@@ -166,15 +166,15 @@ public class CalculationComparisonPageController implements Initializable {
         InfoButton4.setOnMouseExited(e -> InfoButton4.setStyle(backGroundColor));
 
         // we adjust the labels to the minor 'bug' that new stacked charts are added in the middle
-        if(calcs.size()==3){
-            InfoButton2.setText(calInfoText[2]);
-            InfoButton3.setText(calInfoText[1]);
-        }
-        if(calcs.size()==4){
-            InfoButton2.setText(calInfoText[2]);
-            InfoButton3.setText(calInfoText[3]);
-            InfoButton4.setText(calInfoText[1]);
-        }
+//        if(calcs.size()==3){
+//            InfoButton2.setText(calInfoText[2]);
+//            InfoButton3.setText(calInfoText[1]);
+//        }
+//        if(calcs.size()==4){
+//            InfoButton2.setText(calInfoText[2]);
+//            InfoButton3.setText(calInfoText[3]);
+//            InfoButton4.setText(calInfoText[1]);
+//        }
 
         // other than calc 1 is set as non visible unless there is a calculation that matches
         InfoButton2.setVisible(false);

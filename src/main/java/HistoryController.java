@@ -154,7 +154,7 @@ public class HistoryController implements Initializable {
      */
     @FXML
     public void sendToCalculationComparisonPageControllerAction(ActionEvent event) throws IOException {
-        App.getComparisonController().getInformation(calcsForComp);
+        App.getComparisonController().getInformation(tableViewRight.getItems());
         App.switchScene(App.getComparisonParent());
     }
 
