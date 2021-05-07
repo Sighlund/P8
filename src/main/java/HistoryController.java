@@ -194,12 +194,9 @@ public class HistoryController implements Initializable {
         //This if statement is much like the above. There are slight differences
         // in the things we check the equality of, since the data types and model methods vary a bit.
         if (choiceboxChooseYearHis.getValue() != null){
-            System.out.println(choiceboxChooseYearHis.getValue().getClass());
             for (CalculationModel specificCalc: tempCalcList){
                 if (!choiceboxChooseYearHis.getValue().getId().equals(specificCalc.getYear().getId())){
-                    System.out.println(tempCalcList);
                     toRemoveList.add(specificCalc);
-                    System.out.println(toRemoveList);
                 }
             }
         }
@@ -210,9 +207,7 @@ public class HistoryController implements Initializable {
             for (CalculationModel specificCalc: tempCalcList){
                 //If each specific calcs getKitchen().getName from tempCalcList does not match value of what is in the choiceboxChooseKitchenHis
                 if (!choiceboxChooseQuarterHis.getValue().equals(specificCalc.getQuarter())){
-                    System.out.println(tempCalcList);
                     toRemoveList.add(specificCalc);
-                    System.out.println(toRemoveList);
                 }
             }
         }
