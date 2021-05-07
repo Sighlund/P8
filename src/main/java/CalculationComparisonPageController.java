@@ -85,16 +85,6 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     private Label LabelKategori4;
 
-
-    @FXML
-    private Text søjle2Titel;
-
-    @FXML
-    private Text søjle3Titel;
-
-    @FXML
-    private Text søjle4Titel;
-
     @FXML
     private Label viskategorierLabel2;
 
@@ -146,34 +136,58 @@ public class CalculationComparisonPageController implements Initializable {
     // x is used when assigning basic text to labels
     String x;
 
+    // string used for hover effect
+    private static final String backGroundColor="-fx-background-color: #018849";
+    private static final String hoverColor="-fx-background-color:  #019849";
+
     public void getBasicTextInfo(){
         // loops through calcs size and updates labels with co2prkg, kitchen and quarter. LabelCategoryText is set to "" to avoid null error
         for(int i=0; i<calcs.size(); i++) {
             this.x = calcs.get(i).getKitchen().toString()
-                    + ", kvartal " + calcs.get(i).getQuarter().toString() + "\n" + "Co2 pr Kg: " + format(calcs.get(i).calcAveCO2prKg()) + "\n";
+                    + "\n" + "År " + calcs.get(i).getYear().toString() + ", kvartal " + calcs.get(i).getQuarter().toString() + "\n" + "Co2 pr Kg: " + format(calcs.get(i).calcAveCO2prKg()) + "\n";
         Array.set(calInfoText,i,x);
         labelCategoryText[i]="";
         }
 
-        //Buttons are updated with basic text. Other than calc 1 is set as non visible unless there is a calculation that matches
+        // buttons are updated with basic text.
+        // hover effect is added
         InfoButton1.setText(calInfoText[0]);
+        InfoButton1.setOnMouseEntered(e -> InfoButton1.setStyle(hoverColor));
+        InfoButton1.setOnMouseExited(e -> InfoButton1.setStyle(backGroundColor));
         InfoButton2.setText(calInfoText[1]);
+        InfoButton2.setOnMouseEntered(e -> InfoButton2.setStyle(hoverColor));
+        InfoButton2.setOnMouseExited(e -> InfoButton2.setStyle(backGroundColor));
         InfoButton3.setText(calInfoText[2]);
+        InfoButton3.setOnMouseEntered(e -> InfoButton3.setStyle(hoverColor));
+        InfoButton3.setOnMouseExited(e -> InfoButton3.setStyle(backGroundColor));
         InfoButton4.setText(calInfoText[3]);
+        InfoButton4.setOnMouseEntered(e -> InfoButton4.setStyle(hoverColor));
+        InfoButton4.setOnMouseExited(e -> InfoButton4.setStyle(backGroundColor));
+
+        // we adjust the labels to the minor 'bug' that new stacked charts are added in the middle
+        if(calcs.size()==3){
+            InfoButton2.setText(calInfoText[2]);
+            InfoButton3.setText(calInfoText[1]);
+        }
+        if(calcs.size()==4){
+            InfoButton2.setText(calInfoText[2]);
+            InfoButton3.setText(calInfoText[3]);
+            InfoButton4.setText(calInfoText[1]);
+        }
+
+        // other than calc 1 is set as non visible unless there is a calculation that matches
         InfoButton2.setVisible(false);
         checkbox2.setVisible(false);
         viskategorierLabel2.setVisible(false);
-        søjle2Titel.setVisible(false);
+
         InfoButton3.setVisible(false);
         checkbox3.setVisible(false);
         viskategorierLabel3.setVisible(false);
-        søjle3Titel.setVisible(false);
+
         InfoButton4.setVisible(false);
         checkbox4.setVisible(false);
         viskategorierLabel4.setVisible(false);
-        søjle4Titel.setVisible(false);
-        InfoButton4.setVisible(false);
-        checkbox4.setVisible(false);
+
         LabelKategori1.setVisible(false);
         LabelKategori2.setVisible(false);
         LabelKategori3.setVisible(false);
@@ -183,17 +197,14 @@ public class CalculationComparisonPageController implements Initializable {
             InfoButton2.setVisible(true);
             checkbox2.setVisible(true);
             viskategorierLabel2.setVisible(true);
-            søjle2Titel.setVisible(true);
             if(calcs.size()>2){
                 InfoButton3.setVisible(true);
                 checkbox3.setVisible(true);
                 viskategorierLabel3.setVisible(true);
-                søjle3Titel.setVisible(true);
                 if(calcs.size()>3){
                     InfoButton4.setVisible(true);
                     checkbox4.setVisible(true);
                     viskategorierLabel4.setVisible(true);
-                    søjle4Titel.setVisible(true);
                 }
             }
         }
@@ -235,7 +246,7 @@ public class CalculationComparisonPageController implements Initializable {
     }
 
     public void Label4Visible(ActionEvent event){
-        if(checkbox3.isSelected()) {
+        if(checkbox4.isSelected()) {
             LabelKategori4.setVisible(true);
         }
         else{
@@ -374,7 +385,13 @@ public class CalculationComparisonPageController implements Initializable {
                                     calc.getYear().toString()),
                             ht.get(s.getName())));
 
-                    labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": "+ "\n" + format(ht.get(s.getName())) + "%" + "\n";
+                    labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": "+ "\n" + format(ht.get(s.getName()));
+                    if(option==1 || option==3 || option==5){
+                        labelCategoryText[i] = labelCategoryText[i]+"%"  + "\n";
+                    }
+                    else{
+                        labelCategoryText[i] = labelCategoryText[i]+"kg"  + "\n";
+                    }
                 }
                 i++;
             }
@@ -385,6 +402,16 @@ public class CalculationComparisonPageController implements Initializable {
         LabelKategori2.setText(labelCategoryText[1]);
         LabelKategori3.setText(labelCategoryText[2]);
         LabelKategori3.setText(labelCategoryText[3]);
+        // we adjust the labels to the minor 'bug' that new stacked charts are added in the middle
+        if(calcs.size()==3){
+            LabelKategori2.setText(labelCategoryText[2]);
+            LabelKategori3.setText(labelCategoryText[1]);
+        }
+        if(calcs.size()==4){
+            LabelKategori2.setText(labelCategoryText[2]);
+            LabelKategori3.setText(labelCategoryText[3]);
+            LabelKategori4.setText(labelCategoryText[1]);
+        }
 
         // Ensure that the stacked bar chart is visible
         if (!stackedBarChart.isVisible()){
