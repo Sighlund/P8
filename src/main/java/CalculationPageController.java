@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -183,7 +183,6 @@ public class CalculationPageController implements Initializable {
             foodItemsTableView.getItems().add(new ViewListItemDataInsertionPage(
                     f.getName(), f.getCategory(), f.getSubcategory(), volumeComma, co2PrKgComma, calcCo2Comma));
         }
-
     }
 
     private String format(Double d){
@@ -225,13 +224,22 @@ public class CalculationPageController implements Initializable {
         App.switchScene(App.getFrontPageParent());
     }
 
+
+    // Property to hold which parent scene (view page) the user came from
+    // to get to this page
+    private Parent cameFrom;
+
+    public void setCameFrom(Parent cameFrom) {
+        this.cameFrom = cameFrom;
+    }
+
     /**
      * Event handler for the button "Tilbage".
      * Switches back to the data insertion page.
      * @param event action event from the button element
      */
     public void switchToDataInsertionPage(ActionEvent event){
-        App.switchScene(App.getDataInsertionPageParent());
+        App.switchScene(cameFrom);
     }
 
 }

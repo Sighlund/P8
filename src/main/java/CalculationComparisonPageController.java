@@ -2,6 +2,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -254,23 +255,35 @@ public class CalculationComparisonPageController implements Initializable {
         }
     }
 
+    // Private property to hold the parent scene for the comparison page
+    private Parent thisFxml;
+
+    public void setThisFxml(Parent myFxml) {
+        this.thisFxml = myFxml;
+    }
+
     public void switchToCalculationPageCalc1(ActionEvent event) {
             App.getCalculationController().updateCalculationView(calcs.get(0));
+            App.getCalculationController().setCameFrom(thisFxml);
             App.switchScene(App.getCalculationPageParent());
+
     }
 
     public void switchToCalculationPageCalc2(ActionEvent event) {
         App.getCalculationController().updateCalculationView(calcs.get(1));
+        App.getCalculationController().setCameFrom(thisFxml);
         App.switchScene(App.getCalculationPageParent());
     }
 
     public void switchToCalculationPageCalc3(ActionEvent event) {
         App.getCalculationController().updateCalculationView(calcs.get(2));
+        App.getCalculationController().setCameFrom(thisFxml);
         App.switchScene(App.getCalculationPageParent());
     }
 
     public void switchToCalculationPageCalc4(ActionEvent event) {
         App.getCalculationController().updateCalculationView(calcs.get(3));
+        App.getCalculationController().setCameFrom(thisFxml);
         App.switchScene(App.getCalculationPageParent());
     }
 
