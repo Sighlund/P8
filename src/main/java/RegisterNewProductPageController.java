@@ -99,6 +99,11 @@ public class RegisterNewProductPageController implements Initializable {
         percentageColumn.setCellValueFactory(new PropertyValueFactory<ViewListRegisterPage, String>("amountIngredient"));
 
         registerPageTableView.setItems(getItemsForList());
+
+        // Set placeholder
+        registerPageTableView.setPlaceholder(new Text(
+                "Skriv i søgefeltet for at finde en ny ingrediens\n\n" +
+                        "Du kan vælge mellem de 500 fødevarer fra Concitos Den Store Klimadatabase"));
     }
 
     public ObservableList<ViewListRegisterPage> getItemsForList() {

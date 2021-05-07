@@ -339,6 +339,12 @@ public class DataInsertionPageController implements Initializable {
         registerNewPStage.show();
     }
 
+    // Property to hold parent scene for this controller
+    private Parent thisFxml;
+
+    public void setThisFxml(Parent thisFxml) {
+        this.thisFxml = thisFxml;
+    }
 
     /**
      * Event handler for the button "Udregn".
@@ -349,6 +355,7 @@ public class DataInsertionPageController implements Initializable {
         try {
             createCalc();
             App.getCalculationController().updateCalculationView(calculation);
+            App.getCalculationController().setCameFrom(thisFxml);
             App.switchScene(App.getCalculationPageParent());
             //If the calculation made it through, we update the state keeping track of whether the current calculation has been saved or not, to false.
             CalculationPageController.setCalculationSaved(false);
