@@ -68,7 +68,7 @@ public class DataInsertionPageController implements Initializable {
         //If the provided name doesn't match, an exception is thrown. It is caught in the method that called addProductToList().
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
 
-        // TODO
+        //Replaces comma with dot in the data the user entered.
         String commaConvert = volumeKiloTextField.getText().replace(',', '.');
 
         //Make a Double variable that stores the current content of the volumeKiloTextField.

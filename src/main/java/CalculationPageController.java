@@ -191,12 +191,12 @@ public class CalculationPageController implements Initializable {
         return format;
     }
 
-    private void seeDetails(){
+    //private void seeDetails(){
         //TODO - se detaljer for enkelt kategori - eventhandler, der ændrer pie chart og table view
         // Get subcategories for specific category from calculation - as hash table
         // build piechart with new hash table
         // Fremtidigt arbejde
-    }
+    //}
 
     /**
      * Saves current instance of calculation in the database
