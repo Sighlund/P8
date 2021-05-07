@@ -53,14 +53,6 @@ public class HistoryController implements Initializable {
     // Attribute to hold list of calculations to be displayed in table view
     private ObservableList<CalculationModel> calcList;
 
-
-    //TODO Bjørn: Jeg har forsøgt at lave en variable uden for metodernes scope, som skulle holde
-    // på en ObservableList<CalculationModel> med alle calcs i systemet. Jeg kunne ikke få det til at virke.
-    // Tror enten det var pga. listcalc() er static, og måske fordi ObservableList der returneres, har listeners på sig.
-    // Jeg forsøgte at caste skidtet frem og tilbage på alle mulige måder, og benytte mig af andre typer af ArrayList og List.
-    //Attribute to hold list of all calculations from database. By having it be an attribute, we only need to load once.
-    //private ObservableList<CalculationModel> allCalcsList = CalculationPersistence.listCalc();
-
     // Attribute to hold list of selected calculations from the left table view
     private ObservableList<CalculationModel> selectedCalcs;
 
