@@ -116,6 +116,12 @@ public class HistoryController implements Initializable {
         quarterRight.setCellValueFactory(new PropertyValueFactory<CalculationModel, Integer>("quarter"));
         kitchenRight.setCellValueFactory(new PropertyValueFactory<CalculationModel, KitchenModel>("kitchen"));
 
+        // Disable sorting for all columns
+        yearRight.setSortable(false);
+        quarterRight.setSortable(false);
+        kitchenRight.setSortable(false);
+
+
         // Set placeholder for RIGHT table view
         tableViewRight.setPlaceholder(new Text("Tilføj beregninger fra listen til venstre for at sammenligne"));
 
