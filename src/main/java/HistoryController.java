@@ -121,7 +121,6 @@ public class HistoryController implements Initializable {
         quarterRight.setSortable(false);
         kitchenRight.setSortable(false);
 
-
         // Set placeholder for RIGHT table view
         tableViewRight.setPlaceholder(new Text("Tilføj beregninger fra listen til venstre for at sammenligne"));
 
