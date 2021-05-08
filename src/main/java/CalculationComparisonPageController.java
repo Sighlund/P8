@@ -437,14 +437,13 @@ public class CalculationComparisonPageController implements Initializable {
         barChart.setVisible(true);
     }
 
-
     /**
      * String formatter, returning a string from a double with two decimals
      * @param d Double to be formatted
      * @return String number with two decimals
      */
     private String format(Double d){
-        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        DecimalFormat numberFormat = new DecimalFormat("0.00");
         String format = numberFormat.format(d);
         return format;
     }
