@@ -50,8 +50,11 @@ public class HistoryController implements Initializable {
     @FXML private TableColumn<CalculationModel, YearModel> yearRight;
     @FXML private TableColumn<CalculationModel, Integer> quarterRight;
 
-    // Attribute to hold list of calculations to be displayed in table view
+    // Attribute to hold list of calculations all calculations in the system
     private ObservableList<CalculationModel> calcList;
+
+    // Attribute to hold list of calculations to be displayed in table view
+    private ObservableList<CalculationModel> tempCalcList;
 
     // Attribute to hold list of selected calculations from the left table view
     private ObservableList<CalculationModel> selectedCalcs;
@@ -96,7 +99,7 @@ public class HistoryController implements Initializable {
         kitchen.setCellValueFactory(new PropertyValueFactory<CalculationModel, KitchenModel>("kitchen"));
 
         // Set items of the table view by passing the observable list of calculations
-        tableView.setItems(calcList);
+        tableView.setItems(tempCalcList);
 
         // Set selection mode of the table view to accept multiple selected rows
         tableView.getSelectionModel().setSelectionMode(
@@ -138,8 +141,13 @@ public class HistoryController implements Initializable {
     public void updateTableViewAllCalcs(){
         // Update reference to list of all calculations
         calcList = CalculationPersistence.listCalc();
+
+        //Update property to hold temporary displayed calculations by copying calculations from calclist
+        tempCalcList = FXCollections.observableArrayList();
+        tempCalcList.addAll(calcList);
+
         // Update tableview by passing list of calculations
-        tableView.setItems(calcList);
+        tableView.setItems(tempCalcList);
     }
 
     /**
@@ -176,8 +184,12 @@ public class HistoryController implements Initializable {
 
     //Button 'Anvend Filtre' used for applying the chosen filters from the choiceBoxes.
     public void applyChosenFilters(){
-        //Gets all calcs from database and stores them in a temporary list.
-        ObservableList<CalculationModel> tempCalcList = CalculationPersistence.listCalc();
+        // Clears list of calculations to display and copies total list
+        tempCalcList.clear();
+        tempCalcList.addAll(calcList);
+
+        //Removes all calculations which are chosen for comparison, so that they cannot be added again
+        tempCalcList.removeAll(calcsForComp);
 
         //Since we cannot iterate over the tempCalcList and remove items from it as we go, we have to store
         //the objects we want to remove in another temporary list 'toRemoveList' for now.
@@ -223,6 +235,8 @@ public class HistoryController implements Initializable {
         tableView.setItems(tempCalcList);
     }
 
+
+
     /**
      * Method that will clear the current chosen filters and reload the viewtable with all the calcs in the system.
      */
@@ -231,8 +245,8 @@ public class HistoryController implements Initializable {
         choiceboxChooseKitchenHis.getSelectionModel().clearSelection();
         choiceboxChooseYearHis.getSelectionModel().clearSelection();
         choiceboxChooseQuarterHis.getSelectionModel().clearSelection();
-        //Updates the tableview to hold all calcs in system.
-        updateTableViewAllCalcs();
+        //Updates left table view
+        applyChosenFilters();
     }
 
 
@@ -253,6 +267,9 @@ public class HistoryController implements Initializable {
             errorHandlingCollection = null;
             calcsForComp.removeAll(selectedCalcs);
         }
+
+        // Update left table view
+        applyChosenFilters();
     }
 
     /**
@@ -265,6 +282,9 @@ public class HistoryController implements Initializable {
 
         // Remove all calculations in the list
         calcsForComp.removeAll(calcs);
+
+        // Update left table view
+        applyChosenFilters();
     }
 
 }
