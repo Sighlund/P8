@@ -1,3 +1,4 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -99,7 +100,7 @@ public class CalculationComparisonPageController implements Initializable {
     private ObservableList<XYChart.Series<String, Number>> displayedSeries;
 
     // Property to hold list of calculations to be displayed in bar chart
-    private List<CalculationModel> calcs = new ArrayList<>();
+    private ObservableList<CalculationModel> calcs = FXCollections.observableArrayList();
 
     // Property to hold list of categories to be displayed in bar chart
     private List<String> categories = new ArrayList<>();
@@ -117,7 +118,8 @@ public class CalculationComparisonPageController implements Initializable {
      */
     public void getInformation(ObservableList<CalculationModel> calcs) {
         // Update property holding all calculations to be displayed
-        this.calcs=calcs;
+        this.calcs.clear();
+        this.calcs.addAll(calcs);
 
         // Build the stacked bar chart
         buildStackedBarChart();
@@ -140,8 +142,21 @@ public class CalculationComparisonPageController implements Initializable {
     private static final String hoverColor="-fx-background-color:  #019849";
 
     public void getBasicTextInfo(){
-        // loops through calcs. LabelCategoryText is set to "" to avoid null error
-        for(int i=0; i<calcs.size(); i++) {
+        // loops through list of calculations to display
+        // Sets label text using index of calculation
+        for (CalculationModel calc : calcs) {
+
+            // Store index of the calculation in the calcs list
+            int i = calcs.indexOf(calc);
+
+            // Store text for label, using the index of the calculation
+            // Text reflects kicthen, quarter, year and average CO2 pr kg
+            calInfoText[i] = calc.getKitchen().toString() + "\n" +
+                    calc.getQuarter() + ". kvartal " +
+                    calc.getYear().toString() +
+                    "\nCo2 pr Kg: " + format(calc.calcAveCO2prKg());
+
+            // Store empty string for label category text
             labelCategoryText[i]="";
         }
 
@@ -179,8 +194,6 @@ public class CalculationComparisonPageController implements Initializable {
             }
         }
     }
-
-
 
 
     /**
@@ -270,14 +283,8 @@ public class CalculationComparisonPageController implements Initializable {
         // Iterate over all calculations
         for (CalculationModel calc : calcs) {
 
-            // Get kitchen, quarter and year as string from calculation
-            String name = getNameFromCalc(calc);
-
             // Store index of the calculation in the calcs list
             int i = calcs.indexOf(calc);
-
-            // Store text for label, using the index of the calculation
-            calInfoText[i] = name + "\nCo2 pr Kg: " + format(calc.calcAveCO2prKg());
 
             // Create hash table to store values for the current calculation
             Hashtable<String, Double> ht;
@@ -298,6 +305,9 @@ public class CalculationComparisonPageController implements Initializable {
             // to access the categories and their values
             Set<String> keys = ht.keySet();
 
+            // Get kitchen, quarter and year as string from calculation
+            String name = getNameFromCalc(calc);
+
             for (XYChart.Series s : stackedBarChart.getData()) {
 
                 // Create variable to store the data value for the category (series)
@@ -309,7 +319,7 @@ public class CalculationComparisonPageController implements Initializable {
                     value = ht.get(s.getName());
 
                     // Set label text for category
-                    labelCategoryText[i] = s.getName() + ": " + "\n" + format(value);
+                    labelCategoryText[i] = labelCategoryText[i] + s.getName() + ": " + "\n" + format(value);
                     if (option == 1 || option == 3 || option == 5) {
                         labelCategoryText[i] = labelCategoryText[i] + "%" + "\n";
                     } else {
