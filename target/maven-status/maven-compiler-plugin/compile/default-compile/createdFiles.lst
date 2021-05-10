@@ -22,6 +22,7 @@ ErrorHandlingCollection.class
 CalculationComparisonPageController.class
 persistence\YearPersistence.class
 model\IngredientModel.class
+CalculationPageController$1.class
 HistoryController.class
 persistence\FoodDescriptorPersistence.class
 model\ConcitoItemModel.class
