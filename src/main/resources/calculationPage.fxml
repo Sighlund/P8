@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalculationPageController">
    <children>
-      <PieChart fx:id="MyPieChart" layoutX="242.0" layoutY="37.0" prefHeight="362.0" prefWidth="801.0" />
+      <PieChart fx:id="MyPieChart" layoutX="240.0" layoutY="45.0" prefHeight="362.0" prefWidth="801.0" />
       <Label layoutX="1063.0" layoutY="293.0" prefHeight="16.0" prefWidth="136.0" text="Co2e pr. kg indkøb">
          <font>
             <Font name="SansSerif Bold" size="14.0" />
@@ -40,7 +40,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <TableView fx:id="foodItemsTableView" layoutX="240.0" layoutY="409.0" prefHeight="297.0" prefWidth="801.0">
+      <TableView fx:id="foodItemsTableView" layoutX="240.0" layoutY="407.0" prefHeight="297.0" prefWidth="801.0">
          <columns>
             <TableColumn fx:id="productNameColumn" prefWidth="252.0" text="Varenavn" />
             <TableColumn fx:id="primaryGroupColumn" prefWidth="124.0" text="Primærgruppe" />
@@ -60,7 +60,7 @@
             <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="1071.0" layoutY="467.0" mnemonicParsing="false" onAction="#saveCalculationToDatabase" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Gem udregning" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="1071.0" layoutY="507.0" mnemonicParsing="false" onAction="#saveCalculationToDatabase" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Gem udregning" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
@@ -84,7 +84,7 @@
             <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="13.0" prefHeight="48.0" prefWidth="225.0" style="-fx-background-color: black;" text="BEREGNING" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="540.0" layoutY="9.0" prefHeight="37.0" prefWidth="201.0" style="-fx-background-color: black;" text="BEREGNING" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
          </font>

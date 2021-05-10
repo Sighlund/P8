@@ -132,7 +132,6 @@ public class CalculationComparisonPageController implements Initializable {
         showCo2P(new ActionEvent());
     }
 
-
     // Arrays used to store information for labels
     private String[] calInfoText = new String[4];
     private String[] labelCategoryText = new String[4];
@@ -365,7 +364,6 @@ public class CalculationComparisonPageController implements Initializable {
 
 
 
-
     /**
      * Gets all categories to present in bar chart based on the calculations to be displayed
      * @return a list of Strings with all categories to display
@@ -401,12 +399,13 @@ public class CalculationComparisonPageController implements Initializable {
      * Builds and displays SIMPLE bar chart showing average CO2e pr Kg food for each calculation
      */
     private void buildBarChart() {
+
         // Set stacked bar chart to not visible
         stackedBarChart.setVisible(false);
 
         // Set x- and y-axis
         barXaxis.setLabel("Køkken og periode");
-        barYAxis.setLabel("Kg CO2e pr kg fødevare");
+        barYAxis.setLabel("Gennemsnitligt CO2e pr kg vare");
 
         // Set gap between displayed categories on the x-axis
         barChart.setCategoryGap(100);
@@ -416,7 +415,7 @@ public class CalculationComparisonPageController implements Initializable {
 
         // Create one new series and set name
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Gennemsnitlig kg Co2 pr. kg fødevare");
+        series.setName("Gennemsnitlig kg Co2e pr. kg fødevare");
 
         // Iterate over displayed calculations
         for (CalculationModel c : calcs){
@@ -541,7 +540,7 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     void showCo2P(ActionEvent event) {
         setSeriesData(1);
-        stackedBarYAxis.setLabel("Procentdel af samlet CO2e for perioden");
+        stackedBarYAxis.setLabel("Kategoriernes fordeling af CO2e i udregningen angivet procentuelt");
         diagramMenuBtn.setText(co2PMenuItem.getText());
     }
 
@@ -554,7 +553,7 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     void showCo2Kg(ActionEvent event) {
         setSeriesData(2);
-        stackedBarYAxis.setLabel("Kg CO2e");
+        stackedBarYAxis.setLabel("Kategoriernes og udregningens totale CO2e angivet i kg");
         diagramMenuBtn.setText(co2KgMenuItem.getText());
     }
 
@@ -565,7 +564,7 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     void showVolP(ActionEvent event) {
         setSeriesData(3);
-        stackedBarYAxis.setLabel("Procentdel af samlet vægt for perioden");
+        stackedBarYAxis.setLabel("Kategoriernes fordeling af vægt i udregningen angivet procentuelt");
         diagramMenuBtn.setText(volPMenuItem.getText());
     }
 
@@ -576,7 +575,7 @@ public class CalculationComparisonPageController implements Initializable {
     @FXML
     void showVolKg(ActionEvent event) {
         setSeriesData(4);
-        stackedBarYAxis.setLabel("Kg fødevare");
+        stackedBarYAxis.setLabel("Kategoriernes og udregningens totale vægt angivet i kg");
         diagramMenuBtn.setText(volKgMenuItem.getText());
     }
 
