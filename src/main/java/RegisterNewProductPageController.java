@@ -97,7 +97,7 @@ public class RegisterNewProductPageController implements Initializable {
      */
     private String format(Double d){
         //Creating a new DecimalFormat, where there are a maximum of two decimals
-        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        DecimalFormat numberFormat = new DecimalFormat("0.00");
         //Taking the argument and converting it to a string using the DecimalFormat we just created
         String format = numberFormat.format(d);
         //Returning the format

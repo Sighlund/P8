@@ -89,7 +89,7 @@ public class DataInsertionPageController implements Initializable {
     }
     // Ensures that quantities in the TableView are only displayed with two decimals
     private String format(Double d){
-        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        DecimalFormat numberFormat = new DecimalFormat("0.00");
         String format = numberFormat.format(d);
         return format;
     }
