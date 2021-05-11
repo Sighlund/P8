@@ -22,16 +22,16 @@
             <TableColumn fx:id="quarter" prefWidth="97.0" text="Kvartal" />
          </columns>
       </TableView>
-      <ChoiceBox fx:id="choiceboxChooseKitchenHis" layoutX="181.0" layoutY="180.0" prefHeight="26.0" prefWidth="114.0" />
-      <ChoiceBox fx:id="choiceboxChooseYearHis" layoutX="298.0" layoutY="180.0" prefHeight="26.0" prefWidth="100.0" />
-      <ChoiceBox fx:id="choiceboxChooseQuarterHis" layoutX="181.0" layoutY="230.0" prefHeight="25.0" prefWidth="84.0" />
-      <Label layoutX="181.0" layoutY="161.0" text="Vælg afdeling...">
+      <ChoiceBox fx:id="choiceboxChooseKitchenHis" layoutX="181.0" layoutY="222.0" prefHeight="25.0" prefWidth="127.0" />
+      <ChoiceBox fx:id="choiceboxChooseYearHis" layoutX="313.0" layoutY="222.0" prefHeight="25.0" prefWidth="58.0" />
+      <ChoiceBox fx:id="choiceboxChooseQuarterHis" layoutX="375.0" layoutY="222.0" prefHeight="25.0" prefWidth="58.0" />
+      <Label layoutX="181.0" layoutY="207.0" text="Vælg afdeling...">
          <font>
             <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="299.0" layoutY="160.0" text="Vælg år..." />
-      <Label layoutX="181.0" layoutY="210.0" text="Vælg kvartal..." />
+      <Label layoutX="313.0" layoutY="206.0" text="År..." />
+      <Label layoutX="377.0" layoutY="206.0" text="Kvartal..." />
       <Button fx:id="START" layoutX="34.0" layoutY="61.0" mnemonicParsing="false" onAction="#switchToSceneFrontPage" style="-fx-background-color: dodgerblue;" text="Tilbage" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -40,11 +40,11 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Button layoutX="1108.0" layoutY="444.0" mnemonicParsing="false" onAction="#sendToCalculationComparisonPageControllerAction" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Sammenlign" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="36.0">
+      <Button layoutX="1108.0" layoutY="444.0" mnemonicParsing="false" onAction="#sendToCalculationComparisonPageControllerAction" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Vis" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="36.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Button layoutX="279.0" layoutY="228.0" mnemonicParsing="false" onAction="#applyChosenFilters" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #018849;" text="Anvend" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="438.0" layoutY="222.0" mnemonicParsing="false" onAction="#applyChosenFilters" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #018849;" text="Anvend" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
@@ -53,9 +53,9 @@
             <Font name="SansSerif Regular" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="179.0" layoutY="131.0" prefHeight="15.0" prefWidth="338.0" text="Filtre">
+      <Label layoutX="182.0" layoutY="175.0" prefHeight="15.0" prefWidth="338.0" text="Filtre">
          <font>
-            <Font name="SansSerif Regular" size="16.0" />
+            <Font name="SansSerif Bold" size="16.0" />
          </font>
       </Label>
       <TableView fx:id="tableViewRight" layoutX="692.0" layoutY="277.0" onMouseClicked="#getSelected" prefHeight="384.0" prefWidth="394.0">
@@ -78,7 +78,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Button layoutX="398.0" layoutY="228.0" mnemonicParsing="false" onAction="#clearChosenFilters" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #d9534f;" text="Nulstil" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="509.0" layoutY="222.0" mnemonicParsing="false" onAction="#clearChosenFilters" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #d9534f;" text="Nulstil" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

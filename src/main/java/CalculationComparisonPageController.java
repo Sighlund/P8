@@ -605,7 +605,9 @@ public class CalculationComparisonPageController implements Initializable {
      * @param event action event from the button element
      */
     public void switchToHistoryPage(ActionEvent event){
+        App.getHistoryController().updateTableViewAllCalcs();
         App.switchScene(App.getHistoryPageParent());
+
     }
 
 }

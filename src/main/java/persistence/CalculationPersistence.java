@@ -74,6 +74,7 @@ public class CalculationPersistence {
         Session session = SetupPersistence.getSession();
         //Searching the database for the object with the provided ID
         CalculationModel calculationModel = session.find(CalculationModel.class, id);
+        //Closing session
         SetupPersistence.closeSession(session);
         //Returning the found object
         return calculationModel;
