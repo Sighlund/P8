@@ -29,7 +29,7 @@
          </font></Button>
       <TextField fx:id="itemNumber" layoutX="381.0" layoutY="42.0" prefHeight="26.0" prefWidth="150.0" promptText="Varenummer..." style="-fx-background-color: white;" />
       <TextField fx:id="percentageTextField" layoutX="381.0" layoutY="76.0" onAction="#addIngredientButton" prefHeight="26.0" prefWidth="150.0" promptText="\%-indhold i varen..." style="-fx-background-color: white;" />
-      <Label layoutX="37.0" layoutY="12.0" prefHeight="17.0" prefWidth="337.0" text="Registrer en vare">
+      <Label layoutX="37.0" layoutY="12.0" prefHeight="17.0" prefWidth="337.0" text="Registrer en vare" textFill="#616060">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

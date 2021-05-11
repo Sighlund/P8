@@ -31,7 +31,6 @@ public class FrontPageController {
     public void switchToSceneHistory(ActionEvent event2){
         // Update information in the table view displaying available calculations
         App.getHistoryController().updateTableViewAllCalcs();
-
         // Switch to the history pages
         App.switchScene(App.getHistoryPageParent());
     }

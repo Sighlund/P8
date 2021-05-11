@@ -51,9 +51,9 @@
             <Rectangle2D height="300.0" width="1500.0" />
          </viewport>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="79.0" prefHeight="81.0" prefWidth="277.0" style="-fx-background-color: #a3a3a3;" text="CO2 BEREGNER" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="483.0" layoutY="79.0" prefHeight="81.0" prefWidth="316.0" style="-fx-background-color: #a3a3a3;" text="CO2 Beregner" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="483.0" AnchorPane.rightAnchor="482.0">
          <font>
-            <Font name="SansSerif Bold" size="28.0" />
+            <Font name="SansSerif Bold" size="36.0" />
          </font>
       </Label>
    </children>

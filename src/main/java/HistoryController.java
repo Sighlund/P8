@@ -148,6 +148,8 @@ public class HistoryController implements Initializable {
 
         // Update tableview by passing list of calculations
         tableView.setItems(tempCalcList);
+
+        tableViewRight.getItems().clear();
     }
 
     /**
