@@ -60,7 +60,7 @@
             <Font name="SansSerif Regular" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="1071.0" layoutY="507.0" mnemonicParsing="false" onAction="#saveCalculationToDatabase" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Gem udregning" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="1071.0" layoutY="507.0" mnemonicParsing="false" onAction="#saveCalculationToDatabase" prefHeight="50.0" prefWidth="136.0" style="-fx-background-color: #018849;" text="Gem beregning" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
