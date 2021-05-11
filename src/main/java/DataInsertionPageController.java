@@ -32,8 +32,8 @@ import javafx.util.StringConverter;
 import model.*;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
-import persistence.*;
 
+import persistence.*;
 import javax.persistence.NoResultException;
 
 public class DataInsertionPageController implements Initializable {
