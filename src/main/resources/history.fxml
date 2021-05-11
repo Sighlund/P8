@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HistoryController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="46.0" prefHeight="45.0" prefWidth="225.0" style="-fx-background-color: BLACK;" text="HISTORIK" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="46.0" prefHeight="45.0" prefWidth="225.0" text="HISTORIK" textAlignment="CENTER" textFill="#616060">
          <font>
-            <Font name="SansSerif Bold" size="18.0" />
+            <Font name="SansSerif Bold" size="24.0" />
          </font>
       </Label>
       <TableView fx:id="tableView" layoutX="182.0" layoutY="277.0" onMouseClicked="#getSelected" prefHeight="384.0" prefWidth="394.0">
