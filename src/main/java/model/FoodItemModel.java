@@ -98,18 +98,26 @@ public class FoodItemModel {
      * @return total CO2 in kg
      */
     public double calcCo2() {
+        // Create variable to hold total CO2 for for food item
         double total = 0;
-        double percentage;
-        double co2PrKg;
 
         // Get list of ingredients from the associated food descriptor object
         List<IngredientModel> ingredients = foodDescriptor.getIngredientList();
 
+        // Create variables to hold temporary values for
+        // ingredient percentage and CO2 pr kg
+        double percentage, co2PrKg;
+
         // Iterate over ingredients in list to calculate weighted CO2 and add to total
-        for (int i = 0; i < ingredients.size(); i++) {
-            percentage = (ingredients.get(i).getPercentage() / 100);
-            co2PrKg = ingredients.get(i).getContoItem().getCo2PrKg();
-            total += volume*percentage*co2PrKg;
+        for (IngredientModel ingredient : ingredients) {
+            // Get percentage for current ingredient
+            percentage = (ingredient.getPercentage() / 100);
+
+            // Get CO2 pr kg value for current ingredient
+            co2PrKg = ingredient.getContoItem().getCo2PrKg();
+
+            // Add weighted CO2 value to total CO2 for food item
+            total += (volume * percentage * co2PrKg);
         }
 
         return total;
