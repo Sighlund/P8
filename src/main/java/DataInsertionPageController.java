@@ -64,8 +64,10 @@ public class DataInsertionPageController implements Initializable {
         // Make a String variable that stores the current content of the autoCompleteTextField.
         String productNameString = autoCompleteTextField.getText();
 
-        //Initialises foodDescriptor object and makes call to persistance layer, to get the descriptor by the provided name.
-        //If the provided name doesn't match, an exception is thrown. It is caught in the method that called addProductToList().
+        //Initialises foodDescriptor object and makes call to persistance layer,
+        // to get the descriptor by the provided name.
+        //If the provided name doesn't match, an exception is thrown.
+        // It is caught in the method that called addProductToList().
         FoodDescriptorModel foodDescriptor = FoodDescriptorPersistence.getDescriptorByName(productNameString);
 
         //Replaces comma with dot in the data the user entered.
@@ -74,7 +76,10 @@ public class DataInsertionPageController implements Initializable {
         //Make a Double variable that stores the current content of the volumeKiloTextField.
         Double volumeWeightInput = Double.valueOf(commaConvert);
 
+        //Create new food item based on food descriptor object and entered volume
         FoodItemModel f = new FoodItemModel(volumeWeightInput, foodDescriptor);
+
+        //Add new food item to list of food items
         foodItemList.add(f);
 
         String volumeComma = format(f.getVolume()).replace('.', ',');
@@ -82,11 +87,18 @@ public class DataInsertionPageController implements Initializable {
         Double calcCo2 = f.calcCo2();
         String co2PrKgComma = format(co2PrKg).replace('.',',');
         String calcCo2Comma = format(calcCo2).replace('.',',');
-        //We get all items from the table as a list (Because viewTable is stupid, and can't just append without getting the list first xd)
+
+        //We get all items from the table as a list
         //and we add the new item to the list
         insertionPageTableView.getItems().add(new ViewListItemDataInsertionPage(
-                f.getName(), f.getCategory(), f.getSubcategory(), volumeComma, co2PrKgComma, calcCo2Comma));
+                f.getName(),
+                f.getCategory(),
+                f.getSubcategory(),
+                volumeComma,
+                co2PrKgComma,
+                calcCo2Comma));
     }
+
     // Ensures that quantities in the TableView are only displayed with two decimals
     private String format(Double d){
         DecimalFormat numberFormat = new DecimalFormat("0.00");
