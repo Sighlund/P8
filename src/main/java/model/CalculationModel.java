@@ -134,7 +134,7 @@ public class CalculationModel {
         // Create variable to hold total CO2
         Double total = 0.0;
 
-        // Iterate over all food items to calculate individual CO2 and add it to total
+        // Iterate over all food items to calculate individual CO2 and add to total
         for (FoodItemModel foodItemModel : this.foodItemList) {
             total += foodItemModel.calcCo2();
         }

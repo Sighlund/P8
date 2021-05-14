@@ -115,11 +115,18 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage){
-        scene = new Scene(frontPageParent);
+        // Create new scene from front page fxml (root parent)
+        this.scene = new Scene(frontPageParent);
+
+        // Set title of primary stage
         stage.setTitle("CO2 Beregner");
+
+        // Add icon to primary stage
         Image icon = new Image("https://github.com/Sighlund/P8/blob/main/src/main/resources/img/Logo.PNG?raw=true");
         stage.getIcons().add(icon);
-        stage.setScene(scene);
+
+        // Set scene and show primary stage
+        stage.setScene(this.scene);
         stage.show();
 
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
