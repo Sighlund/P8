@@ -36,6 +36,7 @@
       <Label layoutX="174.0" layoutY="77.0" prefHeight="18.0" prefWidth="477.0" text="Vælg afdeling..." />
       <Label layoutX="667.0" layoutY="77.0" prefHeight="18.0" prefWidth="150.0" text="År for udregning..." />
       <Label layoutX="826.0" layoutY="77.0" prefHeight="18.0" prefWidth="150.0" text="Kvartal for udregning..." />
+      <TextField fx:id="autoCompleteTextField" layoutX="174.0" layoutY="129.0" prefHeight="25.0" prefWidth="477.0" promptText="Søg efter en vare..." />
       <TextField fx:id="volumeKiloTextField" layoutX="667.0" layoutY="128.0" onAction="#addProductToListMethodCalls" prefHeight="26.0" prefWidth="88.0" promptText="Angiv kg..." style="-fx-background-color: white;" />
       <Button layoutX="876.0" layoutY="126.0" mnemonicParsing="false" onAction="#openRegisterNewProductOverlay" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #018849;" text="Reg. ny vare" textAlignment="CENTER" textFill="WHITE">
          <font>
@@ -55,7 +56,6 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <TextField fx:id="autoCompleteTextField" layoutX="174.0" layoutY="129.0" prefHeight="25.0" prefWidth="477.0" promptText="Søg efter en vare..." />
       <Button layoutX="907.0" layoutY="639.0" mnemonicParsing="false" onAction="#resetCalculationTable" style="-fx-background-color: #d9534f;" text="Ryd alt" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />

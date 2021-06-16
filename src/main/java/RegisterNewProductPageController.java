@@ -191,7 +191,7 @@ public class RegisterNewProductPageController implements Initializable {
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
-            errorHandlingCollection.basicErrorPopup("fejl", "Navnet på ingrediensen blev ikke fundet i databasen. Tjek at navnet er korrekt");
+            errorHandlingCollection.basicErrorPopup("fejl", "Navnet på råvaren blev ikke fundet i databasen. Tjek at navnet er korrekt");
             //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
         }
@@ -245,7 +245,7 @@ public class RegisterNewProductPageController implements Initializable {
             //Instantiating an object which has the error handling methods
             ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
             //We call upon the method which creates a popup with the provided string.
-            errorHandlingCollection.basicErrorPopup("fejl", "Varens ingredienser skal tilsammen udgøre 100%");
+            errorHandlingCollection.basicErrorPopup("fejl", "Varens råvarer skal tilsammen udgøre 100%");
             //Once the object has served its purpose, we assign it null, so that it will be cleaned by garbage collector.
             errorHandlingCollection = null;
             //Catches an exception. Here we expect the exception to be because a foodDescriptor with this name
@@ -291,7 +291,7 @@ public class RegisterNewProductPageController implements Initializable {
         ErrorHandlingCollection errorHandlingCollection = new ErrorHandlingCollection();
 
         //Creating the prompt and defining what is written in the prompt
-        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alle ingredienser?")) {
+        if (errorHandlingCollection.confirmChoicePopup("Er du sikker på du vil rydde alle råvarer?")) {
             //Clearing the TableView
             registerPageTableView.getItems().clear();
             //Clearing the ingredientList that is associated with the TableView

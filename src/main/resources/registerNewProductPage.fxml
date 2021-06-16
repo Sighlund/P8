@@ -11,15 +11,15 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.0" prefWidth="766.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterNewProductPageController">
    <children>
-      <TextField fx:id="autoCompleteTextField" layoutX="37.0" layoutY="76.0" prefHeight="26.0" prefWidth="337.0" promptText="Find ingredienser varen er udgjort af..." style="-fx-background-color: white;" />
+      <TextField fx:id="autoCompleteTextField" layoutX="37.0" layoutY="76.0" prefHeight="26.0" prefWidth="337.0" promptText="Find råvarer varen er udgjort af..." style="-fx-background-color: white;" />
       <TableView fx:id="registerPageTableView" layoutX="37.0" layoutY="117.0" prefHeight="143.0" prefWidth="496.0">
          <columns>
-            <TableColumn fx:id="ingredientsColumn" prefWidth="326.0" text="Ingredienser i varen" />
-            <TableColumn fx:id="percentageColumn" prefWidth="168.0" text="Mængde ingrediens i varen" />
+            <TableColumn fx:id="ingredientsColumn" prefWidth="326.0" text="Råvarer i varen" />
+            <TableColumn fx:id="percentageColumn" prefWidth="168.0" text="Mængde råvare i varen" />
          </columns>
       </TableView>
       <TextField fx:id="descriptorName" layoutX="37.0" layoutY="42.0" prefHeight="26.0" prefWidth="337.0" promptText="Giv varen et navn..." style="-fx-background-color: white;" />
-      <Button layoutX="550.0" layoutY="71.0" mnemonicParsing="false" onAction="#addIngredientButton" prefHeight="36.0" prefWidth="108.0" style="-fx-background-color: #018849;" text="Tilføj ingrediens" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="550.0" layoutY="71.0" mnemonicParsing="false" onAction="#addIngredientButton" prefHeight="36.0" prefWidth="108.0" style="-fx-background-color: #018849;" text="Tilføj råvare" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
